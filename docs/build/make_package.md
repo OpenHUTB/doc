@@ -190,7 +190,7 @@ ShadingModel MSM_Hair not supported in feature level ES3_1
 
 2.下面就材质cook出错，增加一些日志，方便查找问题做简单记录
 
-3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现FMaterialShaderMap::GetAllOutdatedTypes这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过 [增加日志](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialInstance.cpp#L2900) 的方式，永久性解决这一问题
+3.材质cook的一个阶段，是收集MaterialShaderMap,如果在这个阶段收集的信息出错，将会在FShaderMapContent::GetOutdatedTypes函数中，因为Shaders指针指向的内存有问题而出错，通过断点发现，FShaderMapContent这个类对象指针为null，而这个类对象的来源于AllMaterialShaderMaps中，但是通过纯断点调试，发现`FMaterialShaderMap::GetAllOutdatedTypes`这个函数是多线程运行，所以查看变量的值可能会错乱，所以通过 [增加日志](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialInstance.cpp#L2900) 的方式，永久性解决这一问题
 
 4.首先在UMaterialInstance::CacheShadersForResources函数中，添加材质实例母材质名字日志
 
@@ -200,7 +200,7 @@ ShadingModel MSM_Hair not supported in feature level ES3_1
 
 ![](../img/dev/AllMaterialShaderMaps.png)
 
-6.最后修改FMaterialShaderMap::GetAllOutdatedTypes中的实现，并 [打印当前执行的AllMaterialShaderMaps的索引值](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialShader.cpp#L1048) ，当在该函数出错时，将会打印出出错的索引
+6.最后修改`FMaterialShaderMap::GetAllOutdatedTypes`中的实现，并 [打印当前执行的AllMaterialShaderMaps的索引值](https://github.com/OpenHUTB/UnrealEngine/blob/08349c14cdd78e358bb92dcef63f20f5fd0c2cf4/Engine/Source/Runtime/Engine/Private/Materials/MaterialShader.cpp#L1048) ，当在该函数出错时，将会打印出出错的索引
 
 ![](../img/dev/GetAllOutdatedTypes.png)
 
