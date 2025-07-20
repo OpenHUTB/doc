@@ -1,8 +1,8 @@
 ---
 
-# CARLA Recorder 模块说明文档
+# Recorder 模块说明文档
 
-本文档详细介绍了 CARLA 模拟器中 CarlaRecorder 模块的主要功能、核心类与方法定义及其模块间依赖关系，旨在帮助开发者理解其录像与回放机制，并把握模块层次结构。
+本文档详细介绍了人车模拟器中 CarlaRecorder 模块的主要功能、核心类与方法定义及其模块间依赖关系，旨在帮助开发者理解其记录与回放机制，并把握模块层次结构。
 
 ---
 
@@ -12,7 +12,7 @@
 2. [主要类与职责](#主要类与职责)
 3. [功能说明](#功能说明)
    - [初始化](#初始化)
-   - [录像控制](#录像控制)
+   - [记录控制](#记录控制)
    - [回放控制](#回放控制)
    - [查询功能](#查询功能)
 4. [关键数据结构](#关键数据结构)
@@ -26,7 +26,7 @@
 
 ## 模块概述
 
-CarlaRecorder 模块是 CARLA 模拟器中实现仿真状态完整复现的关键组件。它负责在仿真运行时对车辆、行人、光照条件、碰撞等状态数据进行高效记录，并支持后续的精准回放。其核心功能包括数据采集、压缩编码、文件读写、时间控制及信息查询等。该模块特别适用于实验复现、调试定位及行为重构等应用场景。
+CarlaRecorder 模块是人车模拟器中实现仿真状态完整复现的关键组件。它负责在仿真运行时对车辆、行人、光照条件、碰撞等状态数据进行高效记录，并支持后续的精准回放。其核心功能包括数据采集、压缩编码、文件读写、时间控制及信息查询等。该模块特别适用于实验复现、调试定位及行为重构等应用场景。
 
 ---
 
@@ -34,7 +34,7 @@ CarlaRecorder 模块是 CARLA 模拟器中实现仿真状态完整复现的关�
 
 | 类名                   | 文件                                    | 说明               | 调用位置   |
 | -------------------- | ------------------------------------- | -------------------------------------- |-------------------- | 
-| `ACarlaRecorder`     | `CarlaRecorder.h / CarlaRecorder.cpp` | 主要控制类，继承自 Unreal `AActor`，提供录像/回放接口。 | 在主控制器（如 GameMode）中启动      |
+| `ACarlaRecorder`     | `CarlaRecorder.h / CarlaRecorder.cpp` | 主要控制类，继承自 Unreal `AActor`，提供记录/回放接口。 | 在主控制器（如 GameMode）中启动      |
 | `CarlaReplayer`      | `CarlaReplayer.h`                     | 实现回放控制，包括时间倍率、忽略特定角色等设置。               |由 ACarlaRecorder::ReplayFile() 触发      |
 | `CarlaRecorderQuery` | `CarlaRecorderQuery.h`                | 用于分析已录制文件的数据，如碰撞信息、阻塞信息等。              | 用于脚本分析或命令行查询工具 |
 
@@ -50,9 +50,9 @@ ACarlaRecorder::ACarlaRecorder()
 
 设置 TickGroup 为 `TG_PrePhysics`
 
-默认禁用录像功能
+默认禁用记录功能
 
-### 录像控制
+### 记录控制
 
 ```cpp
 void Enable()
@@ -61,7 +61,7 @@ void Ticking(float DeltaSeconds)
 ```
 
 ```cpp
-// 录像流程
+// 记录流程
 if (Recorder.IsEnabled()) {
     Recorder.Ticking(DeltaSeconds);
         └──> 调用 Snapshot -> 记录实体状态 -> 写入数据包
@@ -75,9 +75,9 @@ if (Recorder.IsEnabled()) {
 
 与 `CarlaEpisode` 和 `FActorRegistry` 联动获取仿真环境信息
 
-### 示例：如何开始一次录像
+### 示例：如何开始一次记录
 ```cpp
-// 开启录像
+// 开启记录
 CarlaRecorder.Enable();
 // 运行一段时间后关闭
 CarlaRecorder.Disable();
@@ -136,7 +136,7 @@ std::string ShowFileActorsBlocked(std::string Name, double MinTime, double MinDi
 ### 各级说明
 
 **ACarlaRecorder（顶层控制器）**
-  提供录像和回放的主要接口，是模块的入口类。它控制 Replayer 和 Query 子模块的使用。
+  提供记录和回放的主要接口，是模块的入口类。它控制 Replayer 和 Query 子模块的使用。
 
 **CarlaReplayer（回放控制器）**
   管理回放过程，控制时间倍率、跟踪 ID、忽略设置等，依赖多个状态与动画模块：
@@ -401,7 +401,7 @@ Carla/
 
 ## 常见问题与调试建议
 
-- **问题：录像文件无法加载**
+- **问题：记录文件无法加载**
   - 请检查路径是否正确，录制时是否成功写入磁盘。
   - 使用 `ShowFileInfo()` 方法检查文件结构是否完整。
 
