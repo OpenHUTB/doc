@@ -53,7 +53,7 @@ void ADReyeVRPawn::BeginEgoVehicle(AEgoVehicle *Vehicle, UWorld *World)
 ```
 
 
-崩溃是因为 InputComponent 是nullptr。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。
+崩溃是因为 InputComponent 是 `nullptr`。如果没有 PlayerController 拥有 pawn，就会发生这种情况。您需要做的就是将使用输入组件的行换行if (IsValid(InputComponent)) { ... }。
 
 DReyeVRGame->GetPawn() 为空
 
@@ -125,7 +125,7 @@ static auto MakeMessage(Buffers... buffers) {
 SharedBufferView改为 BufferView。不然报错：只接受BufferView类型。
 
 
-注释掉 carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR中的：
+注释掉 `carla\Unreal\CarlaUE4\Source\CarlaUE4\DReyeVR` 中的：
 ```cpp
 Replayer->Restart();
 Replayer->Advance(1.0);
