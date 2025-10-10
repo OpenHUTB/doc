@@ -3,11 +3,11 @@
 HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_tests`进行测试。
 
 
-### Windows平台
+### Windows 平台
 
 脚本`src\test>check.bat`用于启动windows平台下的测试，运行的第一个测试用例为：
 ```shell
-python -m nose2 -v smoke.test_client
+python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_collision_determinism smoke.test_props_loading smoke.test_sensor_tick_time smoke.test_map smoke.test_snapshot smoke.test_lidar smoke.test_streamming smoke.test_spawnpoints smoke.test_blueprint smoke.test_collision_sensor smoke.test_world smoke.test_geoconversion
 ```
 整个脚本会依次运行 [smoke_test_list.txt](https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt) 文件中的所有测试用例。
 

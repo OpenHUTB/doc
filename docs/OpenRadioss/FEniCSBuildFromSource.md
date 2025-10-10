@@ -1,5 +1,5 @@
 ## 环境
-* C++ compiler (supporting the C++20 standard)
+* C++ 编译器 (支持 C++20 标准)
 
         apt install build-essential
 * Boost, with the following compiled Boost components

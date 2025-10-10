@@ -232,10 +232,15 @@ $$ d_2 (i) = -2.0 \times [ { y_1 \over {h_1 \times h_2 } }  -  { y_2 \over { h_2
 * __蓝图：__ sensor.lidar.ray_cast
 * __输出：__ 每一步 [carla.LidarMeasurement](python_api.md#carla.LidarMeasurement) （除非`sensor_tick` 另有说明）。
 
-激光雷达测量包含一个包，其中包含在某个时间间隔内生成的所有点1/FPS。在此间隔期间，物理不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
+该传感器模拟了使用光线投射实现的旋转激光雷达。通过为垂直视场中分布的每个通道添加一个激光器来计算点。旋转是通过计算激光雷达在一帧内旋转的水平角度来模拟的。点云是通过在每一步中对每个激光器进行光线投射来计算的。
+
+每一步中每个通道的点数 = 每秒钟的点数 / (PFS * 通道数)，即
 `points_per_channel_each_step = points_per_second / (FPS * channels)`
 
-此输出包含模拟点云，因此可以对其进行迭代以检索它们的列表 [`carla.Location`](python_api.md#carla.Location)：
+激光雷达测量包含一个包，其中包含在 1/FPS 间隔内生成的所有点。在此间隔期间，物理特性不会更新，因此测量中的所有点都反映场景的相同“静态图片”。
+
+
+此输出包含模拟点云，因此可以对其进行迭代以检索它们的 [`carla.Location`](python_api.md#carla.Location) 列表 ：
 
 ```py
 for location in lidar_measurement:
@@ -248,17 +253,19 @@ $$
 \frac{I}{I_0} = e^{-a \cdot d }
 $$
 
-其中，`a` 为衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性对其进行修改`atmosphere_attenuation_rate`。
-`d` 为从击中点到传感器的距离。
+其中，`a` 为衰减系数。这可能取决于传感器的波长和大气条件。可以使用激光雷达属性 大气衰减率 `atmosphere_attenuation_rate` 对其进行修改。
+`d` 为撞击点到传感器的距离。
 
-为了获得更好的真实感，可以删除点云中的点。这是模拟外部扰动造成的损失的简单方法。这可以结合两个不同的来完成。
+为了更真实，可以删除点云中的点。这是模拟外部扰动造成损失的简单方法。这可以通过结合两种不同的方法来实现。
 
-*   __General drop-off__ — 随机掉落的分数比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果是`dropoff_general_rate = 0.5`，则扣掉一半的分数。
-*   __Instensity-based drop-off__ — 对于检测到的每个点，根据计算的强度的概率执行额外的下降。该概率由两个参数确定。`dropoff_zero_intensity`是强度为零的点被丢弃的概率。`dropoff_intensity_limit`是阈值强度，超过该阈值将不会掉落任何分数。范围内的点被丢弃的概率是基于这两个参数的线性比例。
+*   __一般丢弃率(General drop-off)__ — 随机丢弃点的比例。这是在跟踪之前完成的，这意味着不会计算被丢弃的点，从而提高性能。如果 一般丢弃率`dropoff_general_rate = 0.5`，则一半的点将被丢弃。
+*   __基于强度的丢弃(Instensity-based drop-off)__ — 对于检测到的每个点，根据计算的强度以一定概率执行额外的丢弃。该概率由 2 个参数确定。`dropoff_zero_intensity`表示丢弃强度为 0 的点的概率。`dropoff_intensity_limit`表示强度阈值，超过该阈值将的点不会被丢弃。范围内的点被丢弃的概率是基于这 2 个参数的线性比例。
 
-此外，该`noise_stddev`属性还使噪声模型能够模拟现实传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
+此外，`noise_stddev`属性可以用于噪声模型，以模拟实际传感器中出现的意外偏差。对于正值，每个点都会沿着激光射线的矢量随机扰动。结果是激光雷达传感器具有完美的角度定位，但距离测量存在噪音。
 
-可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的 FPS 应该相等。 <br> __1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> __2.__ 使用 `python3 config.py --fps=10` 运行模拟。
+可以调整激光雷达的旋转以覆盖每个模拟步骤的特定角度（使用 [固定的时间步长](adv_synchrony_timestep.md) ）。例如，每步旋转一次（整圈输出，如下图），旋转频率和模拟的 FPS 应该相等。 <br> 
+__1.__ 设置传感器的频率 `sensors_bp['lidar'][0].set_attribute('rotation_frequency','10')`. <br> 
+__2.__ 使用 `python3 config.py --fps=10` 运行模拟。
 
 ![LidarPointCloud](img/lidar_point_cloud.jpg)
 

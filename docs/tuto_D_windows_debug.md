@@ -33,7 +33,7 @@
 * 调试**Carla服务端**：断点打在`Carla/Game/CarlaEngine.cpp`的第87行，然后开始调式，在虚幻编辑器中点击`运行`则会在断点处停止。
 ![](img/tuto_D_windows_debug/debug_carla_server.png)
 
-* 调式 ** 虚幻编辑器启动 **：断点打在`Carla/Vehicle/VehicleSpawnPoint.h`的第16行，通过vs启动调试后启动虚幻便器到75%时候会停止。
+* 调式 **虚幻编辑器启动** ：断点打在`Carla/Vehicle/VehicleSpawnPoint.h`的第16行，通过vs启动调试后启动虚幻便器到75%时候会停止。
 
 * 调试 **Python 调用**：断点打在 `Carla/Server/CarlaServer.cpp`的第 721行，然后运行`manual_control.py`（调用`try_spawn_actor`方法生成参与者）则会在断点处停止。
 

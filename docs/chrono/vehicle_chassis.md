@@ -7,6 +7,6 @@
 
 有以下三种类型的底盘连接器模板可供选择：
 
-- [ChChassisConnectorArticulated](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_articulated.html) 允许将前后底盘与驱动旋转关节连接起来，该旋转关节由转向驱动器输入控制
-- [ChChassisConnectorTorsion](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_torsion.html) 允许使用具有指定扭转刚度的纵向旋转关节连接前后底盘
-- [ChChassisConnectorHitch](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_hitch.html) 模拟拖车挂钩连接（使用球形接头）
+- [ChChassisConnectorArticulated](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_articulated.html) 允许将前后底盘与驱动旋转关节连接起来，该旋转关节由转向驱动器输入控制。
+- [ChChassisConnectorTorsion](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_torsion.html) 允许使用具有指定扭转刚度的纵向旋转关节连接前后底盘。
+- [ChChassisConnectorHitch](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_chassis_connector_hitch.html) 模拟拖车挂钩连接（使用球形接头）。
