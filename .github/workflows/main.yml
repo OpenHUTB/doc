@@ -1,4 +1,3 @@
-# 参考：https://github.com/Tiryoh/actions-mkdocs
 name: Deploy
 on:
   push:
