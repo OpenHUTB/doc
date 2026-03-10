@@ -1,7 +1,6 @@
 # 🦞 Openclaw + DeepSeek Docker 部署教程
 
-> 作者：湖南工商大学 机器人工程专业 大一学生  
-> 本教程记录了我在 Windows 11 上使用 Docker 部署 Openclaw 并成功对接 DeepSeek API 的**完整真实过程**，包括踩过的每一个坑。
+> 本教程记录了在 Windows 11 上使用 Docker 部署 Openclaw 并成功对接 DeepSeek API 的**完整真实过程**。
 
 ---
 
