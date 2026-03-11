@@ -27,7 +27,7 @@ git --version
 前往 https://www.docker.com 下载安装，安装后确保 Docker Desktop 已启动。
 
 ### 3. 获取 DeepSeek API Key
-前往 https://platform.deepseek.com/api_keys 注册并充值（最低 10 元），创建 API Key 并保存好。
+前往 https://platform.deepseek.com/api_keys 注册并充值，创建 API Key 并保存好。
 
 ---
 
