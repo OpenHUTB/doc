@@ -19,6 +19,8 @@
 
 [__DeepSeek大模型__](software/llm.md) - 部署本地大模型的流程，可用于辅助开发
 
+[_Openclaw Docker 部署 （DeepSeek API)_](software/openclaw_docker.md) - 通过沙盒环境隔离，安全部署，不污染系统环境
+
 [__待做列表__](todo.md) — 待完成的功能
 
 [__使用 Carla 的仓库列表__](used_by.md) - 收集引用了Carla 的相关库
