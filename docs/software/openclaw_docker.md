@@ -1,10 +1,8 @@
 # 🦞 Openclaw + DeepSeek Docker 部署教程
 
-> 本教程记录了在 Windows 11 上使用 Docker 部署 Openclaw 并成功对接 DeepSeek API 的**完整真实过程**。
-
 ---
 
-##    环境信息
+## 🖥️ 环境信息
 
 | 项目 | 详情 |
 |------|------|
@@ -17,7 +15,7 @@
 
 ---
 
-##    前置准备
+## 📋 前置准备
 
 ### 1. 安装 Git
 前往 https://git-scm.com 下载安装，安装后在 PowerShell 验证：
@@ -33,7 +31,7 @@ git --version
 
 ---
 
-##    部署步骤
+## 🚀 部署步骤
 
 ### 第一步：配置 Git 代理（如有需要）
 
@@ -70,12 +68,13 @@ OPENAI_API_KEY=sk-你的DeepSeek密钥
 OPENAI_BASE_URL=https://api.deepseek.com/v1
 OPENCLAW_CONFIG_DIR=./config
 OPENCLAW_WORKSPACE_DIR=./workspace
-OPENCLAW_GATEWAY_BIND=loopback
+OPENCLAW_GATEWAY_BIND=lan
 OPENCLAW_GATEWAY_TOKEN=你自己生成一个随机token
 ```
 
->    **重要**：变量名前不能有空格！`   OPENAI_API_KEY=xxx`（错误）vs `OPENAI_API_KEY=xxx`（正确）  
+> ⚠️ **重要**：变量名前不能有空格！`   OPENAI_API_KEY=xxx`（错误）vs `OPENAI_API_KEY=xxx`（正确）  
 > 这是我踩的最深的坑，导致 API Key 一直读取失败。
+
 
 ### 第四步：构建 Docker 镜像
 
@@ -83,7 +82,7 @@ OPENCLAW_GATEWAY_TOKEN=你自己生成一个随机token
 docker build -t openclaw:local .
 ```
 
->   这一步需要较长时间（我花了约 7 分钟），请耐心等待。  
+> ⏳ 这一步需要较长时间（约 7 分钟），请耐心等待。  
 > 如果遇到 `unexpected EOF` 错误，是网络中断导致的，重新运行即可。
 
 ### 第五步：修改 docker-compose.yml
@@ -115,7 +114,7 @@ command:
     "${OPENCLAW_GATEWAY_BIND:-lan}",
     "--port",
     "18789",
-    "--allow-unconfigured"   # 添加这一行
+    "--allow-unconfigured"
   ]
 ```
 
@@ -142,25 +141,67 @@ docker compose run --rm openclaw-cli configure
 按照向导提示依次配置：
 - **Gateway 位置**：选 `Local (this machine)`
 - **Model 提供商**：选 `Custom Provider`
-- **API Base URL**：填 `https://api.deepseek.com`（注意是 https，不是 http）
+- **API Base URL**：填 `https://api.deepseek.com`
 - **API Key**：粘贴你的 DeepSeek Key
 - **Model ID**：填 `deepseek-chat`
-- **Gateway bind**：选 `Loopback (Local only)`
+- **Gateway bind**：选 `lan`
 - **Gateway token**：填你在 `.env` 里设置的 token（必须一致！）
 
 看到 `Gateway: reachable` 和 `Configure complete` 说明配置成功。
 
-### 第八步：测试是否正常工作
+### 第八步：修改 openclaw.json
+
+打开 `config\openclaw.json`，确认以下配置正确：
+
+```json
+"agents": {
+  "list": [
+    {
+      "id": "main",
+      "model": "custom-api-deepseek-com/deepseek-chat"
+    }
+  ]
+},
+"gateway": {
+  "bind": "lan",
+  "controlUi": {
+    "dangerouslyAllowHostHeaderOriginFallback": true
+  }
+}
+```
+
+### 第九步：测试终端对话
 
 ```powershell
 docker compose run --rm openclaw-cli agent --session-id test01 -m "你好，请自我介绍一下"
 ```
 
-如果 DeepSeek 正常回复，恭喜你部署成功！
+### 第十步：访问网页界面
+
+浏览器打开 `http://localhost:18789`，在「网关令牌」填入你的 token，点击连接。
+
+首次连接需要批准设备：
+```powershell
+# 查看待批准设备
+docker compose run --rm openclaw-cli devices list
+
+# 批准设备
+docker compose run --rm openclaw-cli devices approve <requestId>
+```
 
 ---
 
-##    常见报错与解决方法
+## 🎉 部署成功示例
+
+### 终端对话
+![终端对话截图](../img/software/screenshot-cli.png)
+
+### 网页界面
+![网页界面截图](../img/software/screenshot-webui.png)
+
+---
+
+## ❗ 常见报错与解决方法
 
 ### 错误 1：`pull access denied for openclaw`
 **原因**：Docker Hub 上没有公开镜像，需要本地构建。  
@@ -172,27 +213,32 @@ docker compose run --rm openclaw-cli agent --session-id test01 -m "你好，请�
 
 ### 错误 3：`non-loopback Control UI requires gateway.controlUi.allowedOrigins`
 **原因**：bind 模式设置为了 `lan` 但没有配置允许的来源。  
-**解决**：将 `.env` 中 `OPENCLAW_GATEWAY_BIND` 改为 `loopback`
+**解决**：在 `openclaw.json` 的 `gateway` 部分添加：
+```json
+"controlUi": {
+  "dangerouslyAllowHostHeaderOriginFallback": true
+}
+```
 
-### 错误 4：`Invalid --bind (use "loopback", "lan", "tailnet", "auto", or "custom")`
+### 错误 4：`Invalid --bind`
 **原因**：`.env` 文件中变量前有多余空格，导致值被读取为空字符串。  
 **解决**：检查 `.env` 文件，确保所有变量前没有空格。
 
-### 错误 5：`OPENAI_API_KEY is not set. Defaulting to a blank string`
-**原因**：同上，`.env` 文件中变量名前有空格（`   OPENAI_API_KEY=xxx`）。  
+### 错误 5：`OPENAI_API_KEY is not set`
+**原因**：`.env` 文件中变量名前有空格。  
 **解决**：删除变量名前的所有空格。
 
 ### 错误 6：`No API key found for provider "anthropic"`
 **原因**：Openclaw 默认使用 Anthropic，需要手动切换到 DeepSeek。  
-**解决**：运行 `docker compose run --rm openclaw-cli configure`，在向导中选择 Custom Provider 并配置 DeepSeek。
+**解决**：运行 `docker compose run --rm openclaw-cli configure`，选择 Custom Provider 并配置 DeepSeek。
 
 ### 错误 7：`gateway token mismatch`
 **原因**：`.env` 中的 `OPENCLAW_GATEWAY_TOKEN` 和 `openclaw.json` 中的 token 不一致。  
-**解决**：在 configure 向导的 Gateway Token 步骤中，填入与 `.env` 完全相同的 token。
+**解决**：确保两处 token 完全一致，或删除 `openclaw.json` 中的 token，只用 `.env` 管理。
 
 ### 错误 8：`404 status code (no body)`
-**原因**：模型路径格式不正确（如 `openai/deepseek-chat`）。  
-**解决**：通过 configure 向导重新配置，使用 `custom-api-deepseek-com/deepseek-chat` 格式。
+**原因**：agent 使用了错误的模型路径（如 `openai/gpt-5.1-codex`）。  
+**解决**：在 `openclaw.json` 中将 agent 的 model 改为 `custom-api-deepseek-com/deepseek-chat`。
 
 ### 错误 9：`Verification failed: status 402`
 **原因**：DeepSeek 账户余额不足。  
@@ -202,17 +248,62 @@ docker compose run --rm openclaw-cli agent --session-id test01 -m "你好，请�
 **原因**：API Base URL 填写错误（填成了 `http://` 而不是 `https://`）。  
 **解决**：确保 API Base URL 为 `https://api.deepseek.com`。
 
+### 错误 11：`unauthorized: gateway token missing`
+**原因**：网页界面没有填入 Gateway Token，或填入的 Token 与配置不一致。  
+**解决**：
+1. 打开 `http://localhost:18789/overview`
+2. 在「网关令牌」输入框填入 `.env` 里的 `OPENCLAW_GATEWAY_TOKEN` 值
+3. 点击「连接」
+
+### 错误 12：`pairing required`
+**原因**：新设备（浏览器）第一次连接 Gateway 需要手动批准。  
+**解决**：
+```powershell
+# 查看待批准设备
+docker compose run --rm openclaw-cli devices list
+
+# 批准设备（替换为实际的 Request ID）
+docker compose run --rm openclaw-cli devices approve <requestId>
+```
+批准后刷新网页即可。
+
+### 错误 13：`ERR_EMPTY_RESPONSE`
+**原因**：Gateway 绑定模式或 controlUi 配置有问题。  
+**解决**：在 `openclaw.json` 的 `gateway` 部分确认：
+```json
+"bind": "lan",
+"controlUi": {
+  "dangerouslyAllowHostHeaderOriginFallback": true
+}
+```
+然后重启 Docker。
+
+### 错误 14：`ERR_CONNECTION_REFUSED`
+**原因**：`openclaw.json` 格式错误导致容器启动失败。  
+**解决**：
+1. 用备份文件恢复：
+```powershell
+copy D:\AI\openclaw\config\openclaw.json.bak D:\AI\openclaw\config\openclaw.json
+```
+2. 重启 Docker：
+```powershell
+docker compose down
+docker compose up -d
+```
+3. 修改前先在 [jsonlint.com](https://jsonlint.com) 验证 JSON 格式是否正确。
+
 ---
 
-##    安全注意事项
+## 🔒 安全注意事项
 
 1. **绝对不要**将 `.env` 文件上传到 GitHub（项目自带的 `.gitignore` 已经排除了它）
 2. **绝对不要**在 `openclaw.json` 中硬编码 API Key，应通过环境变量传入
 3. API Key 一旦泄露，立刻前往 https://platform.deepseek.com/api_keys 作废并重新生成
+4. Gateway Token 泄露后，重新生成并更新 `.env` 文件
 
 ---
 
-##    仓库文件说明
+## 📁 仓库文件说明
 
 ```
 ├── docker-compose.yml   # 修改版：添加了 DeepSeek 环境变量和 --allow-unconfigured
@@ -221,7 +312,7 @@ docker compose run --rm openclaw-cli agent --session-id test01 -m "你好，请�
 
 ---
 
-##    参考资料
+## 📚 参考资料
 
 - [Openclaw 官方文档](https://docs.openclaw.ai)
 - [DeepSeek API 文档](https://platform.deepseek.com/docs)
@@ -229,7 +320,8 @@ docker compose run --rm openclaw-cli agent --session-id test01 -m "你好，请�
 
 ---
 
-##    关于作者
+## 👤 关于作者
 
-湖南工商大学 机器人工程专业 大一学生，借助 AI 大模型的力量完成了这次部署实践。  
-如有问题欢迎提 [Issue](https://github.com/sy-175/openclaw-deepseek-deploy/issues)公开讨论。
+湖南工商大学 机器人工程专业 大一学生，借助 AI 大模型的力量成功完成了这次部署实践。  
+欢迎大家进行讨论和复现。  
+如有问题欢迎提 Issue 或 PR！
