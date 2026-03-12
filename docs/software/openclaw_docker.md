@@ -50,17 +50,17 @@ wsl --install
 ```
 
 ### 2. 安装 Git
-前往 (https://git-scm.com) 下载安装，安装后在 PowerShell 验证：
+前往 [Git](https://git-scm.com) 下载安装，安装后在 PowerShell 验证：
 ```powershell
 git --version
 ```
 
 ### 3. 安装 Docker Desktop
-前往 (https://www.docker.com) 下载安装。
+前往 [Docker Desktop](https://www.docker.com) 下载安装。
 > **注意**：安装时建议勾选“Use WSL 2 based engine”。安装完成后，确保 Docker Desktop 处于已启动状态。
 
 ### 4. 获取 DeepSeek API Key
-前往 (https://platform.deepseek.com/api_keys) 注册并充值，创建 API Key 并保存好。
+前往 [DeepSeek API Key](https://platform.deepseek.com/api_keys) 注册并充值，创建 API Key 并保存好。
 
 ---
 
@@ -69,8 +69,8 @@ git --version
 ### 第一步：配置 Git 代理（如有需要）
 国内网络访问 GitHub 较慢，建议配置代理（端口根据自己的代理软件填写）：
 ```powershell
-git config --global http.proxy (http://127.0.0.1:10808)
-git config --global https.proxy (http://127.0.0.1:10808)
+git config --global http.proxy http://127.0.0.1:10808
+git config --global https.proxy http://127.0.0.1:10808
 ```
 
 ### 第二步：克隆 OpenClaw 仓库
