@@ -125,9 +125,22 @@
 <h2 id="_1">其他特性</h2>
 <h3 id="_2">科学上网 <span id="internet"></span></h3>
 <p>参考其中的一个链接进行科学上网的订阅和环境配置：<a href="https://www.starlinkcloud.cc/#/register?code=Ob4iMh8u">链接1</a> 、<a href="https://portal.shadowsocks.au/">链接2</a> 、<a href="https://mk.mikadonet.xyz/#/login">链接3</a> 、<a href="https://711jsq.club/#/login">链接4</a> 。
-比如使用Clash，首先在<code>配置</code>页面下根据订阅链接进行下载，然后在<code>常规</code>页面开启<code>系统代理</code>，最后测试是否可以正常科学上网（有些支持在客户端中登录账户即可使用）。</p>
+比如使用Clash，首先在<code>配置</code>页面下根据订阅链接进行下载，然后在<code>常规</code>页面开启<code>系统代理</code>，最后测试是否可以正常科学上网（有些支持在客户端中登录账户即可使用）。并确认代理的端口（比如10090）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置代理</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>http.proxy<span class="w"> </span><span class="m">127</span>.0.0.1:10090
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>https.proxy<span class="w"> </span><span class="m">127</span>.0.0.1:10090
+<span class="c1"># 查看当前的代理设置</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--get<span class="w"> </span>http.proxy
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--get<span class="w"> </span>https.proxy
+<span class="c1"># 取消全局代理设置</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--unset<span class="w"> </span>http.proxy
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>--unset<span class="w"> </span>https.proxy
+</code></pre></div>
+<h3 id="steamapp">Steamapp 加速</h3>
+<p><a href="https://steampp.net/">下载地址</a> 。</p>
 <h3 id="github">Github 访问加速</h3>
 <p>有时候 Github 访问不了，可以下载并运行 <a href="https://gitee.com/OpenHUTB/sw/releases/tag/up">链接</a> 中对应平台的软件（比如 Windows 平台中下载 <a href="https://gitee.com/OpenHUTB/software/releases/download/speed_up_github/fastgithub-win-x64.zip">fastgithub-win-x64.zip</a> 解压后运行<code>FastGithub.UI.exe</code>即可正常访问Github）。</p>
+<p>其他方法：<a href="https://www.cnblogs.com/ting1/p/18356265">链接</a> 。</p>
 <h4 id="ubuntu">Ubuntu 下的配置</h4>
 <p>Linux 科学上网配置<a href="https://opclash.com/article/302.html">教程</a> 。下载<a href="https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz">clash</a> 。</p>
 <p>首次启动<code>clash</code>，会新建文件<code>~/.config/clash/config.yaml</code>：
