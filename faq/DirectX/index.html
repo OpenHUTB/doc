@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Use faq - 人车孪创</title>
+    <title>提取 DirectX 的 DLL 文件 - 人车孪创</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Use faq";
-        var mkdocs_page_input_path = "faq/use_faq.md";
+        var mkdocs_page_name = "\u63d0\u53d6 DirectX \u7684 DLL \u6587\u4ef6";
+        var mkdocs_page_input_path = "faq/DirectX.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -90,9 +90,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Use faq</li>
+      <li class="breadcrumb-item active">提取 DirectX 的 DLL 文件</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/faq/use_faq.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/faq/DirectX.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
   </ul>
   <hr/>
@@ -100,69 +100,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">入门示例</h2>
-<div class="admonition 注意">
-<p class="admonition-title">注意</p>
-<p>如果运行 CarlaUE4.exe 时弹出：<code>Fatal error!</code>，请从 <a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist">Microsoft 网站</a> 下载 <strong>Microsoft Visual C++ Redistributable</strong> 并安装。在“Visual Studio 2019–2022”下选择 x64 版本。如果运行CarlaUE4.exe时报错：缺少Microsoft Visual C++ Runtime、DirectX Runtime(XINPUT1_3.dll)，则需要分别安装 <a href="https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/">vs_community__2019.exe</a> （勾选<code>.NET桌面开发</code>和<code>使用C++的桌面开发</code>）和 <a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=8109">directx_Jun2010_redist.zip</a>  （解压后运行 <a href="../DirectX/">DXSETUP.bat</a> ）。如果发现手动控制车按前进键不能移动，可能是输入法默认是中文，按<code>Shift</code>切换成英文输入法即可解决。当机器性能一般时启动<code>CarlaUE4.exe</code>报错：<code>Out of video memory...</code>，可以通过命令来降低画质启动：<code>CarlaUE4.exe -quality-level=Low</code>，以获得更流畅的效果；甚至使用<code>CarlaUE4.exe -nullrhi</code>禁用所有渲染（无需 GPU）。</p>
-</div>
-<h2 id="python">Python 调用</h2>
-<ul>
+                <h1 id="directx-dll">提取 DirectX 的 DLL 文件</h1>
+<ol>
 <li>
-<p>运行<code>world.get_blueprint_library()</code>报错：ValueError: role_name: colors must have 3 channels (R,G,B)</p>
-<blockquote>
-<p>服务端和客户端版本不一致，比如服务端是ue4-dev的最新代码，而客户端为0.9.15的代码。</p>
-</blockquote>
+<p>运行“directx_Jun2010_redist.exe”文件，并接受许可协议。</p>
 </li>
 <li>
-<p>连接不上服务端，又没有报错信息</p>
-<blockquote>
-<p>很可能是因为和 PythonAPI 相关的 <a href="https://github.com/OpenHUTB/hutb/issues/3200#issuecomment-3717221506">LibCarla 模块</a> 做了更新，而客户端 whl 文件没有更新。</p>
-</blockquote>
+<p>请注明包内物品将被提取至的目的地。——例如：D:\DX9 。</p>
 </li>
 <li>
-<p>运行 Python 程序报错：<code>Assertion failed: (_data.size() - _offset) % sizeof(T) == 0u, file C:\b\_w\jcarla\jcarla\LibCarla\cmake\..\source\carla/sensor/data/Array.h, line 132</code></p>
-<p>原因：由于通过<code>pip install carla</code>安装客户端导致import carla混乱。</p>
-<p>解决：
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>carla
-pip<span class="w"> </span>uninstall<span class="w"> </span>hutb
-pip<span class="w"> </span>install<span class="w"> </span>hutb-2.9.16-cp310-cp310-win_amd64.whl
-</code></pre></div></p>
+<p>可重分布软件包的内容现已被解压至 D:\DX9 文件夹中。</p>
+</li>
+<li>
+<p>您可以手动从每个 CAB 文件中提取文件，但这种方式很繁琐。建议您使用“Expand.exe”命令行工具来操作。</p>
+</li>
+</ol>
+<p>在“DX9”文件夹中，输入“cmd.exe”进入地址栏。这样就会在该文件夹中打开一个命令提示窗口。</p>
+<ol>
+<li>在命令提示符窗口中，请执行以下操作：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 新建目录</span>
+md<span class="w"> </span>Files<span class="se">\x</span><span class="m">64</span>
+md<span class="w"> </span>Files<span class="se">\x</span><span class="m">86</span>
+<span class="c1"># 提取文件到新建的目录中</span>
+expand.exe<span class="w"> </span>*x86.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">86</span><span class="w"> </span>-R
+expand.exe<span class="w"> </span>*x64.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">64</span><span class="w"> </span>-R
+</code></pre></div>
+<p>现在，这些动态链接库已被提取到“D:\DX9\Files\x86”和“D:\DX9\Files\x64”这两个目录中。</p>
+<p>如果您的游戏软件提示缺少 DirectX 9-10 运行环境，请按照以下步骤操作：</p>
+<p><strong>在 64 位 Windows 系统中</strong>：</p>
+<p>将相应的文件从“x64”文件夹复制到“C:\Windows\System32”文件夹。</p>
+<p>将相应的文件从“x86”文件夹复制到“C:\Windows\SysWOW64”文件夹。</p>
+<p><strong>在 32 位 Windows 系统中</strong>：</p>
+<p>将相应的文件从“x86”文件夹复制到“C:\Windows\System32”文件夹中。</p>
+<p>重要提示：在 64 位 Windows 系统安装中，请勿将 32 位的动态链接库复制到“Windows\System32”文件夹中。这样做会导致各种应用程序出现错误。请将所需的 32 位模块复制到“Windows\SysWOW64”文件夹中。</p>
+<p>（若要确认您的 Windows 系统是 32 位还是 64 位，请使用本文中所提供的方法之一：《查找您的 Windows 版本、系列及位数》。）</p>
+<h2 id="_1">解决方法</h2>
+<p>下载 <a href="https://gitee.com/OpenHUTB/sw/releases/download/up/DirectX_Runtime.zip">DirectX_Runtime.zip</a> 并解压到本地，如果是x64操作系统，就将x64目录下的所有dll文件拷贝到 CarlaUE4\Binaries\Win64 目录 、或者 Engine\Binaries\Win64目录（没有可以新建）、或者 和CarlaUE4.exe 相同的文件夹中，如果是x86则是类似的操作。</p>
+<h2 id="_2">参考</h2>
+<ul>
+<li>
+<p><a href="https://www.winhelponline.com/blog/directx-end-user-runtime-dll-files/">如何从 DirectX（2010 年 6 月版）运行时安装程序中提取 DLL 文件</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/556830150">【UE4】使用动态库(DLL)提示找不到dll的解决方案</a></p>
 </li>
 </ul>
-<h2 id="_2">库的问题</h2>
-<ul>
-<li>matplotlib 调用<code>plt.plot()</code>报错：<code>TypeError: int() argument must be a string, a bytes-like object or a number, not 'KeyboardModifier'</code></li>
-</ul>
-<blockquote>
-<p>将您 Python 升级到 3.8 或者更高、Matplotlib 升级到 3.6.2 或更高版本
-</p>
-</blockquote>
-<h2 id="_3">虚幻编辑器</h2>
-<ul>
-<li>RuntimeError: internal error: unable to find spectator</li>
-</ul>
-<blockquote>
-<p>运行 UE4 编辑器的模式下，调用 world.get_spectator() 出现这个问题，是因为播放按钮有多种模式，一种是无观察者模式，另一种是有观察者模式。从您发送的截图来看，您运行 UE4 时使用的是 <a href="https://github.com/carla-simulator/carla/discussions/4782">无观察者模式</a> 。请尝试点击“运行”按钮右边的下拉三角形，选择“独立进程游戏”进行运行（使用另一种模式）。</p>
-</blockquote>
-<ul>
-<li>运行场景时弹出<code>Locate main RenderDoc executable...</code>选择程序对话框</li>
-</ul>
-<h2 id="_4">场景</h2>
-<blockquote>
-<p>解决：下载并安装 图形调试工具 <a href="https://renderdoc.org/">renderdoc</a> ，然后在选择程序对话框中选择<code>C:\Program Files\RenderDoc\qrenderdoc.exe</code>。</p>
-</blockquote>
-<h1 id="_5">崩溃</h1>
-<p>运行CarlaUE4.exe报错：
-<div class="highlight"><pre><span></span><code>The<span class="w"> </span>UE4-CarlaUE4<span class="w"> </span>Game<span class="w"> </span>has<span class="w"> </span>crashed<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>close
-LowLevelFatalError<span class="w"> </span><span class="o">[</span>File:Unknown<span class="o">]</span><span class="w"> </span><span class="o">[</span>Line:<span class="w"> </span><span class="m">136</span><span class="o">]</span>Exception<span class="w"> </span>thrown:<span class="w"> </span>bind:<span class="w"> </span>??h????E???????k?<span class="s2">&quot;????h???????-????m? [system 10013 atD:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function &#39;bind&#39;]</span>
-</code></pre></div></p>
-<blockquote>
-<p>原因：本地端口被其他程序占用。</p>
-<p>解决：重启电脑</p>
-</blockquote>
-<h2 id="_6">其他</h2>
-<p><a href="../../build_faq/"><strong>构建问题</strong></a> — 解决构建代码时候最常见的问题</p>
-<p><a href="../../ue/ue_faq/"><strong>虚幻引擎问题</strong></a> - 虚幻引擎的一些专业问题</p>
               
             </div>
           </div><footer>
