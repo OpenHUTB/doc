@@ -199,8 +199,9 @@ value &#39;MD_DynamicRelease&#39; 项目对应的，当前的lib，一般都要�
 </code></pre></div>
 即：Release 库使用了 Debug 的库。</li>
 </ul>
-<p>解决：需要将虚幻的 SharedPCH.UnrealEd.h.obj 编译为debug模式。
+<p>解决：需要将虚幻的 SharedPCH.UnrealEd.h.obj <a href="https://blog.csdn.net/mrbaolong/article/details/114947090">编译为 debug 模式</a> 。
 PCH (PreCompiled Headers) 是一种宏管理方法，</p>
+<p><code>\MDd</code> ：Multi-threaded Debug DLL。</p>
 <p>1.打开<code>x64 Native Tools Command for VS 2019</code></p>
 <p><strong>1.1</strong> 并切换到目录<code>Util/InstallersWin</code>下，将<a href="https://github.com/OpenHUTB/carla/blob/ue4-dev/Util/InstallersWin/install_boost.bat"><code>install_boost.bat</code></a> 内的b2运行参数改为<code>variant=debug</code>（根据<code>Util/BuildTools/Setup.bat</code>里的安装Boost命令改编），（或者将 <a href="https://github.com/OpenHUTB/doc/blob/master/src/cmake/install_boost_debug.bat">install_boost_debug.bat</a> 拷贝到<code>Util/InstallerWin</code>目录下），然后运行<a href="https://github.com/OpenHUTB/doc/tree/master/src/cmake/install_boost_debug.bat"><code>install_boost_debug.bat</code></a> （或者设置同时编译 debug 和 release 版的 boost <code>variant=debug,release</code>）：
 <div class="highlight"><pre><span></span><code>install_boost_debug.bat<span class="w"> </span>--build-dir<span class="w"> </span>C:<span class="se">\b</span>uf<span class="w"> </span>--toolset<span class="w"> </span>msvc-14.2<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.80.0<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span>
