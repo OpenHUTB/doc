@@ -309,6 +309,49 @@ git<span class="w"> </span>push
 <div class="highlight"><pre><span></span><code>包 URL 应以 https:// 开头，并且应指向版本控制、可下载的包。
 </code></pre></div></p>
 <p><a href="https://www.cnblogs.com/oboth-zl/p/17638705.html">使用MSIX Packaging Tool工具修改msix程序包</a></p>
+<h3 id="git">自定义最小化 git</h3>
+<p>使用 <a href="https://github.com/git-for-windows/git/releases/download/v2.40.0-rc1.windows.1/PortableGit-2.40.0-rc1-64-bit.7z.exe">2.40便携版</a> 进行瘦身：
+测试命令：
+<div class="highlight"><pre><span></span><code><span class="c1">rem 第一次</span>
+.\git clone https://OpenHUTB:T8w6TYB_r71gGTP3A02B@git.code.tencent.com/OpenHUTB/lfs_demo.git  <span class="p">&amp;&amp;</span>  <span class="k">cd</span> lfs_demo  <span class="p">&amp;&amp;</span> D:\hutb\git\bin\git.exe lfs pull  <span class="p">&amp;&amp;</span> <span class="k">cd</span> ..
+<span class="c1">rem 后面每次</span>
+<span class="k">del</span> /q lfs_demo\*.*  <span class="p">&amp;&amp;</span> <span class="k">rd</span> /s /q <span class="s2">&quot;lfs_demo&quot;</span>  <span class="p">&amp;&amp;</span> .\git clone https://OpenHUTB:T8w6TYB_r71gGTP3A02B@git.code.tencent.com/OpenHUTB/lfs_demo.git  <span class="p">&amp;&amp;</span>  <span class="k">cd</span> lfs_demo  <span class="p">&amp;&amp;</span> D:\hutb\git\bin\git.exe lfs pull  <span class="p">&amp;&amp;</span> <span class="k">cd</span> ..
+</code></pre></div>
+原来有314M，
+删除技巧：</p>
+<ol>
+<li>一个目录下的dll全部删除，把运行拉取大文件缺少的dll留下；</li>
+<li>exe文件使用二分法进行删除</li>
+<li>其他文本文件尽量全删除</li>
+</ol>
+<p>获得的<a href="https://gitee.com/OpenHUTB/sw/releases/download/up/git_min.zip">最小化git</a> 。</p>
+<p>!!! 注意：
+   MinGit-2.40.0-rc1-busybox-32-bit.zip 没有git-lfs功能</p>
+<p>其他尝试：</p>
+<p>下载源码：
+<div class="highlight"><pre><span></span><code><span class="c1">rem 下载</span>
+powershell -Command <span class="s2">&quot;(New-Object System.Net.WebClient).DownloadFile(&#39;https://github.com/git/git/archive/refs/tags/v2.40.3.zip&#39;, &#39;git_v2.40.3.zip&#39;)&quot;</span>
+<span class="c1">rem 解压</span>
+powershell -Command <span class="s2">&quot;Expand-Archive &#39;git_v2.40.3.zip&#39; -DestinationPath &#39;.&#39; -Force&quot;</span>
+<span class="k">cd</span> git-2.40.3
+</code></pre></div></p>
+<ul>
+<li>
+<p><a href="https://github.com/git-for-windows/git/releases">包含windows补丁的git</a> 。</p>
+</li>
+<li>
+<p>安装<a href="https://gitforwindows.org/#download-sdk">Git 的 Windows SDK</a> ，打开它的 <code>git-bash.exe</code>，<code>cd</code>进入 Git 的工作树并运行<code>make</code></p>
+</li>
+<li>
+<p>git-2.40.0-rc1.windows.1、git-2.41.0.windows.3、git-2.46.0-rc1.windows.1.zip 编译不通过。</p>
+</li>
+<li>
+<p>git-2.53.0.windows.2 可以编译通过。</p>
+</li>
+<li>
+<p>使用 PortableGit-2.46.0-rc1-64-bit.7z.exe可以下载大文件</p>
+</li>
+</ul>
 <h2 id="_12">问题</h2>
 <p>点击打包后的文件出现错误：
 <div class="highlight"><pre><span></span><code>TypeError: expected str, bytes or os.PathLike object, not _io.BytesIO
