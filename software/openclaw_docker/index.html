@@ -306,8 +306,10 @@ OPENCLAW_GATEWAY_TOKEN=你自己生成一个随机token
 </ul>
 <hr />
 <h2 id="14">❗ 常见报错与解决方法 (14 问)</h2>
-<p>??? note "🔥 点击展开查看全部 14 个常见报错与解决方案"</p>
-<pre><code>#### 1. `pull access denied for openclaw`
+<details>
+<summary><b>🔥 点击展开查看全部 14 个常见报错与解决方案</b></summary>
+
+#### 1. `pull access denied for openclaw`
 - **原因**：Docker Hub 上没有公开镜像，需要本地构建。
 - **解决**：执行 `docker build -t openclaw:local .`
 
@@ -353,7 +355,7 @@ OPENCLAW_GATEWAY_TOKEN=你自己生成一个随机token
 
 #### 12. `pairing required`
 - **原因**：新设备（浏览器）首次连接 Gateway 需要手动批准。
-- **解决**：通过 `devices list` 查看请求，用 `devices approve &lt;requestId&gt;` 命令批准。
+- **解决**：通过 `devices list` 查看请求，用 `devices approve <requestId>` 命令批准。
 
 #### 13. `ERR_EMPTY_RESPONSE`
 - **原因**：Gateway 绑定模式或 controlUi 配置错误。
@@ -362,11 +364,12 @@ OPENCLAW_GATEWAY_TOKEN=你自己生成一个随机token
 #### 14. `ERR_CONNECTION_REFUSED`
 - **原因**：`openclaw.json` 格式错误（如漏了逗号），导致容器直接崩溃。
 - **解决**：
-    1. 使用备份恢复：`copy D:\AI\openclaw\config\openclaw.json.bak D:\AI\openclaw\config\openclaw.json`
-    2. 推荐修改前在 [jsonlint.com](https://jsonlint.com) 验证 JSON 格式。
-    3. 执行 `docker compose down` 后重新 `docker compose up -d`。
-</code></pre>
-<hr />
+  1. 使用备份恢复：`copy D:\AI\openclaw\config\openclaw.json.bak D:\AI\openclaw\config\openclaw.json`
+  2. 推荐修改前在 [jsonlint.com](https://jsonlint.com) 验证 JSON 格式。
+  3. 执行 `docker compose down` 后重新 `docker compose up -d`。
+
+</details>
+<p><br></p>
 <h2 id="_10">🔒 安全注意事项</h2>
 <ol>
 <li><strong>绝对不要</strong>将 <code>.env</code> 文件上传到 GitHub（项目自带的 <code>.gitignore</code> 已配置排除）。</li>
