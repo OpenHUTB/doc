@@ -245,6 +245,17 @@ GenerateProjectFiles.bat
 <span class="w">  </span><span class="nt">&lt;/ParallelExecutor&gt;</span>
 <span class="nt">&lt;/Configuration&gt;</span>
 </code></pre></div></p>
+<ul>
+<li>编译shader的线程控制</li>
+</ul>
+<p>这个需要去BaseEngine.ini去找。同样有好几个层级，工程目录下也有。 比较关键的是
+<div class="highlight"><pre><span></span><code><span class="k">[DevOptions.Shaders]</span>
+<span class="na">...</span>
+<span class="na">NumUnusedShaderCompilingThreads</span><span class="o">=</span><span class="s">3</span>
+<span class="c1">; Make sure the game has enough cores available to maintain reasonable performance</span>
+<span class="na">NumUnusedShaderCompilingThreadsDuringGame</span><span class="o">=</span><span class="s">4</span>
+</code></pre></div>
+把这两个数字调大一点，尤其是第一个。越大预留的线程越多，ShaderCompiler调度的线程就越少。</p>
 <p>（3）清理配置文件。完成编译后，在执行 <code>make launch</code> 之前，务必删除 <code>BuildConfiguration.xml</code> 文件中新增的内容。否则，可能导致程序运行时出现卡顿或性能下降的问题。</p>
 <p><strong>4.</strong> 设置虚幻引擎变量</p>
 <p>需要设置一个环境变量，以便 HUTB 可以找到虚幻引擎的安装文件夹。这允许用户选择要使用哪个特定版本的虚幻引擎。如果未指定环境变量，HUTB 将在 Windows 注册表中搜索虚幻引擎并使用在那里找到的第一个版本。</p>

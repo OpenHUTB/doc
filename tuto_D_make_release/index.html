@@ -364,6 +364,14 @@ powershell -Command <span class="s2">&quot;Expand-Archive &#39;git_v2.40.3.zip&#
 <div class="highlight"><pre><span></span><code><span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">get_default_font</span><span class="p">(),</span> <span class="mi">20</span><span class="p">)</span>
 </code></pre></div>
 获得的字体文件为<code>freesansbold.ttf</code>，最后将字体文件拷贝到和exe文件相同的路径，然后执行即可。</p>
+<ul>
+<li>The following component(s) are required to run this program: Microsoft Visual C++ Runtime</li>
+</ul>
+<p>dll所在路径：C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.44.35112\x64\Microsoft.VC143.CRT*.dll</p>
+<p>解决：vc_redist.x64.exe（位于：C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.44.35112）
+<div class="highlight"><pre><span></span><code><span class="c1">rem 安装命令</span>
+VC_redist.x64.exe /install /quiet /norestart
+</code></pre></div></p>
 <h2 id="_13">参考</h2>
 <ul>
 <li><a href="https://natapp.cn/article/config_ini">内网穿透</a></li>
