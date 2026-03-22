@@ -101,9 +101,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="carla"><a href="https://github.com/carla-simulator/carla/network/dependents">使用 Carla 的仓库列表</a></h1>
-<!-- 更新到最新的页面： https://github.com/carla-simulator/carla/network/dependents?dependents_before=NDMyMjE4MzQ3MzI    -->
+<!-- 更新到最新的页面： https://github.com/carla-simulator/carla/network/dependents?dependents_before=NDk2MDc1MjczNTY    -->
 
-<!-- 更新到最新的仓库： https://github.com/tepk2924/Controller -->
+<!-- 更新到最新的仓库： https://github.com/c6ai/VAD -->
+<!-- 更新到最新的仓库： https://github.com/visionpilot-project/VisionPilot -->
 
 <ul>
 <li><a href="#perception"><strong>感知</strong></a><ul>
@@ -112,6 +113,7 @@
 <li><a href="#segmentation">分割</a></li>
 <li><a href="#fusion">融合</a></li>
 <li><a href="#LiDAR">激光雷达</a></li>
+<li><a href="#V2X">V2X</a></li>
 <li><a href="#other">其他</a></li>
 </ul>
 </li>
@@ -140,12 +142,15 @@
 <li><a href="#test"><strong>测试</strong></a></li>
 <li><a href="#dataset"><strong>数据集</strong></a></li>
 <li><a href="#tools"><strong>工具</strong></a><ul>
-<li><a href="#v2x">V2X</a></li>
 <li><a href="#ros">ROS</a></li>
 </ul>
 </li>
 <li><a href="#misc"><strong>杂项</strong></a></li>
 </ul>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>如果有任何纠正、完善的地方（不限于仓库的描述、增加其他仓库等），请随时提交 <a href="https://github.com/OpenHUTB/doc/pulls">Pull Request</a> 修改该页面。</p>
+</div>
 <h2 id="_1">感知 <span id="perception"></span></h2>
 <p><a href="https://github.com/pichayakorn/carla-temporal-collage-prompting">驾驶事故视频识别</a></p>
 <p><a href="https://github.com/chensiweiTHU/WHALES">车辆之间的协作感知</a></p>
@@ -194,8 +199,14 @@
 <p><a href="https://github.com/sushmamareddy/Autonomous-Driving---SSL-RL">自监督多模态感知 + 自动驾驶强化学习</a></p>
 <h3 id="_6">激光雷达 <span id="LiDAR"></span></h3>
 <p><a href="https://github.com/DivitMittal/CARLA-Autonomous-Driving">全面的环境感知</a></p>
+<h3 id="v2x">V2X <span id="V2X"></span></h3>
+<p><a href="https://github.com/fzi-forschungszentrum-informatik/EcoLead">用于城市车辆高效编队的集中式决策框架</a> - 利用实时车联网（V2X）通信，特别是信号相位和时间（SPaT）数据，来优化车辆轨迹并最大限度地降低油耗</p>
+<p><a href="https://github.com/CollaborativePerception/V2Xverse">协作式自动驾驶：仿真平台和端到端系统</a></p>
+<p><a href="https://github.com/Pushpak1203/V2X-Communication">自适应路径规划、V2X 通信和能量感知 WSN 路由的集成仿真框架</a></p>
+<p><a href="https://github.com/meng2180/V2X-Cooperative-Perception">评估不完善的合作感知对自动驾驶安全违规行为的影响</a> - V2X 协同感知</p>
 <h3 id="_7">其他 <span id="other"></span></h3>
 <p><a href="https://github.com/xingjianleng/AdMVDet">自适应多视图检测</a></p>
+<p><a href="https://github.com/elandrum/Occlusion-Aware-Perception">遮挡感知</a> - 测试和评估自动驾驶车辆在复杂遮挡场景下的感知和控制能力</p>
 <p><a href="https://github.com/MoritzNekolla/AE_Anomaly_Detection">异常检测</a></p>
 <p><a href="https://github.com/guilherme1guy/carla_darknet_integration">使用 YOLO 和 CARLA 模拟器通过 IPM 和立体视觉进行距离估计</a></p>
 <p><a href="https://github.com/dasmehdix/Carla_IMU_Classifier">Carla_IMU_分类器</a></p>
@@ -220,6 +231,7 @@
 <p><a href="https://github.com/yunyus/Autonomous-Driving-DQN">DQN 实现自动驾驶</a></p>
 <p><a href="https://github.com/DIASENGUPTA/UniLCD">通过强化学习实现本地云统一决策</a></p>
 <p><a href="https://github.com/Piotr-Czechowski/AV">利用强化学习完成各种自主任务</a> ：简单</p>
+<p><a href="https://github.com/RealMyth21/self-driving-car-cnn">应用 Actor-Critic 强化学习算法</a></p>
 <p><a href="https://github.com/richard-dao/CARLA-StableBaselines3">针对自动驾驶汽车的 Stable-Baselines3 强化学习算法</a></p>
 <p><a href="https://github.com/rohanNkhaire/RL_SB3_carla">训练深度强化学习代理，让车辆自主遵循路径</a> - 使用语义分割传感器作为输入</p>
 <p><a href="https://github.com/dagokl/naive_driving_agent">使用模仿学习来训练驾驶代理</a></p>
@@ -282,9 +294,11 @@
 <p><a href="https://github.com/LatentSpaceExplorer/autonomous-driving-in-carla-using-rllib">使用 Ray RLlib 在 CARLA 模拟器中训练强化学习代理的框架</a> - 专注于车道居中</p>
 <p><a href="https://github.com/Anujchobe/Crashless">近端策略优化 (PPO) 和软行为者-评论 (SAC)</a> - 来训练和评估 AI 在导航和避障任务</p>
 <p><a href="https://github.com/calstephano/CARLA-Gymnasium-RL">定制的 CARLA Gymnasium 环境</a></p>
+<p><a href="https://github.com/Anujchobe/Crashless">训练和评估人工智能在导航和避障任务中的性能</a> - 近端策略优化 (PPO) 和软 Actor-Critic (SAC) 技术</p>
 <p><a href="https://github.com/Jerrychin125/Autonomous-Driving-Car-Simulation-with-CARLA">端到端深度 Q 学习管道</a></p>
 <h4 id="dqn">DQN</h4>
 <p><a href="https://github.com/yunyus/Autonomous-Driving-DQN">深度Q网络（DQN）算法的实现，如何在车道内以尽可能快的速度行驶，且不发生任何碰撞</a></p>
+<p><a href="https://github.com/Transcendence-Industries/Selfdriving-Cars">通过前置 RGB 摄像头在CARLA模拟器中学习驾驶的深度 Q 学习智能体</a></p>
 <p><a href="https://github.com/limeng-1234/Pos_Shap">基于智能驾驶员模型的深度量子网络</a></p>
 <h3 id="_10">建图 <span id="mapping"></span></h3>
 <p><a href="https://github.com/Ashwin-Rajesh/Kalman_filter_carla">使用 gnss 和 IMU 数据实现自动驾驶汽车的卡尔曼滤波器</a></p>
@@ -316,7 +330,6 @@
 <p><a href="https://github.com/xiayuyang/AUTO">多模态感知的参数化决策框架</a></p>
 <p><a href="https://github.com/greenday12138/AUTO">多模态感知分层决策框架</a></p>
 <p><a href="https://github.com/adhocmaster/carla-jaywalker-experiments">自动驾驶汽车系统的对抗性闯红灯行为</a></p>
-<p><a href="https://github.com/fzi-forschungszentrum-informatik/EcoLead">用于高效城市车辆编队行驶的集中式决策框架</a> - 利用实时车联网 (V2X) 通信，特别是信号相位和时序 (SPaT) 数据，来优化车辆行驶轨迹并最大限度地降低油耗</p>
 <h2 id="_15">控制 <span id="control"></span></h2>
 <p><a href="https://github.com/MoYasser1777/Digital-Twin-GP">模型预测控制</a></p>
 <p><a href="https://github.com/rhalaly/Adaptive-MPC-With-SNN">使用脉冲神经网络和实时学习的连续自适应非线性模型预测控制</a></p>
@@ -387,7 +400,9 @@
 <p><a href="https://github.com/yjwangtj/RA-ADC">基于视觉语言模型的检索增强自动驾驶极端情况理解</a></p>
 <p><a href="https://github.com/YXTong17/LMDrive-FL">LMDrive：基于大型语言模型的闭环端到端驱动</a></p>
 <p><a href="https://github.com/Traffic-Alpha/iLLM-TSC">iLLM-TSC：集成强化学习和大型语言模型以改进交通信号控制策略</a></p>
+<p><a href="https://github.com/SumukhP-dev/carla-autopilot-multimodal-llm-vision-transformer-ai-model">CARLA自动驾驶多模态LLM/视觉转换器模型</a></p>
 <p><a href="https://github.com/ldegao/ScenarioFuzz-LLM">利用大型语言模型（LLM）增强自动驾驶场景模糊测试的多样性</a></p>
+<p><a href="https://github.com/kims124/Dynamic_Termination_for_CarDreamer">学习一个世界模型来模拟交通动态；然后根据世界模型的想象训练一个驾驶智能体</a></p>
 <p><a href="https://github.com/SumukhP-dev/CARLA_Autopilot_LLM">将传感器图像转换为文本</a> - 使用视觉转换模型将传感器图像转换为文本，并将音频文件转换为文本，以提示 Gemini 模型向汽车发出方向。</p>
 <p><a href="https://github.com/heavencandle/BackseatDriver">使用LLM技术移动机器人或车辆的模拟器</a></p>
 <p><a href="https://github.com/AdityaNG/DriveLLaVA">使用大型视觉模型作为 AV 的驱动代理</a></p>
@@ -418,7 +433,6 @@
 <p><a href="https://github.com/angelomorgado/CARLA-GymDrive">创建驾驶场景来训练/测试代理</a></p>
 <p><a href="https://github.com/KE7/ScenicNL">复合 AI 系统可以根据崩溃报告描述生成Scenic程序</a></p>
 <p><a href="https://github.com/TmacAaron/world_model">自动驾驶的 3D 体素重建和世界模型</a></p>
-<p><a href="https://github.com/hustvl/VAD">高效自动驾驶的矢量化场景表示</a></p>
 <p><a href="https://github.com/AugmentedDesignLab/junction-art">开发和测试的高清地图交叉路口的程序化生成</a></p>
 <p><a href="https://github.com/Shreyasramakrishna90/Risk-Aware-Scene-Generation">风险感知场景采样，实现自主系统的动态保障</a></p>
 <p><a href="https://github.com/scope-lab-vu/Risk-Aware-Scene-Generation-CPS">用于自主系统动态保障的风险感知场景采样</a></p>
@@ -468,6 +482,7 @@
 <h2 id="_24">多智能体 <span id="mulgi_agent"></span></h2>
 <p><a href="https://github.com/csuce2202/Carla_RL_Multi_Agent">多智能体强化学习</a></p>
 <p><a href="https://github.com/TrustAISys/cmad-gym">可定制多智能体训练营</a></p>
+<p><a href="https://github.com/AutonomousDrivingExaminer/mats-gym">MATS-Gym 是一个PettingZoo环境，用于在 CARLA 中训练和评估自动驾驶代理。该环境可基于以ScenarioRunner形式实现的场景创建，从而能够利用大量现有的驾驶场景。此外，我们还提供了与Scenic 的集成，允许我们从 Scenic 规范中采样场景</a></p>
 <p><a href="https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io">基于LLM的交通流生成</a> ，效果<a href="https://github.com/CXYyp5SkNg/CXYyp5SkNg.github.io/blob/main/README.md">视频</a> </p>
 <p><a href="https://github.com/fzi-forschungszentrum-informatik/informed_rl">情境感知交通规则例外情况的知情强化学习</a></p>
 <p><a href="https://github.com/TrustAISys/cmad-gym">用于可靠自动驾驶的高级可定制多智能体训练平台</a></p>
@@ -541,6 +556,7 @@
 <p><a href="https://github.com/alanshuo123/AMATest">多智能体对抗测试平台</a></p>
 <p><a href="https://github.com/AtongWang/ScenarioFuzz">ScenarioFuzz 是一个专注于在场景级别对自动驾驶系统进行模糊测试的框架</a></p>
 <p><a href="https://github.com/1127705669/EDrive">可加速自动驾驶汽车的开发、测试和部署</a></p>
+<p><a href="https://github.com/MaximIgenbergs/thesis-robust-e2e-vision-ads">基于视觉的端到端驾驶模型中视觉鲁棒性和拓扑泛化能力的双轴测试</a></p>
 <p><a href="https://github.com/946548737619/LeaderboardV2_Roach">将 Roach 迁移到 LeaderboardV2</a></p>
 <p><a href="https://github.com/LIIHWF/autopilot-compositional-testing">CCTest：自动驾驶系统的关键配置测试</a></p>
 <p><a href="https://github.com/YangyangFu/fsd-agents-carla">在 Carla 模拟器中评估完全自动驾驶的端到端智能体</a></p>
@@ -560,6 +576,7 @@
 <p><a href="https://github.com/yjzhai-cs/CarlaScapes">CarlaScapes 数据集：车辆语义分割</a></p>
 <p><a href="https://github.com/RyangDiaz/carla-yolo-dataset-generator">YOLO数据生成器</a></p>
 <p><a href="https://github.com/aws-samples/synthSceneGen">为汽车和制造业用例生成合成数据</a></p>
+<p><a href="https://github.com/linarthurlin/Carla-Project">为自动驾驶研究提供多传感器数据采集、实时可视化、车道检测和数据集记录功能</a></p>
 <p><a href="https://github.com/PDillis/carla-data-collection">简单数据收集功能</a></p>
 <p><a href="https://github.com/UTAustin-SwarmLab/SynDiff-AD">SynDiff-AD：基于扩散模型的自动驾驶合成数据生成</a></p>
 <p><a href="https://github.com/Merealtea/CarlaEnv">Carla 环境收集数据</a></p>
@@ -598,6 +615,13 @@
 <p><a href="https://github.com/Guthax/Sim2Sim2Real">在各种环境中尝试训练和迁移深度强化模型</a></p>
 <p><a href="https://github.com/ZhilingResearch/Libra">LIBRA：车辆抬头显示器智能设计与验证的一站式平台</a></p>
 <p><a href="https://github.com/zhumorui/CARLA2NMR">用于可视化、跟踪和映射 CARLA 模拟器数据的查看器</a></p>
+<p><a href="https://github.com/visionpilot-project/VisionPilot">开源模块化自动驾驶仿真平台</a> - 融合了计算机视觉、深度学习和传感器融合技术。基于 BeamNG.tech，具备车道检测、物体识别和自适应控制等功能，并通过 Foxglove 实现实时可视化</p>
+<p><a href="https://github.com/hustvl/VAD">VAD：用于高效自动驾驶的矢量化场景表示</a></p>
+<p><a href="https://github.com/ilias-brk/ADAS">ADAS：高级驾驶辅助系统</a></p>
+<p><a href="https://github.com/Intelligent-Testing-Lab/cawsr">CAWSR：支持 Autoware 的 CARLA 场景运行器</a></p>
+<p><a href="https://github.com/HazardScopeX/HazardScopeX">面向自动驾驶仿真的因子注入框架</a></p>
+<p><a href="https://github.com/AholicJH/ISSCAR">智能自动驾驶系统（ISS）是一个用于研究的自动驾驶框架</a> - 该代码已在Ubuntu 20.04上测试通过</p>
+<p><a href="https://github.com/LatentSpaceExplorer/autonomous-driving-in-carla-using-rllib">使用 Ray RLlib 进行 CARLA 深度强化学习</a></p>
 <p><a href="https://github.com/johnny-mai7/carlaSimulator">允许研究人员在模拟环境中对各种车辆进行驾驶试验并记录</a></p>
 <p><a href="https://github.com/CommonRoad/commonroad-carla-interface">提供 API 以将基于 CommonRoad 的工具与CARLA一起使用</a> </p>
 <p><a href="https://github.com/VIPERFGCU/FGCUDrivingSimulator">CARLA模拟试验管理</a></p>
@@ -625,7 +649,6 @@
 <p><a href="https://github.com/commaai/openpilot">驾驶辅助系统</a> </p>
 <p><a href="https://github.com/r66auto/Sunnypilot2">sunnypilot是openpilot 的一个分支</a> - <a href="https://github.com/RalphHightower/openpilot">另一个分支</a> 、<a href="https://github.com/dragonpilot/source_r2">source_r2</a></p>
 <p><a href="https://github.com/opgm/openpilot">增加了一些舒适性和生活质量改进</a></p>
-<p><a href="https://github.com/CollaborativePerception/V2Xverse">协作式自动驾驶：仿真平台和端到端系统</a></p>
 <p><a href="https://github.com/ucd-dare/CarDreamer">基于世界模型的 CARLA 自动驾驶平台</a></p>
 <p><a href="https://github.com/Daraan/LunaticAI-Driver-for-CARLA-Simulator?tab=readme-ov-file">模块化的基于规则的代理系统</a></p>
 <p><a href="https://github.com/Creepersheep/CarlaFLCAV">FLCAV 仿真平台</a> - 多模态数据集生成、训练和推理、各种 FL 框架、基于优化的模块。</p>
@@ -679,21 +702,19 @@
 <p><a href="https://github.com/suayu/Carla_line_drawer">该插件允许您在 Carla 模拟器中控制俯视摄像机、在 Carla 模拟器中绘制线条并保存参考点</a></p>
 <p><a href="https://github.com/richard-dao/CARLA-StableBaselines3">在 Kubernetes 集群上的 CARLA 模拟器上运行用于自动驾驶车辆的稳定基线 3 强化学习算法</a></p>
 <p><a href="https://github.com/1127705669/EDrive">EDrive 是一种高性能、灵活的架构，可加速自动驾驶汽车的开发、测试和部署</a></p>
+<p><a href="https://github.com/johnMinelli/carla-gym">Carla-gym是一个用于在 CARLA 自动驾驶模拟器之上实例化强化学习 (RL) 环境的接口</a></p>
 <p><a href="https://github.com/sjrurdnxia/AIEALab">基于gym-carla库的 CARLA gym 环境</a> - 可使用前置、后置和两个侧置摄像头提供观测状态详情，还可以通过激光雷达 (LIDAR) 实现基于点云的自上而下的视图</p>
-<h3 id="v2x">V2X <span id="v2x"></span></h3>
-<p><a href="https://github.com/Pushpak1203/V2X-Communication">自适应路径规划、V2X 通信和能量感知 WSN 路由的集成仿真框架</a></p>
 <h3 id="ros">ROS <span id="ros"></span></h3>
 <p><a href="https://github.com/rohankhaire-work/carla-ros2-env">CARLA 0.9.15 上使用 ROS2 模拟</a></p>
 <p><a href="https://github.com/fengyeying/carla_autoware_bridge">将 CARLA 模拟器连接到 Autoware Universe 软件的附加软件包</a></p>
 <p><a href="https://github.com/JesusAnaya/tfm-carla-ros2-bridge">Carla ROS2 Bridge</a></p>
 <p><a href="https://github.com/MohamedOmda92/haptic_carla_pkg">基于触觉的 CARLA 模拟的 ROS 包</a></p>
-<p><a href="">ROS 的应用程序</a></p>
+<p><a href="https://github.com/RobEn-AAST/shell_controller_2025">在ROS CARLA仿真中构建的自动驾驶汽车系统用于SHELL竞赛，并对从强化学习到经典PID控制的多种解决方案进行了基准测试</a></p>
 <p><a href="https://github.com/KON-Team/shell_simulation">壳牌环保马拉松 2022 自主编程比赛 ROS 软件包</a></p>
 <p><a href="https://github.com/amansrf/ROAR_RL_ROS">ROAR RL 管道的 ROS2 基础设施</a></p>
 <p><a href="https://github.com/amansrf/ros_roar_streamer">ROAR 的 ROS 子模块</a></p>
 <p><a href="https://github.com/invimirage/CSC791Project">使用 ROS2-CARLA 将 LiDar 集成到 Carla</a></p>
 <p><a href="https://github.com/WATonomous/wato_monorepo">WATonomous 自动驾驶汽车软件管道的 Docker 化 ROS2 设置</a></p>
-<p><a href="https://github.com/RobEn-AAST/shell_controller_2025">ROS控制</a></p>
 <h2 id="_32">杂项 <span id="misc"></span></h2>
 <p><a href="https://github.com/davidedimarco00/SVS-Project">智能车辆系统项目</a></p>
 <p><a href="https://github.com/mantekarys/AITyrimas">AITyrimas</a></p>
@@ -702,8 +723,13 @@
 <p><a href="https://github.com/Piotr-Czechowski/AV">在 Carla 模拟器中开发能够完成各种自主任务的模型</a></p>
 <p><a href="https://github.com/sutasmantas/AITyrimas">AITyrimas</a></p>
 <p><a href="https://github.com/deepc0py/weathering-the-storm">CARLA自动驾驶车辆仿真</a></p>
+<p><a href="https://github.com/yasminatamerr/myPROJECTS-">myPROJECTS-</a></p>
+<p><a href="https://github.com/PDillis/carla-data-collection">使用 CARLA 进行数据收集</a></p>
+<p><a href="https://github.com/bubu123-dotcom/SANDWICH-ICSE">SANDWICH-ICSE</a></p>
+<p><a href="https://github.com/KAIR-PRM/AP-Laboratories">AP-Laboratories</a></p>
 <p><a href="https://github.com/Dan-Bu/CARLA_experiments">CARLA_experiments</a></p>
 <p><a href="https://github.com/jonathanung/AutoStop">能够避开所有障碍物完成路线行驶</a></p>
+<p><a href="https://github.com/mathali/ROSBENCH">ROSBENCH</a></p>
 <p><a href="https://github.com/benedettapacilli/smart-vehicular-systems-lab-exercises">智能车辆系统实验室练习</a></p>
 <p><a href="https://github.com/capstone-RL-teamproject/carla_sac_version1">carla_sac_version1</a></p>
 <p><a href="https://github.com/DebSaikia892/Self-Driving-model-RL">使用 CARLA 的 RL 自动驾驶项目</a></p>
@@ -840,7 +866,6 @@
 <p><a href="https://github.com/cuiao66/ConeRouteNet">ConeRouteNet</a></p>
 <p><a href="https://github.com/rahuldavanam/studentarbeit-final">学生作业studentarbeit-final</a> - 包括数据生成、图像处理、训练、部署、导航</p>
 <p><a href="https://github.com/lemul4/MitsuNeuroPilotAPI">基于神经网络技术的智能自动驾驶代理的开发</a></p>
-<p><a href="https://github.com/RobEn-AAST/shell_controller_2025">shell_controller_2025</a></p>
 <p><a href="https://github.com/ShuaiwuDong/VLM-RLv2">强化学习VLM-RLv2</a></p>
 <p><a href="https://github.com/devprosvn/active-suspension-motion-planning-research-student-research">主动悬架运动规划研究</a></p>
 <p><a href="https://github.com/mdhasim01/NavionIQ">NavionIQ</a></p>
