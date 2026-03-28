@@ -116,11 +116,10 @@
 <li><a href="#10">🚀 部署步骤 (核心 10 步)</a></li>
 <li><a href="#_6">🎉 部署成功示例</a></li>
 <li><a href="#_9">🛑 服务管理与停止</a></li>
-<li><a href="#14">❗ 常见报错与解决方法 (14 问)</a></li>
-<li><a href="#_10">🔒 安全注意事项</a></li>
-<li><a href="#_11">📂 仓库文件说明</a></li>
-<li><a href="#_12">📚 参考资料</a></li>
-<li><a href="#_13">👤 关于作者</a></li>
+<li><a href="#_13">❗ 常见报错与解决方法</a></li>
+<li><a href="#_14">🔒 安全注意事项</a></li>
+<li><a href="#_15">📚 参考资料</a></li>
+<li><a href="#_16">👤 关于作者</a></li>
 </ul>
 <hr />
 <h2 id="_2">🖥️ 环境信息</h2>
@@ -252,14 +251,30 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 <h3 id="_7">第七步：运行配置向导</h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">openclaw-cli</span> <span class="n">configure</span>
 </code></pre></div>
-按照向导提示依次配置：
-- <strong>Gateway 位置</strong>：选 <code>Local (this machine)</code>
-- <strong>配置项目</strong>：选 <code>Gateway</code>
-- <strong>Gateway port</strong>：填 <code>18789</code>
-- <strong>Gateway bind mode</strong>：选 <code>LAN (All interfaces)</code>
-- <strong>Gateway auth</strong>：选 <code>Token</code>
-- <strong>Tailscale exposure</strong>：选 <code>Off</code>
-- <strong>Gateway token</strong>：填入 <code>.env</code> 里的 OPENCLAW_GATEWAY_TOKEN</p>
+按照向导提示依次配置：</p>
+<ul>
+<li>
+<p><strong>Gateway 位置</strong>：选 <code>Local (this machine)</code></p>
+</li>
+<li>
+<p><strong>配置项目</strong>：选 <code>Gateway</code></p>
+</li>
+<li>
+<p><strong>Gateway port</strong>：填 <code>18789</code></p>
+</li>
+<li>
+<p><strong>Gateway bind mode</strong>：选 <code>LAN (All interfaces)</code></p>
+</li>
+<li>
+<p><strong>Gateway auth</strong>：选 <code>Token</code></p>
+</li>
+<li>
+<p><strong>Tailscale exposure</strong>：选 <code>Off</code></p>
+</li>
+<li>
+<p><strong>Gateway token</strong>：填入 <code>.env</code> 里的 <code>OPENCLAW_GATEWAY_TOKEN</code></p>
+</li>
+</ul>
 <h3 id="_8">第八步：健康检查</h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">openclaw-cli</span> <span class="n">health</span>
 </code></pre></div>
@@ -295,59 +310,40 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 <li><strong>只看智能路由链路日志</strong>：<code>docker compose logs -f siliconflow-proxy</code></li>
 </ul>
 <hr />
-<h2 id="14">❗ 常见报错与解决方法 (14 问)</h2>
-<details>
-<summary><b>🔥 点击展开查看完整排障档案</b></summary>
-
-#### [容器与镜像级异常]
-**1. `pull access denied for openclaw`**
-- **排障**：官方核心引擎尚未提供公共构建，必须在本地执行 `docker build -t openclaw:local .` 完成本地编译。
-
-**2. 容器频繁退出 `OOMKilled` 或 `Exit Code 137`**
-- **排障**：系统成功防御了内存溢出。通常是因为发送了未经压缩的超大载荷（如>10MB图像）击穿了 `512MB` 的物理限制。使用附带的 `ask_vision.cjs` 可进行前端拦截。
-
-#### [网络与网关路由异常]
-**3. `[proxy] request error: client disconnected`**
-- **排障**：若偶发，此为 Node.js 正常的长连接生命周期结束；若大面积报错且伴随 502，说明你的 API Key 触发了上游服务商的速率限制 (Rate Limit)，建议增加 Key 池数量。
-
-**4. `LLM request timed out`**
-- **排障**：通过 `docker compose logs siliconflow-proxy` 查看日志。通常是云端节点拥堵，或本地网关容器未正常启动。
-
-**5. `ERR_EMPTY_RESPONSE` / `non-loopback Control UI requires...`**
-- **排障**：网关绑定为局域网 (LAN) 时，必须在 `openclaw.json` 中配置 `dangerouslyAllowHostHeaderOriginFallback: true` 以允许跨域源站校验。
-
-#### [认证与权限异常]
-**6. `SILICONFLOW_DEEPSEEK_API_KEY is not set` / 启动报错**
-- **排障**：检查 `.env` 文件。确保多个 `SILICONFLOW_*` 变量名拼写正确，且**等号前后绝对不能有空格**。
-
-**7. `Verification failed: status 402`**
-- **排障**：上游模型路由寻址成功，但拒绝服务。说明对应 SiliconFlow 账户配额耗尽。
-
-**8. `gateway token mismatch` / `unauthorized: gateway token missing`**
-- **排障**：网页端或 `.env` 中输入的 Token 与沙盒配置库 (`openclaw.json`) 中记录的不一致。重跑 `configure` 向导覆写。
-
-**9. `pairing required`**
-- **排障**：新的终端（如浏览器）首次连接需执行设备签权：使用 `devices list` 查看，并用 `devices approve <id>` 批准。
-
-#### [文件与配置异常]
-**10. `Missing config`（Gateway 一直重启）**
-- **排障**：本仓库模板已在 `docker-compose.yml` 中附加 `--allow-unconfigured` 参数彻底解决此问题，请检查编排文件版本。
-
-**11. `ERR_CONNECTION_REFUSED` (Gateway 容器崩溃)**
-- **排障**：手写 `openclaw.json` 时破坏了 JSON 语法规范。使用 JSON 校验工具修复后重启。
-
-**12. `404 status code (no body)`**
-- **排障**：Agent 路由寻址失败。确认 `openclaw.json` 中的 `model` 字段值指向了正确的供应商接口 (`siliconflow/deepseek`)。
-
-**13. `SILICONFLOW_API_KEY is not set` (单 Key 报错)**
-- **排障**：仍在运行旧版的“单 Key 路由”脚本。请用最新的 `proxy.js`（多路独立路由版）覆盖，并重启容器。
-
-**14. 僵尸工具进程永久挂起**
-- **排障**：调用 `web_fetch` 时系统卡死。请检查是否未挂载 `custom_tools/` 目录下的安全脚本（已内置 30 秒强制超时熔断锁）。
-
-</details>
-<p><br></p>
-<h2 id="_13">🔒 安全注意事项</h2>
+<h2 id="_13">❗ 常见报错与解决方法</h2>
+<h4 id="_14">[容器与镜像级异常]</h4>
+<p><strong>1. <code>pull access denied for openclaw</code></strong>
+- <strong>排障</strong>：官方核心引擎尚未提供公共构建，必须在本地执行 <code>docker build -t openclaw:local .</code> 完成本地编译。</p>
+<p><strong>2. 容器频繁退出 <code>OOMKilled</code> 或 <code>Exit Code 137</code></strong>
+- <strong>排障</strong>：系统成功防御了内存溢出。通常是因为发送了未经压缩的超大载荷（如&gt;10MB图像）击穿了 <code>512MB</code> 的物理限制。使用附带的 <code>ask_vision.cjs</code> 可进行前端拦截。</p>
+<h4 id="_15">[网络与网关路由异常]</h4>
+<p><strong>3. <code>[proxy] request error: client disconnected</code></strong>
+- <strong>排障</strong>：若偶发，此为 Node.js 正常的长连接生命周期结束；若大面积报错且伴随 502，说明你的 API Key 触发了上游服务商的速率限制 (Rate Limit)，建议增加 Key 池数量。</p>
+<p><strong>4. <code>LLM request timed out</code></strong>
+- <strong>排障</strong>：通过 <code>docker compose logs siliconflow-proxy</code> 查看日志。通常是云端节点拥堵，或本地网关容器未正常启动。</p>
+<p><strong>5. <code>ERR_EMPTY_RESPONSE</code> / <code>non-loopback Control UI requires...</code></strong>
+- <strong>排障</strong>：网关绑定为局域网 (LAN) 时，必须在 <code>openclaw.json</code> 中配置 <code>dangerouslyAllowHostHeaderOriginFallback: true</code> 以允许跨域源站校验。</p>
+<h4 id="_16">[认证与权限异常]</h4>
+<p><strong>6. <code>SILICONFLOW_DEEPSEEK_API_KEY is not set</code> / 启动报错</strong>
+- <strong>排障</strong>：检查 <code>.env</code> 文件。确保多个 <code>SILICONFLOW_*</code> 变量名拼写正确，且<strong>等号前后绝对不能有空格</strong>。</p>
+<p><strong>7. <code>Verification failed: status 402</code></strong>
+- <strong>排障</strong>：上游模型路由寻址成功，但拒绝服务。说明对应 SiliconFlow 账户配额耗尽。</p>
+<p><strong>8. <code>gateway token mismatch</code> / <code>unauthorized: gateway token missing</code></strong>
+- <strong>排障</strong>：网页端或 <code>.env</code> 中输入的 Token 与沙盒配置库 (<code>openclaw.json</code>) 中记录的不一致。重跑 <code>configure</code> 向导覆写。</p>
+<p><strong>9. <code>pairing required</code></strong>
+- <strong>排障</strong>：新的终端（如浏览器）首次连接需执行设备签权：使用 <code>devices list</code> 查看，并用 <code>devices approve &lt;id&gt;</code> 批准。</p>
+<h4 id="_17">[文件与配置异常]</h4>
+<p><strong>10. <code>Missing config</code>（Gateway 一直重启）</strong>
+- <strong>排障</strong>：本仓库模板已在 <code>docker-compose.yml</code> 中附加 <code>--allow-unconfigured</code> 参数彻底解决此问题，请检查编排文件版本。</p>
+<p><strong>11. <code>ERR_CONNECTION_REFUSED</code> (Gateway 容器崩溃)</strong>
+- <strong>排障</strong>：手写 <code>openclaw.json</code> 时破坏了 JSON 语法规范。使用 JSON 校验工具修复后重启。</p>
+<p><strong>12. <code>404 status code (no body)</code></strong>
+- <strong>排障</strong>：Agent 路由寻址失败。确认 <code>openclaw.json</code> 中的 <code>model</code> 字段值指向了正确的供应商接口 (<code>siliconflow/deepseek</code>)。</p>
+<p><strong>13. <code>SILICONFLOW_API_KEY is not set</code> (单 Key 报错)</strong>
+- <strong>排障</strong>：仍在运行旧版的“单 Key 路由”脚本。请用最新的 <code>proxy.js</code>（多路独立路由版）覆盖，并重启容器。</p>
+<p><strong>14. 僵尸工具进程永久挂起</strong>
+- <strong>排障</strong>：调用 <code>web_fetch</code> 时系统卡死。请检查是否未挂载 <code>custom_tools/</code> 目录下的安全脚本（已内置 30 秒强制超时熔断锁）。</p>
+<h2 id="_18">🔒 安全注意事项</h2>
 <ol>
 <li><strong>绝对不要</strong>将 <code>.env</code> 文件上传到 GitHub。</li>
 <li>本方案通过 <code>config/openclaw.json</code> 强制开启了 <code>sandbox: non-main</code> 降级策略，限制非主私聊环境下的系统级指令执行权限。</li>
@@ -365,7 +361,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
     └─ 常规纯文本请求 (Default) ─────────→ DeepSeek-V3.2 (TEXT_KEY 通用池)
 </code></pre></div></p>
 <hr />
-<h2 id="_14">📚 参考资料</h2>
+<h2 id="_19">📚 参考资料</h2>
 <ul>
 <li><a href="https://docs.openclaw.ai">Openclaw 官方文档</a></li>
 <li><a href="https://docs.siliconflow.cn">SiliconFlow API Reference</a></li>
@@ -373,7 +369,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 <li><a href="https://www.docker.com">Docker Desktop 官网</a></li>
 </ul>
 <hr />
-<h2 id="_15">👤 关于作者</h2>
+<h2 id="_20">👤 关于作者</h2>
 <p><strong>湖南工商大学 机器人工程专业 本科在读</strong> </p>
 <p>欢迎大家进行讨论和复现。如有问题或优化建议，欢迎提交 <a href="https://github.com/Syysean/openclaw-expert-matrix/issues">Issue</a> 或 PR！</p>
               
