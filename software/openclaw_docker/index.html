@@ -107,7 +107,8 @@
 <img alt="License" src="https://img.shields.io/badge/License-MIT-green" /></p>
 <p>本项目提供一个完整的实战教程，演示如何在 Windows 11 环境下使用 Docker 部署 OpenClaw 具身智能代理底座。针对原生架构在多模态与本地资源管理上的局限，本方案通过自建 <strong>MAS (Multi-Agent Surrogate) 智能路由代理</strong>，成功对接 SiliconFlow 平台，实现了多模态专家模型（DeepSeek 与 Qwen 系列）的动态分发，并内置了严密的物理隔离与资源熔断防线。</p>
 <p>本教程记录了从底层重构到部署落地的所有详细步骤与<strong>海量踩坑经验</strong>，极具实战参考价值。</p>
-<hr />
+<h2 id="_1">示意图</h2>
+<p><img alt="OpenClaw Experts Matrix Architecture" src="../../img/software/expert-matrix.svg" /></p>
 <h2 id="table-of-contents">📑 Table of Contents / 目录</h2>
 <ul>
 <li><a href="#️_1">🖥️ 环境信息</a></li>
@@ -122,7 +123,7 @@
 <li><a href="#_13">👤 关于作者</a></li>
 </ul>
 <hr />
-<h2 id="_1">🖥️ 环境信息</h2>
+<h2 id="_2">🖥️ 环境信息</h2>
 <p>以下是本系统实测通过的软硬件环境配置：</p>
 <table>
 <thead>
@@ -159,7 +160,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_2">📋 前置准备 (必看)</h2>
+<h2 id="_3">📋 前置准备 (必看)</h2>
 <h3 id="1-windows-wsl2">1. 开启 Windows 虚拟化与 WSL2 (核心避坑)</h3>
 <p>在 Windows 11 上运行 Docker 强依赖 WSL2：
 1. 确保在电脑 BIOS 中已开启<strong>CPU虚拟化</strong>（任务管理器 -&gt; 性能 -&gt; CPU 中可查看“虚拟化：已启用”）。
@@ -195,7 +196,7 @@
 <span class="n">git</span> <span class="n">clone</span> <span class="p">-</span><span class="n">-depth</span> <span class="n">1</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">openclaw</span><span class="p">/</span><span class="n">openclaw</span>
 <span class="nb">cd </span><span class="n">openclaw</span>
 </code></pre></div></p>
-<h3 id="_3">第三步：部署架构重构模板与魔改工具库</h3>
+<h3 id="_4">第三步：部署架构重构模板与魔改工具库</h3>
 <div class="highlight"><pre><span></span><code><span class="c"># 克隆本仓库部署模板</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">Syysean</span><span class="p">/</span><span class="n">openclaw-deepseek-deploy</span> <span class="n">D</span><span class="p">:\</span><span class="n">AI</span><span class="p">\</span><span class="n">openclaw-deploy</span>
 
@@ -209,7 +210,7 @@
 <span class="n">mkdir</span> <span class="n">-p</span> <span class="n">D</span><span class="p">:\</span><span class="n">AI</span><span class="p">\</span><span class="n">openclaw</span><span class="p">\</span><span class="n">workspace</span><span class="p">\</span><span class="n">tools</span>
 <span class="nb">Copy-Item</span> <span class="n">D</span><span class="p">:\</span><span class="n">AI</span><span class="p">\</span><span class="n">openclaw-deploy</span><span class="p">\</span><span class="n">custom_tools</span><span class="p">\*</span> <span class="n">D</span><span class="p">:\</span><span class="n">AI</span><span class="p">\</span><span class="n">openclaw</span><span class="p">\</span><span class="n">workspace</span><span class="p">\</span><span class="n">tools</span><span class="p">\</span> <span class="n">-Recurse</span> <span class="n">-Force</span>
 </code></pre></div>
-<h3 id="_4">第四步：配置环境变量 (⚠️ 极易踩坑)</h3>
+<h3 id="_5">第四步：配置环境变量 (⚠️ 极易踩坑)</h3>
 <p>复制模板文件并编辑：
 <div class="highlight"><pre><span></span><code><span class="nb">Copy-Item</span> <span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="n">example</span> <span class="p">.</span><span class="n">env</span>
 <span class="n">notepad</span> <span class="p">.</span><span class="n">env</span>
@@ -235,7 +236,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 <blockquote>
 <p>⏳ 若遇到 <code>unexpected EOF</code> 错误，通常是网络中断导致，重新运行即可。</p>
 </blockquote>
-<h3 id="_5">第六步：启动容器与物理熔断机制</h3>
+<h3 id="_6">第六步：启动容器与物理熔断机制</h3>
 <p>本系统的 <code>docker-compose.yml</code> 已内置针对 Proxy 的 <code>512MB</code> 内存物理锁：
 <div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">up</span> <span class="n">-d</span>
 <span class="n">docker</span> <span class="n">compose</span> <span class="nb">ps</span>
@@ -248,7 +249,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 [proxy]  视觉专家 (vision)   -&gt; Qwen/Qwen3-VL-32B-Instruct
 ...
 </code></pre></div></p>
-<h3 id="_6">第七步：运行配置向导</h3>
+<h3 id="_7">第七步：运行配置向导</h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">openclaw-cli</span> <span class="n">configure</span>
 </code></pre></div>
 按照向导提示依次配置：
@@ -259,7 +260,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 - <strong>Gateway auth</strong>：选 <code>Token</code>
 - <strong>Tailscale exposure</strong>：选 <code>Off</code>
 - <strong>Gateway token</strong>：填入 <code>.env</code> 里的 OPENCLAW_GATEWAY_TOKEN</p>
-<h3 id="_7">第八步：健康检查</h3>
+<h3 id="_8">第八步：健康检查</h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">openclaw-cli</span> <span class="n">health</span>
 </code></pre></div>
 看到 <code>Gateway: reachable</code> 说明路由底座配置成功。</p>
@@ -280,13 +281,13 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 批准后刷新网页即可接管全局节点。</li>
 </ol>
 <hr />
-<h2 id="_8">🎉 部署成功示例</h2>
-<h3 id="_9">终端对话</h3>
+<h2 id="_9">🎉 部署成功示例</h2>
+<h3 id="_10">终端对话</h3>
 <p><img alt="终端对话截图" src="../../img/software/screenshot-cli.png" /></p>
-<h3 id="_10">网页界面</h3>
+<h3 id="_11">网页界面</h3>
 <p><img alt="网页界面截图" src="../../img/software/screenshot-webui.png" /></p>
 <hr />
-<h2 id="_11">🛑 服务管理与停止</h2>
+<h2 id="_12">🛑 服务管理与停止</h2>
 <ul>
 <li><strong>停止并保留数据</strong>：<code>docker compose stop</code></li>
 <li><strong>停止并移除容器与网络</strong>：<code>docker compose down</code></li>
@@ -346,7 +347,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 
 </details>
 <p><br></p>
-<h2 id="_12">🔒 安全注意事项</h2>
+<h2 id="_13">🔒 安全注意事项</h2>
 <ol>
 <li><strong>绝对不要</strong>将 <code>.env</code> 文件上传到 GitHub。</li>
 <li>本方案通过 <code>config/openclaw.json</code> 强制开启了 <code>sandbox: non-main</code> 降级策略，限制非主私聊环境下的系统级指令执行权限。</li>
@@ -364,7 +365,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
     └─ 常规纯文本请求 (Default) ─────────→ DeepSeek-V3.2 (TEXT_KEY 通用池)
 </code></pre></div></p>
 <hr />
-<h2 id="_13">📚 参考资料</h2>
+<h2 id="_14">📚 参考资料</h2>
 <ul>
 <li><a href="https://docs.openclaw.ai">Openclaw 官方文档</a></li>
 <li><a href="https://docs.siliconflow.cn">SiliconFlow API Reference</a></li>
@@ -372,7 +373,7 @@ SILICONFLOW_EMBED_API_KEY=sk-...
 <li><a href="https://www.docker.com">Docker Desktop 官网</a></li>
 </ul>
 <hr />
-<h2 id="_14">👤 关于作者</h2>
+<h2 id="_15">👤 关于作者</h2>
 <p><strong>湖南工商大学 机器人工程专业 本科在读</strong> </p>
 <p>欢迎大家进行讨论和复现。如有问题或优化建议，欢迎提交 <a href="https://github.com/Syysean/openclaw-deepseek-deploy/issues">Issue</a> 或 PR！</p>
               
