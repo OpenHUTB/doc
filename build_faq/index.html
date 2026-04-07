@@ -300,7 +300,26 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
-<h6 id="libcarla">编译调试模式 LibCarla</h6>
+<h6 id="libcarla">编译LibCarla报错</h6>
+<div class="highlight"><pre><span></span><code>C:\workspace\hutb\Build\libcarla-visualstudio&gt;cmake -G &quot;Visual Studio 16 2019&quot; -A x64  -DCMAKE_BUILD_TYPE=Server  -DCMAKE_CXX_FLAGS_RELEASE=&quot;/MD /MP&quot;  -DCMAKE_INSTALL_PREFIX=&quot;C:/workspace/hutb/Unreal/CarlaUE4/Plugins/Carla/CarlaDependencies/&quot;  &quot;C:/workspace/hutb/&quot;
+-- Selecting Windows SDK version 10.0.19041.0 to target Windows 10.0.19045.
+CMake Error at CMakeLists.txt:4 (include):
+  include could not find requested file:
+
+    Build/CMakeLists.txt.in
+
+
+-- Build debug:   ON
+-- Build release: ON
+-- Build test:    OFF
+CMake Error at LibCarla/cmake/server/CMakeLists.txt:11 (install):
+  install FILES given directory &quot;/$Recycle.Bin&quot; to install.
+
+
+-- Configuring incomplete, errors occurred!
+</code></pre></div>
+<p>分析：安装目录/$Recycle.Bin不存在，表明-DCMAKE_INSTALL_PREFIX="C:/workspace/hutb/Unreal/CarlaUE4/Plugins/Carla/CarlaDependencies/"指向的安装目录不存在，因为前面有模块没有安装成功（一般是boost）。</p>
+<h6 id="libcarla_1">编译调试模式 LibCarla</h6>
 <p><div class="highlight"><pre><span></span><code>  D:\hutb\Unreal\CarlaUE4\Plugins\Carla\Source\Carla/Vehicle/MovementComponents/ChronoMovementComponent.h(21): fatal error C1083: �޷��򿪰����ļ�: ��chrono/physics/ChSystemNSC.h��: No such file or directory
   [2/17] Module.Carla.5_of_5.cpp
   D:\hutb\Build\engine\Engine\Source\Runtime\Core\Public\HAL/Platform.h(1082): note: �μ���TEXT����ǰһ������

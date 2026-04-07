@@ -207,28 +207,24 @@ python3 config.py --map Town01
 <details>
 <summary> <b>config.py</b> 中的可选参数  </summary>
 
-<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>Carla<span class="w"> </span>Simulator<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>localhost<span class="o">)</span>
-<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>TCP<span class="w"> </span>port<span class="w"> </span>of<span class="w"> </span>Carla<span class="w"> </span>Simulator<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
-<span class="w">  </span>-d,<span class="w"> </span>--default<span class="w">         </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>settings
-<span class="w">  </span>-m<span class="w"> </span>MAP,<span class="w"> </span>--map<span class="w"> </span>MAP<span class="w">     </span>load<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>map,<span class="w"> </span>use<span class="w"> </span>--list<span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>available<span class="w"> </span>maps
-<span class="w">  </span>-r,<span class="w"> </span>--reload-map<span class="w">      </span>reload<span class="w"> </span>current<span class="w"> </span>map
-<span class="w">  </span>--delta-seconds<span class="w"> </span>S<span class="w">     </span><span class="nb">set</span><span class="w"> </span>fixed<span class="w"> </span>delta<span class="w"> </span>seconds,<span class="w"> </span>zero<span class="w"> </span><span class="k">for</span><span class="w"> </span>variable<span class="w"> </span>frame<span class="w"> </span>rate
-<span class="w">  </span>--fps<span class="w"> </span>N<span class="w">               </span><span class="nb">set</span><span class="w"> </span>fixed<span class="w"> </span>FPS,<span class="w"> </span>zero<span class="w"> </span><span class="k">for</span><span class="w"> </span>variable<span class="w"> </span>FPS<span class="w"> </span><span class="o">(</span>similar<span class="w"> </span>to
-<span class="w">                        </span>--delta-seconds<span class="o">)</span>
-<span class="w">  </span>--rendering<span class="w">           </span><span class="nb">enable</span><span class="w"> </span>rendering
-<span class="w">  </span>--no-rendering<span class="w">        </span>disable<span class="w"> </span>rendering
-<span class="w">  </span>--no-sync<span class="w">             </span>disable<span class="w"> </span>synchronous<span class="w"> </span>mode
-<span class="w">  </span>--weather<span class="w"> </span>WEATHER<span class="w">     </span><span class="nb">set</span><span class="w"> </span>weather<span class="w"> </span>preset,<span class="w"> </span>use<span class="w"> </span>--list<span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>available
-<span class="w">                        </span>presets
-<span class="w">  </span>-i,<span class="w"> </span>--inspect<span class="w">         </span>inspect<span class="w"> </span>simulation
-<span class="w">  </span>-l,<span class="w"> </span>--list<span class="w">            </span>list<span class="w"> </span>available<span class="w"> </span>options
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>显示此帮助信息并退出
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>Carla<span class="w"> </span>主机模拟器的<span class="w"> </span>IP<span class="w"> </span>地址（默认：localhost）
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>Carla模拟器的<span class="w"> </span>TCP<span class="w"> </span>端口（默认值：2000）
+<span class="w">  </span>-d,<span class="w"> </span>--default<span class="w">         </span>设置为默认配置
+<span class="w">  </span>-m<span class="w"> </span>MAP,<span class="w"> </span>--map<span class="w"> </span>MAP<span class="w">     </span>加载新地图，使用<span class="w"> </span>--list<span class="w"> </span>查看可用地图
+<span class="w">  </span>-r,<span class="w"> </span>--reload-map<span class="w">      </span>重新加载当前地图
+<span class="w">  </span>--delta-seconds<span class="w"> </span>S<span class="w">     </span>设置固定的增量秒数，零值表示可变帧率
+<span class="w">  </span>--fps<span class="w"> </span>N<span class="w">               </span>设置固定帧率，零表示可变帧率（类似于<span class="w"> </span>--delta-seconds）
+<span class="w">  </span>--rendering<span class="w">           </span>启用渲染
+<span class="w">  </span>--no-rendering<span class="w">        </span>禁用渲染
+<span class="w">  </span>--no-sync<span class="w">             </span>禁用同步模式
+<span class="w">  </span>--weather<span class="w"> </span>WEATHER<span class="w">     </span>设置天气预设，使用<span class="w"> </span>--list<span class="w"> </span>查看可用预设。
+<span class="w">  </span>-i,<span class="w"> </span>--inspect<span class="w">         </span>检查模拟
+<span class="w">  </span>-l,<span class="w"> </span>--list<span class="w">            </span>列出可用选项
 <span class="w">  </span>-b<span class="w"> </span>FILTER,<span class="w"> </span>--list-blueprints<span class="w"> </span>FILTER
-<span class="w">                        </span>list<span class="w"> </span>available<span class="w"> </span>blueprints<span class="w"> </span>matching<span class="w"> </span>FILTER<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> </span>to
-<span class="w">                        </span>list<span class="w"> </span>them<span class="w"> </span>all<span class="o">)</span>
+<span class="w">                        </span>列出符合筛选条件的可用蓝图（使用“*”列出所有蓝图）
 <span class="w">  </span>-x<span class="w"> </span>XODR_FILE_PATH,<span class="w"> </span>--xodr-path<span class="w"> </span>XODR_FILE_PATH
-<span class="w">                        </span>load<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>map<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>minimum<span class="w"> </span>physical<span class="w"> </span>road
-<span class="w">                        </span>representation<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>provided<span class="w"> </span>OpenDRIVE
+<span class="w">                        </span>使用提供的<span class="w"> </span>OpenDRIVE<span class="w"> </span>加载包含最小物理道路表示的新地图
 </code></pre></div>
 </details>
 <p><br></p>
@@ -260,21 +256,21 @@ python3<span class="w"> </span>environment.py<span class="w"> </span>--clouds<sp
 <details>
 <summary> <b>environment.py</b> 中的可选参数 </summary>
 
-<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="o">)</span>
-<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>TCP<span class="w"> </span>port<span class="w"> </span>to<span class="w"> </span>listen<span class="w"> </span>to<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
-<span class="w">  </span>--sun<span class="w"> </span>SUN<span class="w">             </span>Sun<span class="w"> </span>position<span class="w"> </span>presets<span class="w"> </span><span class="o">[</span>sunset<span class="w"> </span><span class="p">|</span><span class="w"> </span>day<span class="w"> </span><span class="p">|</span><span class="w"> </span>night<span class="o">]</span>
-<span class="w">  </span>--weather<span class="w"> </span>WEATHER<span class="w">     </span>Weather<span class="w"> </span>condition<span class="w"> </span>presets<span class="w"> </span><span class="o">[</span>clear<span class="w"> </span><span class="p">|</span><span class="w"> </span>overcast<span class="w"> </span><span class="p">|</span><span class="w"> </span>rain<span class="o">]</span>
-<span class="w">  </span>--altitude<span class="w"> </span>A,<span class="w"> </span>-alt<span class="w"> </span>A<span class="w">  </span>Sun<span class="w"> </span>altitude<span class="w"> </span><span class="o">[</span>-90.0,<span class="w"> </span><span class="m">90</span>.0<span class="o">]</span>
-<span class="w">  </span>--azimuth<span class="w"> </span>A,<span class="w"> </span>-azm<span class="w"> </span>A<span class="w">   </span>Sun<span class="w"> </span>azimuth<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">360</span>.0<span class="o">]</span>
-<span class="w">  </span>--clouds<span class="w"> </span>C,<span class="w"> </span>-c<span class="w"> </span>C<span class="w">      </span>Clouds<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
-<span class="w">  </span>--rain<span class="w"> </span>R,<span class="w"> </span>-r<span class="w"> </span>R<span class="w">        </span>Rain<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
-<span class="w">  </span>--puddles<span class="w"> </span>Pd,<span class="w"> </span>-pd<span class="w"> </span>Pd<span class="w">  </span>Puddles<span class="w"> </span>amount<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
-<span class="w">  </span>--wind<span class="w"> </span>W,<span class="w"> </span>-w<span class="w"> </span>W<span class="w">        </span>Wind<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
-<span class="w">  </span>--fog<span class="w"> </span>F,<span class="w"> </span>-f<span class="w"> </span>F<span class="w">         </span>Fog<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
-<span class="w">  </span>--fogdist<span class="w"> </span>Fd,<span class="w"> </span>-fd<span class="w"> </span>Fd<span class="w">  </span>Fog<span class="w"> </span>Distance<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span>inf<span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>显示此帮助信息并退出
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>主机服务器的IP地址（默认值：127.0.0.1）
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>要监听的<span class="w"> </span>TCP<span class="w"> </span>端口（默认值：2000）
+<span class="w">  </span>--sun<span class="w"> </span>SUN<span class="w">             </span>太阳位置预设<span class="w"> </span><span class="o">[</span>sunset<span class="w"> </span><span class="p">|</span><span class="w"> </span>day<span class="w"> </span><span class="p">|</span><span class="w"> </span>night<span class="o">]</span><span class="w"> </span>（<span class="o">[</span>日落<span class="w"> </span><span class="p">|</span><span class="w"> </span>白天<span class="w"> </span><span class="p">|</span><span class="w"> </span>夜晚<span class="o">]</span>）
+<span class="w">  </span>--weather<span class="w"> </span>WEATHER<span class="w">     </span>天气状况预设<span class="w"> </span><span class="o">[</span>clear<span class="w"> </span><span class="p">|</span><span class="w"> </span>overcast<span class="w"> </span><span class="p">|</span><span class="w"> </span>rain<span class="o">]</span>（<span class="o">[</span>晴朗<span class="w"> </span><span class="p">|</span><span class="w"> </span>阴天<span class="w"> </span><span class="p">|</span><span class="w"> </span>下雨<span class="o">]</span>）
+<span class="w">  </span>--altitude<span class="w"> </span>A,<span class="w"> </span>-alt<span class="w"> </span>A<span class="w">  </span>太阳高度角<span class="w"> </span><span class="o">[</span>-90.0,<span class="w"> </span><span class="m">90</span>.0<span class="o">]</span>
+<span class="w">  </span>--azimuth<span class="w"> </span>A,<span class="w"> </span>-azm<span class="w"> </span>A<span class="w">   </span>太阳方位角<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">360</span>.0<span class="o">]</span>
+<span class="w">  </span>--clouds<span class="w"> </span>C,<span class="w"> </span>-c<span class="w"> </span>C<span class="w">      </span>云量<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--rain<span class="w"> </span>R,<span class="w"> </span>-r<span class="w"> </span>R<span class="w">        </span>降雨量<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--puddles<span class="w"> </span>Pd,<span class="w"> </span>-pd<span class="w"> </span>Pd<span class="w">  </span>水坑数量<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--wind<span class="w"> </span>W,<span class="w"> </span>-w<span class="w"> </span>W<span class="w">        </span>风力强度<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--fog<span class="w"> </span>F,<span class="w"> </span>-f<span class="w"> </span>F<span class="w">         </span>雾的强度<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">  </span>--fogdist<span class="w"> </span>Fd,<span class="w"> </span>-fd<span class="w"> </span>Fd<span class="w">  </span>雾距离<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span>inf<span class="o">)</span>
 <span class="w">  </span>--wetness<span class="w"> </span>Wet,<span class="w"> </span>-wet<span class="w"> </span>Wet
-<span class="w">                        </span>Wetness<span class="w"> </span>intensity<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
+<span class="w">                        </span>湿度强度<span class="w"> </span><span class="o">[</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">100</span>.0<span class="o">]</span>
 </code></pre></div>
 </details>
 <p><br></p>
@@ -293,18 +289,18 @@ python3<span class="w"> </span>spawn_npc.py<span class="w"> </span>-n<span class
 <details>
 <summary> <b>spawn_npc.py</b> 中的可选参数 </summary>
 
-<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="o">)</span>
-<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>TCP<span class="w"> </span>port<span class="w"> </span>to<span class="w"> </span>listen<span class="w"> </span>to<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>显示此帮助信息并退出
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">              </span>主机服务器的IP地址（默认值：127.0.0.1）
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">        </span>要监听的<span class="w"> </span>TCP<span class="w"> </span>端口（默认值：2000）
 <span class="w">  </span>-n<span class="w"> </span>N,<span class="w"> </span>--number-of-vehicles<span class="w"> </span>N
-<span class="w">                        </span>number<span class="w"> </span>of<span class="w"> </span>vehicles<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">10</span><span class="o">)</span>
+<span class="w">                        </span>车辆数量（默认值：10）
 <span class="w">  </span>-w<span class="w"> </span>W,<span class="w"> </span>--number-of-walkers<span class="w"> </span>W
-<span class="w">                        </span>number<span class="w"> </span>of<span class="w"> </span>walkers<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">50</span><span class="o">)</span>
-<span class="w">  </span>--safe<span class="w">                </span>avoid<span class="w"> </span>spawning<span class="w"> </span>vehicles<span class="w"> </span>prone<span class="w"> </span>to<span class="w"> </span>accidents
-<span class="w">  </span>--filterv<span class="w"> </span>PATTERN<span class="w">     </span>vehicles<span class="w"> </span>filter<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="s2">&quot;vehicle.*&quot;</span><span class="o">)</span>
-<span class="w">  </span>--filterw<span class="w"> </span>PATTERN<span class="w">     </span>pedestrians<span class="w"> </span>filter<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="s2">&quot;walker.pedestrian.*&quot;</span><span class="o">)</span>
-<span class="w">  </span>-tm_p<span class="w"> </span>P,<span class="w"> </span>--tm-port<span class="w"> </span>P<span class="w">  </span>port<span class="w"> </span>to<span class="w"> </span>communicate<span class="w"> </span>with<span class="w"> </span>TM<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">8000</span><span class="o">)</span>
-<span class="w">  </span>--async<span class="w">               </span>Asynchronous<span class="w"> </span>mode<span class="w"> </span>execution
+<span class="w">                        </span>行人数（默认值：50）
+<span class="w">  </span>--safe<span class="w">                </span>避免生成容易发生事故的车辆
+<span class="w">  </span>--filterv<span class="w"> </span>PATTERN<span class="w">     </span>车辆过滤器（默认值：“vehicle.*”）
+<span class="w">  </span>--filterw<span class="w"> </span>PATTERN<span class="w">     </span>行人过滤器（默认值：“walker.pedestrian.*”）
+<span class="w">  </span>-tm_p<span class="w"> </span>P,<span class="w"> </span>--tm-port<span class="w"> </span>P<span class="w">  </span>与交通管理器通信的端口（默认值：8000）
+<span class="w">  </span>--async<span class="w">               </span>异步模式执行
 </code></pre></div>
 </details>
 <p><br></p>
@@ -595,7 +591,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 </code></pre></div>
 <strong>3.</strong> 打开其中一个 <em>.ply</em> 文件。 <code>File &gt; Import mesh...</code> </p>
 <p><img alt="tuto_lidar" src="../img/tuto_lidar.jpg" /></p>
-<div class="div" style="text-align: center"><i>经过Meshlab处理后的激光雷达输出。</i></div>
+<div class="div" style="text-align: center"><i>经过Meshlab处理后的激光雷达输出</i></div>
 
 <h3 id="_17">雷达传感器 <span id="雷达传感器"></span></h3>
 <p><a href="../ref_sensors/#radar-sensor">雷达传感器</a> 与 激光雷达类似。它创建一个圆锥视图，并向内部发射激光以射线投射其影响。输出是<a href="../python_api/#carlaradarmeasurement">carla.RadarMeasurement</a>。它包含由激光器检索到的 <a href="../python_api/#carlaradardetection">carla.RadarDetection</a> 的列表。这些不是空间中的点，而是使用有关传感器的数据进行的检测：</p>
@@ -656,7 +652,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <span class="n">rad_ego</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">radar_data</span><span class="p">:</span> <span class="n">rad_callback</span><span class="p">(</span><span class="n">radar_data</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="tuto_radar" src="../img/tuto_radar.jpg" /></p>
-<div class="div" style="text-align: center"><i>雷达输出。车辆停在交通信号灯处，因此其前面的静态元素显示为白色。</i></div>
+<div class="div" style="text-align: center"><i>雷达输出。车辆停在交通信号灯处，因此其前面的静态元素显示为白色</i></div>
 
 <hr />
 <h2 id="_18">非渲染模式 <span id="no-rendering-mode"></span></h2>
@@ -682,17 +678,17 @@ python3 no_rendering_mode.py --no-rendering
 <details>
 <summary> <b>no_rendering_mode.py</b> 中的可选参数 </summary>
 
-<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">           </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-<span class="w">  </span>-v,<span class="w"> </span>--verbose<span class="w">        </span>print<span class="w"> </span>debug<span class="w"> </span>information
-<span class="w">  </span>--host<span class="w"> </span>H<span class="w">             </span>IP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="o">)</span>
-<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">       </span>TCP<span class="w"> </span>port<span class="w"> </span>to<span class="w"> </span>listen<span class="w"> </span>to<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">2000</span><span class="o">)</span>
-<span class="w">  </span>--res<span class="w"> </span>WIDTHxHEIGHT<span class="w">   </span>window<span class="w"> </span>resolution<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>1280x720<span class="o">)</span>
-<span class="w">  </span>--filter<span class="w"> </span>PATTERN<span class="w">     </span>actor<span class="w"> </span>filter<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="s2">&quot;vehicle.*&quot;</span><span class="o">)</span>
-<span class="w">  </span>--map<span class="w"> </span>TOWN<span class="w">           </span>start<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>episode<span class="w"> </span>at<span class="w"> </span>the<span class="w"> </span>given<span class="w"> </span>TOWN
-<span class="w">  </span>--no-rendering<span class="w">       </span>switch<span class="w"> </span>off<span class="w"> </span>server<span class="w"> </span>rendering
-<span class="w">  </span>--show-triggers<span class="w">      </span>show<span class="w"> </span>trigger<span class="w"> </span>boxes<span class="w"> </span>of<span class="w"> </span>traffic<span class="w"> </span>signs
-<span class="w">  </span>--show-connections<span class="w">   </span>show<span class="w"> </span>waypoint<span class="w"> </span>connections
-<span class="w">  </span>--show-spawn-points<span class="w">  </span>show<span class="w"> </span>recommended<span class="w"> </span>spawn<span class="w"> </span>points
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">           </span>显示此帮助信息并退出
+<span class="w">  </span>-v,<span class="w"> </span>--verbose<span class="w">        </span>打印调试信息
+<span class="w">  </span>--host<span class="w"> </span>H<span class="w">             </span>主机服务器的IP地址（默认值：127.0.0.1）
+<span class="w">  </span>-p<span class="w"> </span>P,<span class="w"> </span>--port<span class="w"> </span>P<span class="w">       </span>要监听的<span class="w"> </span>TCP<span class="w"> </span>端口（默认值：2000）
+<span class="w">  </span>--res<span class="w"> </span>WIDTHxHEIGHT<span class="w">   </span>窗口分辨率（默认值：1280x720）
+<span class="w">  </span>--filter<span class="w"> </span>PATTERN<span class="w">     </span>动作者过滤器（默认值：<span class="s2">&quot;vehicle.*&quot;</span>）
+<span class="w">  </span>--map<span class="w"> </span>TOWN<span class="w">           </span>在指定的城镇开始新的轮次
+<span class="w">  </span>--no-rendering<span class="w">       </span>关闭服务器渲染
+<span class="w">  </span>--show-triggers<span class="w">      </span>显示交通标志的触发框
+<span class="w">  </span>--show-connections<span class="w">   </span>显示航点连接
+<span class="w">  </span>--show-spawn-points<span class="w">  </span>显示推荐的生成点
 </code></pre></div>
 </details>
 <p><br></p>
@@ -775,7 +771,7 @@ python3 manual_control.py
 <div class="div" style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自主车辆保持阻塞状态 100 秒。</i></div>
 
 <p><img alt="tuto_query_collisions" src="../img/tuto_query_collisions.jpg" /></p>
-<div class="div" style="text-align: center"><i>显示自主车辆与“其他”类型的对象之间的碰撞的查询。</i></div>
+<div class="div" style="text-align: center"><i>显示自主车辆与“其他”类型对象之间的碰撞的查询</i></div>
 
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -866,14 +862,14 @@ python3 manual_control.py
         <span class="n">ego_imu</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Start recording</span>
+        <span class="c1"># 开始记录</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        client.start_recorder(&#39;~/tutorial/recorder/recording01.log&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Spawn ego vehicle</span>
+        <span class="c1"># 生成自主载具</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ego_bp = world.get_blueprint_library().find(&#39;vehicle.tesla.model3&#39;)</span>
@@ -896,7 +892,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a RGB camera sensor to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加 RGB 相机传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        cam_bp = None</span>
@@ -912,7 +908,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add collision sensor to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加碰撞传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        col_bp = world.get_blueprint_library().find(&#39;sensor.other.collision&#39;)</span>
@@ -926,7 +922,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add Lane invasion sensor to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加压线传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        lane_bp = world.get_blueprint_library().find(&#39;sensor.other.lane_invasion&#39;)</span>
@@ -940,7 +936,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add Obstacle sensor to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加障碍物传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        obs_bp = world.get_blueprint_library().find(&#39;sensor.other.obstacle&#39;)</span>
@@ -955,7 +951,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># 给自主车辆添加全球导航卫星系统传感器</span>
+        <span class="c1"># 给自主载具添加全球导航卫星系统传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gnss_bp = world.get_blueprint_library().find(&#39;sensor.other.gnss&#39;)</span>
@@ -970,7 +966,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add IMU sensor to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加 IMU 传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        imu_bp = world.get_blueprint_library().find(&#39;sensor.other.imu&#39;)</span>
@@ -985,7 +981,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Place spectator on ego spawning</span>
+        <span class="c1"># 在自主载具生成的位置放置观察者</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spectator = world.get_spectator()</span>
@@ -1001,14 +997,14 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Game loop. Prevents the script from finishing.</span>
+        <span class="c1"># 游戏循环。阻止脚本完成。</span>
         <span class="c1"># --------------</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
     <span class="k">finally</span><span class="p">:</span>
         <span class="c1"># --------------</span>
-        <span class="c1"># Stop recording and destroy actors</span>
+        <span class="c1"># 停止记录并销毁动作者</span>
         <span class="c1"># --------------</span>
         <span class="n">client</span><span class="o">.</span><span class="n">stop_recorder</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">ego_vehicle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1072,7 +1068,7 @@ python3 manual_control.py
         <span class="n">lidar_sen</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Query the recording</span>
+        <span class="c1"># 查询记录</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        # Show the most important events in the recording.  </span>
@@ -1084,21 +1080,21 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Reenact a fragment of the recording</span>
+        <span class="c1"># 重现记录中的一段片段</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        client.replay_file(&quot;~/tutorial/recorder/recording03.log&quot;,0,30,0)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Set playback simulation conditions</span>
+        <span class="c1"># 设置播放模拟条件</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ego_vehicle = world.get_actor(322) #Store the ID from the simulation or query the recording to find out</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Place spectator on ego spawning</span>
+        <span class="c1"># 让自主载具生成点放置观察者</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spectator = world.get_spectator()</span>
@@ -1107,7 +1103,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Change weather conditions</span>
+        <span class="c1"># 改变天气状况</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        weather = world.get_weather()</span>
@@ -1118,7 +1114,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a RGB camera to ego vehicle.</span>
+        <span class="c1"># 给自主载具添加 RGB 相机</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        cam_bp = None</span>
@@ -1134,7 +1130,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a Logarithmic Depth camera to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加对数深度相机</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        depth_cam = None</span>
@@ -1150,7 +1146,7 @@ python3 manual_control.py
 <span class="sd">        depth_cam.listen(lambda image: image.save_to_disk(&#39;~/tutorial/de_log/%.6d.jpg&#39; % image.frame,carla.ColorConverter.LogarithmicDepth))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a Depth camera to ego vehicle. </span>
+        <span class="c1"># 给自主载具添加深度相机</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        depth_cam02 = None</span>
@@ -1167,7 +1163,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a new semantic segmentation camera to ego vehicle</span>
+        <span class="c1"># 给自主载具添加语义分割相机</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sem_cam = None</span>
@@ -1184,7 +1180,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a new radar sensor to ego vehicle</span>
+        <span class="c1"># 给自主载具添加新的雷达传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        rad_cam = None</span>
@@ -1229,7 +1225,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Add a new LIDAR sensor to ego vehicle</span>
+        <span class="c1"># 给自主载具添加激光雷达传感器</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        lidar_cam = None</span>
@@ -1246,14 +1242,14 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># Game loop. Prevents the script from finishing.</span>
+        <span class="c1"># 游戏循环。阻止脚本完成。</span>
         <span class="c1"># --------------</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 
     <span class="k">finally</span><span class="p">:</span>
         <span class="c1"># --------------</span>
-        <span class="c1"># Destroy actors</span>
+        <span class="c1"># 销毁动作者</span>
         <span class="c1"># --------------</span>
         <span class="k">if</span> <span class="n">ego_vehicle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ego_cam</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

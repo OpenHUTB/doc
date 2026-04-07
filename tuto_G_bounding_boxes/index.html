@@ -205,12 +205,12 @@
 </code></pre></div>
 <h2 id="_5">渲染边界框</h2>
 <p>现在我们已经设置了几何投影和模拟，我们可以继续创建游戏循环并将边界框渲染到场景中。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Set up the set of bounding boxes from the level</span>
-<span class="c1"># We filter for traffic lights and traffic signs</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 根据关卡设置边界框集</span>
+<span class="c1"># 筛选交通信号灯和交通标志</span>
 <span class="n">bounding_box_set</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficLight</span><span class="p">)</span>
 <span class="n">bounding_box_set</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_level_bbs</span><span class="p">(</span><span class="n">carla</span><span class="o">.</span><span class="n">CityObjectLabel</span><span class="o">.</span><span class="n">TrafficSigns</span><span class="p">))</span>
 
-<span class="c1"># Remember the edge pairs</span>
+<span class="c1"># 记住边对</span>
 <span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
 </code></pre></div>
 <p>为了查看边界框，我们将使用 OpenCV 窗口来显示相机输出。</p>
@@ -451,7 +451,7 @@
 <p>对于模拟的每个渲染帧，您现在将导出一个随附的 XML 文件，其中包含帧中边界框的详细信息。</p>
 <p><img alt="xml_bbox_files" src="../img/tuto_G_bounding_box/xml_bbox_files.png" /></p>
 <p>在 PASCAL VOC 格式中，XML 文件包含涉及随附图像文件、图像尺寸的信息，如果需要，还可以包括车辆类型等详细信息。</p>
-<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Example PASCAL VOC format file--&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- PASCAL VOC 格式文件示例--&gt;</span>
 <span class="nt">&lt;annotation&gt;</span>
 <span class="w">    </span><span class="nt">&lt;folder&gt;</span>output<span class="nt">&lt;/folder&gt;</span>
 <span class="w">    </span><span class="nt">&lt;filename&gt;</span>023235.png<span class="nt">&lt;/filename&gt;</span>
@@ -540,7 +540,7 @@
     <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">simulation_dataset</span><span class="p">,</span> <span class="n">json_file</span><span class="p">)</span>
 </code></pre></div>
 <p>有关 COCO 数据格式的更多详细信息，请参见 <a href="https://www.immersivelimit.com/tutorials/create-coco-annotations-from-scratch/#create-custom-coco-dataset"><strong>此处</strong></a> 。</p>
-<p><em>应该注意的是，在本教程中我们没有考虑重叠的边界框。为了在重叠的情况下识别前景边界框，需要进行额外的工作。</em>  </p>
+<p><em>应该注意的是，在本教程中没有考虑重叠的边界框。为了在重叠的情况下识别前景边界框，需要进行额外的工作。</em>  </p>
               
             </div>
           </div><footer>
