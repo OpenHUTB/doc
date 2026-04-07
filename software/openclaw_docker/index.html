@@ -161,27 +161,44 @@
 <hr />
 <h2 id="_3">📋 前置准备 (必看)</h2>
 <h3 id="1-windows-wsl2">1. 开启 Windows 虚拟化与 WSL2 (核心避坑)</h3>
-<p>在 Windows 11 上运行 Docker 强依赖 WSL2：
-1. 确保在电脑 BIOS 中已开启<strong>CPU虚拟化</strong>（任务管理器 -&gt; 性能 -&gt; CPU 中可查看“虚拟化：已启用”）。
-2. 打开 PowerShell（以管理员身份运行），执行以下命令安装 WSL，<strong>安装完成后请重启电脑</strong>：
+<p>在 Windows 11 上运行 Docker 强依赖 WSL2：</p>
+<ol>
+<li>
+<p>确保在电脑 BIOS 中已开启<strong>CPU虚拟化</strong>（任务管理器 -&gt; 性能 -&gt; CPU 中可查看“虚拟化：已启用”）。</p>
+</li>
+<li>
+<p>打开 PowerShell（以管理员身份运行），执行以下命令安装 WSL，<strong>安装完成后请重启电脑</strong>：
 <div class="highlight"><pre><span></span><code><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span>
 </code></pre></div></p>
+</li>
+</ol>
 <h3 id="2-git">2. 安装 Git</h3>
 <p>前往 <a href="https://git-scm.com">Git</a> 下载安装，安装后在 PowerShell 验证：
 <div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="p">-</span><span class="n">-version</span>
 </code></pre></div></p>
 <h3 id="3-docker-desktop">3. 安装 Docker Desktop</h3>
 <p>前往 <a href="https://www.docker.com">Docker Desktop</a> 下载安装。</p>
-<blockquote>
-<p><strong>注意</strong>：安装时建议勾选“Use WSL 2 based engine”。安装完成后，确保 Docker Desktop 处于已启动状态。</p>
-</blockquote>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>安装时建议勾选“Use WSL 2 based engine”。安装完成后，确保 Docker Desktop 处于已启动状态。</p>
+</div>
 <h3 id="4-siliconflow-api-key">4. 获取 SiliconFlow API Key</h3>
-<p>前往 <a href="https://cloud.siliconflow.cn/account/ak">SiliconFlow 控制台</a> 免费注册。
-⚠️ <strong>核心优化</strong>：为了实现多路并发隔离、解决 Token 争抢与限流瓶颈，建议创建<strong>多个独立的 Key</strong>，分别用于：
-- 通用文本与工具调度 (Text &amp; Tool)
-- 视觉与代码专家 (Vision &amp; Code)
-- 深度推理专家 (Reason)
-- 向量嵌入记忆 (Embed)</p>
+<p>前往 <a href="https://cloud.siliconflow.cn/account/ak">SiliconFlow 控制台</a> 免费注册。</p>
+<p>⚠️ <strong>核心优化</strong>：为了实现多路并发隔离、解决 Token 争抢与限流瓶颈，建议创建<strong>多个独立的 Key</strong>，分别用于：</p>
+<ul>
+<li>
+<p>通用文本与工具调度 (Text &amp; Tool)</p>
+</li>
+<li>
+<p>视觉与代码专家 (Vision &amp; Code)</p>
+</li>
+<li>
+<p>深度推理专家 (Reason)</p>
+</li>
+<li>
+<p>向量嵌入记忆 (Embed)</p>
+</li>
+</ul>
 <hr />
 <h2 id="10">🚀 部署步骤 (核心 10 步)</h2>
 <h3 id="git">第一步：配置 Git 代理（如有需要）</h3>
