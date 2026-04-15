@@ -300,6 +300,16 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="b2-is-not-recognized-as-the-name-of-a-cmdlet">'b2' is not recognized as the name of a cmdlet</h6>
+<p><div class="highlight"><pre><span></span><code>b2 : The term &#39;b2&#39; is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spe
+lling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:226
++ ... conda3\ ; conda activate hutb; python --version; pip list; b2 -j36 he ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (b2:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+</code></pre></div>
+解决：设置b2.exe的绝对路径</p>
 <h6 id="libcarla">编译LibCarla报错</h6>
 <div class="highlight"><pre><span></span><code>C:\workspace\hutb\Build\libcarla-visualstudio&gt;cmake -G &quot;Visual Studio 16 2019&quot; -A x64  -DCMAKE_BUILD_TYPE=Server  -DCMAKE_CXX_FLAGS_RELEASE=&quot;/MD /MP&quot;  -DCMAKE_INSTALL_PREFIX=&quot;C:/workspace/hutb/Unreal/CarlaUE4/Plugins/Carla/CarlaDependencies/&quot;  &quot;C:/workspace/hutb/&quot;
 -- Selecting Windows SDK version 10.0.19041.0 to target Windows 10.0.19045.

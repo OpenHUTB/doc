@@ -131,6 +131,33 @@
 <li>LibCarla 使用 <a href="https://google.github.io/styleguide/cppguide.html">谷歌风格指南</a> 的变体。</li>
 <li>如果代码在服务器端使用，则应将 <code>try-catch</code> 块的使用 <code>#ifndef LIBCARLA_NO_EXCEPTIONS</code> 括起来 。</li>
 </ul>
+<h3 id="airsim">AirSim 编码风格检查</h3>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/720080149">安装和配置 clang-format 和 VSCode插件</a></li>
+</ul>
+<p>检查是否安装成功：
+<div class="highlight"><pre><span></span><code>clang-format<span class="w"> </span>--version
+</code></pre></div></p>
+<ul>
+<li>
+<p>安装 VSCode 插件 clang-foramt</p>
+</li>
+<li>
+<p>配置 clang-format</p>
+</li>
+</ul>
+<p>Clang-format: Assume Filename（规则，引用项目目录下的文件）
+  <div class="highlight"><pre><span></span><code>./.clang-format
+</code></pre></div>
+  Clang-format: Executable （可执行文件 clang-format.exe 的绝对路径）
+  <div class="highlight"><pre><span></span><code>D:\software\llvm\bin\clang-format.exe
+</code></pre></div>
+  Clang-format: Style（使用项目根目录下的.clang-format文件）
+  <div class="highlight"><pre><span></span><code>file:D:\hutb\Build\AirSim\.clang-format
+</code></pre></div></p>
+<ul>
+<li>打开.cpp文件后，按<code>Alt+Shift+F</code>即可格式化当前文件</li>
+</ul>
 <h2 id="_3">参考</h2>
 <ul>
 <li><a href="https://github.com/zh-google-styleguide/zh-google-styleguide/releases">谷歌代码风格指南中文版PDF</a></li>
