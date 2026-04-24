@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Tuto test - 开源孪创</title>
+    <title>测试框架 - 开源孪创</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Tuto test";
+        var mkdocs_page_name = "\u6d4b\u8bd5\u6846\u67b6";
         var mkdocs_page_input_path = "test/tuto_test.md";
         var mkdocs_page_url = null;
       </script>
@@ -90,7 +90,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Tuto test</li>
+      <li class="breadcrumb-item active">测试框架</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/doc/edit/master/docs/test/tuto_test.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
@@ -100,8 +100,109 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="_1">测试框架</h2>
+                <h1 id="_1">测试框架</h1>
 <p>HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令<code>make smoke_tests</code>进行测试。</p>
+<h2 id="_2">测试内容</h2>
+<h3 id="_3">冒烟测试</h3>
+<h4 id="smoketest_sync">同步模式 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/test/smoke/test_sync.py">smoke.test_sync</a></h4>
+<p>测试在同步模式下各种功能能否正常工作</p>
+<ol>
+<li>
+<p>验证世界重载功能 (<a href="https://github.com/OpenHUTB/hutb/blob/9bd0e8e6d790bfe6ecc3fefbc9033fab2275accb/PythonAPI/test/smoke/test_sync.py#L23">test_reloading_map</a>)</p>
+<ul>
+<li>
+<p>测试在同步模式下连续重载世界地图 4 次</p>
+</li>
+<li>
+<p>确保每次重载后都能正确应用同步模式设置（固定时间步长 0.05 秒）</p>
+</li>
+<li>
+<p>包含内存清理等待时间，避免 UE4 资源冲突</p>
+</li>
+</ul>
+</li>
+<li>
+<p>验证相机同步 (<a href="https://github.com/OpenHUTB/hutb/blob/9bd0e8e6d790bfe6ecc3fefbc9033fab2275accb/PythonAPI/test/smoke/test_sync.py#L35">_test_camera_on_synchronous_mode</a>)
+测试 RGB 相机在同步模式下的数据一致性</p>
+<p>验证内容：</p>
+<ul>
+<li>
+<p>每一帧的帧号是否正确递增（+1）</p>
+</li>
+<li>
+<p>相机图像的帧号是否与世界快照的帧号一致</p>
+</li>
+<li>
+<p>相机所获取图像的时间戳<code>image.timestamp</code>是否与模拟时间<code>world.get_snapshot().timestamp.elapsed_seconds</code>匹配</p>
+</li>
+</ul>
+</li>
+<li>
+<p>验证多传感器变换同步 (<a href="https://github.com/OpenHUTB/hutb/blob/9bd0e8e6d790bfe6ecc3fefbc9033fab2275accb/PythonAPI/test/smoke/test_sync.py#L64">test_sensor_transform_on_synchronous_mode</a>)</p>
+<ul>
+<li>
+<p>测试多种传感器（LIDAR、GNSS、雷达、IMU）在车辆移动时的数据同步</p>
+</li>
+<li>
+<p>验证要点：</p>
+</li>
+<li>
+<p>所有传感器在同一帧内都能收到数据</p>
+</li>
+<li>
+<p>传感器数据中的变换矩阵与实际传感器变换一致</p>
+</li>
+<li>
+<p>队列中没有数据积压或丢失</p>
+</li>
+<li>
+<p>传感器数据帧号与世界快照帧号匹配</p>
+</li>
+</ul>
+</li>
+<li>
+<p>验证批量命令同步 (<a href="https://github.com/OpenHUTB/hutb/blob/9bd0e8e6d790bfe6ecc3fefbc9033fab2275accb/PythonAPI/test/smoke/test_sync.py#L171">test_apply_batch_sync</a>)</p>
+<p>测试 apply_batch_sync API 在不同时序下的行为</p>
+<p>三种测试场景：</p>
+<ul>
+<li>
+<p>立即执行：在同一帧内生成车辆（帧号不变）</p>
+</li>
+<li>
+<p>下一帧执行：在下一帧生成车辆（帧号 +1）</p>
+</li>
+<li>
+<p>手动触发：批量命令后手动 tick（帧号 +1）</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="smoketest_sensor_determinism">传感器 smoke.test_sensor_determinism</h4>
+<p>测试传感器数据确定性的验证工具，确保在相同输入条件下，传感器产生的数据是完全可重复的。</p>
+<h4 id="_4">碰撞</h4>
+<p>smoke.test_collision_determinism </p>
+<h4 id="_5">道具加载</h4>
+<p>smoke.test_props_loading </p>
+<h4 id="_6">传感器节拍时间</h4>
+<p>smoke.test_sensor_tick_time </p>
+<h4 id="_7">地图</h4>
+<p>smoke.test_map </p>
+<h4 id="_8">快照</h4>
+<p>smoke.test_snapshot </p>
+<h4 id="_9">雷达</h4>
+<p>smoke.test_lidar </p>
+<h4 id="_10">流</h4>
+<p>smoke.test_streamming</p>
+<h4 id="_11">生成点</h4>
+<p>smoke.test_spawnpoints </p>
+<h4 id="_12">蓝图</h4>
+<p>smoke.test_blueprint </p>
+<h4 id="_13">碰撞传感器</h4>
+<p>smoke.test_collision_sensor </p>
+<h4 id="_14">世界</h4>
+<p>smoke.test_world </p>
+<h4 id="_15">几何变换</h4>
+<p>smoke.test_geoconversion</p>
 <h3 id="windows">Windows 平台</h3>
 <p>脚本<code>src\test&gt;check.bat</code>用于启动windows平台下的测试，运行的第一个测试用例为：
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_sync<span class="w"> </span>smoke.test_sensor_determinism<span class="w"> </span>smoke.test_collision_determinism<span class="w"> </span>smoke.test_props_loading<span class="w"> </span>smoke.test_sensor_tick_time<span class="w"> </span>smoke.test_map<span class="w"> </span>smoke.test_snapshot<span class="w"> </span>smoke.test_lidar<span class="w"> </span>smoke.test_streamming<span class="w"> </span>smoke.test_spawnpoints<span class="w"> </span>smoke.test_blueprint<span class="w"> </span>smoke.test_collision_sensor<span class="w"> </span>smoke.test_world<span class="w"> </span>smoke.test_geoconversion
@@ -127,6 +228,10 @@ Traceback (most recent call last):
     self.assertIsNotNone(waypoint)
 AssertionError: unexpectedly None
 </code></pre></div>
+<p>测试命令：
+<div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
+python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+</code></pre></div></p>
 <h2 id="cicd">CI/CD</h2>
 <p>参考 <a href="https://www.cnblogs.com/dotnet261010/p/11495762.html">链接</a> 进行软件的安装。</p>
               

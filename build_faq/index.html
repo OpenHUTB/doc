@@ -300,6 +300,13 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="missing-packaged-runtime-dlls">打包报错：Missing packaged runtime DLLs</h6>
+<p><div class="highlight"><pre><span></span><code>[Package]: [ERROR] Missing packaged runtime DLLs: AgentInterface.dll dxil.dll embree.2.14.0.dll hdf5.dll libfbxsdk.dll tbb.dll tbbmalloc.dll
+[Package]: [ERROR] Required Windows runtime files were not staged.
+</code></pre></div>
+位于：hutb\Build\engine\Engine\Binaries\Win64\AgentInterface.dll (dxil.dll, embree.2.14.0.dll, libfbxsdk.dll, tbb.dll, tbbmalloc.dll)</p>
+<p>hutb\Build\engine\Engine\Plugins\Experimental\AlembicImporter\Binaries\Win64\hdf5.dll</p>
+<p>解决：<a href="https://github.com/louiszengCN/CarlaAir/commit/2119ed21f65449a9c7857693f1a3cc21dd06e80d">commit</a> </p>
 <h6 id="b2-is-not-recognized-as-the-name-of-a-cmdlet">'b2' is not recognized as the name of a cmdlet</h6>
 <p><div class="highlight"><pre><span></span><code>b2 : The term &#39;b2&#39; is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spe
 lling of the name, or if a path was included, verify that the path is correct and try again.
