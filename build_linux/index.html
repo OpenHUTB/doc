@@ -277,7 +277,9 @@ pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26
 </code></pre></div></p>
 <p><strong>3.</strong> 进行构建。这可能需要一两个小时，具体取决于您的系统。
-<div class="highlight"><pre><span></span><code>./Setup.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./GenerateProjectFiles.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+<div class="highlight"><pre><span></span><code>./Setup.sh<span class="w"> </span>
+./GenerateProjectFiles.sh
+make
 </code></pre></div>
 如果出现
 <div class="highlight"><pre><span></span><code>bash: ./Setup.sh: Permission denied
@@ -294,15 +296,59 @@ chmod<span class="w"> </span>+x<span class="w"> </span>Engine/Build/BatchFiles/L
 Result:<span class="w"> </span><span class="m">126</span>
 </code></pre></div>
 解决：<code>sudo apt-get install mono-complete</code></p>
+<p>如果后续出现</p>
 <div class="highlight"><pre><span></span><code>Corlib<span class="w"> </span>not<span class="w"> </span><span class="k">in</span><span class="w"> </span>sync<span class="w"> </span>with<span class="w"> </span>this<span class="w"> </span>runtime:<span class="w"> </span>expected<span class="w"> </span>corlib<span class="w"> </span>string<span class="w"> </span><span class="o">(</span>ABB721D6-116A-4555-B4FD-9248146D2051<span class="o">)</span><span class="w"> </span>but<span class="w"> </span>not<span class="w"> </span>found<span class="w"> </span>or<span class="w"> </span>not<span class="w"> </span>string
 </code></pre></div>
 <p>解决：</p>
-<p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。
+<p>第一步：官方下载的 Mono 环境不兼容，我们直接把它改名藏起来，强迫引擎使用你系统里自带的、现代版 Mono。</p>
+<div class="highlight"><pre><span></span><code>mv<span class="w"> </span>Engine/Binaries/ThirdParty/Mono/Linux<span class="w"> </span>Engine/Binaries/ThirdParty/Mono/Linux_broken
+</code></pre></div>
+<p>第二步：我们用系统的 <code>mono</code> 去裸跑下载程序，而且它支持断点续传。</p>
+<div class="highlight"><pre><span></span><code>mono<span class="w"> </span>Engine/Binaries/DotNET/GitDependencies.exe<span class="w"> </span>--prompt
+</code></pre></div>
+<p>第三步：下载完的十几 G 文件中包含后续需要的脚本，但它们默认没有 Linux 的可执行权限（+x），需要手动赋予。</p>
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sh&quot;</span><span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</code></pre></div>
+<p>第四步：老版本 UE4 工具的 <code>.config</code> 文件里包含了现代 Mono 无法识别的 <code>&lt;startup&gt;</code> 和 <code>&lt;runtime&gt;</code> 标签。为了防止 <code>UnrealBuildTool</code> 崩溃，直接用空白的安全配置覆盖所有的出厂模板。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 制作一个干净的配置文件空壳</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;&lt;configuration&gt;&lt;/configuration&gt;&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>clean.config
+<span class="c1"># 2. 先查看系统到底找出了哪些文件，确认无误后再覆盖源码模板</span>
+find<span class="w"> </span>Engine/Source/Programs<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;App.config&quot;</span>
+find<span class="w"> </span>Engine/Source/Programs<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;App.config&quot;</span><span class="w"> </span>-exec<span class="w"> </span>cp<span class="w"> </span>clean.config<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+<span class="c1"># 3. 先查看系统到底找出了哪些文件，确认无误后再覆盖已经生成的配置</span>
+find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.config&quot;</span>
+find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span>-exec<span class="w"> </span>cp<span class="w"> </span>clean.config<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</code></pre></div>
+<p>请注意：在执行make的时候可能存在的问题</p>
+<p>在默认情况下，Unreal Engine 使用 CPU  的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU  核心使用数量或者增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：</p>
+<p>（1）您需要修改 <strong>BuildConfiguration.xml</strong> 文件中的设置。文件路径如下：
+<code>~/UnrealEngine_4.26\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml</code></p>
+<p>（2）打开 <strong>BuildConfiguration.xml</strong> 文件，并添加或修改以下内容（使用7核进行编译，核数根据自己的硬件配置决定）：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class="nt">&lt;Configuration</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;https://www.unrealengine.com/BuildConfiguration&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;BuildConfiguration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxParallelActions&gt;</span>7<span class="nt">&lt;/MaxParallelActions&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bAllowParallelExecutor&gt;</span>true<span class="nt">&lt;/bAllowParallelExecutor&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/BuildConfiguration&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SNDBS&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>4<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>4<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/SNDBS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ParallelExecutor&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>7<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bStopCompilationAfterErrors&gt;</span>true<span class="nt">&lt;/bStopCompilationAfterErrors&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/ParallelExecutor&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre></div>
+<p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor
-</code></pre></div></p>
+</code></pre></div>
 <p>电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：
 <div class="highlight"><pre><span></span><code>Cannot find a compatible Yulkan driver (ICD)
 </code></pre></div></p>
+<p>创建成功会有一个虚幻项目浏览器界面弹出</p>
 <hr />
 <h2 id="carla">第二部分：构建 Carla <span id="part-two-build-carla"></span></h2>
 <div class="admonition 笔记">
