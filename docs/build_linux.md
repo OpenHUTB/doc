@@ -212,8 +212,10 @@ cd ~/UnrealEngine_4.26
 ```
 
 __3.__ 进行构建。这可能需要一两个小时，具体取决于您的系统。
-```sh
-./Setup.sh && ./GenerateProjectFiles.sh && make
+```shell
+./Setup.sh 
+./GenerateProjectFiles.sh
+make
 ```
 如果出现
 ```text
@@ -237,14 +239,82 @@ Result: 126
 解决：`sudo apt-get install mono-complete`
 
 
+
+如果后续出现
+
+
 ```shell
 Corlib not in sync with this runtime: expected corlib string (ABB721D6-116A-4555-B4FD-9248146D2051) but not found or not string
 ```
 
 解决：
 
+第一步：官方下载的 Mono 环境不兼容，我们直接把它改名藏起来，强迫引擎使用你系统里自带的、现代版 Mono。
+
+```shell
+mv Engine/Binaries/ThirdParty/Mono/Linux Engine/Binaries/ThirdParty/Mono/Linux_broken
+```
+
+第二步：我们用系统的 `mono` 去裸跑下载程序，而且它支持断点续传。
+
+```shell
+mono Engine/Binaries/DotNET/GitDependencies.exe --prompt
+```
+
+第三步：下载完的十几 G 文件中包含后续需要的脚本，但它们默认没有 Linux 的可执行权限（+x），需要手动赋予。
+
+```shell
+find . -type f -name "*.sh" -exec chmod +x {} \;
+```
+
+第四步：老版本 UE4 工具的 `.config` 文件里包含了现代 Mono 无法识别的 `<startup>` 和 `<runtime>` 标签。为了防止 `UnrealBuildTool` 崩溃，直接用空白的安全配置覆盖所有的出厂模板。
+
+```shell
+# 1. 制作一个干净的配置文件空壳
+echo '<?xml version="1.0" encoding="utf-8" ?><configuration></configuration>' > clean.config
+# 2. 先查看系统到底找出了哪些文件，确认无误后再覆盖源码模板
+find Engine/Source/Programs -name "App.config"
+find Engine/Source/Programs -name "App.config" -exec cp clean.config {} \;
+# 3. 先查看系统到底找出了哪些文件，确认无误后再覆盖已经生成的配置
+find Engine/Binaries/DotNET -name "*.config"
+find Engine/Binaries/DotNET -name "*.config" -exec cp clean.config {} \;
+```
+
+
+
+请注意：在执行make的时候可能存在的问题
+
+在默认情况下，Unreal Engine 使用 CPU  的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU  核心使用数量或者增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：
+
+（1）您需要修改 **BuildConfiguration.xml** 文件中的设置。文件路径如下：
+`~/UnrealEngine_4.26\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml`
+
+（2）打开 **BuildConfiguration.xml** 文件，并添加或修改以下内容（使用7核进行编译，核数根据自己的硬件配置决定）：
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+  <BuildConfiguration>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxParallelActions>7</MaxParallelActions>
+    <bAllowParallelExecutor>true</bAllowParallelExecutor>
+  </BuildConfiguration>
+  <SNDBS>
+    <ProcessorCountMultiplier>4</ProcessorCountMultiplier>
+    <MaxProcessorCount>4</MaxProcessorCount>
+  </SNDBS>
+  <ParallelExecutor>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxProcessorCount>7</MaxProcessorCount>
+    <bStopCompilationAfterErrors>true</bStopCompilationAfterErrors>
+  </ParallelExecutor>
+</Configuration>
+```
+
+
 
 __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
+
 ```sh
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```
@@ -253,6 +323,8 @@ cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```text
 Cannot find a compatible Yulkan driver (ICD)
 ```
+
+创建成功会有一个虚幻项目浏览器界面弹出
 
 ---
 
