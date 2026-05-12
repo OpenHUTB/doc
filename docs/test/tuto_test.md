@@ -62,9 +62,12 @@ HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_test
 测试传感器数据确定性的验证工具，确保在相同输入条件下，传感器产生的数据是完全可重复的。
 
 #### 碰撞
+
 smoke.test_collision_determinism 
+
 #### 道具加载
-smoke.test_props_loading 
+smoke.test_props_loading
+
 #### 传感器节拍时间
 smoke.test_sensor_tick_time 
 #### 地图
@@ -100,27 +103,10 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 测试失败：
 ```shell
 smoke.test_spawnpoints.TestSpawnpoints
+smoke.test_sync.TestSynchronousMode
 ```
 
 
-```text
-ERROR: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\work\workspace\doc\src\test\smoke\test_spawnpoints.py", line 48, in test_spawn_points
-    response = self.client.apply_batch_sync(batch, False)
-RuntimeError: time-out of 120000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
-
-======================================================================
-FAIL: test_load_all_maps (smoke.test_map.TestMap)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\work\workspace\doc\src\test\smoke\test_map.py", line 32, in test_load_all_maps
-    self._check_map(m)
-  File "D:\work\workspace\doc\src\test\smoke\test_map.py", line 37, in _check_map
-    self.assertIsNotNone(waypoint)
-AssertionError: unexpectedly None
-```
 
 
 测试命令：
