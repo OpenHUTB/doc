@@ -588,6 +588,8 @@
 
 ## 场景 <span id="scene"></span>
 
+[基于CARLA-DGGT的前馈式仿真重建](https://github.com/GimpelZhang/carla-dggt) - [复刻carla-NuRec的联合仿真模式](https://mp.weixin.qq.com/s/l74rtEmpgsVQKPqdle8nUg)，以dggt engine代替NuRec实现一路前视图像的渲染，而物理模拟的部分由carla负责，并保留了场景编辑的可能
+
 [汽车场景生成和评估其安全级别工具包](https://github.com/Fizza129/ASIL-Gen)
 
 [针对自动驾驶系统的模糊测试方法](https://github.com/yagol2020/SimADFuzz) - 可生成各种驾驶场景来检测 ADS 中的潜在违规行为
