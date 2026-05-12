@@ -182,7 +182,7 @@
 <h4 id="_4">碰撞</h4>
 <p>smoke.test_collision_determinism </p>
 <h4 id="_5">道具加载</h4>
-<p>smoke.test_props_loading </p>
+<p>smoke.test_props_loading</p>
 <h4 id="_6">传感器节拍时间</h4>
 <p>smoke.test_sensor_tick_time </p>
 <h4 id="_7">地图</h4>
@@ -210,24 +210,8 @@
 整个脚本会依次运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
 <p>测试失败：
 <div class="highlight"><pre><span></span><code>smoke.test_spawnpoints.TestSpawnpoints
+smoke.test_sync.TestSynchronousMode
 </code></pre></div></p>
-<div class="highlight"><pre><span></span><code>ERROR: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File &quot;D:\work\workspace\doc\src\test\smoke\test_spawnpoints.py&quot;, line 48, in test_spawn_points
-    response = self.client.apply_batch_sync(batch, False)
-RuntimeError: time-out of 120000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
-
-======================================================================
-FAIL: test_load_all_maps (smoke.test_map.TestMap)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File &quot;D:\work\workspace\doc\src\test\smoke\test_map.py&quot;, line 32, in test_load_all_maps
-    self._check_map(m)
-  File &quot;D:\work\workspace\doc\src\test\smoke\test_map.py&quot;, line 37, in _check_map
-    self.assertIsNotNone(waypoint)
-AssertionError: unexpectedly None
-</code></pre></div>
 <p>测试命令：
 <div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
 python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints

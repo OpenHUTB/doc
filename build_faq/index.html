@@ -300,6 +300,15 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="_7">删除/新建虚拟环境报错：</h6>
+<div class="highlight"><pre><span></span><code><span class="c1"># 删除报错</span>
+WARNING<span class="w"> </span>conda.gateways.disk.delete:unlink_or_rename_to_trash<span class="o">(</span><span class="m">184</span><span class="o">)</span>:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>remove<span class="w"> </span>or<span class="w"> </span>rename<span class="w"> </span>C:<span class="se">\s</span>oftware<span class="se">\a</span>naconda3<span class="se">\e</span>nvs<span class="se">\h</span>utb_3.14<span class="se">\L</span>ibrary<span class="se">\b</span>in<span class="se">\f</span>fi.dll.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.<span class="w">  </span>Please<span class="w"> </span>remove<span class="w"> </span>this<span class="w"> </span>file<span class="w"> </span>manually<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>may<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>reboot<span class="w"> </span>to<span class="w"> </span>free<span class="w"> </span>file<span class="w"> </span>handles<span class="o">)</span>
+<span class="m">2026</span>-04-29T12:30
+...
+<span class="c1"># 新建报错</span>
+<span class="o">[</span>Errno<span class="w"> </span><span class="m">13</span><span class="o">]</span><span class="w"> </span>Permission<span class="w"> </span>denied:<span class="w"> </span><span class="s1">&#39;C:\\software\\anaconda3\\envs\\hutb_3.14\\Library\\bin\\libbz2.dll&#39;</span>
+</code></pre></div>
+<p>解决：彻底删除虚拟环境。</p>
 <h6 id="missing-packaged-runtime-dlls">打包报错：Missing packaged runtime DLLs</h6>
 <p><div class="highlight"><pre><span></span><code>[Package]: [ERROR] Missing packaged runtime DLLs: AgentInterface.dll dxil.dll embree.2.14.0.dll hdf5.dll libfbxsdk.dll tbb.dll tbbmalloc.dll
 [Package]: [ERROR] Required Windows runtime files were not staged.
@@ -345,7 +354,7 @@ CMake Error at LibCarla/cmake/server/CMakeLists.txt:11 (install):
   D:/hutb/Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/Private/Online/CustomFileDownloader.cpp(11): fatal error C1083: �޷��򿪰����ļ�: ��OSM2ODR.h��: No such file or directory
 </code></pre></div>
 <code>Build/*-install</code> 目录下有，但是<code>hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies</code>目录下没有。</p>
-<h6 id="_7">湖工商场景没有生成点</h6>
+<h6 id="_8">湖工商场景没有生成点</h6>
 <div class="highlight"><pre><span></span><code>There are no spawn points available in your map/town.
 Please add some Vehicle Spawn Point to your UE4 scene.
 </code></pre></div>
@@ -702,7 +711,7 @@ check:
 <blockquote>
 <p>删除<code>carla\Build\osm2odr-visualstudio\CMakeCache.txt</code></p>
 </blockquote>
-<h6 id="_8">类型转换不对 <span id="type_conversion_error"></span></h6>
+<h6 id="_9">类型转换不对 <span id="type_conversion_error"></span></h6>
 <blockquote>
 <div class="highlight"><pre><span></span><code>carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CustomTerrainPhysicsComponent.cpp<span class="o">(</span><span class="m">1161</span><span class="o">)</span>:<span class="w"> </span>error<span class="w"> </span>C2440:<span class="w"> </span>“static_cast”:<span class="w"> </span>无法从“float”转换为“EDefResolutionType”
 </code></pre></div>
@@ -716,7 +725,7 @@ check:
 <p><code>fatal error LNK1181: carla\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\lib\osm2odr.lib</code></p>
 <p>从其他地方拷贝过来。</p>
 </blockquote>
-<h6 id="_9">编译器的堆空间不足 <span id="heap_lack"></span></h6>
+<h6 id="_10">编译器的堆空间不足 <span id="heap_lack"></span></h6>
 <blockquote>
 <p>编译虚幻引擎4时，出现<code>C1060</code> 编译器的堆空间不足，说明机器的内存不够，可以参考<a href="https://ue5wiki.com/wiki/32770/">链接</a> 限制所使用的核心数（默认是使用所有核心数）。
 修改<code>Engine/Saved/UnrealBuildTool/BuildConfiguration.xml</code>中的<code>MaxProcessorCount</code>：
@@ -762,7 +771,7 @@ CARLA\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib
 参考<a href="https://github.com/carla-simulator/carla/issues/3621">链接</a> 。</p>
 </blockquote>
 <hr />
-<h2 id="_10">虚幻引擎</h2>
+<h2 id="_11">虚幻引擎</h2>
 <h5 id="error-unable-to-find-installation-of-pdbcopyexe-which-is-required-to-strip-symbols-this-tool-is-included-as-part-of-the-windows-debugging-tools-component-of-the-windows-10-sdk-httpsdevelopermicrosoftcomen-uswindowsdownloadswindows-10-sdk">执行打包时报错：ERROR: Unable to find installation of PDBCOPY.EXE, which is required to strip symbols. This tool is included as part of the 'Windows Debugging Tools' component of the Windows 10 SDK (https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk).</h5>
 <blockquote>
 <p>安装 <a href="https://pan.baidu.com/s/1Y0PQeHCMQh7Ln12d_p_Rzw">Windows Debugging Tools</a> 后重新编译
@@ -784,7 +793,7 @@ CARLA\Build\boost-1.80.0-install\lib\libboost_python37-vc142-mt-x64-1_80.lib
 </code></pre></div></p>
 </blockquote>
 <hr />
-<h2 id="_11">打包</h2>
+<h2 id="_12">打包</h2>
 <h3 id="make-package">make package 时报错</h3>
 <p>出错信息：
 <div class="highlight"><pre><span></span><code>LogWindows:<span class="w"> </span>Error:<span class="w"> </span>begin:<span class="w"> </span>stack<span class="w"> </span><span class="k">for</span><span class="w"> </span>UAT
@@ -844,14 +853,14 @@ make:<span class="w"> </span>***<span class="w"> </span><span class="o">[</span>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_12">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
+<h6 id="_13">无法运行脚本。 <span id="cant-run-a-script"></span></h6>
 <blockquote>
 <p>有些脚本有要求。这些列在名为 <strong>Requirements.txt</strong> 的文件中，与脚本本身位于同一路径中。请务必检查这些以便运行脚本。其中大多数可以通过简单的<code>pip</code>命令进行安装。</p>
 <p>有时在 Windows 上，脚本无法仅使用 <code>&gt; script_name.py</code> 运行。尝试添加. Try adding <code>&gt; python3 script_name.py</code>，并确保位于正确的目录中。</p>
 </blockquote>
 <!-- ======================================================================= -->
 
-<h6 id="_13">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
+<h6 id="_14">在虚幻编辑器中运行时连接到模拟器。 <span id="connect-to-the-simulator-while-running-within-unreal-editor"></span></h6>
 <blockquote>
 <p>单击“运行”（ <strong>Play</strong> ）并等待场景加载。此时，Python 客户端可以像独立模拟器一样连接到模拟器。</p>
 </blockquote>
@@ -917,7 +926,7 @@ make:<span class="w"> </span>***<span class="w"> </span><span class="o">[</span>
 解决2：如果确认Simulator端和客户端版本一致，但是仍然报两者版本不一致的话，先卸载客户端，然后通过<code>pip install carla</code>安装官方版本，然后再卸载安装编译版本的*.whl文件即可。</p>
 </blockquote>
 <hr />
-<h2 id="_14">其他</h2>
+<h2 id="_15">其他</h2>
 <!-- ======================================================================= -->
 
 <h6 id="hutb">每次打开后都需要进入hutb目录，比较麻烦</h6>

@@ -102,8 +102,22 @@
               
                 <h1 id="_1">虚幻编辑器</h1>
 <ul>
-<li><a href="UE4引擎取消编辑器处于后台时的降帧选项">UE4引擎取消编辑器处于后台时的降帧选项</a> ：Edit -&gt; Editor Preferences -&gt; Miscellaneous，去掉“Use Less Cpu when in Background”复选框上的对号。</li>
-<li>虚幻编辑器打开后场景是一片灰色，但是场景运行又正常。 解决：在<code>世界大纲视图</code>中选中任意 actor 即可切换到该参与者视角（显示正常）。</li>
+<li>
+<p><a href="UE4引擎取消编辑器处于后台时的降帧选项">UE4引擎取消编辑器处于后台时的降帧选项</a> 
+    &gt; Edit -&gt; Editor Preferences -&gt; Miscellaneous，去掉“Use Less Cpu when in Background”复选框上的对号。</p>
+</li>
+<li>
+<p>虚幻编辑器打开后场景是一片灰色，但是场景运行又正常。 
+    &gt; 解决：在<code>世界大纲视图</code>中选中任意 actor 即可切换到该参与者视角（显示正常）。</p>
+</li>
+<li>
+<p><a href="https://dev.epicgames.com/documentation/unreal-engine/command-line-arguments-in-unreal-engine?lang=zh-CN">在编辑器界面运行时候添加运行参数</a>
+    &gt; 找到 编辑（Edit） &gt; 编辑器偏好设置（Edit &gt; Editor Preferences） 。在左侧，选择 关卡编辑器（Level Editor）&gt; 播放（Play） 。
+    &gt; 
+    &gt; 在<code>独立进程游戏中运行</code>中的<code>额外启动参数</code>中添加<code>--carla-rpc-port=3654</code>
+    &gt; 
+    &gt; 注意：不能直接点运行，必须在<code>独立进程中运行</code>，否则无效</p>
+</li>
 </ul>
               
             </div>
