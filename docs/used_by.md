@@ -61,6 +61,7 @@
 [交通场景中的多标签原子活动识别](https://github.com/HCIS-Lab/Action-slot)
 
 [执行基本占用率预测](https://github.com/tonychu27/Intelligent-Driving-System/tree/main/HW1)
+[唐诗代码生成](https://github.com/OpenHUTB/nn/blob/main/docs/poem_generation_rnn_improved.md)
 
 ### 检测 <span id="detection"></span>
 
