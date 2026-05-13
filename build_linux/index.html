@@ -363,7 +363,7 @@ find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<
 </p>
 </div>
 <p>上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/carla-simulator/carla.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/hutb.git
 </code></pre></div>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -488,7 +488,37 @@ pip<span class="w"> </span>install<span class="w"> </span>&lt;path/to/wheel&gt;.
 </div>
 <p><strong>2.</strong> <strong>编译服务器</strong>：</p>
 <p>以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span>make<span class="w"> </span>launch
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
+</code></pre></div>
+<p><strong>请注意执行make launch可能遇到的问题</strong></p>
+<p><strong>问题一</strong>：当编译大面积报错 <code>error opening .../wd4103: Not a directory</code>。这是因为 AirSim 的脚本里带有 Windows 专属的编译器忽略警告参数 <code>/wd4103</code>，导致 Linux 的 Clang 编译器崩溃。</p>
+<p>解决方法</p>
+<p>1.全局搜索并抹除 Carla 和 UE4 源码中的这个错误参数：</p>
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.cs&quot;</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/-wd4103//g&#39;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.cs&quot;</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/\/wd4103//g&#39;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/hutb<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.cs&quot;</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/-wd4103//g&#39;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/hutb<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.cs&quot;</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/\/wd4103//g&#39;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+</code></pre></div>
+<p>2.即使改了代码，依然报 <code>wd4103</code> 的错。因为旧的 <code>UnrealBuildTool.exe</code> 还在，且生成了错误的中间依赖文件（<code>.d</code>文件）。</p>
+<p>通过虚幻引擎重新编译最新的构建工具</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-f<span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/DotNET/UnrealBuildTool.exe
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26
+./GenerateProjectFiles.sh
+</code></pre></div>
+<p>删掉被污染的中间件缓存</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>~/UnrealEngine_4.26/Engine/Intermediate/Build/Linux/B4D820EA
+rm<span class="w"> </span>-rf<span class="w"> </span>~/hutb/Unreal/CarlaUE4/Intermediate
+</code></pre></div>
+<p><strong>问题二</strong>：编译成功但启动时进程被杀死（Error 137）</p>
+<p>1.建立微型保底交换空间(4GB，看自己的硬盘还剩多少空间来决定)：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>fallocate<span class="w"> </span>-l<span class="w"> </span>4G<span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile_temp
+</code></pre></div>
+<p>2.<strong>限制虚幻引擎并发线程（极其关键，以时间换内存）：</strong> 打开引擎配置 <code>nano ~/UnrealEngine_4.26/Engine/Config/BaseEngine.ini</code> 找到或添加 <code>NumUnusedShaderCompilingThreads=12</code>（NumUnusedShaderCompilingThreads这个参数的意思是“保留多少个 CPU 核心不参与编译”，看自己的硬件进行选择），强迫引擎只能用少量核心去慢慢编译着色器，防止瞬间吃光物理内存。</p>
+<p>如有以上问题，先行解决再运行</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
 </code></pre></div>
 <p>首次启动时，编辑器可能会显示有关着色器和网格距离场的警告。这些警告需要一些时间加载，在此之前地图无法正常显示。后续启动编辑器的速度会更快。</p>
 <p><img alt="ue4_editor_open" src="../img/ue4_editor_open.png" /></p>
