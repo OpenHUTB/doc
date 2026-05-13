@@ -344,7 +344,7 @@ Cannot find a compatible Yulkan driver (ICD)
 上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
 ```shell
-git clone https://github.com/carla-simulator/carla.git
+git clone https://github.com/OpenHUTB/hutb.git
 ```
 
 !!! 笔记
@@ -511,7 +511,58 @@ __2.__ __编译服务器__：
 以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
-    make launch
+make launch
+```
+
+**请注意执行make launch可能遇到的问题**
+
+**问题一**：当编译大面积报错 `error opening .../wd4103: Not a directory`。这是因为 AirSim 的脚本里带有 Windows 专属的编译器忽略警告参数 `/wd4103`，导致 Linux 的 Clang 编译器崩溃。
+
+解决方法
+
+1.全局搜索并抹除 Carla 和 UE4 源码中的这个错误参数：
+
+```sh
+find ~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool -type f -name "*.cs" -exec sed -i 's/-wd4103//g' {} +
+find ~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool -type f -name "*.cs" -exec sed -i 's/\/wd4103//g' {} +
+find ~/hutb -type f -name "*.cs" -exec sed -i 's/-wd4103//g' {} +
+find ~/hutb -type f -name "*.cs" -exec sed -i 's/\/wd4103//g' {} +
+```
+
+2.即使改了代码，依然报 `wd4103` 的错。因为旧的 `UnrealBuildTool.exe` 还在，且生成了错误的中间依赖文件（`.d`文件）。
+
+通过虚幻引擎重新编译最新的构建工具
+
+```sh
+rm -f ~/UnrealEngine_4.26/Engine/Binaries/DotNET/UnrealBuildTool.exe
+cd ~/UnrealEngine_4.26
+./GenerateProjectFiles.sh
+```
+
+删掉被污染的中间件缓存
+
+```sh
+rm -rf ~/UnrealEngine_4.26/Engine/Intermediate/Build/Linux/B4D820EA
+rm -rf ~/hutb/Unreal/CarlaUE4/Intermediate
+```
+
+**问题二**：编译成功但启动时进程被杀死（Error 137）
+
+1.建立微型保底交换空间(4GB，看自己的硬盘还剩多少空间来决定)：
+
+```sh
+sudo fallocate -l 4G /swapfile_temp
+sudo chmod 600 /swapfile_temp
+sudo mkswap /swapfile_temp
+sudo swapon /swapfile_temp
+```
+
+2.**限制虚幻引擎并发线程（极其关键，以时间换内存）：** 打开引擎配置 `nano ~/UnrealEngine_4.26/Engine/Config/BaseEngine.ini` 找到或添加 `NumUnusedShaderCompilingThreads=12`（NumUnusedShaderCompilingThreads这个参数的意思是“保留多少个 CPU 核心不参与编译”，看自己的硬件进行选择），强迫引擎只能用少量核心去慢慢编译着色器，防止瞬间吃光物理内存。
+
+如有以上问题，先行解决再运行
+
+```sh
+make launch
 ```
 
 首次启动时，编辑器可能会显示有关着色器和网格距离场的警告。这些警告需要一些时间加载，在此之前地图无法正常显示。后续启动编辑器的速度会更快。
