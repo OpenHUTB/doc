@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>基于ContextCapture的无人机倾斜摄影三维建模操作流程 —— 湖工商科技楼为例 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u57fa\u4e8eContextCapture\u7684\u65e0\u4eba\u673a\u503e\u659c\u6444\u5f71\u4e09\u7ef4\u5efa\u6a21\u64cd\u4f5c\u6d41\u7a0b \u2014\u2014 \u6e56\u5de5\u5546\u79d1\u6280\u697c\u4e3a\u4f8b";
+        var mkdocs_page_input_path = "modules/air_3d.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pedestrian/">人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">车</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">基于ContextCapture的无人机倾斜摄影三维建模操作流程 —— 湖工商科技楼为例</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/modules/air_3d.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="contextcapture">基于ContextCapture的无人机倾斜摄影三维建模操作流程 —— 湖工商科技楼为例</h1>
+<p><strong>软件环境</strong>：Windows 11 + NVIDIA RTX 1060 + ContextCapture 2023.06（Master + Engine + Viewer）</p>
+<h2 id="_1">一、实验环境配置</h2>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>版本/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无人机</td>
+<td>Air 3S 无人机 RTK</td>
+</tr>
+<tr>
+<td>三组航高</td>
+<td>50/90/120 米</td>
+</tr>
+<tr>
+<td>航向/旁向重叠度</td>
+<td>80%/70%</td>
+</tr>
+<tr>
+<td>Windows 11 23H2</td>
+<td>消息生成</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>NVIDIA GeForce RTX 1060 Laptop GPU</td>
+</tr>
+<tr>
+<td>驱动版本</td>
+<td>581.57</td>
+</tr>
+<tr>
+<td>运行内存</td>
+<td>16G</td>
+</tr>
+<tr>
+<td>重建软件</td>
+<td>ContextCapture 2023.06</td>
+</tr>
+</tbody>
+</table>
+<p>💡 建议配置</p>
+<p>✅ 电脑运行内存至少16G以上，否则容易生产失败</p>
+<p>✅ C/D硬盘空间需留30G以上；无人机硬盘留10G以上</p>
+<p>✅ 无人机支持航线规划 &amp; RTK功能 → 提高照片利用率 &amp; 定位精度</p>
+<h2 id="_2">二、无人机倾斜摄影</h2>
+<h3 id="1">1. 航摄实施要点</h3>
+<ul>
+<li>
+<p>按时调机、设备调试及试飞 — 试照调整航摄元素</p>
+</li>
+<li>
+<p>定期检查飞机及航摄设备，保障数据采集稳定</p>
+</li>
+</ul>
+<h3 id="2">2.飞行参数设计值（下表）</h3>
+<table>
+<thead>
+<tr>
+<th>技术参数</th>
+<th>相对航高</th>
+<th>旁向重叠度</th>
+<th>航向重叠度</th>
+<th>照片数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设计值</td>
+<td>120m</td>
+<td>70%</td>
+<td>80%</td>
+<td>69张</td>
+</tr>
+<tr>
+<td>设计值</td>
+<td>90m</td>
+<td>70%</td>
+<td>80%</td>
+<td>48张</td>
+</tr>
+<tr>
+<td>设计值</td>
+<td>50m</td>
+<td>70%</td>
+<td>80%</td>
+<td>52张</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+</div>
+<p>建议1：手动飞行时建议重叠度＞70%；</p>
+<p>建议2：可使用航线规划软件自动飞行，保证重叠度稳定。</p>
+<h2 id="contextcapture_1">三、ContextCapture软件重建算法</h2>
+<h3 id="1siftscale-invariant-feature-transform">1.SIFT算法（Scale Invariant Feature Transform）</h3>
+<p>1）建立尺度空间</p>
+<p>2）GOG空间极值检测</p>
+<p>3）特征点精准定位</p>
+<p>4）计算特征点的主方向</p>
+<p>5）生成特征点描述符</p>
+<h3 id="2-asift">2 ASIFT算法</h3>
+<p>1）仿射摄像机模型</p>
+<p>2）模拟待匹配图像在不同视角下的姿态</p>
+<p>3）经过仿射映射来模拟摄影机在位移过程中发生的投影变形</p>
+<p>3.光束法空中三角测量</p>
+<p>1）其基本公式为共线条件方程</p>
+<p>2）建立从像方空间到摄影中心再到物方空间的相关方程。</p>
+<p>3）通过少量点加密获取待定点的地面坐标</p>
+<h2 id="contextcapture_2">四、ContextCapture软件处理数据生成三维模型</h2>
+<h3 id="1_1">1.照片数据准备:</h3>
+<p>1）将图片放在同一个文件夹里面，如下图所示。</p>
+<p>1）影像上云及云影不影响地物特征判读</p>
+<p>2）在曝光瞬间因飞机航速影响造成像点最大位移不超过0.5个像素</p>
+<p>3）如图3所示，GPS数据记录齐全，解算精度满足后期真实景三维模型制图要求</p>
+<p>4）能识别微小地物，且清晰可见；</p>
+<p>5）影像色调统一、无色斑。</p>
+<p><img alt="" src="../../img/modules/prepared_img.jpg" /></p>
+<h3 id="2_1">2.三维重建软件操作流程</h3>
+<p>1）打开主要模块（ContextCapture Center Master）。选择添加影像，选择添加整个目录，导入照片数据，如下图所示。</p>
+<p><img alt="" src="../../img/modules/import_img.jpg" /></p>
+<div class="div" style="text-align: center"><i>照片数据导入</i></div>
+
+<p>2）点击主要模块右上角的提交空中三角测量计算，显示生产中如图5所示，同时需要打开引擎模块（ContextCapture Center Engine）如下图所示。</p>
+<p><img alt="" src="../../img/modules/open_engine.jpg" /></p>
+<p>3）空三结束后检查照片利用率。数据完整才能进行三维重建如图7所示。</p>
+<p><img alt="" src="../../img/modules/check_data.jpg" /></p>
+<div class="div" style="text-align: center"><i>检查数据完整性</i></div>
+
+<p>4）点击三维视图可以看到生成的空三坐标和模型草图如图8所示。此时框选需要兴趣重建区域，提交重建任务。</p>
+<p><img alt="" src="../../img/modules/model_sketch.jpg" /></p>
+<div class="div" style="text-align: center"><i>模型草图</i></div>
+
+<p>5）根据自己电脑运行内存大小来设置生产瓦片大小和尺寸，实验中，将每块大小使用的运存控制在16GB以内（注意这一步，否则会生产失败！！！），分块后如图9所示。</p>
+<p><img alt="" src="../../img/modules/blocking_effect.jpg" /></p>
+<div class="div" style="text-align: center"><i>分块效果图</i></div>
+
+<p>6）选择输出的FBX格式以及纹理压缩质量，颜色源等参考设置如图10所示。FBX项目全部参数如图11所示。</p>
+<p><img alt="" src="../../img/modules/param_setting.jpg" /></p>
+<div class="div" style="text-align: center"><i>部分参数设置样式</i></div>
+
+<p><img alt="" src="../../img/modules/all_param.jpg" /></p>
+<div class="div" style="text-align: center"><i>FBX格式模型全部参数</i></div>
+
+<p><strong>注意：</strong></p>
+<p>1）空三结束后，可以看到照片利用率，利用率不高则需要补拍</p>
+<p>2）软件生产时要打开ContextCapture Center Engine工作模块</p>
+<p>3）设置瓦片尺寸要根据电脑运行内存选择设置，否则会生产失败</p>
+<p>4）模型生成时间根据电脑性能决定</p>
+<p>5）注意照片的POS信息，重建时选用同一空间参考坐标</p>
+<h3 id="3">3.软件三维重建流程</h3>
+<p>1）多视影像密集匹配生成高密度三维点云</p>
+<p>2）在点云基础上构建三角网，会生成三维网（TIN）模型</p>
+<p>3）三维白膜模型进行纹理映射</p>
+<p>4）生成具有真实纹理三维模型</p>
+<h2 id="_3">五、常见问题与优化建议</h2>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>解决办法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型生成有色差</td>
+<td>对拍摄图片匀色处理</td>
+</tr>
+<tr>
+<td>模型生产失败</td>
+<td>注意瓦片大小不超过电脑运存</td>
+</tr>
+<tr>
+<td>模型纹理质量低</td>
+<td>提高纹理质量参数</td>
+</tr>
+<tr>
+<td>模型分块生产不能显示</td>
+<td>消息生成</td>
+</tr>
+<tr>
+<td>模型地理信息误差大</td>
+<td>加入相控点对图片进行刺点</td>
+</tr>
+</tbody>
+</table>
+<p>（或使用带有RTK功能的无人机）  | 
+|空三后照片利用率低           | 需要重新补拍  |</p>
+<h2 id="_4">六、工程文件与成果组织建议</h2>
+<p>1.cc_Project/</p>
+<ol>
+<li>
+<p>Technology Builing mages/ # 无人机倾斜摄影照片</p>
+</li>
+<li>
+<p>Technology Builing / # 中间结果</p>
+</li>
+</ol>
+<p>1）Productions</p>
+<p>2）Project files</p>
+<p>3）Technology Builing.ccm</p>
+<p>4）Technology Builing.ccm.bak</p>
+<p>5）Technology Builing.ccm.lock</p>
+<ol>
+<li>Productions_1/Data/#输出结果</li>
+</ol>
+<p>1）Tile_1.fbx      #分块输出。本实验有7块</p>
+<p>2）Tile_1_0.jpg</p>
+<p>3）Tile_2.fbx      </p>
+<p>4）Tile_2_0.jpg</p>
+<p>5）Tile_3.fbx      </p>
+<p>6）Tile_3_0.jpg</p>
+<p>7）Tile_4.fbx      </p>
+<p>8）Tile_4_0.jpg</p>
+<p>9）Tile_5.fbx      </p>
+<p>10）Tile_5_0.jpg</p>
+<p>11）Tile_6.fbx      </p>
+<p>12）Tile_6_0.jpg</p>
+<p>13）Tile_7.fbx      </p>
+<p>14）Tile_7_0.jpg</p>
+<p>5.查看.fbx文件可用软件</p>
+<p>1）ContextCapture Viewer</p>
+<p>2）Blender</p>
+<h2 id="_5">七、三维模型效果展示</h2>
+<h3 id="1_2">1.模型展示</h3>
+<p>1）将模型的FBX格式导入第三方软件blender进行拼接，展示效果如图12和13所示。</p>
+<p><img alt="" src="../../img/modules/aerial_view.jpg" /></p>
+<div class="div" style="text-align: center"><i>湖南工商大学科技楼俯视效果</i></div>
+
+<p><img alt="" src="../../img/modules/3D_Effect.jpg" /></p>
+<div class="div" style="text-align: center"><i>湖南工商大学科技楼立体效果</i></div>
+
+<h2 id="_6">参考</h2>
+<ul>
+<li><a href="../../adv_cesium/">倾斜模型导入Carla</a></li>
+<li><a href="https://mp.weixin.qq.com/s/B5L7MGMmtyf15IJjp8n9oA">003-基于ContextCapture的无人机倾斜摄影三维建模操作流程</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
