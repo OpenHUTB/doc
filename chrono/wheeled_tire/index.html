@@ -101,7 +101,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">轮胎模型</h1>
-<p>Chrono::Vehicle 目前支持三种不同类别的轮胎模型：刚性、操控和有限元。</p>
+<p>Chrono::Vehicle 目前支持三种不同类别的轮胎模型：刚性、操控和<a href="https://api.projectchrono.org/vehicle_overview.html">有限元</a>。</p>
 <ul>
 <li><a href="#rigid_tire"><strong>刚性轮胎模型</strong></a></li>
 <li><a href="#two_wheel"><strong>处理（半经验）轮胎模型</strong></a></li>
@@ -160,7 +160,7 @@
 <p>此 Chrono 轮胎模型还可以使用与 Adams/Car 兼容的 TIR 文件来指定。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_pac02_tire.html">ChPac02Tire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_pac02_tire.html">Pac02Tire</a> 。</p>
 <h3 id="tmeasy">TMeasy轮胎模型（基础版）</h3>
-<p>TMeasy（轮胎模型简易版）由 Georg Rill 教授开发，可作为商业代码使用（有关更多信息，请参阅http://www.tmeasy.de/）。该模型的目的是允许轻松参数化。其复杂性大致与基于 Magic Formula 的模型相当。此外，基于卡车和乘用车的已知参数集，可以从少量输入数据中估计完整的参数集。TMeasy 考虑非线性效应并包括接触面滑移状态方程。与最新的商业 TMeasy 版本相比，Chrono 中使用的实现缺少一些功能。例如，没有皮带动力学，也无法计算动态停车扭矩。Chrono TMeasy 轮胎实现包含已在 <a href="https://www.routledge.com/Road-Vehicle-Dynamics-Fundamentals-and-Modeling-with-MATLAB/Rill-Castro/p/book/9780367199739">Road Vehicle Dynamics - Fundamentals and Modeling with MATLAB</a> 一书中发表的算法，Georg Rill 和 Abel Arrieta Castro，CRC Press，2020 年。</p>
+<p><a href="http://www.tmeasy.de/">TMeasy 模型</a>（轮胎模型简易版）的目的是允许轻松参数化。其复杂性大致与基于 Magic Formula 的模型相当。此外，基于卡车和乘用车的已知参数集，可以从少量输入数据中估计完整的参数集。TMeasy 考虑非线性效应并包括接触面滑移状态方程。与最新的商业 TMeasy 版本相比，Chrono 中使用的实现缺少一些功能。例如，没有皮带动力学，也无法计算动态停车扭矩。Chrono TMeasy 轮胎实现包含已在 <a href="https://www.routledge.com/Road-Vehicle-Dynamics-Fundamentals-and-Modeling-with-MATLAB/Rill-Castro/p/book/9780367199739">Road Vehicle Dynamics - Fundamentals and Modeling with MATLAB</a> 一书中发表的算法，Georg Rill 和 Abel Arrieta Castro，CRC Press，2020 年。</p>
 <p>参见 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_t_measy_tire.html">ChTMeasyTire</a> 和 <a href="https://api.projectchrono.org/classchrono_1_1vehicle_1_1_t_measy_tire.html">TMeasyTire</a> 。</p>
 <p>下面提供了一个具有 TMeasy 轮胎规范的示例 JSON 文件：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
