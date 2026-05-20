@@ -1,4 +1,4 @@
-# [限元变形材料虚幻插件](https://github.com/GPUOpen-Effects/FEMFX) 
+# [有限元变形材料虚幻插件](https://github.com/GPUOpen-Effects/FEMFX) 
 
 FEMFX 是一个用于变形材料物理的多线程 CPU 库，使用有限元法 (Finite Element Method, FEM)。实体对象表示为四面体单元的网格，每个单元都具有控制刚度、体积如何随变形变化以及发生断裂或塑性（永久）变形的应力限制的材料参数。该模型支持多种材料以及材料之间的相互作用。我们打算让这些功能补充而不是取代传统的刚体物理。该系统的设计考虑了以下因素：
 
