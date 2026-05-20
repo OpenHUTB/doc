@@ -175,16 +175,21 @@ $$
     python -m pip install .
     ```
     由于 **Github Action** 的 [OpenHUTB/actions-mkdocs](https://github.com/Tiryoh/actions-mkdocs/compare/main...OpenHUTB:actions-mkdocs:main) 需要使用 `pip install hutb-doc -i https://pypi.org/simple` 进行安装，所以需要先删除 [pypi 已发布的包](https://pypi.org/manage/project/hutb-doc/releases/) ，然后再参考 [发布自定义mkdocs](https://openhutb.github.io/doc/tuto_D_make_release/) 发布 hutb-doc。
-    
+
+* [将 deepwiki 页面下载为 markdown 格式](https://zhuanlan.zhihu.com/p/1903904027554604441)
+
+    [下载](https://github.com/philipz/deepwiki-md-chrome-extension/releases)并解压插件 -> 在 Chrome 浏览器中的地址栏中输入`chrome://extensions`打开开发模式 -> 点击`加载未打包的扩展程序`，选择刚才下载来的根目录 -> 点击增加的扩展程序的`详情`按钮启用`自动访问deepwiki`和`固定到工具栏` -> 打开对应的 deepwiki 页面，点击工具栏中的新出现的按钮，选择`Download Current Page`。
 
 
 ## 常见问题
 
 * 修改文件后不自动加载更新
 
-> 解决：将 click 的版本从 8.3.0 回退到 8.2.1
-> 
-> `pip install  --force-reinstall click==8.2.1`
+    > 解决：将 click 的版本从 8.3.0 回退到 8.2.1
+    > 
+    > `pip install  --force-reinstall click==8.2.1`
+    >
+    > 或者使用以下命令启动服务：`mkdocs serve --livereload`
 
 * 编译文档时报错：`ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed`
 
@@ -210,10 +215,10 @@ $$
   > ```
 
 * 安装完 hutb-doc 后，运行`mkdocs serve --livereload`报错：ModuleNotFoundError: No module named 'pymdownx'
-> 解决：
-  > ```shell
-  > pip install pymdown-extensions
-  > ```
+    > 解决：
+    > ```shell
+    > pip install pymdown-extensions
+    > ```
 
 ## 许可证
 
