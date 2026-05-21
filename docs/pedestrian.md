@@ -19,6 +19,6 @@
 
 [__行人实现分析__](./pedestrian/blueprint.md) - 行人蓝图实现原理
 
-[__Mujoco插件__](https://github.com/OpenHUTB/mujoco_plugin) - 提供 Mujoco和 HUTB 模拟器之间的协同仿真
+[__Mujoco插件__](https://openhutb.github.io/mujoco_plugin/) - 提供 Mujoco和 HUTB 模拟器之间的协同仿真
 
 [__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
