@@ -212,8 +212,10 @@ cd ~/UnrealEngine_4.26
 ```
 
 __3.__ 进行构建。这可能需要一两个小时，具体取决于您的系统。
-```sh
-./Setup.sh && ./GenerateProjectFiles.sh && make
+```shell
+./Setup.sh 
+./GenerateProjectFiles.sh
+make
 ```
 如果出现
 ```text
@@ -237,14 +239,82 @@ Result: 126
 解决：`sudo apt-get install mono-complete`
 
 
+
+如果后续出现
+
+
 ```shell
 Corlib not in sync with this runtime: expected corlib string (ABB721D6-116A-4555-B4FD-9248146D2051) but not found or not string
 ```
 
 解决：
 
+第一步：官方下载的 Mono 环境不兼容，我们直接把它改名藏起来，强迫引擎使用你系统里自带的、现代版 Mono。
+
+```shell
+mv Engine/Binaries/ThirdParty/Mono/Linux Engine/Binaries/ThirdParty/Mono/Linux_broken
+```
+
+第二步：我们用系统的 `mono` 去裸跑下载程序，而且它支持断点续传。
+
+```shell
+mono Engine/Binaries/DotNET/GitDependencies.exe --prompt
+```
+
+第三步：下载完的十几 G 文件中包含后续需要的脚本，但它们默认没有 Linux 的可执行权限（+x），需要手动赋予。
+
+```shell
+find . -type f -name "*.sh" -exec chmod +x {} \;
+```
+
+第四步：老版本 UE4 工具的 `.config` 文件里包含了现代 Mono 无法识别的 `<startup>` 和 `<runtime>` 标签。为了防止 `UnrealBuildTool` 崩溃，直接用空白的安全配置覆盖所有的出厂模板。
+
+```shell
+# 1. 制作一个干净的配置文件空壳
+echo '<?xml version="1.0" encoding="utf-8" ?><configuration></configuration>' > clean.config
+# 2. 先查看系统到底找出了哪些文件，确认无误后再覆盖源码模板
+find Engine/Source/Programs -name "App.config"
+find Engine/Source/Programs -name "App.config" -exec cp clean.config {} \;
+# 3. 先查看系统到底找出了哪些文件，确认无误后再覆盖已经生成的配置
+find Engine/Binaries/DotNET -name "*.config"
+find Engine/Binaries/DotNET -name "*.config" -exec cp clean.config {} \;
+```
+
+
+
+请注意：在执行make的时候可能存在的问题
+
+在默认情况下，Unreal Engine 使用 CPU  的所有核心进行编译。这可能导致内存不足的问题，尤其是在高性能电脑但内存有限的情况下。为避免此问题，可以通过以下两种方式解决：减少 CPU  核心使用数量或者增加虚拟内存。以下是通过修改 CPU 核心数来优化编译的详细解决方案：
+
+（1）您需要修改 **BuildConfiguration.xml** 文件中的设置。文件路径如下：
+`~/UnrealEngine_4.26\Engine\Saved\UnrealBuildTool\BuildConfiguration.xml`
+
+（2）打开 **BuildConfiguration.xml** 文件，并添加或修改以下内容（使用7核进行编译，核数根据自己的硬件配置决定）：
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+  <BuildConfiguration>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxParallelActions>7</MaxParallelActions>
+    <bAllowParallelExecutor>true</bAllowParallelExecutor>
+  </BuildConfiguration>
+  <SNDBS>
+    <ProcessorCountMultiplier>4</ProcessorCountMultiplier>
+    <MaxProcessorCount>4</MaxProcessorCount>
+  </SNDBS>
+  <ParallelExecutor>
+    <ProcessorCountMultiplier>7</ProcessorCountMultiplier>
+    <MaxProcessorCount>7</MaxProcessorCount>
+    <bStopCompilationAfterErrors>true</bStopCompilationAfterErrors>
+  </ParallelExecutor>
+</Configuration>
+```
+
+
 
 __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
+
 ```sh
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```
@@ -253,6 +323,8 @@ cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 ```text
 Cannot find a compatible Yulkan driver (ICD)
 ```
+
+创建成功会有一个虚幻项目浏览器界面弹出
 
 ---
 
@@ -272,7 +344,7 @@ Cannot find a compatible Yulkan driver (ICD)
 上面的按钮将带您进入该项目的官方存储库。从那里下载并在本地提取它或使用以下命令克隆它：
 
 ```shell
-git clone https://github.com/carla-simulator/carla.git
+git clone https://github.com/OpenHUTB/hutb.git
 ```
 
 !!! 笔记
@@ -439,7 +511,58 @@ __2.__ __编译服务器__：
 以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
-    make launch
+make launch
+```
+
+**请注意执行make launch可能遇到的问题**
+
+**问题一**：当编译大面积报错 `error opening .../wd4103: Not a directory`。这是因为 AirSim 的脚本里带有 Windows 专属的编译器忽略警告参数 `/wd4103`，导致 Linux 的 Clang 编译器崩溃。
+
+解决方法
+
+1.全局搜索并抹除 Carla 和 UE4 源码中的这个错误参数：
+
+```sh
+find ~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool -type f -name "*.cs" -exec sed -i 's/-wd4103//g' {} +
+find ~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool -type f -name "*.cs" -exec sed -i 's/\/wd4103//g' {} +
+find ~/hutb -type f -name "*.cs" -exec sed -i 's/-wd4103//g' {} +
+find ~/hutb -type f -name "*.cs" -exec sed -i 's/\/wd4103//g' {} +
+```
+
+2.即使改了代码，依然报 `wd4103` 的错。因为旧的 `UnrealBuildTool.exe` 还在，且生成了错误的中间依赖文件（`.d`文件）。
+
+通过虚幻引擎重新编译最新的构建工具
+
+```sh
+rm -f ~/UnrealEngine_4.26/Engine/Binaries/DotNET/UnrealBuildTool.exe
+cd ~/UnrealEngine_4.26
+./GenerateProjectFiles.sh
+```
+
+删掉被污染的中间件缓存
+
+```sh
+rm -rf ~/UnrealEngine_4.26/Engine/Intermediate/Build/Linux/B4D820EA
+rm -rf ~/hutb/Unreal/CarlaUE4/Intermediate
+```
+
+**问题二**：编译成功但启动时进程被杀死（Error 137）
+
+1.建立微型保底交换空间(4GB，看自己的硬盘还剩多少空间来决定)：
+
+```sh
+sudo fallocate -l 4G /swapfile_temp
+sudo chmod 600 /swapfile_temp
+sudo mkswap /swapfile_temp
+sudo swapon /swapfile_temp
+```
+
+2.**限制虚幻引擎并发线程（极其关键，以时间换内存）：** 打开引擎配置 `nano ~/UnrealEngine_4.26/Engine/Config/BaseEngine.ini` 找到或添加 `NumUnusedShaderCompilingThreads=12`（NumUnusedShaderCompilingThreads这个参数的意思是“保留多少个 CPU 核心不参与编译”，看自己的硬件进行选择），强迫引擎只能用少量核心去慢慢编译着色器，防止瞬间吃光物理内存。
+
+如有以上问题，先行解决再运行
+
+```sh
+make launch
 ```
 
 首次启动时，编辑器可能会显示有关着色器和网格距离场的警告。这些警告需要一些时间加载，在此之前地图无法正常显示。后续启动编辑器的速度会更快。
@@ -498,6 +621,24 @@ CARLA 的代码自带一套测试用例，旨在检测新代码变更可能引�
 ```sh
 make package
 ```
+
+**请注意**：在执行make package时，可能遇到的错误
+
+在烘焙（Cook）阶段，漫长的编译后突然报 `ExitCode=139` 或 `ExitCode=25，日志最深处隐藏着 `Signal 11 caught (段错误)。
+
+**解决方案：** 你需要进入 Carla 虚幻工程，把所有的缓存文件全部删干净，让它从零开始重新生成。
+
+```sh
+cd ~/hutb/Unreal/CarlaUE4
+# 删除临时编译文件夹
+rm -rf Intermediate Saved Binaries
+# 删除虚幻引擎的全局和局部 DDC 缓存 (非常关键！)
+rm -rf DerivedDataCache
+# 如果你使用了 Carla 的缓存，也清理一下
+make clean
+```
+
+
 
 该软件包将在 Dist 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：
 
