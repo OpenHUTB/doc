@@ -237,6 +237,18 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+###### 删除/新建虚拟环境报错：
+```shell
+# 删除报错
+WARNING conda.gateways.disk.delete:unlink_or_rename_to_trash(184): Could not remove or rename C:\software\anaconda3\envs\hutb_3.14\Library\bin\ffi.dll.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.  Please remove this file manually (you may need to reboot to free file handles)
+2026-04-29T12:30
+...
+# 新建报错
+[Errno 13] Permission denied: 'C:\\software\\anaconda3\\envs\\hutb_3.14\\Library\\bin\\libbz2.dll'
+```
+
+解决：彻底删除虚拟环境。
+
 ###### 打包报错：Missing packaged runtime DLLs
 ```
 [Package]: [ERROR] Missing packaged runtime DLLs: AgentInterface.dll dxil.dll embree.2.14.0.dll hdf5.dll libfbxsdk.dll tbb.dll tbbmalloc.dll

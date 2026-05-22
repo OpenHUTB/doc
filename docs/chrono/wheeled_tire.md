@@ -1,5 +1,5 @@
 # 轮胎模型
-Chrono::Vehicle 目前支持三种不同类别的轮胎模型：刚性、操控和有限元。
+Chrono::Vehicle 目前支持三种不同类别的轮胎模型：刚性、操控和[有限元](https://api.projectchrono.org/vehicle_overview.html)。
 
 - [__刚性轮胎模型__](#rigid_tire)
 - [__处理（半经验）轮胎模型__](#two_wheel)
@@ -73,7 +73,7 @@ Chrono::Vehicle 目前支持三种不同类别的轮胎模型：刚性、操控�
 
 ### TMeasy轮胎模型（基础版）
 
-TMeasy（轮胎模型简易版）由 Georg Rill 教授开发，可作为商业代码使用（有关更多信息，请参阅http://www.tmeasy.de/）。该模型的目的是允许轻松参数化。其复杂性大致与基于 Magic Formula 的模型相当。此外，基于卡车和乘用车的已知参数集，可以从少量输入数据中估计完整的参数集。TMeasy 考虑非线性效应并包括接触面滑移状态方程。与最新的商业 TMeasy 版本相比，Chrono 中使用的实现缺少一些功能。例如，没有皮带动力学，也无法计算动态停车扭矩。Chrono TMeasy 轮胎实现包含已在 [Road Vehicle Dynamics - Fundamentals and Modeling with MATLAB](https://www.routledge.com/Road-Vehicle-Dynamics-Fundamentals-and-Modeling-with-MATLAB/Rill-Castro/p/book/9780367199739) 一书中发表的算法，Georg Rill 和 Abel Arrieta Castro，CRC Press，2020 年。
+[TMeasy 模型](http://www.tmeasy.de/)（轮胎模型简易版）的目的是允许轻松参数化。其复杂性大致与基于 Magic Formula 的模型相当。此外，基于卡车和乘用车的已知参数集，可以从少量输入数据中估计完整的参数集。TMeasy 考虑非线性效应并包括接触面滑移状态方程。与最新的商业 TMeasy 版本相比，Chrono 中使用的实现缺少一些功能。例如，没有皮带动力学，也无法计算动态停车扭矩。Chrono TMeasy 轮胎实现包含已在 [Road Vehicle Dynamics - Fundamentals and Modeling with MATLAB](https://www.routledge.com/Road-Vehicle-Dynamics-Fundamentals-and-Modeling-with-MATLAB/Rill-Castro/p/book/9780367199739) 一书中发表的算法，Georg Rill 和 Abel Arrieta Castro，CRC Press，2020 年。
 
 参见 [ChTMeasyTire](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_ch_t_measy_tire.html) 和 [TMeasyTire](https://api.projectchrono.org/classchrono_1_1vehicle_1_1_t_measy_tire.html) 。
 
