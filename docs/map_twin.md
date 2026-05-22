@@ -3,6 +3,8 @@
 
 [__数字孪生工具__](adv_digital_twin.md) — 通过 OpenStreetMap 自动生成 HUTB 中的道路和建筑
 
+[__无人机倾斜摄影三维建模__](./modules/air_3d.md) - 基于 ContextCapture 的无人机倾斜摄影三维建模操作流程
+
 [__HUTB 中自定义地图的概述__](tuto_M_custom_map_overview.md) — 添加自定义标准尺寸地图所涉及的过程和选项的概述
 
 [__内容创作-地图__](tuto_content_authoring_maps.md) — 自定义地图的创作

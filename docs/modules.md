@@ -4,7 +4,7 @@
 
 [__罗技 G29 方向盘__](tuto_G_G29_windows.md) — 使用罗技方向盘进行车辆控制和模拟对方向盘的反向控制
 
-[__Cesium 插件__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎
+[__Cesium 插件__](adv_cesium.md) — 将 3D 地理空间生态系统引入虚幻引擎，后续步骤参考[倾斜摄影三维建模操作流程](./modules/air_3d.md)
 
 [__AI 渲染__](./ai_rendering.md) — 进行场景的 AI 风格渲染
 
