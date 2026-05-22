@@ -592,6 +592,17 @@ python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>
 <p>首先，根据您最新的更改创建一个 CARLA 包：</p>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>package
 </code></pre></div>
+<p><strong>请注意</strong>：在执行make package时，可能遇到的错误</p>
+<p>在烘焙（Cook）阶段，漫长的编译后突然报 <code>ExitCode=139</code> 或 <code>ExitCode=25，日志最深处隐藏着</code>Signal 11 caught (段错误)。</p>
+<p><strong>解决方案：</strong> 你需要进入 Carla 虚幻工程，把所有的缓存文件全部删干净，让它从零开始重新生成。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Unreal/CarlaUE4
+<span class="c1"># 删除临时编译文件夹</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>Intermediate<span class="w"> </span>Saved<span class="w"> </span>Binaries
+<span class="c1"># 删除虚幻引擎的全局和局部 DDC 缓存 (非常关键！)</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>DerivedDataCache
+<span class="c1"># 如果你使用了 Carla 的缓存，也清理一下</span>
+make<span class="w"> </span>clean
+</code></pre></div>
 <p>该软件包将在 Dist 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：</p>
 <div class="highlight"><pre><span></span><code>./Dist/CARLA_&lt;package_id&gt;/LinuxNoEditor/CarlaUE4.sh<span class="w"> </span>--ros2<span class="w"> </span>-RenderOffScreen<span class="w"> </span>--carla-rpc-port<span class="o">=</span>&lt;port&gt;<span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
 </code></pre></div>
