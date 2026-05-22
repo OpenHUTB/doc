@@ -622,6 +622,24 @@ CARLA 的代码自带一套测试用例，旨在检测新代码变更可能引�
 make package
 ```
 
+**请注意**：在执行make package时，可能遇到的错误
+
+在烘焙（Cook）阶段，漫长的编译后突然报 `ExitCode=139` 或 `ExitCode=25，日志最深处隐藏着 `Signal 11 caught (段错误)。
+
+**解决方案：** 你需要进入 Carla 虚幻工程，把所有的缓存文件全部删干净，让它从零开始重新生成。
+
+```sh
+cd ~/hutb/Unreal/CarlaUE4
+# 删除临时编译文件夹
+rm -rf Intermediate Saved Binaries
+# 删除虚幻引擎的全局和局部 DDC 缓存 (非常关键！)
+rm -rf DerivedDataCache
+# 如果你使用了 Carla 的缓存，也清理一下
+make clean
+```
+
+
+
 该软件包将在 Dist 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：
 
 ```sh
