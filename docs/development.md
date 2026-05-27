@@ -21,4 +21,6 @@
 
 [__湖工商分支__](dev/custom_dev.md) - 在原分支的基础上开发自定义的功能
 
+[__自动化测试__](./test/tuto_test.md) - 冒烟测试、单元测试等
+
 [__调试程序__](tuto_D_windows_debug.md) — 进行C++程序的调试

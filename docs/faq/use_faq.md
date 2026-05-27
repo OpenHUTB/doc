@@ -7,6 +7,41 @@
 
 ## Python 调用
 
+* `pygame.font.get_fonts()` 运行报错：
+
+复现代码：
+```python
+import pygame
+print(pygame.font.get_fonts())
+```
+
+报错信息：
+```text
+pygame-ce 2.5.7 (SDL 2.32.10, Python 3.10.19)
+Traceback (most recent call last):
+  File "D:\hutb\Build\bak\test.py", line 3, in <module>
+    print(pygame.font.get_fonts())
+  File "D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py", line 520, in get_fonts
+    initsysfonts()
+  File "D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py", line 356, in initsysfonts
+    fonts = initsysfonts_win32()
+  File "D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py", line 80, in initsysfonts_win32
+    if splitext(font)[1].lower() not in OpenType_extensions:
+  File "D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\ntpath.py", line 231, in splitext
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not int
+```
+
+解决：
+1.在 `envs\hutb\lib\site-packages\pygame\sysfont.py` 的 `if splitext(font)[1].lower() not in OpenType_extensions:`之前添加`print(font)`
+
+2.运行`print(pygame.font.get_fonts())`，输出的最后一行即为有问题的字体，比如`1776905345`（不以字体文件为后缀）
+
+3.运行`regedit`打开注册表编辑器，删除包含有问题字体的项，比如`Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts`的`1776905345`在`sdk_init_timestamp`项中。在 Python 中再次运行`pygame.font.get_fonts()`即可解决。
+
+---
+
+
 * 运行`world.get_blueprint_library()`报错：ValueError: role_name: colors must have 3 channels (R,G,B)
 
     > 服务端和客户端版本不一致，比如服务端是ue4-dev的最新代码，而客户端为0.9.15的代码。

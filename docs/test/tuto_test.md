@@ -2,6 +2,12 @@
 
 HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_tests`进行测试。
 
+测试命令：
+```shell
+CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
+python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+```
+
 
 ## 测试内容
 
@@ -103,17 +109,35 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 测试失败：
 ```shell
 smoke.test_spawnpoints.TestSpawnpoints
+smoke.test_collision_sensor.TestCollisionSensor
+
 smoke.test_sync.TestSynchronousMode
 ```
-
-
-
-
-测试命令：
-```shell
-CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
-python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+报错信息（Town03 中因为，无效的参与者描述符导致测试碰撞失败；在生成位置的生成碰撞导致生成失败）：
+```text
+2026-05-27T00:11:26.3311632Z ======================================================================
+2026-05-27T00:11:26.3312324Z ERROR: test_single_car (smoke.test_collision_sensor.TestCollisionSensor)
+2026-05-27T00:11:26.3313865Z ----------------------------------------------------------------------
+2026-05-27T00:11:26.3314303Z Traceback (most recent call last):
+2026-05-27T00:11:26.3315000Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 47, in test_single_car
+2026-05-27T00:11:26.3315776Z     event_list = self.run_collision_single_car_against_wall(bp_veh)
+2026-05-27T00:11:26.3316678Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 21, in run_collision_single_car_against_wall
+2026-05-27T00:11:26.3317486Z     vehicle = self.world.spawn_actor(bp_vehicle, veh_transf)
+2026-05-27T00:11:26.3318012Z RuntimeError: Spawn failed because of invalid actor description
+2026-05-27T00:11:26.3318412Z 
+2026-05-27T00:11:26.3318593Z ======================================================================
+2026-05-27T00:11:26.3319177Z FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+2026-05-27T00:11:26.3319657Z ----------------------------------------------------------------------
+2026-05-27T00:11:26.3320023Z Traceback (most recent call last):
+2026-05-27T00:11:26.3320634Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 74, in test_spawn_points
+2026-05-27T00:11:26.3321283Z     if spawn_errors else "Spawn errors detected (no details)"
+2026-05-27T00:11:26.3321745Z AssertionError: True is not false : Spawn errors detected:
+2026-05-27T00:11:26.3322565Z   - idx=13, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(191.080,55.840,0.300), rot=(0.00,180.00,0.00), error=Spawn failed because of collision at spawn position
 ```
+
+
+
+
 
 ## CI/CD
 

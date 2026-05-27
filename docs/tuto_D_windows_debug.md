@@ -528,9 +528,6 @@ Failed to open descriptor file ./../../../carla/Unreal/CarlaUE4/CarlaUE4.uprojec
 
 `package_dir` 选项的值是字典而不是列表。当您的源代码不直接位于与 `setup.py` 相同的文件夹中时，请使用此选项。
 
-### 测试
-
-自动化测试请参考 [链接](./test/tuto_test.md) 。
 
 ## 其他
 
