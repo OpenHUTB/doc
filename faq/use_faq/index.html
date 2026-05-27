@@ -107,6 +107,33 @@
 </div>
 <h2 id="python">Python 调用</h2>
 <ul>
+<li><code>pygame.font.get_fonts()</code> 运行报错：</li>
+</ul>
+<p>复现代码：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">get_fonts</span><span class="p">())</span>
+</code></pre></div></p>
+<p>报错信息：
+<div class="highlight"><pre><span></span><code>pygame-ce 2.5.7 (SDL 2.32.10, Python 3.10.19)
+Traceback (most recent call last):
+  File &quot;D:\hutb\Build\bak\test.py&quot;, line 3, in &lt;module&gt;
+    print(pygame.font.get_fonts())
+  File &quot;D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py&quot;, line 520, in get_fonts
+    initsysfonts()
+  File &quot;D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py&quot;, line 356, in initsysfonts
+    fonts = initsysfonts_win32()
+  File &quot;D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\site-packages\pygame\sysfont.py&quot;, line 80, in initsysfonts_win32
+    if splitext(font)[1].lower() not in OpenType_extensions:
+  File &quot;D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb\lib\ntpath.py&quot;, line 231, in splitext
+    p = os.fspath(p)
+TypeError: expected str, bytes or os.PathLike object, not int
+</code></pre></div></p>
+<p>解决：
+1.在 <code>envs\hutb\lib\site-packages\pygame\sysfont.py</code> 的 <code>if splitext(font)[1].lower() not in OpenType_extensions:</code>之前添加<code>print(font)</code></p>
+<p>2.运行<code>print(pygame.font.get_fonts())</code>，输出的最后一行即为有问题的字体，比如<code>1776905345</code>（不以字体文件为后缀）</p>
+<p>3.运行<code>regedit</code>打开注册表编辑器，删除包含有问题字体的项，比如<code>Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts</code>的<code>1776905345</code>在<code>sdk_init_timestamp</code>项中。在 Python 中再次运行<code>pygame.font.get_fonts()</code>即可解决。</p>
+<hr />
+<ul>
 <li>
 <p>运行<code>world.get_blueprint_library()</code>报错：ValueError: role_name: colors must have 3 channels (R,G,B)</p>
 <blockquote>

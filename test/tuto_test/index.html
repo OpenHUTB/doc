@@ -102,6 +102,10 @@
               
                 <h1 id="_1">测试框架</h1>
 <p>HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令<code>make smoke_tests</code>进行测试。</p>
+<p>测试命令：
+<div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
+python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+</code></pre></div></p>
 <h2 id="_2">测试内容</h2>
 <h3 id="_3">冒烟测试</h3>
 <h4 id="smoketest_sync">同步模式 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/test/smoke/test_sync.py">smoke.test_sync</a></h4>
@@ -210,11 +214,29 @@
 整个脚本会依次运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
 <p>测试失败：
 <div class="highlight"><pre><span></span><code>smoke.test_spawnpoints.TestSpawnpoints
+smoke.test_collision_sensor.TestCollisionSensor
+
 smoke.test_sync.TestSynchronousMode
-</code></pre></div></p>
-<p>测试命令：
-<div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
-python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+</code></pre></div>
+报错信息（Town03 中因为，无效的参与者描述符导致测试碰撞失败；在生成位置的生成碰撞导致生成失败）：
+<div class="highlight"><pre><span></span><code>2026-05-27T00:11:26.3311632Z ======================================================================
+2026-05-27T00:11:26.3312324Z ERROR: test_single_car (smoke.test_collision_sensor.TestCollisionSensor)
+2026-05-27T00:11:26.3313865Z ----------------------------------------------------------------------
+2026-05-27T00:11:26.3314303Z Traceback (most recent call last):
+2026-05-27T00:11:26.3315000Z   File &quot;C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py&quot;, line 47, in test_single_car
+2026-05-27T00:11:26.3315776Z     event_list = self.run_collision_single_car_against_wall(bp_veh)
+2026-05-27T00:11:26.3316678Z   File &quot;C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py&quot;, line 21, in run_collision_single_car_against_wall
+2026-05-27T00:11:26.3317486Z     vehicle = self.world.spawn_actor(bp_vehicle, veh_transf)
+2026-05-27T00:11:26.3318012Z RuntimeError: Spawn failed because of invalid actor description
+2026-05-27T00:11:26.3318412Z 
+2026-05-27T00:11:26.3318593Z ======================================================================
+2026-05-27T00:11:26.3319177Z FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+2026-05-27T00:11:26.3319657Z ----------------------------------------------------------------------
+2026-05-27T00:11:26.3320023Z Traceback (most recent call last):
+2026-05-27T00:11:26.3320634Z   File &quot;C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py&quot;, line 74, in test_spawn_points
+2026-05-27T00:11:26.3321283Z     if spawn_errors else &quot;Spawn errors detected (no details)&quot;
+2026-05-27T00:11:26.3321745Z AssertionError: True is not false : Spawn errors detected:
+2026-05-27T00:11:26.3322565Z   - idx=13, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(191.080,55.840,0.300), rot=(0.00,180.00,0.00), error=Spawn failed because of collision at spawn position
 </code></pre></div></p>
 <h2 id="cicd">CI/CD</h2>
 <p>参考 <a href="https://www.cnblogs.com/dotnet261010/p/11495762.html">链接</a> 进行软件的安装。</p>
