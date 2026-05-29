@@ -5,6 +5,8 @@ HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_test
 测试命令：
 ```shell
 CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
+# -m (module)：以模块运行
+# -v (verbose)：打印详细信息
 python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
 ```
 
@@ -67,6 +69,8 @@ python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
 
 测试传感器数据确定性的验证工具，确保在相同输入条件下，传感器产生的数据是完全可重复的。
 
+测试每个搭载碰撞传感器的车辆与墙碰撞后能够收集到碰撞事件。
+
 #### 碰撞
 
 smoke.test_collision_determinism 
@@ -106,37 +110,138 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 整个脚本会依次运行 [smoke_test_list.txt](https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt) 文件中的所有测试用例。
 
 
+## 问题解决
+
 测试失败：
 ```shell
-smoke.test_spawnpoints.TestSpawnpoints
-smoke.test_collision_sensor.TestCollisionSensor
+python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+python -m nose2 -v smoke.test_collision_sensor.TestCollisionSensor
 
 smoke.test_sync.TestSynchronousMode
 ```
-报错信息（Town03 中因为，无效的参与者描述符导致测试碰撞失败；在生成位置的生成碰撞导致生成失败）：
-```text
-2026-05-27T00:11:26.3311632Z ======================================================================
-2026-05-27T00:11:26.3312324Z ERROR: test_single_car (smoke.test_collision_sensor.TestCollisionSensor)
-2026-05-27T00:11:26.3313865Z ----------------------------------------------------------------------
-2026-05-27T00:11:26.3314303Z Traceback (most recent call last):
-2026-05-27T00:11:26.3315000Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 47, in test_single_car
-2026-05-27T00:11:26.3315776Z     event_list = self.run_collision_single_car_against_wall(bp_veh)
-2026-05-27T00:11:26.3316678Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 21, in run_collision_single_car_against_wall
-2026-05-27T00:11:26.3317486Z     vehicle = self.world.spawn_actor(bp_vehicle, veh_transf)
-2026-05-27T00:11:26.3318012Z RuntimeError: Spawn failed because of invalid actor description
-2026-05-27T00:11:26.3318412Z 
-2026-05-27T00:11:26.3318593Z ======================================================================
-2026-05-27T00:11:26.3319177Z FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
-2026-05-27T00:11:26.3319657Z ----------------------------------------------------------------------
-2026-05-27T00:11:26.3320023Z Traceback (most recent call last):
-2026-05-27T00:11:26.3320634Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 74, in test_spawn_points
-2026-05-27T00:11:26.3321283Z     if spawn_errors else "Spawn errors detected (no details)"
-2026-05-27T00:11:26.3321745Z AssertionError: True is not false : Spawn errors detected:
-2026-05-27T00:11:26.3322565Z   - idx=13, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(191.080,55.840,0.300), rot=(0.00,180.00,0.00), error=Spawn failed because of collision at spawn position
+报错信息（Town03 中因为，无效的参与者描述符导致测试碰撞失败；smoke.test_spawnpoints.TestSpawnpoints 在生成位置的生成碰撞导致生成失败）：
+
+
+调试：[虚幻编辑器中启动带参数的场景](../ue/unreal_editor.md)。
+
+* `Spawn failed because of invalid actor description`
+
+    报错信息：
+
+    ```text
+    2026-05-27T00:11:26.3312324Z ERROR: test_single_car (smoke.test_collision_sensor.TestCollisionSensor)
+    2026-05-27T00:11:26.3313865Z ----------------------------------------------------------------------
+    2026-05-27T00:11:26.3314303Z Traceback (most recent call last):
+    2026-05-27T00:11:26.3315000Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 47, in test_single_car
+    2026-05-27T00:11:26.3315776Z     event_list = self.run_collision_single_car_against_wall(bp_veh)
+    2026-05-27T00:11:26.3316678Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 21, in run_collision_single_car_against_wall
+    2026-05-27T00:11:26.3317486Z     vehicle = self.world.spawn_actor(bp_vehicle, veh_transf)
+    2026-05-27T00:11:26.3318012Z RuntimeError: Spawn failed because of invalid actor description
+    ```
+
+    原因：mini-2 （没有）等车生成不了。原来有[41种车型](https://openhutb.github.io/doc/catalogue_vehicles/)，扩展到54种。
+    ```shell
+    python ..\examples\manual_control.py -p 3654 --filter vehicle.mini-2.mini-2
+    ```
+
+    解决：删除车辆工厂中没有资产的车辆。
+
+
+* `The collision sensor have failed for the cars`
+
+    报错信息：
+    ```text
+    FAIL: test_single_car (smoke.test_collision_sensor.TestCollisionSensor)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+    File "D:\hutb\PythonAPI\test\smoke\test_collision_sensor.py", line 56, in test_single_car
+        self.fail("The collision sensor have failed for the cars: %s" % cars_failing)
+    AssertionError: The collision sensor have failed for the cars:  vehicle.byd-v2.byd-v2 vehicle.hq.hq
+    ```
+
+    原因：未产生碰撞事件。
+
+    [解决](https://github.com/carla-simulator/carla/issues/7950#issuecomment-2696074565)：参考[碰撞检测器的必要配置](../ref_sensors.md#collision-detector)
+
+
+
+* `Spawn failed because of collision at spawn position`
+
+    报错信息：
+
+    ```text
+    2026-05-27T00:11:26.3319177Z FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+    2026-05-27T00:11:26.3319657Z ----------------------------------------------------------------------
+    2026-05-27T00:11:26.3320023Z Traceback (most recent call last):
+    2026-05-27T00:11:26.3320634Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 74, in test_spawn_points
+    2026-05-27T00:11:26.3321283Z     if spawn_errors else "Spawn errors detected (no details)"
+    2026-05-27T00:11:26.3321745Z AssertionError: True is not false : Spawn errors detected:
+    2026-05-27T00:11:26.3322565Z   - idx=13, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(191.080,55.840,0.300), rot=(0.00,180.00,0.00), error=Spawn failed because of collision at spawn position
+    ```
+
+    原因：
+
+    vehicle.bus-1.bus-1 车太大了，在生成点产生冲突。 
+
+    解决：在车辆工厂中暂时移除。
+
+---
+
+* 内存泄漏
+
+    vehicle.wuling-2.wuling-2（不确定） 会导致内存急剧（消耗了28G）上升直到场景出现 Out of video memory trying to allocate a rendering resource，注释了也没用。
+
+    vehicle.bydsong-1、
+    vehicle.volkswagen.t2_2021、vehicle.wj.wj、vehicle.hongqi-2.hongqi-2、vehicle.byd_bus.byd_bus、vehicle.mini-4.mini-4、hongqi-1、vehicle.bus-2.bus-2、
+
+---
+
+```
+(hutb) D:\hutb\PythonAPI\test>python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints) ... INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
+TestSpawnpoints.test_spawn_points
+INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
+INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
+FAIL
+
+======================================================================
+FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 70, in test_spawn_points
+    self.assertFalse(
+AssertionError: True is not false : Spawn errors detected:
+  - idx=12, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-77.887,33.207,0.649), rot=(-0.35,-90.16,-0.00), error=Spawn failed because of collision at spawn position
+  - idx=34, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-121.302,136.416,0.275), rot=(0.00,-0.60,0.00), error=Spawn failed because of collision at spawn position
+  - idx=53, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(150.919,-162.626,4.518), rot=(0.00,91.00,0.00), error=Spawn failed because of collision at spawn position
+  - idx=67, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-31.326,131.243,0.275), rot=(0.00,178.70,0.00), error=Spawn failed because of collision at spawn position
+  - idx=76, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(154.558,-166.591,3.788), rot=(-2.32,-89.00,0.00), error=Spawn failed because of collision at spawn position
+  - idx=118, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(1.673,79.557,0.275), rot=(0.00,-88.89,0.00), error=Spawn failed because of collision at spawn position
+  - idx=157, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-59.361,135.467,0.275), rot=(0.00,-1.30,0.00), error=Spawn failed because of collision at spawn position
+  - idx=177, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(2.295,176.878,0.275), rot=(0.00,-90.36,0.00), error=Spawn failed because of collision at spawn position
+  - idx=201, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(107.897,62.557,0.275), rot=(0.00,-0.15,0.00), error=Spawn failed because of collision at spawn position
+  - idx=202, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-9.262,155.709,0.275), rot=(0.00,89.64,0.00), error=Spawn failed because of collision at spawn position
+  - idx=203, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-5.762,161.587,0.275), rot=(0.00,89.64,0.00), error=Spawn failed because of collision at spawn position
+  - idx=216, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(234.770,3.551,0.275), rot=(0.00,91.39,0.00), error=Spawn failed because of collision at spawn position
+  - idx=221, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(4.105,-46.116,0.275), rot=(0.00,-88.59,0.00), error=Spawn failed because of collision at spawn position
+  - idx=228, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-42.351,-2.835,0.275), rot=(0.00,-179.71,0.00), error=Spawn failed because of collision at spawn position
+  - idx=231, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-9.018,24.411,0.275), rot=(0.00,78.62,0.00), error=Spawn failed because of collision at spawn position
+  - idx=244, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(37.282,3.424,0.275), rot=(0.00,-13.67,0.00), error=Spawn failed because of collision at spawn position
+  - idx=245, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(16.031,10.789,0.275), rot=(0.00,-58.80,0.00), error=Spawn failed because of collision at spawn position
+  - idx=257, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-67.324,0.537,0.275), rot=(0.00,0.29,0.00), error=Spawn failed because of collision at spawn position
+
+----------------------------------------------------------------------
+Ran 1 test in 107.533s
+
+FAILED (failures=1)
 ```
 
 
-
+所有测试的52种车辆：
+```
+Testing collision sensor for 52 vehicles: 
+vehicle.bydsong-1.bydsong-1, vehicle.mini-3.mini-3, vehicle.byd.seal, vehicle.kawasaki.ninja, vehicle.audi.a2, vehicle.nissan.micra, vehicle.su7.su7, vehicle.audi.tt, vehicle.mercedes.coupe_2020, vehicle.bmw.grandtourer, vehicle.harley-davidson.low_rider, vehicle.ford.ambulance, vehicle.micro.microlino, vehicle.carlamotors.carlacola, vehicle.ford.mustang, vehicle.chevrolet.impala, vehicle.lincoln.mkz_2020, vehicle.lixiang-1.lixiang-1, vehicle.citroen.c3, vehicle.dodge.charger_police, vehicle.nissan.patrol, vehicle.jeep.wrangler_rubicon, vehicle.mini.cooper_s, vehicle.mercedes.coupe, vehicle.dodge.charger_2020, vehicle.ford.crown, vehicle.seat.leon, vehicle.toyota.prius, vehicle.yamaha.yzf, vehicle.xiaopeng-1.xiaopeng-1, vehicle.bh.crossbike, vehicle.tesla.model3, vehicle.gazelle.omafiets, vehicle.tesla.cybertruck, vehicle.diamondback.century, vehicle.mercedes.sprinter, vehicle.audi.etron, vehicle.volkswagen.t2, vehicle.lincoln.mkz_2017, vehicle.dodge.charger_police_2020, vehicle.vespa.zx125, vehicle.mini.cooper_s_2021, vehicle.nissan.patrol_2021, vehicle.volkswagen.t2_2021, vehicle.wj.wj, vehicle.hongqi-2.hongqi-2, vehicle.byd_bus.byd_bus, vehicle.bus-1.bus-1, vehicle.mini-4.mini-4, vehicle.hongqi-1.hongqi-1, vehicle.wuling-1.wuling-1, vehicle.wuling-2.wuling-2
+```
 
 
 ## CI/CD

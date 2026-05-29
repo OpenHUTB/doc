@@ -14,4 +14,6 @@
 
 [__虚幻引擎文档__](https://openhutb.github.io/engine_doc/) — 与虚幻引擎相关的操作和说明
 
+[__内存优化__](ue/memory_optimization.md) - 内存消耗、内存泄漏等分析
+
 [__引擎源码解析__](ue/src/analysis.md) - 解析模拟器引擎的实现原理和方式

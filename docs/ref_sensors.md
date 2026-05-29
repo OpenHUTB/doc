@@ -33,6 +33,9 @@
 
 每当其父参与者与世界上的某些物体发生碰撞时，该传感器都会记录一个事件。每个碰撞传感器每帧每次碰撞都会产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。为了确保检测到与任何类型的对象的碰撞，服务器为建筑物或灌木丛等元素创建“假”参与者，以便可以检索语义标签来识别它。
 
+必要配置：在虚幻编辑器中打开[车辆的物理资产（*_PhysicsAsset）](https://git.code.tencent.com/OpenHUTB/Content/blob/master/Carla/Static/Car/4Wheeled/BYD_SONG/BYDSONG-1_BODY_PhysicsAsset.uasset) ，**选中中间的车辆**，在右侧的“详情”中的**碰撞**里的**模拟生成命中事件**(Simulation Generates Hit Events)。
+
+
 碰撞检测器没有任何可配置的属性。
 
 #### 输出属性
