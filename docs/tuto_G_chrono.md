@@ -57,7 +57,7 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 !!! 重要
     仔细检查您的路径。不正确或缺失的路径可能会导致虚幻引擎崩溃。
 
-`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的[文档](https://api.projectchrono.org/manual_vehicle.html) （或参考[中文文档](chrono/manual_vehicle.md)），了解有关其车辆示例以及如何创建模板的更多信息。
+`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的[文档](https://api.projectchrono.org/manual_vehicle.html) （或参考[中文文档](https://openhutb.github.io/chrono_doc/chrono/manual_vehicle/)），了解有关其车辆示例以及如何创建模板的更多信息。
 
 请参阅下面的示例，了解如何启用 Chrono 物理：
 
