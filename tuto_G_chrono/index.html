@@ -146,7 +146,7 @@
 <p class="admonition-title">重要</p>
 <p>仔细检查您的路径。不正确或缺失的路径可能会导致虚幻引擎崩溃。</p>
 </div>
-<p><code>Build/chrono-install/share/chrono/data/vehicle</code> 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的<a href="https://api.projectchrono.org/manual_vehicle.html">文档</a> （或参考<a href="../chrono/manual_vehicle/">中文文档</a>），了解有关其车辆示例以及如何创建模板的更多信息。</p>
+<p><code>Build/chrono-install/share/chrono/data/vehicle</code> 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的<a href="https://api.projectchrono.org/manual_vehicle.html">文档</a> （或参考<a href="chrono/manual_vehicle.md">中文文档</a>），了解有关其车辆示例以及如何创建模板的更多信息。</p>
 <p>请参阅下面的示例，了解如何启用 Chrono 物理：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 生成车辆</span>
 <span class="n">vehicle</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">spawn_actor</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">spawn_point</span><span class="p">)</span>
@@ -163,14 +163,14 @@
 <span class="n">vehicle</span><span class="o">.</span><span class="n">enable_chrono_physics</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">,</span> <span class="n">vehicle_json</span><span class="p">,</span> <span class="n">powertrain_json</span><span class="p">,</span> <span class="n">tire_json</span><span class="p">,</span> <span class="n">base_path</span><span class="p">)</span>
 </code></pre></div>
 <p>首先进入 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">网盘</a> 的目录 <code>software/car/fisheye-camera</code> 下载支持chrono的可执行场景。然后可以使用 <a href="https://github.com/OpenHUTB/doc/tree/master/src/examples"><code>PythonAPI/examples</code></a> 中的示例脚本 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control_chrono.py"><code>manual_control_chrono.py</code></a> 尝试 Chrono 物理集成。运行脚本后，按<code>Ctrl + o</code>启用 Chrono。下面显示高速转弯时，方向盘打死会翻车的情况：</p>
-<p><img alt="" src="../img/chrono/vechile_turnover.gif" /></p>
+<p><img alt="" src="https://github.com/OpenHUTB/chrono_doc/blob/master/docs/img/chrono/vechile_turnover.gif?raw=true" /></p>
 <hr />
 <h3 id="_2">局限性 <span id="limitations"></span></h3>
 <p>此集成不支持碰撞。<strong>当发生碰撞时，车辆将恢复为 Carla 默认物理状态。</strong></p>
 <h2 id="_3">扩展</h2>
 <ul>
-<li><a href="../chrono/vehicle_overview/">Carla 中的 Chrono 实现</a></li>
-<li><a href="../chrono/manual_vehicle/">Chrono 中文文档</a></li>
+<li><a href="chrono/vehicle_overview.md">Carla 中的 Chrono 实现</a></li>
+<li><a href="chrono/manual_vehicle.md">Chrono 中文文档</a></li>
 <li><a href="https://api.projectchrono.org/9.0.0/tutorial_slides_300.html">Chrono培训PPT</a></li>
 </ul>
               
