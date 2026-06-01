@@ -28,7 +28,7 @@
 该项目是一款能让用户快速测试 [具身人](https://openhutb.github.io/doc/#_5) 、[无人车](https://openhutb.github.io/doc/#_4) 、[无人机](https://openhutb.github.io/air_doc/) 感知、规划、控制算法的影视级物理模拟器文档。
 
 <p width="100%" display="flex" align="center">
-<a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/cycle.gif" width="27%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="docs/img/chrono/vechile_turnover.gif" width="30%"/></a> <a href="https://openhutb.github.io/air_doc/"><img src="https://github.com/OpenHUTB/air_doc/blob/master/docs/images/dev/HUTB_simulation.gif?raw=true" width="30%"/></a>
+<a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/cycle.gif" width="27%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="https://github.com/OpenHUTB/chrono_doc/blob/master/docs/img/chrono/vechile_turnover.gif?raw=true" width="30%"/></a> <a href="https://openhutb.github.io/air_doc/"><img src="https://github.com/OpenHUTB/air_doc/blob/master/docs/images/dev/HUTB_simulation.gif?raw=true" width="30%"/></a>
 </p>
 
 ---
