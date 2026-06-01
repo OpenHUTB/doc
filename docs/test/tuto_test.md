@@ -112,8 +112,16 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 
 ## 问题解决
 
+
+* Town03 测试时发现先显示第一视角的VR模式，然后再切换到 Air 模式
+
+---
+
+
 测试失败：
 ```shell
+conda activate hutb
+cd PythonAPI/test
 python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
 python -m nose2 -v smoke.test_collision_sensor.TestCollisionSensor
 
@@ -171,9 +179,8 @@ smoke.test_sync.TestSynchronousMode
 
     ```text
     2026-05-27T00:11:26.3319177Z FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
-    2026-05-27T00:11:26.3319657Z ----------------------------------------------------------------------
-    2026-05-27T00:11:26.3320023Z Traceback (most recent call last):
-    2026-05-27T00:11:26.3320634Z   File "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 74, in test_spawn_points
+    ...
+    "C:\actions-runner\_work\hutb\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 74, in test_spawn_points
     2026-05-27T00:11:26.3321283Z     if spawn_errors else "Spawn errors detected (no details)"
     2026-05-27T00:11:26.3321745Z AssertionError: True is not false : Spawn errors detected:
     2026-05-27T00:11:26.3322565Z   - idx=13, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(191.080,55.840,0.300), rot=(0.00,180.00,0.00), error=Spawn failed because of collision at spawn position
@@ -181,7 +188,7 @@ smoke.test_sync.TestSynchronousMode
 
     原因：
 
-    vehicle.bus-1.bus-1 车太大了，在生成点产生冲突。 
+    vehicle.bus-2.bus-2、vehicle.bus-1.bus-1 车太大了，在生成点产生冲突。
 
     解决：在车辆工厂中暂时移除。
 
@@ -194,54 +201,41 @@ smoke.test_sync.TestSynchronousMode
     vehicle.bydsong-1、
     vehicle.volkswagen.t2_2021、vehicle.wj.wj、vehicle.hongqi-2.hongqi-2、vehicle.byd_bus.byd_bus、vehicle.mini-4.mini-4、hongqi-1、vehicle.bus-2.bus-2、
 
+    使用LOD技术：Level of Detail (LOD) 技术可以根据距离摄像机的远近来加载不同精细程度的模型和纹理，从而降低GPU和内存的负担。
+
+    解决：打包后不会出现内存爆炸的问题。
+
+* Python 3.9 报错：TypeError: dataclass() got an unexpected keyword argument 'slots'
+
+    复现：pip install --force-reinstall  hutb/hutb/Build/UE4Carla/ce082bb54/WindowsNoEditor/PythonAPI/carla/dist/hutb-2.9.16-cp39-cp39-win_amd64.whl
+    ```shell
+    # 安装的是 pip-26.1.1-pyhc872135_0，最新的为：26.5.0
+    conda create -n hutb_3.9 python=3.9 --yes
+    conda deactivate && conda remove -n hutb_3.9 --all --yes
+    ```
+
+    报错信息：
+    ```text
+    (hutb_3.9) D:\hutb\PythonAPI\examples\air>pip --version
+    ...
+        from pip._internal.models.scheme import SCHEME_KEYS, Scheme
+    File "D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb_3.9\lib\site-packages\pip\_internal\models\scheme.py", line 13, in <module>
+        @dataclass(frozen=True, slots=True)
+    TypeError: dataclass() got an unexpected keyword argument 'slots'
+    ```
+
+    [原因](https://github.com/sgl-project/sglang/pull/8396)：类的装饰器中移除slots=True参数，因为 [slots参数是在 Python 3.10 中引入的](https://docs.python.org/3/library/dataclasses.html)。
+
+    解决：
+    ```shell
+    python -m pip install --upgrade pip
+    ```
+    D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb_3.9\lib\site-packages\pip\_internal\models\scheme.py
+    D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb_3.9\lib\site-packages\pip\_internal\models\release_control.py
+    D:\hutb\Build\dependencies\prerequisites\miniconda3\envs\hutb_3.9\lib\site-packages\pip\_internal\models\selection_prefs.py
+
 ---
 
-```
-(hutb) D:\hutb\PythonAPI\test>python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
-test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints) ... INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
-TestSpawnpoints.test_spawn_points
-INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
-INFO:  Found the required file in cache!  Carla/Maps/Nav/Town03.bin
-FAIL
-
-======================================================================
-FAIL: test_spawn_points (smoke.test_spawnpoints.TestSpawnpoints)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 70, in test_spawn_points
-    self.assertFalse(
-AssertionError: True is not false : Spawn errors detected:
-  - idx=12, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-77.887,33.207,0.649), rot=(-0.35,-90.16,-0.00), error=Spawn failed because of collision at spawn position
-  - idx=34, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-121.302,136.416,0.275), rot=(0.00,-0.60,0.00), error=Spawn failed because of collision at spawn position
-  - idx=53, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(150.919,-162.626,4.518), rot=(0.00,91.00,0.00), error=Spawn failed because of collision at spawn position
-  - idx=67, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-31.326,131.243,0.275), rot=(0.00,178.70,0.00), error=Spawn failed because of collision at spawn position
-  - idx=76, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(154.558,-166.591,3.788), rot=(-2.32,-89.00,0.00), error=Spawn failed because of collision at spawn position
-  - idx=118, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(1.673,79.557,0.275), rot=(0.00,-88.89,0.00), error=Spawn failed because of collision at spawn position
-  - idx=157, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-59.361,135.467,0.275), rot=(0.00,-1.30,0.00), error=Spawn failed because of collision at spawn position
-  - idx=177, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(2.295,176.878,0.275), rot=(0.00,-90.36,0.00), error=Spawn failed because of collision at spawn position
-  - idx=201, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(107.897,62.557,0.275), rot=(0.00,-0.15,0.00), error=Spawn failed because of collision at spawn position
-  - idx=202, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-9.262,155.709,0.275), rot=(0.00,89.64,0.00), error=Spawn failed because of collision at spawn position
-  - idx=203, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-5.762,161.587,0.275), rot=(0.00,89.64,0.00), error=Spawn failed because of collision at spawn position
-  - idx=216, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(234.770,3.551,0.275), rot=(0.00,91.39,0.00), error=Spawn failed because of collision at spawn position
-  - idx=221, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(4.105,-46.116,0.275), rot=(0.00,-88.59,0.00), error=Spawn failed because of collision at spawn position
-  - idx=228, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-42.351,-2.835,0.275), rot=(0.00,-179.71,0.00), error=Spawn failed because of collision at spawn position
-  - idx=231, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-9.018,24.411,0.275), rot=(0.00,78.62,0.00), error=Spawn failed because of collision at spawn position
-  - idx=244, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(37.282,3.424,0.275), rot=(0.00,-13.67,0.00), error=Spawn failed because of collision at spawn position
-  - idx=245, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(16.031,10.789,0.275), rot=(0.00,-58.80,0.00), error=Spawn failed because of collision at spawn position
-  - idx=257, bp=vehicle.bus-2.bus-2, actor_id=0, loc=(-67.324,0.537,0.275), rot=(0.00,0.29,0.00), error=Spawn failed because of collision at spawn position
-
-----------------------------------------------------------------------
-Ran 1 test in 107.533s
-
-FAILED (failures=1)
-```
-
-
-所有测试的52种车辆：
-```
-Testing collision sensor for 52 vehicles: 
-vehicle.bydsong-1.bydsong-1, vehicle.mini-3.mini-3, vehicle.byd.seal, vehicle.kawasaki.ninja, vehicle.audi.a2, vehicle.nissan.micra, vehicle.su7.su7, vehicle.audi.tt, vehicle.mercedes.coupe_2020, vehicle.bmw.grandtourer, vehicle.harley-davidson.low_rider, vehicle.ford.ambulance, vehicle.micro.microlino, vehicle.carlamotors.carlacola, vehicle.ford.mustang, vehicle.chevrolet.impala, vehicle.lincoln.mkz_2020, vehicle.lixiang-1.lixiang-1, vehicle.citroen.c3, vehicle.dodge.charger_police, vehicle.nissan.patrol, vehicle.jeep.wrangler_rubicon, vehicle.mini.cooper_s, vehicle.mercedes.coupe, vehicle.dodge.charger_2020, vehicle.ford.crown, vehicle.seat.leon, vehicle.toyota.prius, vehicle.yamaha.yzf, vehicle.xiaopeng-1.xiaopeng-1, vehicle.bh.crossbike, vehicle.tesla.model3, vehicle.gazelle.omafiets, vehicle.tesla.cybertruck, vehicle.diamondback.century, vehicle.mercedes.sprinter, vehicle.audi.etron, vehicle.volkswagen.t2, vehicle.lincoln.mkz_2017, vehicle.dodge.charger_police_2020, vehicle.vespa.zx125, vehicle.mini.cooper_s_2021, vehicle.nissan.patrol_2021, vehicle.volkswagen.t2_2021, vehicle.wj.wj, vehicle.hongqi-2.hongqi-2, vehicle.byd_bus.byd_bus, vehicle.bus-1.bus-1, vehicle.mini-4.mini-4, vehicle.hongqi-1.hongqi-1, vehicle.wuling-1.wuling-1, vehicle.wuling-2.wuling-2
-```
 
 
 ## CI/CD
