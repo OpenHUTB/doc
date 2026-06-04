@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>物理引擎 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7269\u7406\u5f15\u64ce";
+        var mkdocs_page_input_path = "ue/physical_engine.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pedestrian/">人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">车</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">物理引擎</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ue/physical_engine.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">物理引擎</h1>
+<p>权衡：要么慢但硬（PhyX），要么快但软。</p>
+<p>每个仿真步要解决的问题大致是:「这一瞬间，所有接触力、约束力、摩擦力应该是多少，才能满足物理定律？」如果按硬约束路线，这是个非凸的、棘手的 LCP 问题。MuJoCo 的高明之处，是通过把「硬接触」放松成「软接触」，把这个本来非凸的问题重新包装成了一个凸优化问题——变成了一个干净漂亮的碗，每一步都保证能滚到碗底。代价就是接触会显得软一点。</p>
+<h2 id="mujoco">Mujoco</h2>
+<p>软约束：把接触动力学硬塞进凸优化的框架里，将狰狞的物理约束统一表达为凸优化问题，这种设计带来了卓越的数值稳定性。</p>
+<p>Mujoco 不准仅仅指的接触偏软。在接触刚度之外的几乎所有维度上，MuJoCo 反而是公认顶尖的：多关节刚体动力学算得非常精确，能量、动量守恒守得很好，积分稳定性强、长时间仿真不易漂移。相比之下，PhysX 在整体误差和<strong>积分漂移</strong>（和能量守恒）上往往更大。</p>
+<h2 id="physx">PhysX</h2>
+<p>硬约束。</p>
+<p>PhysX 5.0 支持有限元（FEM）模型</p>
+<p>UE4 使用 <a href="https://github.com/NVIDIAGameWorks/PhysX-3.4">PhysX 3.3</a></p>
+<p><a href="https://github.com/MarkJGx/UnrealEngine/pull/1">UE5.0中禁用 Chaos 并使用 PhysX</a></p>
+<p>TODO: 支持 PhysX 5.1 GPU 的 UE4。</p>
+<h2 id="chaos">Chaos</h2>
+<p><a href="https://github.com/carla-simulator/carla/pull/8141">此 PR</a> 更新了 VehiclePhysicsControl 相关代码，以反映从 PhysX 到 Chaos 的切换。</p>
+<h2 id="_2">参考</h2>
+<ul>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/506607859">UE4 Chaos基础使用及物理说明</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Yadhu-S/UnrealJolt">Jolt physics integration (Plugin) for Unreal Engine 5 (UE5)</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/2041670864731648529">MuJoCo 和 PhyX 对比</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/647129953">UE4 物理系统的调试</a></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
