@@ -5,9 +5,19 @@ HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_test
 测试命令：
 ```shell
 CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
+cd PythonAPI/test
 # -m (module)：以模块运行
 # -v (verbose)：打印详细信息
-python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints >spawn.log
+```
+
+所有地图：
+```text
+AirSimAssets, AnnotationColorLandscape, HutbCarlaCity, Town01,
+    Town01_Opt, Town02, Town02_Opt, Town03, Town03_Opt, Town04,
+    Town04_Opt, Town05, Town05_Opt, Town06, Town06_Opt, Town07,
+    Town07_Opt, Town10HD, Town10HD_Opt, Town11, Town12, Town13,
+    Town15, Trees, baidutest2test, light.
 ```
 
 

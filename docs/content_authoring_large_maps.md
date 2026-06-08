@@ -208,7 +208,7 @@ make import  ARGS="--no-carla-materials"
 
 ![export_large_map_fbx](img/tuto_content_authoring_maps/tiles_content_browser.png)
 
-整个地图将有一个关卡文件，而从 RoadRunner 导出的每个图块将有一个关卡文件。要将建筑物和植被等资产添加到地图中，请双击要处理的图块的关卡文件（例如本例中`LargeMap_Tile_0_0`），以便将其加载到编辑器中。默认情况下，图块没有任何照明设置，因此您可能需要将视图模式从 更改`Lit`为`Unlit`才能在加载图块后看到它。现在，您可以按照 [与标准地图相同的过程](tuto_content_authoring_maps.md#importing-assets-and-adding-them-to-the-map) 向地图添加详细信息，请确保保存对正在处理的图块所做的修改，然后加载下一个图块并重复该过程。您无法一次性处理整个地图，因此加载（通过双击）整个地图的关卡文件（后面不带后缀 的文件`_Tile_X_Y`）对于装饰地图将没有用处。
+整个地图将有一个关卡文件，而从 RoadRunner 导出的每个图块将有一个关卡文件。要将建筑物和植被等资产添加到地图中，请双击要处理的图块的关卡文件（例如本例中`LargeMap_Tile_0_0`），以便将其加载到编辑器中。注意默认情况下，图块没有任何照明设置，因此您可能需要将视图模式从 `光照(Lit)` 更改为`无光照(Unlit)`才能在加载图块后看到它。现在，您可以按照 [与标准地图相同的过程](tuto_content_authoring_maps.md#importing-assets-and-adding-them-to-the-map) 向地图添加详细信息，请确保保存对正在处理的图块所做的修改，然后加载下一个图块并重复该过程。您无法一次性处理整个地图，因此加载（通过双击）整个地图的关卡文件（后面不带后缀 的文件`_Tile_X_Y`）对于装饰地图将没有用处。
 
 ![export_large_map_fbx](img/tuto_content_authoring_maps/large_map_unreal.png)
 
