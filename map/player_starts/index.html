@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>玩家出生点 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u73a9\u5bb6\u51fa\u751f\u70b9";
+        var mkdocs_page_input_path = "map/player_starts.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pedestrian/">人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">车</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">玩家出生点</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/map/player_starts.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">玩家出生点</h1>
+<h2 id="_2">变换</h2>
+<table>
+<thead>
+<tr>
+<th>地图</th>
+<th>位置</th>
+<th>旋转</th>
+<th>缩放</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Town01(_Opt)</td>
+<td>(12627.058594, 21210.371094, 1785.397217)</td>
+<td>(0.000046 °, -4.199958 °, -126.805 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town02(_Opt)</td>
+<td>(15028.0, 20436.0, 991.0)</td>
+<td>(-58.530861 °, 59.830147 °, -139.502045 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town03(_Opt)</td>
+<td>(-2853.0, 2256.0, 1235.0)</td>
+<td>(0.000044 °, 0.599745 °, -26.801725 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town04(_Opt)</td>
+<td>(24494.851562, -20514.84375, 1620.095581)</td>
+<td>(0.000009 °, 0.599718 °, 1.000204 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town05(_Opt)</td>
+<td>(4770.0, -2650.0, 1582.000732)</td>
+<td>(0.0 °, 0.0 °, -170.000183 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town06(_Opt)</td>
+<td>(3510.0, 17000.0, 1714.000732)</td>
+<td>(0.0 °, 0.0 °, -110.000153 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town07(_Opt)</td>
+<td>(-2069.594727, -13370.567383, 1296.563965)</td>
+<td>(0.0 °, 0.0 °, 90.000076 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town10(_Opt)</td>
+<td>(3620.341797, -754.089844, 4983.805176)</td>
+<td>(0.0 °, 0.0 °, 0.0 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+<tr>
+<td>Town12</td>
+<td>(0.0, 0.0, 200.0)</td>
+<td>(0.0 °, 0.0 °, 0.0 °)</td>
+<td>(1.0, 1.0, 1.0)</td>
+</tr>
+</tbody>
+</table>
+<p>如果在分层地图的 PlayStart 为灰色（世界大纲视图），或者新建一个 玩家出生点（PlayStart），提示“因为关卡被锁定，所以请求的操作不能完成”，则应该在窗口/关卡中找到对应的关卡，将锁定的按钮解开：
+<img alt="" src="../../img/map/unlock_level.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

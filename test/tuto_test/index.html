@@ -104,9 +104,17 @@
 <p>HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令<code>make smoke_tests</code>进行测试。</p>
 <p>测试命令：
 <div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
+<span class="nb">cd</span><span class="w"> </span>PythonAPI/test
 <span class="c1"># -m (module)：以模块运行</span>
 <span class="c1"># -v (verbose)：打印详细信息</span>
-python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints<span class="w"> </span>&gt;spawn.log
+</code></pre></div></p>
+<p>所有地图：
+<div class="highlight"><pre><span></span><code>AirSimAssets, AnnotationColorLandscape, HutbCarlaCity, Town01,
+    Town01_Opt, Town02, Town02_Opt, Town03, Town03_Opt, Town04,
+    Town04_Opt, Town05, Town05_Opt, Town06, Town06_Opt, Town07,
+    Town07_Opt, Town10HD, Town10HD_Opt, Town11, Town12, Town13,
+    Town15, Trees, baidutest2test, light.
 </code></pre></div></p>
 <h2 id="_2">测试内容</h2>
 <h3 id="_3">冒烟测试</h3>
