@@ -147,6 +147,33 @@ twine check dist/*
 
 解决：将 3.9~3.13 版本的whl文件用7zip打开，并编辑（F4）`hutb-2.2.dist-info\METADATA`，将`Metadata-Version`改为2.2，然后保存。
 
+
+___
+### pip 连接服务端时自动安装模拟器
+
+```shell
+cd hutb\PythonAPI\carla
+python setup.py build
+# python setup.py install
+# 创建一个链接指向你的本地项目目录，修改代码后直接生效，无需重新安装
+pip install -e .
+# python setup.py develop
+# pip install dist\hutb-2.9.16-cp310-cp310-win_amd64.whl
+pip uninstall hutb -y
+```
+
+```shell
+pip show hutb
+# 在连接时进行下载
+client = carla.Client(args.host, args.port)
+# 测试用用例：
+python ..\util\config.py -l
+```
+
+
+
+
+
 ___
 
 ### 发布自定义mkdocs

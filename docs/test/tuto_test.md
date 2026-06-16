@@ -5,10 +5,12 @@ HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_test
 测试命令：
 ```shell
 CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
+conda activate hutb_3.10
 cd PythonAPI/test
 # -m (module)：以模块运行
 # -v (verbose)：打印详细信息
-python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints >spawn.log
+python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
+ >spawn.log
 ```
 
 所有地图：
@@ -19,6 +21,58 @@ AirSimAssets, AnnotationColorLandscape, HutbCarlaCity, Town01,
     Town07_Opt, Town10HD, Town10HD_Opt, Town11, Town12, Town13,
     Town15, Trees, baidutest2test, light.
 ```
+
+
+
+
+
+## vscode 调试环境搭建
+
+点击菜单的`Run -> Add Configuration`（或打开`launch.json`），配置运行的是模块`module`而不是程序、当前路径`cwd`、运行指定的测试`args`：
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            // "program": "${file}",
+            "module": "nose2",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/PythonAPI/test/",
+            "args": [
+                "-v", "smoke.test_spawnpoints.TestSpawnpoints"
+            ]
+        }
+    ]
+}
+```
+
+
+## [pypi 本地服务搭建](https://www.cnblogs.com/phyger/p/19180033)
+
+```bat
+rem https://github.com/pypiserver/pypiserver
+pip install pypiserver
+cd Build\dependencies\pypi
+pypi-server.exe
+rem 准备包
+pip download  simplejson
+rem pip download -i https://pypi.tuna.tsinghua.edu.cn/simple simplejson
+rem 从本地源搜索
+rem Note that pip search does not currently work with the /simple/ endpoint.
+rem pip search -i http://localhost:8080 simplejson
+rem 安装前检查包是否存在
+pip show simplejson
+pip install -i http://localhost:8080/simple simplejson
+```
+
+
+
 
 
 ## 测试内容
@@ -100,6 +154,50 @@ smoke.test_lidar
 smoke.test_streamming
 #### 生成点
 smoke.test_spawnpoints 
+
+
+* 调试生成点冲突的问题：
+
+虚幻编辑器跳转到指定位置（位置单位为米，打印出来的冲突点需要乘以100）：
+```
+bugitgo 0 0 0 0 0 0
+```
+
+高度需要调低，否则会碰到树产生冲突。
+方向也要和道路的方向一致。
+
+将VehicleSpawnPoint{ID}从000进行编号命名，报错信息中的idx即为编辑器中 VehicleSpawnPoint{ID} 后的ID。
+```
+  - idx=69, bp=vehicle.bydsong-1.bydsong-1, actor_id=0, loc=(298.919,-359.228,156.824), rot=(-0.16,-170.40,0.00), error=Spawn failed because of collision at spawn position
+```
+
+
+验证在所有生成点生成车辆，他们之间是否会产生冲突；冲突的原因有：距离太近、车辆太大、生成点太高导致生成时就发生碰撞等。
+
+* 生成车辆的位置和车辆的位置发生偏差。
+```text
+  File "D:\hutb\PythonAPI\test\smoke\test_spawnpoints.py", line 132, in test_spawn_points
+    self.assertAlmostEqual(
+AssertionError: 896.038818359375 != 896.6028442382812 within 2 places (0.56402587890625 difference) : X position mismatch.
+actor_id=309
+x: expected=896.0388, got=896.6028, diff=0.5640
+```
+**调试**：确定发生偏差的生成点：这个actor_id并不是从0开始，调试 ids 发现：开始的 204 对应的是生成点 000，所以309对应的是 105。
+如果是后面的车辆测试时候失败，对应的生成点 id = 报错的id - ids的偏置 - 总生成点数 * 前面测试成功的车辆数 = actor_id - 204 - 319 * 2
+
+**解决**：调整生成点的方向、降低高度会缩小偏差
+
+已知问题：编辑器独立模式运行Town03、Town15测试生成点会导致内存溢出（63GB机器）、打包后的场景并不会出现内存溢出。
+
+
+生成点的旋转中的 Y 不为0度会报生成车的俯仰角和生成点的俯仰角不一致的错：
+```
+AssertionError: -3.3536911010742188 != -3.3598382472991943 within 2 places (0.006147146224975586 difference) : Pitch mismatch.
+actor_id=2627
+pitch: expected=-3.3537, got=-3.3598, diff=0.0061
+```
+地面不平的话，生成点的Y（俯仰有一定角度）设置为地面（got）的俯仰角。expected为生成点的俯仰角、got为地面的俯仰角。
+
 #### 蓝图
 smoke.test_blueprint 
 #### 碰撞传感器
