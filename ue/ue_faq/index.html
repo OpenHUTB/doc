@@ -106,6 +106,7 @@
 <li><a href="#baisc_concept">理解基础概念</a></li>
 </ul>
 </li>
+<li><a href="#op"><strong>操作</strong></a></li>
 <li><a href="#blueprint"><strong>蓝图</strong></a></li>
 <li><a href="#program"><strong>编程</strong></a></li>
 <li><a href="#misc"><strong>杂项</strong></a></li>
@@ -121,14 +122,18 @@
 <h3 id="_3">理解基础概念 <span id="baisc_concept"></span></h3>
 <h4 id="_4">关卡</h4>
 <p><a href="https://openhutb.github.io/engine_doc/zh-CN/Basics/Levels/HowTo/ChangeDefaultLevel/index.html">更改默认关卡</a></p>
-<h2 id="_5">蓝图 <span id="blueprint"></span></h2>
+<h3 id="_5">操作 <span id="op"></span></h3>
+<ul>
+<li><a href="../command/">命令行+快捷键</a></li>
+</ul>
+<h2 id="_6">蓝图 <span id="blueprint"></span></h2>
 <ul>
 <li><a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blueprints-quick-start-guide?application_version=4.27">蓝图快速入门指南</a></li>
 <li><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/possessing-pawns?application_version=4.27">持有棋子</a></li>
 </ul>
-<h2 id="_6">编程  <span id="program"></span></h2>
+<h2 id="_7">编程  <span id="program"></span></h2>
 <p><a href="https://github.com/CarlaUnreal/UnrealEngine/pull/38/files"><code>class ENGINE_API</code></a> 是一个宏，用于控制类的导出行为，确保类在不同模块（DLL或共享库）之间正确使用。</p>
-<h2 id="_7">杂项 <span id="misc"></span></h2>
+<h2 id="_8">杂项 <span id="misc"></span></h2>
 <ul>
 <li><a href="../syntax/">语法</a></li>
 <li><a href="../pixel_streaming/">像素流推送</a></li>
@@ -139,7 +144,7 @@
 <li><a href="../shader/">着色器</a></li>
 <li><a href="../unreal_editor/">虚幻编辑器</a></li>
 </ul>
-<h2 id="_8">源代码分析  <span id="src_analysis"></span></h2>
+<h2 id="_9">源代码分析  <span id="src_analysis"></span></h2>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/637746453">USkeletalMeshComponent</a></li>
 <li><a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/actor-lifecycle?application_version=4.27">Actor生命周期</a></li>
@@ -151,7 +156,7 @@
 <li><code>Compile UE4Editor Win64</code> 构建编辑器</li>
 <li><code>Compile UE4Game Win64</code></li>
 </ul>
-<h2 id="_9">其他 <span id="misc"></span></h2>
+<h2 id="_10">其他 <span id="misc"></span></h2>
 <ul>
 <li>
 <p><a href="../../launch_windows/">Windows 下的可发布包的构建</a></p>
@@ -173,7 +178,7 @@
 <p>PIE和SIE切换：
 在PIE模式下，shift + F1可以获得鼠标控制权（一般第一人称第三人称下鼠标用于旋转方向摄像头，不会出现光标）。然后点击工具栏的弹出（Eject）可以切换到SIE</p>
 <p>你也可以点击 控制（Possess） 功能的快捷键（F8）来从在编辑器中模拟（SIE）切换到在编辑器中运行（PIE）。</p>
-<h2 id="_10">加速构建过程  <span id="speed_up"></span></h2>
+<h2 id="_11">加速构建过程  <span id="speed_up"></span></h2>
 <p>每次执行hutb的make的操作时，都会出现
 <div class="highlight"><pre><span></span><code>Using &#39;git status&#39; to determine working set for adaptive non-unity build (D:\work\workspace\UnrealEngine).
 Waiting for &#39;git status&#39; command to complete
@@ -187,12 +192,12 @@ Total execution time: 2.38 seconds
     &lt;Provider&gt;None&lt;/Provider&gt;
   &lt;/SourceFileWorkingSet&gt;
 </code></pre></div></p>
-<h2 id="_11">插件 <span id="plugin"></span></h2>
+<h2 id="_12">插件 <span id="plugin"></span></h2>
 <h3 id="usd">USD</h3>
 <p>Universal Scene Description (USD) 是通用场景描述，一个开放且可扩展的生态系统，用于在 3D 世界中描述、组合、模拟和协作，最初由皮克斯动画工作室发明；是 Omniverse 使用的文件格式，人称元宇宙的 HTML。</p>
 <p>什么是仿真就绪（SimReady）素材</p>
 <p>仿真就绪（SimReady）素材是虚拟世界的基础模块，SimReady 素材不仅仅是 3D 物件，它们包含基于 Universal Scene Description (USD) 构建的准确物理属性、行为和连接的数据流。</p>
-<h2 id="_12">编译  <span id="compilation"></span></h2>
+<h2 id="_13">编译  <span id="compilation"></span></h2>
 <h6 id="make-launch">make launch启动引擎编辑器时报错</h6>
 <p>报错信息：
 <div class="highlight"><pre><span></span><code>无法启动D:/hutb/Build/engine/Engine/Binaries/Win64/ShaderCompileWorker.exe
@@ -270,11 +275,11 @@ LIN110 无法打开文件“D:\work\workspace\UnrealEngine\Engine\Binaries\Win64
   c1xx: error C3859: 未能创建 PCH 的虚拟内存
   c1xx: note: 系统返回代码 1455: The paging file is too small for this operation to complete.
 </code></pre></div></p>
-<h6 id="_13">打包时候报错：</h6>
+<h6 id="_14">打包时候报错：</h6>
 <p><div class="highlight"><pre><span></span><code>Package ../../../../../Unreal/CarlaUE4/Content/Carla/Content/Matrials/HutbCity/BeiMen/Default_Material.uasset has malformed tag
 </code></pre></div>
 检查是否没有拉取大文件。</p>
-<h2 id="_14">源代码管理  <span id="src_management"></span></h2>
+<h2 id="_15">源代码管理  <span id="src_management"></span></h2>
 <h6 id="openhutb"><a href="https://www.cnblogs.com/gjmhome/p/14061090.html">从原来的仓库迁移到OpenHUTB的引擎仓库</a></h6>
 <p>1.修改文件<code>.git/config</code>远端的仓库地址
 <div class="highlight"><pre><span></span><code><span class="o">[</span>remote<span class="w"> </span><span class="s2">&quot;origin&quot;</span><span class="o">]</span>
@@ -287,7 +292,7 @@ LIN110 无法打开文件“D:\work\workspace\UnrealEngine\Engine\Binaries\Win64
 <p>3.丢弃本地提交，强制回到线上最新版本：
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/hutb
 </code></pre></div></p>
-<h2 id="_15">常见问题  <span id="faq"></span></h2>
+<h2 id="_16">常见问题  <span id="faq"></span></h2>
 <h6 id="carlaue4exe">CarlaUE4.exe 崩溃的日志保存目录</h6>
 <p>.dmp 文件分析要求本机中有崩溃发生版本对应的符号表文件（CarlaUE4.pdb 文件），使用 VS 2022 （VS 2019 的步骤类似）分析 .dmp 文件步骤如下：</p>
 <p><div class="highlight"><pre><span></span><code><span class="c1"># CarlaUE4.exe崩溃后的日志目录</span>
@@ -310,9 +315,9 @@ hutb<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class=
 <p>在自动测试时，需要在<code>CarlaUE4.exe</code>后面添加一些参数，操作步骤如下：</p>
 <p>1.在编辑器的菜单中：编辑(Edit) -&gt; 编辑器偏好设置(Editor Preferences) -&gt; 播放(Play) -&gt; 在独立进程游戏中运行(Play in Standalone game)，有一个文本框<code>附加启动参数</code>，可以在这里添加启动所需的参数（比如：<code>--carla-rpc-port=3654 --carla-streaming-port=0 -nosound</code>）</p>
 <p>2.点<code>运行</code>中的三角下拉菜单中的<code>独立进程游戏</code>启动场景（直接点运行附带的参数不生效）</p>
-<h6 id="_16">有风时叶子闪烁</h6>
+<h6 id="_17">有风时叶子闪烁</h6>
 <p>编辑<code>Content/Carla/Static/Vegetation/Trees/Materials/FanPalm/MexicanFanPalm_Main_Leaf</code>（对所有树都有效），并进入<code>MF_SimpleGrassWind</code>，将<code>VisualTime</code>和<code>Input WindSpeed (Scalar)</code>后的第二个 <code>Multiply</code>中B的输入由<code>-0.5</code>改为<code>-1</code>（使其可抖动的范围更大，避免闪烁）。</p>
-<h2 id="_17">参考链接 <span id="ref_link"></span></h2>
+<h2 id="_18">参考链接 <span id="ref_link"></span></h2>
 <ul>
 <li>
 <p><a href="https://bbs.huaweicloud.com/blogs/310592"><strong>UE 4 C++ 教程</strong></a></p>

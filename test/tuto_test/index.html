@@ -104,10 +104,12 @@
 <p>HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令<code>make smoke_tests</code>进行测试。</p>
 <p>测试命令：
 <div class="highlight"><pre><span></span><code>CarlaUE4.exe<span class="w"> </span>--carla-rpc-port<span class="o">=</span><span class="m">3654</span><span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
+conda<span class="w"> </span>activate<span class="w"> </span>hutb_3.10
 <span class="nb">cd</span><span class="w"> </span>PythonAPI/test
 <span class="c1"># -m (module)：以模块运行</span>
 <span class="c1"># -v (verbose)：打印详细信息</span>
-python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints<span class="w"> </span>&gt;spawn.log
+python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_spawnpoints.TestSpawnpoints
+<span class="w"> </span>&gt;spawn.log
 </code></pre></div></p>
 <p>所有地图：
 <div class="highlight"><pre><span></span><code>AirSimAssets, AnnotationColorLandscape, HutbCarlaCity, Town01,
@@ -116,6 +118,44 @@ python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </
     Town07_Opt, Town10HD, Town10HD_Opt, Town11, Town12, Town13,
     Town15, Trees, baidutest2test, light.
 </code></pre></div></p>
+<h2 id="vscode">vscode 调试环境搭建</h2>
+<p>点击菜单的<code>Run -&gt; Add Configuration</code>（或打开<code>launch.json</code>），配置运行的是模块<code>module</code>而不是程序、当前路径<code>cwd</code>、运行指定的测试<code>args</code>：
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Use IntelliSense to learn about possible attributes.</span>
+<span class="w">    </span><span class="c1">// Hover to view descriptions of existing attributes.</span>
+<span class="w">    </span><span class="c1">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python Debugger: Current File with Arguments&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;debugpy&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="c1">// &quot;program&quot;: &quot;${file}&quot;,</span>
+<span class="w">            </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nose2&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integratedTerminal&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/PythonAPI/test/&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;-v&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;smoke.test_spawnpoints.TestSpawnpoints&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="pypi"><a href="https://www.cnblogs.com/phyger/p/19180033">pypi 本地服务搭建</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">rem https://github.com/pypiserver/pypiserver</span>
+pip install pypiserver
+<span class="k">cd</span> Build\dependencies\pypi
+pypi-server.exe
+<span class="c1">rem 准备包</span>
+pip download  simplejson
+<span class="c1">rem pip download -i https://pypi.tuna.tsinghua.edu.cn/simple simplejson</span>
+<span class="c1">rem 从本地源搜索</span>
+<span class="c1">rem Note that pip search does not currently work with the /simple/ endpoint.</span>
+<span class="c1">rem pip search -i http://localhost:8080 simplejson</span>
+<span class="c1">rem 安装前检查包是否存在</span>
+pip show simplejson
+pip install -i http://localhost:8080/simple simplejson
+</code></pre></div>
 <h2 id="_2">测试内容</h2>
 <h3 id="_3">冒烟测试</h3>
 <h4 id="smoketest_sync">同步模式 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/test/smoke/test_sync.py">smoke.test_sync</a></h4>
@@ -210,6 +250,37 @@ python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </
 <p>smoke.test_streamming</p>
 <h4 id="_11">生成点</h4>
 <p>smoke.test_spawnpoints </p>
+<ul>
+<li>调试生成点冲突的问题：</li>
+</ul>
+<p>虚幻编辑器跳转到指定位置（位置单位为米，打印出来的冲突点需要乘以100）：
+<div class="highlight"><pre><span></span><code>bugitgo 0 0 0 0 0 0
+</code></pre></div></p>
+<p>高度需要调低，否则会碰到树产生冲突。
+方向也要和道路的方向一致。</p>
+<p>将VehicleSpawnPoint{ID}从000进行编号命名，报错信息中的idx即为编辑器中 VehicleSpawnPoint{ID} 后的ID。
+<div class="highlight"><pre><span></span><code>  - idx=69, bp=vehicle.bydsong-1.bydsong-1, actor_id=0, loc=(298.919,-359.228,156.824), rot=(-0.16,-170.40,0.00), error=Spawn failed because of collision at spawn position
+</code></pre></div></p>
+<p>验证在所有生成点生成车辆，他们之间是否会产生冲突；冲突的原因有：距离太近、车辆太大、生成点太高导致生成时就发生碰撞等。</p>
+<ul>
+<li>生成车辆的位置和车辆的位置发生偏差。
+<div class="highlight"><pre><span></span><code>  File &quot;D:\hutb\PythonAPI\test\smoke\test_spawnpoints.py&quot;, line 132, in test_spawn_points
+    self.assertAlmostEqual(
+AssertionError: 896.038818359375 != 896.6028442382812 within 2 places (0.56402587890625 difference) : X position mismatch.
+actor_id=309
+x: expected=896.0388, got=896.6028, diff=0.5640
+</code></pre></div>
+<strong>调试</strong>：确定发生偏差的生成点：这个actor_id并不是从0开始，调试 ids 发现：开始的 204 对应的是生成点 000，所以309对应的是 105。
+如果是后面的车辆测试时候失败，对应的生成点 id = 报错的id - ids的偏置 - 总生成点数 * 前面测试成功的车辆数 = actor_id - 204 - 319 * 2</li>
+</ul>
+<p><strong>解决</strong>：调整生成点的方向、降低高度会缩小偏差</p>
+<p>已知问题：编辑器独立模式运行Town03、Town15测试生成点会导致内存溢出（63GB机器）、打包后的场景并不会出现内存溢出。</p>
+<p>生成点的旋转中的 Y 不为0度会报生成车的俯仰角和生成点的俯仰角不一致的错：
+<div class="highlight"><pre><span></span><code>AssertionError: -3.3536911010742188 != -3.3598382472991943 within 2 places (0.006147146224975586 difference) : Pitch mismatch.
+actor_id=2627
+pitch: expected=-3.3537, got=-3.3598, diff=0.0061
+</code></pre></div>
+地面不平的话，生成点的Y（俯仰有一定角度）设置为地面（got）的俯仰角。expected为生成点的俯仰角、got为地面的俯仰角。</p>
 <h4 id="_12">蓝图</h4>
 <p>smoke.test_blueprint </p>
 <h4 id="_13">碰撞传感器</h4>

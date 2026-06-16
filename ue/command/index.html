@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>命令行操作 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u547d\u4ee4\u884c\u64cd\u4f5c";
+        var mkdocs_page_input_path = "ue/command.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pedestrian/">人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">车</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">命令行操作</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ue/command.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">命令行操作</h1>
+<p>在运行场景时按重音键 ` （键盘右上角，Esc下的那个键），调出命令行窗口</p>
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>显示当前运行帧率</td>
+<td><code>stat fps</code>（相当于快捷键 Ctrl+Shift+H）</td>
+</tr>
+<tr>
+<td>让引擎右上角一直显示帧率 和 内存使用情况</td>
+<td>勾选“编辑器偏好设置 Editor Preferences”&gt; 通用-性能（Performance）&gt; 显示帧率和内存（Show Frame Rate and Memory）</td>
+</tr>
+<tr>
+<td>查看Draw Call 消耗或者 CPU 消耗等</td>
+<td><code>stat unit</code></td>
+</tr>
+<tr>
+<td>查看Draw Call 消耗或者 CPU 消耗等</td>
+<td><code>stat rhi</code></td>
+</tr>
+<tr>
+<td>显示各种GPU上的消耗细则</td>
+<td><code>show stats</code>（Shift+L）</td>
+</tr>
+<tr>
+<td>profile GPU 显示当前状态GPU消耗</td>
+<td>Ctrl + Shift + , （逗号）</td>
+</tr>
+<tr>
+<td>进入Debug Mode（循环切换：Debug+Controls、物理状态）</td>
+<td>按F8（控制：连接到玩家控制器）后按 <code>;</code> （分号键）</td>
+</tr>
+<tr>
+<td>聚焦选定的角色（摄像机对齐）</td>
+<td>在编辑器中选中参与者，按 F 键</td>
+</tr>
+<tr>
+<td>将编辑器摄像机移动到特定位置并旋转</td>
+<td><code>bugitgo 0 0 0 0 0 0</code> 会将摄像机移动到世界坐标 (0, 0, 0)，旋转角度为 (0, 0, 0)</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

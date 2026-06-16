@@ -227,6 +227,23 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w"
 </ol>
 <p>解决：将 3.9~3.13 版本的whl文件用7zip打开，并编辑（F4）<code>hutb-2.2.dist-info\METADATA</code>，将<code>Metadata-Version</code>改为2.2，然后保存。</p>
 <hr />
+<h3 id="pip">pip 连接服务端时自动安装模拟器</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>hutb<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla
+python<span class="w"> </span>setup.py<span class="w"> </span>build
+<span class="c1"># python setup.py install</span>
+<span class="c1"># 创建一个链接指向你的本地项目目录，修改代码后直接生效，无需重新安装</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<span class="c1"># python setup.py develop</span>
+<span class="c1"># pip install dist\hutb-2.9.16-cp310-cp310-win_amd64.whl</span>
+pip<span class="w"> </span>uninstall<span class="w"> </span>hutb<span class="w"> </span>-y
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>show<span class="w"> </span>hutb
+<span class="c1"># 在连接时进行下载</span>
+<span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>carla.Client<span class="o">(</span>args.host,<span class="w"> </span>args.port<span class="o">)</span>
+<span class="c1"># 测试用用例：</span>
+python<span class="w"> </span>..<span class="se">\u</span>til<span class="se">\c</span>onfig.py<span class="w"> </span>-l
+</code></pre></div>
+<hr />
 <h3 id="mkdocs">发布自定义mkdocs</h3>
 <p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/mkdocs.git
 <span class="nb">cd</span><span class="w"> </span>mkdocs
