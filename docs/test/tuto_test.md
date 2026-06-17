@@ -218,6 +218,19 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 整个脚本会依次运行 [smoke_test_list.txt](https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt) 文件中的所有测试用例。
 
 
+## [语法检查](https://blog.csdn.net/qq_41800917/article/details/141220510)
+
+
+### Python 语法检查
+
+```shell
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple flake8
+cd hutb
+flake8 PythonAPI/examples/
+flake8 --config=.pep8  PythonAPI/examples/manual_control.py
+```
+
+
 ## 问题解决
 
 
