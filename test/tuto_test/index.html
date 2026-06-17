@@ -294,7 +294,14 @@ pitch: expected=-3.3537, got=-3.3598, diff=0.0061
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>nose2<span class="w"> </span>-v<span class="w"> </span>smoke.test_sync<span class="w"> </span>smoke.test_sensor_determinism<span class="w"> </span>smoke.test_collision_determinism<span class="w"> </span>smoke.test_props_loading<span class="w"> </span>smoke.test_sensor_tick_time<span class="w"> </span>smoke.test_map<span class="w"> </span>smoke.test_snapshot<span class="w"> </span>smoke.test_lidar<span class="w"> </span>smoke.test_streamming<span class="w"> </span>smoke.test_spawnpoints<span class="w"> </span>smoke.test_blueprint<span class="w"> </span>smoke.test_collision_sensor<span class="w"> </span>smoke.test_world<span class="w"> </span>smoke.test_geoconversion
 </code></pre></div>
 整个脚本会依次运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/test/smoke_test_list.txt">smoke_test_list.txt</a> 文件中的所有测试用例。</p>
-<h2 id="_16">问题解决</h2>
+<h2 id="_16"><a href="https://blog.csdn.net/qq_41800917/article/details/141220510">语法检查</a></h2>
+<h3 id="python">Python 语法检查</h3>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span>flake8
+<span class="nb">cd</span><span class="w"> </span>hutb
+flake8<span class="w"> </span>PythonAPI/examples/
+flake8<span class="w"> </span>--config<span class="o">=</span>.pep8<span class="w">  </span>PythonAPI/examples/manual_control.py
+</code></pre></div>
+<h2 id="_17">问题解决</h2>
 <ul>
 <li>Town03 测试时发现先显示第一视角的VR模式，然后再切换到 Air 模式</li>
 </ul>
