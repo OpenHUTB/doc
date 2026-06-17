@@ -346,6 +346,10 @@ smoke.test_sync.TestSynchronousMode
 
 
 
+```shell
+python -m nose2 -v smoke.test_sync.TestSynchronousMode
+```
+
 ## CI/CD
 
 参考 [链接](https://www.cnblogs.com/dotnet261010/p/11495762.html) 进行软件的安装。
