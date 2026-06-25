@@ -2,14 +2,14 @@ title: 主页
 
 # <center> [开源孪创](https://github.com/OpenHUTB/doc)
 
-&emsp;&emsp; 欢迎使用开源孪创技术文档，该页面包含 [具身人](pedestrian.md) 、[无人车](vehicle.md)、[无人机](https://openhutb.github.io/air_doc/) 所有内容的索引。阅读 [基础](introduction.md) 部分相关内容后可以按自己喜欢的顺序随意阅读。
+&emsp;&emsp; 欢迎使用开源孪创技术文档，该页面包含 [人](pedestrian.md) 和 [载具](vehicle.md) 的所有内容索引。阅读 [基础](introduction.md) 部分相关内容后可以按自己喜欢的顺序随意阅读。
 
 <!-- 参考：https://github.com/squidfunk/mkdocs-material/issues/6845#issuecomment-2192879200 -->
 /// html | div[style='float: left; width: 50%;']
 * __简介__
-    * [基础](introduction.md)
-    * [人](pedestrian.md)
-    * [车](vehicle.md)
+    * [具身人](pedestrian.md)
+    * [无人车](vehicle.md)
+    * [无人机](https://openhutb.github.io/air_doc/dev/Carla_Air/)
 * __模拟__
     * [概念](concept.md)
     * [模块](modules.md) 
