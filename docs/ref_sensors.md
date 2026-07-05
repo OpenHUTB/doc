@@ -21,6 +21,7 @@
     - [协同感知](#cooperative-awareness-message)
     - [自定义消息](#custom-v2x-message)
 - [__表面法线激光雷达传感器__](#surface-normal-lidar-sensor)
+- [__VR 驾驶自我传感器__](#ego_sensor)
 
 !!! 重要
     所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考 [链接](sensor/sensor_imp.md) 。
@@ -1150,4 +1151,13 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 该传感器与 [激光雷达传感器](#lidar-sensor) 共享相同的接口。除了提供 `x, y, z` 坐标和强度值 `i` 之外，表面法线激光雷达传感器还会返回一个全局方向的表面法向量 `nx, ny, nz`。该向量表示激光束与表面相交点处的全局方向。实现代码参考 [拉取请求](https://github.com/carla-simulator/carla/pull/8773) ，实现原理参考 [论文](https://arxiv.org/abs/2503.08601) 。
 
 ![SurfaceNormalLidarPointCloud](img/surface_normal_lidar_point_cloud.png)
+
+
+---
+## VR 驾驶自我传感器 <span id="ego_sensor"></span>
+
+* __蓝图：__ harplab.dreyevr_vehicle.*
+* __输出：__ 每步输出眼动仪数据（时间、凝视光线、2D瞳孔位置、瞳孔直径、眼睛开度、世界中的焦点等）、用户输入（油门、转向、刹车、转向信号等）、摄像头的图像。详细信息请参考 [VR 驾驶自我传感器](./interbehavior.md#ego_sensor) 。
+
+![](./img/pedestrian/VR_demo.gif)
 

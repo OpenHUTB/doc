@@ -225,6 +225,7 @@ python -m nose2 -v smoke.test_sync smoke.test_sensor_determinism smoke.test_coll
 
 ```shell
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple flake8
+# pip install pycodestyle
 cd hutb
 flake8 PythonAPI/examples/
 flake8 --config=.pep8  PythonAPI/examples/manual_control.py

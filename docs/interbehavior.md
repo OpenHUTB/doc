@@ -63,7 +63,7 @@
 
 - 与现有的 [Carla PythonAPI](https://carla.readthedocs.io/en/0.9.13/python_api/) 和 [ScenarioRunner](https://github.com/carla-simulator/scenario_runner/tree/v0.9.13) 完全兼容
 
-    - 进行了微小修改。请参阅 [Usage.md](interbehavior/Usage.md) 文档。
+    - 进行了微小修改。请参阅 [使用](interbehavior/Usage.md) 文档。
 
 - 与 [Carla Recorder 和 Replayer](https://carla.readthedocs.io/en/0.9.13/adv_recorder/) 完全兼容
 
@@ -72,7 +72,7 @@
 - 基于 Carla 的语义分割相机（参见 [`着色器`](interbehavior/Shaders.md) ）
 
 
-### 自我传感器
+### 自我传感器 <span id="ego_sensor"></span>
 与 Carla 兼容的**自主车辆传感器**（参见 [EgoSensor.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h) ）是一种“隐形传感器”，可跟踪以下信息：
 
 - 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) VR 耳机进行实时**眼动跟踪** 
@@ -86,7 +86,7 @@
     - 完整列表请参见 [DReyeVRData.h:EyeTracker](https://github.com/OpenHUTB/carla/blob/a67930eb9bc3ce2a7f1ffb15efc5fad5efaa3e75/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h#L110)
   - 实时眼标线可视化
 - 实时用户输入（油门、转向、刹车、转向信号等）
-- 基于摄像头的图像（截图）帧捕获 
+- 基于摄像头的图像（截图）帧捕获
   - 由于性能密集程度高，通常用于重播而不是实时。
 - 与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 [LibCarla/Sensor](https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor) ）
   - 我们还测试并验证了对（`rospy`）ROS 集成传感器数据流的支持
@@ -100,11 +100,11 @@
 
 - 世界环境音频
 
-    - 鸟鸣声、风声、烟雾声等（参见 [Sounds.md](interbehavior/Tutorials/Sounds.md) ）
+    - 鸟鸣声、风声、烟雾声等（参见 [声音文档](interbehavior/Tutorials/Sounds.md) ）
 
 - 非自我为中心的音频（非自主车辆的发动机转速）
 
-- 同步重放并逐帧捕获以进行事后分析（参见 [Usage.md](interbehavior/Usage.md) ）
+- 同步重放并逐帧捕获以进行事后分析（参见 [使用文档](interbehavior/Usage.md) ）
 
 - 记录器/重放器媒体功能
 
@@ -114,19 +114,19 @@
 
 - 将天气信息添加到 Carla 记录器/重放器/查询中（参见此 [Carla PR](https://github.com/carla-simulator/carla/pull/5235) ）
 
-- 自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 [CustomActor.md](interbehavior/Tutorials/CustomActor.md) 。 
+- 自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 [VR 驾驶中自定义参与者](interbehavior/Tutorials/CustomActor.md) 。
 
 - （仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能
 
 
 ## 安装/构建
-查看 [`Install.md`](interbehavior/Install.md) :
+查看 [安装文档](interbehavior/Install.md) :
 
 - 在可运行的 `Carla` 存储库上安装并构建 `DReyeVR` 。
 
 - 下载 `DReyeVR` 所需的插件，以实现以下精彩功能：
 
-  - 眼动跟踪 (SRanipal)
+  - 眼动跟踪 (Sense Robot Anipal, SRanipal)
 
   - 方向盘/踏板 (Logitech)
 
