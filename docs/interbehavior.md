@@ -154,13 +154,13 @@
 使用方法：
 直接启动：车辆控制（带声音）、带参数启动原始模式
 
-- 请参阅 [`F.A.Q. wiki`](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) ，了解我们的常见问题 wiki 页面。
-- 请参阅 [`Install.md`](interbehavior/Install.md) 来安装和构建 DReyeVR
-- 请参阅 [`Usage.md`](interbehavior/Usage.md) 了解如何使用我们提供的 DReyeVR 功能
-- 请参阅 [`Development.md`](interbehavior/Development.md) 以开始 DReyeVR 开发并添加新功能
-- 请参阅多个 DReyeVR 教程，包括：[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md) 。
+- [常见问题](./interbehavior/FAQ.md) 。
+- 请参阅 [安装步骤](interbehavior/Install.md) 来安装和构建 VR 驾驶
+- 请参阅 [使用 VR 驾驶](interbehavior/Usage.md) 了解如何使用我们提供的 VR 驾驶功能
+- 请参阅 [开发](interbehavior/Development.md) 以开始 VR 驾驶开发并添加新功能
+- 请参阅多个 VR 驾驶教程，包括：[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md) 。
 - [自定义自主车辆](interbehavior/Tutorials/CustomEgo.md)
-- [问题分析](interbehavior/implementation.md) 。
+- [问题分析](interbehavior/implementation.md) 
 - [模块分析](modules/DReyeVR.md)
 - [FAQ](interbehavior/VR_faq.md)
 

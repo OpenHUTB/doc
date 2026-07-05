@@ -104,7 +104,7 @@ cd $SCENARIO_RUNNER_ROOT # 进入目录 scenario-runner/
 ```
 
 ## 使用我们新的 DReyeVR PythonAPI
-对于您自己的自定义脚本，我们建议您查看 [`DReyeVR_utils.py`](../PythonAPI/DReyeVR_utils.py) 文件，特别是这两个函数：
+对于您自己的自定义脚本，我们建议您查看 [`DReyeVR_utils.py`](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_utils.py) 文件，特别是这两个函数：
 
 - `find_ego_vehicle` 接收 `carla.libcarla.World` 实例并返回世界上存在的 DReyeVR 自主车辆 (`carla.libcarla.Vehicle`)，如果没有则生成一个。 
 - `find_ego_sensor` 接收 `carla.libcarla.World` 实例并返回世界上存在的 DReyeVR 眼动仪 (`carla.libcarla.Sensor`)，该眼动仪应附加到生成的 EgoVehicle（如果生成了 EgoVehicle）
@@ -343,15 +343,25 @@ python start_replaying.py -f /PATH/TO/RECORDING/FILE # windows
 
 # 其他指南
 我们还编写了其他指南来满足更特殊的需求：
+
 - 请参阅 [`F.A.Q. wiki`](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) ，了解我们的常见问题 wiki 页面。
+
 - 请参阅 [`SetupVR.md`](Tutorials/SetupVR.md) 了解如何使用 Carla 快速、简便地设置 VR
+
 - 请参阅 [`Sounds.md`](Tutorials/Sounds.md) 了解我们如何添加自定义声音以及如何添加您自己的自定义声音
+
 - 请参阅 [`Signs.md`](Tutorials/Signs.md) 以添加自定义世界方向标志并在运行时动态地将它们生成到世界中
+
 - 请参阅 [`Shaders/README.md`](../Shaders/README.md) 以查看我们的后处理着色器并了解如何使用它们
+
 - 请参阅 [`CustomActor.md`](Tutorials/CustomActor.md) 以使用我们的 CustomActor 类在场景中使用完全可记录的 3D 动态元素
+
 - 请参阅 [`Model.md`](Tutorials/Model.md) ，了解我们如何向车辆网格添加响应式方向盘
+
 - 请参阅 [`CustomEgo.md`](Tutorials/CustomEgo.md)，将您自己的自定义 EgoVehicle 模型添加到 DReyeVR
+
 - 请参阅 [`LODs.md`](Tutorials/LODs.md) ，了解我们如何调整车辆的细节级别模式，以获得更愉快的 VR 体验
+
 
 # Quirks:
 - 在 Windows 上，您将需要使用 `Windows x64 Visual C++ Toolset`，并使用 `python SCRIPT.py` 调用所有 python 文件，而不仅仅是 `./SCRIPT.py` 
