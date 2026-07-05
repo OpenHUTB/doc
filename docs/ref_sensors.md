@@ -22,6 +22,16 @@
     - [自定义消息](#custom-v2x-message)
 - [__表面法线激光雷达传感器__](#surface-normal-lidar-sensor)
 - [__VR 驾驶自我传感器__](#ego_sensor)
+- [__Air 传感器__](https://openhutb.github.io/air_doc/sensors/)
+    - [相机](https://openhutb.github.io/air_doc/sensors/)
+    - [气压计](#https://openhutb.github.io/air_doc/sensors/)
+    - [IMU](https://openhutb.github.io/air_doc/sensors/)
+    - [GPS](https://openhutb.github.io/air_doc/sensors/)
+    - [磁力计](https://openhutb.github.io/air_doc/sensors/)
+    - [距离传感器](https://openhutb.github.io/air_doc/sensors/)
+    - [激光雷达](https://openhutb.github.io/air_doc/lidar/)
+    - [热红外相机](https://openhutb.github.io/air_doc/InfraredCamera/)
+
 
 !!! 重要
     所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考 [链接](sensor/sensor_imp.md) 。
