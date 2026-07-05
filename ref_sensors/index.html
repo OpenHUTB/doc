@@ -125,6 +125,7 @@
 </ul>
 </li>
 <li><a href="#surface-normal-lidar-sensor"><strong>表面法线激光雷达传感器</strong></a></li>
+<li><a href="#ego_sensor"><strong>VR 驾驶自我传感器</strong></a></li>
 </ul>
 <div class="admonition 重要">
 <p class="admonition-title">重要</p>
@@ -2937,6 +2938,13 @@ sensor.send(message)
 </ul>
 <p>该传感器与 <a href="#lidar-sensor">激光雷达传感器</a> 共享相同的接口。除了提供 <code>x, y, z</code> 坐标和强度值 <code>i</code> 之外，表面法线激光雷达传感器还会返回一个全局方向的表面法向量 <code>nx, ny, nz</code>。该向量表示激光束与表面相交点处的全局方向。实现代码参考 <a href="https://github.com/carla-simulator/carla/pull/8773">拉取请求</a> ，实现原理参考 <a href="https://arxiv.org/abs/2503.08601">论文</a> 。</p>
 <p><img alt="SurfaceNormalLidarPointCloud" src="../img/surface_normal_lidar_point_cloud.png" /></p>
+<hr />
+<h2 id="vr">VR 驾驶自我传感器 <span id="ego_sensor"></span></h2>
+<ul>
+<li><strong>蓝图：</strong> harplab.dreyevr_vehicle.*</li>
+<li><strong>输出：</strong> 每步输出眼动仪数据（时间、凝视光线、2D瞳孔位置、瞳孔直径、眼睛开度、世界中的焦点等）、用户输入（油门、转向、刹车、转向信号等）、摄像头的图像。详细信息请参考 <a href="../interbehavior/#ego_sensor">VR 驾驶自我传感器</a> 。</li>
+</ul>
+<p><img alt="" src="../img/pedestrian/VR_demo.gif" /></p>
               
             </div>
           </div><footer>

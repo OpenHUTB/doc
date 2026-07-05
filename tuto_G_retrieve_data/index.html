@@ -102,7 +102,7 @@
               
                 <h1 id="_1">检索模拟数据</h1>
 <p>在 Carla 中，学习一种有效的方法来检索模拟数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。</p>
-<p>首先，使用自定义设置和流量初始化模拟。一辆自主车辆将在城市中漫游，可选地配备一些基本传感器。记录模拟，以便以后查询以找到亮点。之后，原始模拟被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 </p>
+<p>首先，使用自定义设置和流量初始化模拟。一辆自车将在城市中漫游，可选地配备一些基本传感器。记录模拟，以便以后查询以找到亮点。之后，原始模拟被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 </p>
 <ul>
 <li><a href="#overview"><strong>概述</strong></a>  </li>
 <li><a href="#set-the-simulation"><strong>设置模拟</strong></a>  <ul>
@@ -115,8 +115,8 @@
 <li><a href="#sumo-co-simulation-traffic">SUMO 协同模拟交通</a>  </li>
 </ul>
 </li>
-<li><a href="#set-the-ego-vehicle"><strong>设置自主车辆</strong></a>  <ul>
-<li><a href="#spawn-the-ego-vehicle">生成自主车辆</a>  </li>
+<li><a href="#set-the-ego-vehicle"><strong>设置自车</strong></a>  <ul>
+<li><a href="#spawn-the-ego-vehicle">生成自车</a>  </li>
 <li><a href="#place-the-spectator">放置观察者</a>  </li>
 </ul>
 </li>
@@ -175,14 +175,14 @@
 <li><a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/spawn_npc.py"><code>carla/PythonAPI/examples/spawn_npc.py</code></a></li>
 </ul>
 </li>
-<li><strong>manual_control.py</strong> 生成一个自主车辆，并提供对其的控制。<ul>
+<li><strong>manual_control.py</strong> 生成一个自车，并提供对其的控制。<ul>
 <li><a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py"><code>carla/PythonAPI/examples/manual_control.py</code></a></li>
 </ul>
 </li>
 </ul>
 <p>但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。</p>
 <ul>
-<li><a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 生成带有一些基本传感器的自主车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。</li>
+<li><a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 生成带有一些基本传感器的自车，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。</li>
 <li><a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py"><strong>tutorial_replay.py</strong></a> 重新执行 <strong>tutorial_ego.py</strong> 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。</li>
 </ul>
 <p>完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。</p>
@@ -340,13 +340,13 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <p>目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通信号灯。</p>
 </div>
 <hr />
-<h2 id="_7">设置自主车辆 <span id="et-the-ego-vehicle"></span></h2>
-<p>从现在到记录器停止的那一刻，将会有一些属于 <a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 的代码片段。该脚本生成自主车辆，可选一些传感器，并记录模拟，直到用户完成脚本。</p>
-<h3 id="_8">生成自主车辆 <span id="spawn-the-ego-vehicle"></span></h3>
+<h2 id="_7">设置自车 <span id="set-the-ego-vehicle"></span></h2>
+<p>从现在到记录器停止的那一刻，将会有一些属于 <a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 的代码片段。该脚本生成自车，可选一些传感器，并记录模拟，直到用户完成脚本。</p>
+<h3 id="_8">生成自车 <span id="spawn-the-ego-vehicle"></span></h3>
 <p>用户控制的车辆在 Carla 中通常通过将属性 <code>role_name</code> 设置为 <code>ego</code> 来区分。可以设置其他属性，其中一些具有推荐值。</p>
-<p>下面，从 <a href="../bp_library/">蓝图库</a> 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自主车辆。</p>
+<p>下面，从 <a href="../bp_library/">蓝图库</a> 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自车。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># Spawn ego vehicle</span>
+<span class="c1"># 生成自车</span>
 <span class="c1"># --------------</span>
 <span class="n">ego_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;vehicle.tesla.model3&#39;</span><span class="p">)</span>
 <span class="n">ego_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;role_name&#39;</span><span class="p">,</span><span class="s1">&#39;ego&#39;</span><span class="p">)</span>
@@ -367,9 +367,9 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could not found any spawn points&#39;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="_9">放置观察者 <span id="place-the-spectator"></span></h3>
-<p>观察者参与者控制模拟视图。通过脚本移动它是可选的，但它可能有助于找到自主车辆。 </p>
+<p>观察者参与者控制模拟视图。通过脚本移动它是可选的，但它可能有助于找到自车。 </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># 自主车辆位置的观察者</span>
+<span class="c1"># 自车位置的观察者</span>
 <span class="c1"># --------------</span>
 <span class="n">spectator</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_spectator</span><span class="p">()</span>
 <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span> 
@@ -380,9 +380,9 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <p>生成任何传感器的过程都非常相似。 </p>
 <p><strong>1.</strong> 使用库查找传感器蓝图。</p>
 <p><strong>2.</strong> 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。</p>
-<p><strong>3.</strong> 将传感器连接至自主车辆。该变换是相对于其父级的。<a href="../python_api/#carlaattachmenttype">carla.AttachmentType</a> 将确定传感器位置的更新方式。</p>
+<p><strong>3.</strong> 将传感器连接至自车。该变换是相对于其父级的。<a href="../python_api/#carlaattachmenttype">carla.AttachmentType</a> 将确定传感器位置的更新方式。</p>
 <p><strong>4.</strong> 添加<code>listen()</code>方法。这是关键要素。每次传感器监听数据时都会调用的 <a href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda</strong></a> 方法。参数是检索到的传感器数据。 </p>
-<p>牢记这一基本准则，让我们为自主车辆设置一些基本传感器。</p>
+<p>牢记这一基本准则，让我们为自车设置一些基本传感器。</p>
 <h3 id="rgb">RGB 相机 <span id="rgb-camera"></span></h3>
 <p><a href="../ref_sensors/#rgb-camera">RGB 相机</a> 生成逼真的场景图片。它是所有传感器中可设置属性较多的传感器，但它也是一个基本的传感器。它应该被理解为一个真正的相机，具有诸如<code>focal_distance</code>、<code>shutter_speed</code>或<code>gamma</code>确定其内部如何工作的属性。还有一组特定的属性来定义镜头畸变，以及许多高级属性。例如，<code>lens_circle_multiplier</code>可以用来实现类似于眼睛鱼镜头的效果。在文档中了解有关它们的更多信息。</p>
 <p>为了简单起见，脚本仅设置该传感器最常用的属性。 </p>
@@ -425,7 +425,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 </ul>
 <p>该脚本将障碍物检测器设置为仅考虑动态对象。如果车辆与任何静态物体发生碰撞，碰撞传感器都会检测到。</p>
 <p><div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># 向自主车辆添加碰撞传感器</span>
+<span class="c1"># 向自车添加碰撞传感器</span>
 <span class="c1"># --------------</span>
 <span class="n">col_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.collision&#39;</span><span class="p">)</span>
 <span class="n">col_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -437,7 +437,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_col</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">colli</span><span class="p">:</span> <span class="n">col_callback</span><span class="p">(</span><span class="n">colli</span><span class="p">))</span>
 
 <span class="c1"># --------------</span>
-<span class="c1"># 向自主车辆添加压线传感器</span>
+<span class="c1"># 向自车添加压线传感器</span>
 <span class="c1"># --------------</span>
 <span class="n">lane_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.lane_invasion&#39;</span><span class="p">)</span>
 <span class="n">lane_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -449,7 +449,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_lane</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">lane</span><span class="p">:</span> <span class="n">lane_callback</span><span class="p">(</span><span class="n">lane</span><span class="p">))</span>
 
 <span class="c1"># --------------</span>
-<span class="c1"># 向自主车辆添加障碍物检测传感器</span>
+<span class="c1"># 向自车添加障碍物检测传感器</span>
 <span class="c1"># --------------</span>
 <span class="n">obs_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.obstacle&#39;</span><span class="p">)</span>
 <span class="n">obs_bp</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;only_dynamics&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
@@ -476,7 +476,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <li><strong><code>sensor_tick</code></strong>. 由于此测量值在步骤之间不应有显着变化，因此可以经常检索数据。在本例中，设置为每三秒打印一次。 </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
-<span class="c1"># 给自主车辆添加全球导航卫星系统传感器 </span>
+<span class="c1"># 给自车添加全球导航卫星系统传感器 </span>
 <span class="c1"># --------------</span>
 <span class="n">gnss_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.gnss&#39;</span><span class="p">)</span>
 <span class="n">gnss_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -489,7 +489,7 @@ python3<span class="w"> </span>run_synchronization.py<span class="w"> </span>exa
 <span class="n">ego_gnss</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="k">lambda</span> <span class="n">gnss</span><span class="p">:</span> <span class="n">gnss_callback</span><span class="p">(</span><span class="n">gnss</span><span class="p">))</span>
 
 <span class="c1"># --------------</span>
-<span class="c1"># 给自主车辆添加 IMU 传感器 </span>
+<span class="c1"># 给自车添加 IMU 传感器 </span>
 <span class="c1"># --------------</span>
 <span class="n">imu_bp</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_blueprint_library</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;sensor.other.imu&#39;</span><span class="p">)</span>
 <span class="n">imu_location</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -603,11 +603,11 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <li><strong><code>points_per_second</code></strong> 设置要捕获的点的数量，这些点将在指定的通道之间分配。 </li>
 </ul>
 <p>该脚本将传感器放置在汽车引擎盖上，并向上旋转一点。这样，输出将映射汽车的前视图。<code>horizontal_fov</code>是增加的，<code>vertical_fov</code>是减少的。感兴趣的区域特别是车辆和行人通常移动的高度。距离<code>range</code>也从 100m 更改为 10m，以便仅检索车辆正前方的数据。</p>
-<p>这次的回调有点复杂，显示了它的更多功能。它将实时绘制雷达捕获的点。这些点将根据它们相对于自主车辆的速度而着色。 </p>
+<p>这次的回调有点复杂，显示了它的更多功能。它将实时绘制雷达捕获的点。这些点将根据它们相对于自车的速度而着色。 </p>
 <ul>
 <li><strong>Blue</strong> 表示接近车辆的点。</li>
 <li><strong>Red</strong> 表示远离接近车辆的点。</li>
-<li><strong>White</strong> 代表关于自主车辆的静态点。</li>
+<li><strong>White</strong> 代表关于自车的静态点。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># --------------</span>
 <span class="c1"># 给自主车添加新的雷达传感器</span>
@@ -668,7 +668,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # 绝不会大于 0.1 秒
 <p>在使用同步和时间步之前，请先阅读 <a href="../adv_synchrony_timestep/">文档</a> 。</p>
 </div>
 <h3 id="_20">无需渲染的手动控制 <span id="manual-control-without-rendering"></span></h3>
-<p>脚本 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/no_rendering_mode.py"><code>PythonAPI/examples/no_rendering_mode.py</code></a> 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自主车辆。这可以与 <strong>manual_control.py</strong> 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。</p>
+<p>脚本 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/no_rendering_mode.py"><code>PythonAPI/examples/no_rendering_mode.py</code></a> 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自车。这可以与 <strong>manual_control.py</strong> 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。</p>
 <div class="highlight"><pre><span></span><code>cd /opt/carla/PythonAPI/examples
 python3 manual_control.py
 </code></pre></div>
@@ -723,7 +723,7 @@ python3 no_rendering_mode.py --no-rendering
     <span class="n">world_snapshot</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">wait_for_tick</span><span class="p">()</span>
 </code></pre></div>
 <ul>
-<li><strong>手动控制。</strong> 在客户端中运行脚本 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py"><code>PythonAPI/examples/manual_control.py</code></a> ，在另一个客户端中运行记录器。驾驶自主车辆来创建所需的路线，并在完成后停止记录仪。<a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 脚本可用于管理记录器，但请确保注释其他代码片段。</li>
+<li><strong>手动控制。</strong> 在客户端中运行脚本 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py"><code>PythonAPI/examples/manual_control.py</code></a> ，在另一个客户端中运行记录器。驾驶自车来创建所需的路线，并在完成后停止记录仪。<a href="https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py"><strong>tutorial_ego.py</strong></a> 脚本可用于管理记录器，但请确保注释其他代码片段。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>cd /opt/carla/PythonAPI/examples
 python3 manual_control.py
@@ -765,13 +765,13 @@ python3 manual_control.py
 <p>记录器不需要打开即可进行查询。</p>
 </div>
 <p><img alt="tuto_query_frames" src="../img/tuto_query_frames.jpg" /></p>
-<div class="div" style="text-align: center"><i>显示重要事件的查询。这是自主车辆产生的框架。</i></div>
+<div class="div" style="text-align: center"><i>显示重要事件的查询。这是自车产生的框架。</i></div>
 
 <p><img alt="tuto_query_blocked" src="../img/tuto_query_blocked.jpg" /></p>
-<div class="div" style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自主车辆保持阻塞状态 100 秒。</i></div>
+<div class="div" style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自车保持阻塞状态 100 秒。</i></div>
 
 <p><img alt="tuto_query_collisions" src="../img/tuto_query_collisions.jpg" /></p>
-<div class="div" style="text-align: center"><i>显示自主车辆与“其他”类型对象之间的碰撞的查询</i></div>
+<div class="div" style="text-align: center"><i>显示自车与“其他”类型对象之间的碰撞的查询</i></div>
 
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
@@ -990,7 +990,7 @@ python3 manual_control.py
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># --------------</span>
-        <span class="c1"># 对自主车辆启用自动驾驶</span>
+        <span class="c1"># 对自车启用自动驾驶</span>
         <span class="c1"># --------------</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ego_vehicle.set_autopilot(True)</span>

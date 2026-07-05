@@ -206,7 +206,7 @@
 <li>
 <p>与现有的 <a href="https://carla.readthedocs.io/en/0.9.13/python_api/">Carla PythonAPI</a> 和 <a href="https://github.com/carla-simulator/scenario_runner/tree/v0.9.13">ScenarioRunner</a> 完全兼容</p>
 <ul>
-<li>进行了微小修改。请参阅 <a href="Usage/">Usage.md</a> 文档。</li>
+<li>进行了微小修改。请参阅 <a href="Usage/">使用</a> 文档。</li>
 </ul>
 </li>
 <li>
@@ -219,7 +219,7 @@
 <p>基于 Carla 的语义分割相机（参见 <a href="Shaders/"><code>着色器</code></a> ）</p>
 </li>
 </ul>
-<h3 id="_4">自我传感器</h3>
+<h3 id="_4">自我传感器 <span id="ego_sensor"></span></h3>
 <p>与 Carla 兼容的<strong>自主车辆传感器</strong>（参见 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h">EgoSensor.h</a> ）是一种“隐形传感器”，可跟踪以下信息：</p>
 <ul>
 <li>使用 <a href="https://enterprise.vive.com/us/product/vive-pro-eye-office/">HTC Vive Pro Eye</a> VR 耳机进行实时<strong>眼动跟踪</strong> </li>
@@ -235,7 +235,7 @@
 </li>
 <li>实时眼标线可视化</li>
 <li>实时用户输入（油门、转向、刹车、转向信号等）</li>
-<li>基于摄像头的图像（截图）帧捕获 </li>
+<li>基于摄像头的图像（截图）帧捕获</li>
 <li>由于性能密集程度高，通常用于重播而不是实时。</li>
 <li>与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 <a href="https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor">LibCarla/Sensor</a> ）</li>
 <li>我们还测试并验证了对（<code>rospy</code>）ROS 集成传感器数据流的支持</li>
@@ -256,14 +256,14 @@
 <li>
 <p>世界环境音频</p>
 <ul>
-<li>鸟鸣声、风声、烟雾声等（参见 <a href="Tutorials/Sounds/">Sounds.md</a> ）</li>
+<li>鸟鸣声、风声、烟雾声等（参见 <a href="Tutorials/Sounds/">声音文档</a> ）</li>
 </ul>
 </li>
 <li>
 <p>非自我为中心的音频（非自主车辆的发动机转速）</p>
 </li>
 <li>
-<p>同步重放并逐帧捕获以进行事后分析（参见 <a href="Usage/">Usage.md</a> ）</p>
+<p>同步重放并逐帧捕获以进行事后分析（参见 <a href="Usage/">使用文档</a> ）</p>
 </li>
 <li>
 <p>记录器/重放器媒体功能</p>
@@ -278,14 +278,14 @@
 <p>将天气信息添加到 Carla 记录器/重放器/查询中（参见此 <a href="https://github.com/carla-simulator/carla/pull/5235">Carla PR</a> ）</p>
 </li>
 <li>
-<p>自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 <a href="Tutorials/CustomActor/">CustomActor.md</a> 。 </p>
+<p>自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 <a href="Tutorials/CustomActor/">VR 驾驶中自定义参与者</a> 。</p>
 </li>
 <li>
 <p>（仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能</p>
 </li>
 </ul>
 <h2 id="_6">安装/构建</h2>
-<p>查看 <a href="Install/"><code>Install.md</code></a> :</p>
+<p>查看 <a href="Install/">安装文档</a> :</p>
 <ul>
 <li>
 <p>在可运行的 <code>Carla</code> 存储库上安装并构建 <code>DReyeVR</code> 。</p>
@@ -294,7 +294,7 @@
 <p>下载 <code>DReyeVR</code> 所需的插件，以实现以下精彩功能：</p>
 </li>
 <li>
-<p>眼动跟踪 (SRanipal)</p>
+<p>眼动跟踪 (Sense Robot Anipal, SRanipal)</p>
 </li>
 <li>
 <p>方向盘/踏板 (Logitech)</p>
@@ -359,13 +359,13 @@
 <p>使用方法：
 直接启动：车辆控制（带声音）、带参数启动原始模式</p>
 <ul>
-<li>请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。</li>
-<li>请参阅 <a href="Install/"><code>Install.md</code></a> 来安装和构建 DReyeVR</li>
-<li>请参阅 <a href="Usage/"><code>Usage.md</code></a> 了解如何使用我们提供的 DReyeVR 功能</li>
-<li>请参阅 <a href="Development/"><code>Development.md</code></a> 以开始 DReyeVR 开发并添加新功能</li>
-<li>请参阅多个 DReyeVR 教程，包括：<a href="Tutorials/CustomActor/">自定义参与者</a>、<a href="Tutorials/CustomEgo/">添加自己的 EgoVehicle</a> 、<a href="Tutorials/LODs/">细节级别模式</a> 、<a href="Tutorials/Model/">修改车辆模型</a> 、<a href="Tutorials/SetupVR/">设置VR模式</a> 、<a href="Tutorials/Signs/">添加定制的标志</a> 、<a href="Tutorials/Sounds/">添加和使用声音</a> 。</li>
+<li><a href="FAQ/">常见问题</a> 。</li>
+<li>请参阅 <a href="Install/">安装步骤</a> 来安装和构建 VR 驾驶</li>
+<li>请参阅 <a href="Usage/">使用 VR 驾驶</a> 了解如何使用我们提供的 VR 驾驶功能</li>
+<li>请参阅 <a href="Development/">开发</a> 以开始 VR 驾驶开发并添加新功能</li>
+<li>请参阅多个 VR 驾驶教程，包括：<a href="Tutorials/CustomActor/">自定义参与者</a>、<a href="Tutorials/CustomEgo/">添加自己的 EgoVehicle</a> 、<a href="Tutorials/LODs/">细节级别模式</a> 、<a href="Tutorials/Model/">修改车辆模型</a> 、<a href="Tutorials/SetupVR/">设置VR模式</a> 、<a href="Tutorials/Signs/">添加定制的标志</a> 、<a href="Tutorials/Sounds/">添加和使用声音</a> 。</li>
 <li><a href="Tutorials/CustomEgo/">自定义自主车辆</a></li>
-<li><a href="implementation/">问题分析</a> 。</li>
+<li><a href="implementation/">问题分析</a> </li>
 <li><a href="../modules/DReyeVR/">模块分析</a></li>
 <li><a href="VR_faq/">FAQ</a></li>
 </ul>

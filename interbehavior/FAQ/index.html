@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>常见问题 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5e38\u89c1\u95ee\u9898";
+        var mkdocs_page_input_path = "interbehavior/FAQ.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">简介</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../introduction/">入门</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pedestrian/">人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">车</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">常见问题</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/interbehavior/FAQ.md" class="icon icon-github"> 在 GitHub 上编辑</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">常见问题</h1>
+<p>DReyeVR 安装和使用的大多数问题都列在这里。如果这份文档不是最新的，请查看我们的 <a href="https://github.com/OpenHUTB/hutb/issues">GitHub 问题</a> 页面，如果你遇到新的问题，可以创建一个新问题。</p>
+<hr />
+<h2 id="_2">什么是自车和自车传感器？</h2>
+<p>我们使用<a href="../../tuto_G_retrieve_data/#set-the-ego-vehicle">自车</a>的概念来区分 AI 控制的车辆和玩家驾驶的车辆。当你第一次启动 VR 驾驶时，你会在世界中生成一辆车，这就是自车(<a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.cpp">EgoVehicle</a>)。</p>
+<p>除了“EgoVehicle”之外，我们还使用一种名为 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.cpp"><code>EgoSensor</code></a> 的组件（即“DReyeVR-sensor”）；该组件继承自 <a href="https://openhutb.github.io/doc/ref_sensors/">Carla 传感器</a> ，但具备专为 DReyeVR 设计的特性。EgoSensor 负责追踪多种数据，包括用户输入（键盘/鼠标/方向盘）、VR 头显（HMD）的朝向与位置（6 自由度）、第一人称视角的摄像机画面，以及眼动追踪传感器的数据。EgoSensor 所使用的底层数据结构定义在 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h"><code>DReyeVRData.h</code></a> 文件中，具体位于 <a href="https://github.com/OpenHUTB/hutb/blob/eb9aa2f12df647d74252de3176601ec70587a423/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h#L149"><code>DReyeVR::AggregateData</code></a> 结构体内。</p>
+<p><strong>EgoVehicle</strong> 是由玩家控制的车辆，而 <strong>EgoSensor</strong> 是一个包含我们关注并需实时追踪的所有 DReyeVR 核心数据的传感器。</p>
+<hr />
+<h2 id="dreyevr-carla">DReyeVR 中支持哪些 Carla 功能？</h2>
+<p>由于 DReyeVR 的 EgoVehicle 继承自 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.h"><code>ACarlaWheeledVehicle</code></a>，大多数标准的 Carla 车辆功能均可直接使用。我们需要修改记录与回放模块，以确保 <code>EgoSensor</code> 的各项功能（如头戴式显示器（Head-Mounted Display, HMD）位置/旋转、眼动追踪数据、用户输入等）都能被准确地记录和回放。</p>
+<p>然而，VR 驾驶贯穿始终的一个主要假设是：<strong>场景中同一时刻仅存在一辆“自车”（EgoVehicle）</strong>。这是因为每辆自车都会占用 VR 头显（HMD）系统和眼动追踪器资源，且属于开销极大的参与者（例如涉及实时后视镜渲染）。因此，我们不允许通过 Python API 生成新的自车参与者；若需访问自车，我们已通过 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_utils.py">DReyeVR_utils.py</a> 提供了一种实现机制，具体如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">DReyeVR_utils</span> <span class="kn">import</span> <span class="n">find_ego_vehicle</span>
+<span class="o">...</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_world</span><span class="p">()</span>
+<span class="o">...</span>
+
+<span class="n">DReyeVR_vehicle</span> <span class="o">=</span> <span class="n">find_ego_vehicle</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+</code></pre></div>
+<p>支持的 Carla 功能汇总。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>是否支持</th>
+<th>笔记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>键盘手动控制</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>方向盘手动控制</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>世界的记录/回放</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>EgoSensor 的记录/回放</td>
+<td>✓</td>
+<td>专为 DReyeVR 设计</td>
+</tr>
+<tr>
+<td>EgoSensor PythonAPI 流式传输</td>
+<td>✓</td>
+<td>专为 DReyeVR 设计</td>
+</tr>
+<tr>
+<td>在运行时切换地图</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>改变天气</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>生成自车（EgoVehicle）</td>
+<td>×</td>
+<td>理应已在地图中生成。具备持久性。</td>
+</tr>
+<tr>
+<td>销毁自车（EgoVehicle）</td>
+<td>×</td>
+<td>在地图上应始终保持活跃。具备持久性。</td>
+</tr>
+<tr>
+<td>EgoVehicle Carla AI 自动驾驶</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>ScenarioRunner <code>--route</code></td>
+<td>✓</td>
+<td>我们迄今为止使用 ScenarioRunner 的方式</td>
+</tr>
+<tr>
+<td>ScenarioRunner <code>--scenario</code></td>
+<td>×</td>
+<td>尚未实现</td>
+</tr>
+<tr>
+<td>ScenarioRunner <code>--agent</code></td>
+<td>×</td>
+<td>尚未实现</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="python-api-dreyevr">有哪些 Python API 脚本已在 DReyeVR 上进行了测试？</h2>
+<!-- (:heavy_check_mark: = YES, :white_check_mark: = sort of, :grey_question: = Unsure, :x: = NO) -->
+<p>以下 Python API 脚本已通过测试，应能与 DReyeVR 配合使用：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>是否支持</th>
+<th>笔记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_AI.py">DReyeVR_AI.py</a></td>
+<td>✓</td>
+<td>使用 DReyeVR 自动驾驶功能的示例</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_logging.py">DReyeVR_logging.py`</a></td>
+<td>✓</td>
+<td>实时记录 VR 驾驶的 EgoSensor 数据</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/schematic_mode.py">schematic_mode.py</a></td>
+<td>✓</td>
+<td>类似于 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/no_rendering_mode.py">no_rendering_mode.py</a>，但增加了眼动追踪（EyeTracker）可视化功能。</td>
+</tr>
+<tr>
+<td><code>scenario_runner.py --route</code></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><code>scenario_runner.py --scenario</code></td>
+<td>×</td>
+<td>未实现</td>
+</tr>
+<tr>
+<td><code>scenario_runner.py --agent</code></td>
+<td>×</td>
+<td>未实现</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/show_recorder_collisions.py">show_recorder_collisions.py</a></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/show_recorder_file_info.py">show_recorder_file_info.py</a></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_recording.py">start_recording.py</a></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_replaying.py">start_replaying.py</a></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/dynamic_weather.py">dynamic_weather.py</a></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/no_rendering_mode.py">no_rendering_mode.py</a></td>
+<td>有点</td>
+<td>应该改用 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/schematic_mode.py">schematic_mode.py</a>，这是我们针对 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/no_rendering_mode.py">no_rendering_mode.py</a> 封装的 DReyeVR 接口。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/show_recorder_actors_blocked.py">show_recorder_actors_blocked.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/automatic_control.py">automatic_control.py</a></td>
+<td>×</td>
+<td>使用 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_AI.py">DReyeVR_AI.py</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/client_bounding_boxes.py">client_bounding_boxes.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/draw_skeleton.py">draw_skeleton.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/generate_traffic.py">generate_traffic.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/lidar_to_camera.py">lidar_to_camera.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control.py">manual_control.py</a></td>
+<td>×</td>
+<td>通常无需此操作，手动控制是通过服务器进行的。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_carsim.py">manual_control_carsim.py</a></td>
+<td>×</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_chrono.py">manual_control_chrono.py</a></td>
+<td>×</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_steeringwheel.py">manual_control_steeringwheel.py</a></td>
+<td>×</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/open3d_lidar.py">open3d_lidar.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/sensor_synchronization.py">sensor_synchronization.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/synchronous_mode.py">synchronous_mode.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/tutorial.py">tutorial.py</a></td>
+<td>×</td>
+<td>生成另一个自车（EgoVehicle）</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/vehicle_gallery.py">vehicle_gallery.py</a></td>
+<td>×</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/vehicle_physics.py">vehicle_physics.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/visualize_multiple_sensors.py">visualize_multiple_sensors.py</a></td>
+<td>有点</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ego-vehicle">如何更改自车（ego-vehicle）的网格？</h2>
+<p>目前，我们为自车（EgoVehicle）使用了 Carla 提供的 <code>BP_TeslaM3</code> 网格模型，因为该模型具有高度精细的内部细节，且比例非常适合我们的应用场景。</p>
+<p>不过，自车（EgoVehicle）<strong>并不非得是</strong>特斯拉；事实上，它甚至不必是汽车，完全可以是摩托车手、消防车，或是其他继承自 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.h"><code>ACarlaWheeledVehicle</code></a> 的“参与者”（Actor）。</p>
+<p>目前我们还没有关于更换 EgoVehicle 网格的最新文档，但参考我们最初设计 EgoVehicle 并选定网格时的<a href="https://github.com/GustavoSilvera/VR-Carla-Docs/blob/main/VRPlayer.md">早期指南</a> ，应该不难理解其中的操作。由于 <code>AEgoVehicle</code> 是一个基于 C++ 实现的蓝图类，因此任何 Carla 蓝图都可以通过更改父类（reparent）来适配该类，并继承其所有功能。</p>
+<p>不过，您需要修改一些针对我们特定网格模型预先设定的默认参数。例如，驾驶员头部位置、方向盘、仪表盘、后视镜等的位置都是相对于网格模型的，因此您需要相应地进行调整。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>与之前的那些教程不同，您无需担心在蓝图中添加 UCameraComponent，因为这已由 <code>DReyeVR_Pawn</code> 处理。</p>
+</div>
+<hr />
+<h2 id="dreyevr">安装 DReyeVR 后，如何修改其文件？</h2>
+<p>安装 DReyeVR 后（请参阅 <a href="https://github.com/HARPLab/DReyeVR/tree/main/Scripts#make-install"><code>make install</code></a>），相关文件将作为源代码存在于您的 Carla 目录中，并能与 Carla 及 UE4 良好兼容。</p>
+<p>您可以查阅我们的 <a href="https://github.com/HARPLab/DReyeVR/tree/main/Scripts/Paths">对应关系文件</a> ，了解 DReyeVR 仓库中的文件在 Carla 仓库中的具体存放位置。</p>
+<p>例如，若要编辑 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.cpp">EgoVehicle.cpp</a> 文件，应修改位于 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.cpp">Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.cpp</a> 的文件。请忽略任何中间文件或生成的文件，因为它们本质上属于缓存内容，且会被重新生成。</p>
+<p>对于包括 DReyeVR <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Config/DReyeVRConfig.ini">参数</a> 、PythonAPI 文件、ScenarioRunner 等在内的所有文件，操作流程均相同。</p>
+<p>另一种方法是直接修改 DReyeVR 仓库中的文件，然后再次运行 <code>make install</code> 以覆盖旧文件。</p>
+<hr />
+<h2 id="_3">遇到罗技硬件问题？</h2>
+<p>首先，请确认您的罗技赛车硬件是否受我们使用的 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 支持（支持的设备列表请参见 README 文件）。</p>
+<p>确认硬件兼容后，我们建议您使用 <a href="https://www.logitechg.com/en-us/innovation/g-hub.html">Logitech G Hub</a> 并确保操作系统能够检测到您的硬件。</p>
+<p>如果您的硬件在 DReyeVR 中出现异常（或完全没有反应），请尝试在 UE4 编辑器中启用 Logitech 详细日志记录模式。具体操作是，将 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Config/DReyeVRConfig.ini">配置文件</a>  <code>[Hardware]</code> 部分中的 <code>LogUpdates</code> 参数值设置为 <code>True</code>。</p>
+<p>在启用详细日志记录的情况下，再次运行 <code>make launch</code> 以在 UE4 编辑器中启动 Carla。依次打开 <code>Window -&gt; Developer Tools -&gt; Output Log</code>，查看该关卡输出的所有日志。运行关卡，并确保打印出了以下字符串之一：
+<div class="highlight"><pre><span></span><code># is detected
+Found a Logitech device (XYZ) connected on input 0
+
+# not detected
+Could not find Logitech device connected on input 0
+</code></pre></div></p>
+<p>建议您查看日志；现在，无论是否检测到状态变化（如按下按钮、旋转轴或踩下踏板），日志都会在每个节拍（更新周期​​）输出信息。如果系统能检测到这些操作却没有任何响应，请提交 Issue 告知我们 :)</p>
+<hr />
+<h2 id="modulenotfounderror-no-module-named-dreyevr_utils">ModuleNotFoundError: No module named 'DReyeVR_utils'</h2>
+<p>当运行 DReyeVR 专用的 PythonAPI 脚本，且您的 Python 环境无法找到 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_utils.py">DReyeVR_utils.py</a> 时，就会出现这种情况。</p>
+<p>我们可以通过将 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples">PythonAPI/examples</a> 添加到 PYTHONPATH 来解决这个问题，具体如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 Linux/MacOS 上</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>/PATH/TO/carla/
+<span class="nb">export</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_ROOT</span><span class="o">=</span>/PATH/TO/scenario_runner/
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/dist/carla-0.9.13-py3.7-linux-x86_64.egg<span class="w">                                           </span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla/agents
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/examples<span class="w"> </span><span class="c1"># &lt;-- 确保包含示例</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI/carla
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:<span class="si">${</span><span class="nv">CARLA_ROOT</span><span class="si">}</span>/PythonAPI
+
+<span class="c1"># 在 Windows x64 Visual C++ Toolset</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">CARLA_ROOT</span><span class="o">=</span>C:PATH<span class="se">\T</span>O<span class="se">\c</span>arla<span class="se">\</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">SCENARIO_RUNNER_ROOT</span><span class="o">=</span>C:PATH<span class="se">\T</span>O<span class="se">\s</span>cenario_runner<span class="se">\</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla<span class="se">\d</span>ist<span class="se">\c</span>arla-0.9.13-py3.7-win-amd64.egg
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla<span class="se">\a</span>gents
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\e</span>xamples<span class="w"> </span><span class="c1"># &lt;-- 确保包含示例</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI<span class="se">\c</span>arla
+<span class="nb">set</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>%PYTHONPATH%<span class="p">;</span>%CARLA_ROOT%<span class="se">\P</span>ythonAPI
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>如果您使用 <code>conda</code>，将这些路径添加到 PYTHONPATH 的方式可能会有所不同。如果是这种情况，请参阅 <a href="https://github.com/HARPLab/DReyeVR/blob/main/Docs/Install.md#optionalusing-conda-for-the-pythonapi"><code>Install.md#using-conda-for-pythonapi</code></a> （相关问题：<a href="https://github.com/HARPLab/DReyeVR/issues/16">#16</a>）。</p>
+</div>
+<hr />
+<h2 id="make-no-rule-to-make-target-install-stop">make: *** No rule to make target 'install'.  Stop.</h2>
+<p>如果您在 Carla 目录下运行 <code>make install</code> 命令，则很可能出现这种情况。</p>
+<p><code>make install</code> 命令仅在从 DReyeVR 目录调用时才有效。</p>
+<p>相关问题：<a href="https://github.com/HARPLab/DReyeVR/issues/7">#7</a>。</p>
+<hr />
+<h2 id="assertion-failed-px-0-file-shared_ptrhpp">Assertion failed: px != 0, file shared_ptr.hpp</h2>
+<p>如果在安装 DReyeVR 后运行 PythonAPI 脚本时未重新执行 <code>make PythonAPI</code> 命令，可能会出现这种情况。</p>
+<p>将 DReyeVR 安装到 Carla 后，您还需要重新构建 PythonAPI（此过程也会重新构建 LibCarla），以确保 DReyeVR 与 PythonAPI 之间的兼容功能正常运作。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 Carla 中安装 DReyeVR 之后</span>
+<span class="nb">cd</span><span class="w"> </span>/PATH/TO/DReyeVR
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>/PATH/TO/CARLA<span class="w"> </span><span class="nv">SR</span><span class="o">=</span>/PATH/TO/SR
+
+<span class="c1"># 现在回到了 Carla，需要重新构建 PythonAPI 和 CarlaUE4</span>
+make<span class="w"> </span>PythonAPI<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>launch
+</code></pre></div>
+<p>相关问题：<a href="https://github.com/HARPLab/DReyeVR/issues/12">#12</a>  </p>
+<hr />
+<h2 id="error-invalid-command-bdist_wheel">error: invalid command 'bdist_wheel'</h2>
+<p>当您构建 PythonAPI 且输出包含以下内容时，会出现这种情况：</p>
+<div class="highlight"><pre><span></span><code>error: invalid command &#39;bdist_wheel&#39;
+
+-[BuildPythonAPI]: Carla lib for python has been successfully installed in &quot;...&quot;!
+</code></pre></div>
+<p>虽然日志 <code>[BuildPythonAPI]</code> 显示"successfuly installed"，但这其实是 (carla) 的一个 bug，安装实际上失败了，错误信息如上所述。您应该检查构建日志中是否出现任何错误信息。</p>
+<p>（感谢 <a href="https://github.com/SteadyBits">@SteadyBits</a> 的解答！）您应该确保通过 <code>pip install wheel</code> 安装 <code>wheel</code> 包。您可以检查 <code>PYTHONPATH</code> 来确认 <code>wheel</code> 包是否已安装。</p>
+<p>然后，重新构建 PythonAPI (<code>make PythonAPI</code>) 应该会成功，而不会出现<code>error: invalid command</code>的错误信息。</p>
+<p>相关问题：<a href="https://github.com/HARPLab/DReyeVR/issues/19#issuecomment-1118695739">#19</a></p>
+<hr />
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

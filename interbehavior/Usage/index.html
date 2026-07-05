@@ -201,7 +201,7 @@
 ...
 </code></pre></div>
 <h2 id="dreyevr-pythonapi">使用我们新的 DReyeVR PythonAPI</h2>
-<p>对于您自己的自定义脚本，我们建议您查看 <a href="../PythonAPI/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> 文件，特别是这两个函数：</p>
+<p>对于您自己的自定义脚本，我们建议您查看 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/DReyeVR_utils.py"><code>DReyeVR_utils.py</code></a> 文件，特别是这两个函数：</p>
 <ul>
 <li><code>find_ego_vehicle</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 自主车辆 (<code>carla.libcarla.Vehicle</code>)，如果没有则生成一个。 </li>
 <li><code>find_ego_sensor</code> 接收 <code>carla.libcarla.World</code> 实例并返回世界上存在的 DReyeVR 眼动仪 (<code>carla.libcarla.Sensor</code>)，该眼动仪应附加到生成的 EgoVehicle（如果生成了 EgoVehicle）</li>
@@ -424,16 +424,36 @@ python<span class="w"> </span>run_experiment.py<span class="w"> </span>--title<s
 python<span class="w"> </span>start_replaying.py<span class="w"> </span>-f<span class="w"> </span>/PATH/TO/RECORDING/FILE<span class="w"> </span><span class="c1"># windows</span>
 </code></pre></div></p>
 <h1 id="_13">其他指南</h1>
-<p>我们还编写了其他指南来满足更特殊的需求：
-- 请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。
-- 请参阅 <a href="../Tutorials/SetupVR/"><code>SetupVR.md</code></a> 了解如何使用 Carla 快速、简便地设置 VR
-- 请参阅 <a href="../Tutorials/Sounds/"><code>Sounds.md</code></a> 了解我们如何添加自定义声音以及如何添加您自己的自定义声音
-- 请参阅 <a href="../Tutorials/Signs/"><code>Signs.md</code></a> 以添加自定义世界方向标志并在运行时动态地将它们生成到世界中
-- 请参阅 <a href="../Shaders/README.md"><code>Shaders/README.md</code></a> 以查看我们的后处理着色器并了解如何使用它们
-- 请参阅 <a href="../Tutorials/CustomActor/"><code>CustomActor.md</code></a> 以使用我们的 CustomActor 类在场景中使用完全可记录的 3D 动态元素
-- 请参阅 <a href="../Tutorials/Model/"><code>Model.md</code></a> ，了解我们如何向车辆网格添加响应式方向盘
-- 请参阅 <a href="../Tutorials/CustomEgo/"><code>CustomEgo.md</code></a>，将您自己的自定义 EgoVehicle 模型添加到 DReyeVR
-- 请参阅 <a href="../Tutorials/LODs/"><code>LODs.md</code></a> ，了解我们如何调整车辆的细节级别模式，以获得更愉快的 VR 体验</p>
+<p>我们还编写了其他指南来满足更特殊的需求：</p>
+<ul>
+<li>
+<p>请参阅 <a href="https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions"><code>F.A.Q. wiki</code></a> ，了解我们的常见问题 wiki 页面。</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/SetupVR/"><code>SetupVR.md</code></a> 了解如何使用 Carla 快速、简便地设置 VR</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/Sounds/"><code>Sounds.md</code></a> 了解我们如何添加自定义声音以及如何添加您自己的自定义声音</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/Signs/"><code>Signs.md</code></a> 以添加自定义世界方向标志并在运行时动态地将它们生成到世界中</p>
+</li>
+<li>
+<p>请参阅 <a href="../Shaders/README.md"><code>Shaders/README.md</code></a> 以查看我们的后处理着色器并了解如何使用它们</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/CustomActor/"><code>CustomActor.md</code></a> 以使用我们的 CustomActor 类在场景中使用完全可记录的 3D 动态元素</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/Model/"><code>Model.md</code></a> ，了解我们如何向车辆网格添加响应式方向盘</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/CustomEgo/"><code>CustomEgo.md</code></a>，将您自己的自定义 EgoVehicle 模型添加到 DReyeVR</p>
+</li>
+<li>
+<p>请参阅 <a href="../Tutorials/LODs/"><code>LODs.md</code></a> ，了解我们如何调整车辆的细节级别模式，以获得更愉快的 VR 体验</p>
+</li>
+</ul>
 <h1 id="quirks">Quirks:</h1>
 <ul>
 <li>
