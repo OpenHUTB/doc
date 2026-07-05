@@ -50,9 +50,9 @@ copyright: OpenHUTB 版权所有 &copy; {year}
 
 nav:
 - 简介:
-  - 入门: 'introduction.md'
-  - 人: 'pedestrian.md'
-  - 车: 'vehicle.md'
+  - 具身人: 'pedestrian.md'
+  - 无人车: 'vehicle.md'
+  - 无人机: 'https://openhutb.github.io/air_doc/dev/Carla_Air/'
 - 模拟:
   - 概念: 'concept.md'
   - 模块: 'modules.md'
