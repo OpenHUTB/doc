@@ -1,4 +1,4 @@
-### 人 <span id="pedestrian"></span>
+### 具身人 <span id="pedestrian"></span>
 <!-- 行人代理 -->
 
 [__行为交互__](interbehavior.md) — 基于 DReyeVR 的针对行为和交互研究的虚拟现实驾驶仿真模块

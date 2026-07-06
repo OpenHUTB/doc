@@ -1,4 +1,4 @@
-### 车 <span id="vehicle"></span>
+### 无人车 <span id="vehicle"></span>
 <!-- 车辆代理：单个 -> 多个 -->
 
 [__手动控制车辆__](tuto_G_pygame.md) — 使用 PyGame 显示相机传感器的输出
