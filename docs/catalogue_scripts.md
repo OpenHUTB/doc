@@ -1,6 +1,6 @@
-# Scripts 目录
+# 脚本目录
 
-本文档概述了 HUTB Python API 的可用示例 Python 脚本和实用程序。您可以使用这些脚本来学习 HUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 [PythonAPI/examples](https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples) 目录中。
+本文档概述了 OpenHUTB Python API 的可用示例 Python 脚本和实用程序。您可以使用这些脚本来学习 OpenHUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 [PythonAPI/examples](https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples) 目录中。
 
 * [手动控制](#manual-control)
 * [自动控制](#automatic-control)
@@ -19,158 +19,159 @@
 
 ## 手动控制
 
-* Script filename: `manual_control.py`
-* Example usage: `python3 manual_control.py --res 800x600 --sync`
+* 脚本文件名：[manual_control.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control.py)
+* 示例使用：`python3 manual_control.py --res 800x600 --sync`
 
-This script allows a user to manually control a vehicle through a CARLA map using the keyboard, with a visualization of sensor output in a Pygame window. It is one of the first scripts new users should experiment with to explore CARLA maps and to understand the behavior of vehicles and sensors. It is also very useful for testing and debugging when changes have been made to core CARLA functionality relating to rendering, physics, traffic or sensing that might affect appearance, driving behavior or sensor output.
+该脚本允许用户通过键盘在 OpenHUTB 地图上手动控制车辆，并在 Pygame 窗口中可视化显示传感器输出。对于初次接触 OpenHUTB 的用户而言，这是探索 OpenHUTB 地图以及理解车辆与传感器行为的首选入门脚本之一。此外，当 OpenHUTB 的核心功能（如渲染、物理模拟、交通系统或感知模块）发生变更，且这些变更可能影响外观、驾驶行为或传感器输出时，该脚本也是进行测试与调试的有力工具。
 
-The script spawns a vehicle (the ego vehicle) at a randomly selected spawn point in the map and allows manual control of the vehicle through the arrow keys or WASD keys. Other keyboard shortcuts are available to change vehicles, change gears, change sensor type or start recording and many other functions. 
+该脚本会在地图上随机选择的生成点处生成一辆载具（即“自车”），并允许用户通过方向键或 WASD 键对其进行手动控制。此外，还提供其他键盘快捷键，用于切换载具、换挡、更改传感器类型、开始录制以及执行多种其他功能。
 
-Manual control can be combined with the [generate traffic script](#generate-traffic) to drive a vehicle through traffic. Launch the generate traffic script prior to launching manual control. Do not attempt to run both scripts in synchronous mode, there should only be 1 client running in synchronous mode. By default manual control runs in asynchronous mode and generate traffic runs in synchronous mode, hence they will work together smoothly in their default synchrony configuration. 
+您可以将手动控制与[生成交通流脚本](#generate-traffic)结合使用，以驾驶车辆穿梭于车流之中。请务必先启动“生成交通流”脚本，再启动手动控制。切勿尝试以同步模式同时运行这两个脚本；在同步模式下，应当仅有一个客户端在运行。默认情况下，手动控制以异步模式运行，而“生成交通流”脚本以同步模式运行，因此在默认的同步配置下，两者能够顺畅协作。
 
-### Key commands
 
-| Key | Control |
+### 键盘命令
+
+| 键 | 控制 |
 |-----|---------|
-| W, &uarr;    | Throttle |
-| S, &darr;    | Brake |
-| A/D, &larr;, &rarr; | Steer left/right |
-| Q            | Toggle reverse |
-| Space        | Hand-brake |
-| P            | Toggle autopilot |
-| M            | Toggle manual transmission |
-| ,/.          | Gear up/down |
-| CTRL + W     | Toggle constant velocity mode at 60 km/h |
-| L            | Toggle next light type |
-| SHIFT + L    | Toggle high beam |
-| Z/X          | Toggle right/left blinker |
-| I            | Toggle interior light |
-| TAB          | Change sensor position |
-| ` or N       | Next sensor |
-| [1-9]        | Change to sensor [1-9] |
-| G            | Toggle radar visualization |
-| C            | Change weather (Shift+C reverse) |
-| Backspace    | Change vehicle |
-| O            | Open/close all doors of vehicle |
-| T            | Toggle vehicle's telemetry |
-| V            | Select next map layer (Shift+V reverse) |
-| B            | Load current selected map layer (Shift+B to unload) |
-| R            | Toggle recording images to disk |
-| CTRL + R     | Toggle recording of simulation (replacing any previous) |
-| CTRL + P     | Start replaying last recorded simulation |
-| CTRL + +     | Increments the start time of the replay by 1 second (+SHIFT = 10 seconds) |
-| CTRL + -     | Decrements the start time of the replay by 1 second (+SHIFT = 10 seconds) |
-| F1           | Toggle HUD |
-| H/?          | Toggle help |
-| ESC          | Quit |
+| W, &uarr;    | 油门 |
+| S, &darr;    | 刹车 |
+| A/D, &larr;, &rarr; | 向左/向右转向 |
+| Q            | 切换倒档 |
+| Space        | 手刹 |
+| P            | 切换自动驾驶 |
+| M            | 切换手动变速箱 |
+| ,/.          | 升档/降档 |
+| CTRL + W     | 切换至 60 km/h 恒速模式 |
+| L            | 切换至下一种灯光类型 |
+| SHIFT + L    | 切换远光灯 |
+| Z/X          | 切换右/左转向灯 |
+| I            | 切换车内照明灯 |
+| TAB          | 更改传感器位置 |
+| ` or N       | 下一个传感器 |
+| [1-9]        | 切换至传感器 [1-9] |
+| G            | 切换雷达可视化 |
+| C            | 更改天气（Shift+C 反向） |
+| Backspace    | 更换车辆 |
+| O            | 打开/关闭车辆所有车门 |
+| T            | 切换车辆遥测数据 |
+| V            | 选择下一个地图图层（Shift+V 反向） |
+| B            | 加载当前选定的地图图层（按 Shift+B 卸载） |
+| R            | 切换将图像录制到磁盘的功能 |
+| CTRL + R     | 切换模拟录制（将覆盖之前的录制内容） |
+| CTRL + P     | 开始回放上次记录的模拟 |
+| CTRL + +     | 将回放的开始时间增加 1 秒（按住 SHIFT 键则增加 10 秒） |
+| CTRL + -     | 将回放的开始时间减少 1 秒（按住 SHIFT 键则减少 10 秒） |
+| F1           | 切换 HUD |
+| H/?          | 切换帮助 |
+| ESC          | 退出 |
 
 ### 命令行参数
 
-The manual control script has multiple command line arguments for configuration:
+该手动控制脚本包含多个用于配置的命令行参数：
 
-| Argument | Short form | Default | Description |
+| 参数 | 简写形式 | 默认值 | 描述 |
 |----------|------------|---------|-------------|
-| --verbose | -v | - | Print debug info |
-| --host | -h | 127.0.0.1 | Host IP address |
-| --port | -p | 2000 | TCP port for CARLA client |
-| --autopilot | -a | Not active | Enable autopilot for ego vehicle |
-| --res |  | 1280x720 | Pixel resolution of all camera sensors |
-| --filter |  | vehicle.* | Filter for vehicle type |
-| --generation |  | 2 | Specify vehicle model generation |
-| --rolename |  | hero | Rolename assigned to the ego vehicle |
-| --gamma |  | 2.2 | Gamma correction of the RGB camera |
-| --sync |  | Not active | Activate the script in synchronous mode |
+| --verbose | -v | - | 打印调试信息 |
+| --host | -h | 127.0.0.1 | 主机 IP 地址 |
+| --port | -p | 2000 | 用于 Carla 客户端的 TCP 端口 |
+| --autopilot | -a | 未激活 | 启用本车自动驾驶功能 |
+| --res |  | 1280x720 | 所有摄像头传感器的像素分辨率 |
+| --filter |  | vehicle.* | 按车型筛选 |
+| --generation |  | 2 | 指定车型世代 |
+| --rolename |  | hero | 分配给自车（ego vehicle）的角色名称 |
+| --gamma |  | 2.2 | RGB 相机的伽马校正 |
+| --sync |  | 未激活 | 以同步模式激活脚本 |
 
-### Script variants
+### 脚本变体
 
 针对不同用途，有多种手动控制脚本版本。它们都使用相同的快捷键和大部分相同的命令行参数，有些版本还包含额外的命令行参数。
 
 #### Chrono
 
-* Script filename: `manual_control_chrono.py`
+* 脚本文件名：[manual_control_chrono.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_chrono.py)
 
-This script launches manual control with Chrono physics, using the Sedan powertrain parameters found in the `Co-Simulation/Chrono/Vehicles` directory of the CARLA repository/package. 
+该脚本启动基于 Chrono 物理引擎的手动控制模式，并使用 OpenHUTB 仓库/软件包中 [Co-Simulation/Chrono/Vehicles](https://github.com/OpenHUTB/hutb/tree/hutb/Co-Simulation/Chrono/Vehicles) 目录下的轿车（Sedan）动力总成参数。
 
 #### 鱼眼相机
 
-* 脚本文件名：`manual_control_fisheye.py`
+* 脚本文件名：[manual_control_fisheye.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_fisheye.py)
 
-此脚本以手动控制的方式启动鱼眼相机模型。此脚本与 [手动控制](#manual-control) 脚本具有相同的快捷键和命令行参数。它还包含一些用于相机模型参数的额外命令行参数：
+此脚本以手动控制的方式启动鱼眼相机模型。此脚本与[手动控制](#manual-control)脚本具有相同的快捷键和命令行参数。它还包含一些用于相机模型参数的额外命令行参数：
 
 | 参数                | 简写形式 | 默认                                                                            | 描述                                                                  |
 |-------------------|------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------|
 | --fov             |  | 90.0                                                                          | 相机视场角(field of view angle)                                          |
-| --fov_mask        |  | Not active                                                                    | 视场之外的掩膜像素                                                           |
+| --fov_mask        |  | 未激活                                                                    | 视场之外的掩膜像素                                                           |
 | --fov_fade_size   |  | 0.0                                                                           | 视场边缘的衰减，给定增宽因子                                                      |
 | --model           |  | perspective                                                                   | 相机模型: <br>透视投影 <br>等距投影 <br>等积投影 <br>正射投影 <br>立体投影 <br>kannala-brandt |
 | --k0              |  | 0.0831                                                                        | k0 Kannala-Brandt 参数                                                |
 | --k1              |  | 0.0111                                                                        | k1 Kannala-Brandt 参数                                         |
 | --k2              |  | 0.00858                                                                       | k2 Kannala-Brandt 参数                                         |
 | --k3              |  | 0.000854                                                                      | k3 Kannala-Brandt 参数                                         |
-| --equirectangular |  | Not active                                                                    | 等距柱状投影                                          |
-| --perspective     |  | Not active                                                                    | 透视投影                                              |
+| --equirectangular |  | 未激活                                                                    | 等距柱状投影                                          |
+| --perspective     |  | 未激活                                                                    | 透视投影                                              |
 | --longitude_shift | 0.0 | 将等距柱状投影模型的视角中心移动一定角度 |
 
-#### Steering wheel
+#### 方向盘
 
-* Script filename: `manual_control_steeringwheel.py`
+* 脚本名：[manual_control_steeringwheel.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_steeringwheel.py)
 
-This script demonstrates how to control CARLA using an external steering wheel through Pygame's Joystick module. 
+该脚本演示了如何通过 Pygame 的 Joystick 模块，利用外部方向盘来控制 OpenHUTB。
 
 ---
 
 ## 自动控制
 
-* Script filename: `automatic_control.py`
-* Example usage: `python3 automatic_control.py --agent Basic --loop`
+* 脚本文件名：`automatic_control.py`
+* 示例使用：`python3 automatic_control.py --agent Basic --loop`
 
-Automatic control makes use of the CARLA Agents library to automatically control a vehicle around a CARLA map. The CARLA agents library contains various simple driving agent implementations intended for demonstrative purposes. A Pygame window visualizes the vehicle's camera view. 
+自动控制功能利用 Carla Agents 库，实现车辆在 OpenHUTB 地图上的自动驾驶。Carla Agents 库包含多种用于演示目的的简单驾驶智能体实现。Pygame 窗口用于可视化展示车辆的摄像机画面。
 
-| Argument | Short form | Default | Description |
+| 参数 | 简写形式 | 默认值 | 描述 |
 |----------|------------|---------|-------------|
-| --verbose | -v |  | Print debug info |
-| --host | -h | 127.0.0.1 | Host IP address |
-| --port | -p | 2000 | TCP port for CARLA client |
-| --res |  | 1280x720 | Pixel resolution of all camera sensors |
-| --filter |  | vehicle.* | Filter for vehicle type |
-| --generation |  | 2 | Specify vehicle model generation |
-| --sync |  | Not active | Activate the script in synchronous mode |
-| --loop | -l | Not active | Sets a new random destination upon reaching the previous one |
-| --agent | -a | | Agent type, "Behavior", "Basic" or "Constant" |
-| --behavior | -b | | Agent behavior, "cautious", "normal" or "aggressive" |
-| --seed| -s |  | Seed for repeat executions |
+| --verbose | -v |  | 打印调试信息 |
+| --host | -h | 127.0.0.1 | 主机 IP 地址 |
+| --port | -p | 2000 | 用于 Carla 客户端的 TCP 端口 |
+| --res |  | 1280x720 | 所有摄像头传感器的像素分辨率 |
+| --filter |  | vehicle.* | 按车型筛选 |
+| --generation |  | 2 | 指定车型世代 |
+| --sync |  | 未激活 | 以同步模式激活脚本 |
+| --loop | -l | 未激活 | 到达上一个目的地后，设定一个新的随机目的地。 |
+| --agent | -a | | 代理类型, "Behavior", "Basic" 或 "Constant" |
+| --behavior | -b | | 代理行为, "cautious", "normal" 或 "aggressive" |
+| --seed| -s |  | 用于重复执行的种子值 |
 
 ---
 
 ## 生成交通流
 
-* Script filename: `generate_traffic.py`
-* Example usage: `python3 generate_traffic.py -n 100`
+* 脚本文件名：[generate_traffic.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/generate_traffic.py)
+* 示例使用：`python3 generate_traffic.py -n 100`
 
-This script generates traffic of varying density distributed across a chosen CARLA map. Pedestrians are also generated. The density of traffic and pedestrians can be chosen via command line arguments. The generate traffic script can be run in combination with manual control to drive a vehicle around a map populated with traffic, 
+该脚本会在选定的 OpenHUTB 地图上生成不同密度的交通流，同时也会生成行人。交通流和行人的密度可以通过命令行参数进行选择。该交通流生成脚本可以与手动控制结合使用，使车辆能够在已生成交通流的地图上行驶。
 
-### Command line arguments 
+### 命令行参数
 
-| Argument | Short form | Default | Description |
+| 参数 | 简写形式 | 默认 | 描述 |
 |----------|------------|---------|-------------|
-| --number-of-vehicles | -n | 30 | Number of vehicles to spawn |
-| --number-of-walkers | -w | 10 | Number of pedestrians to spawn |
-| --host | -h | 127.0.0.1 | Host IP address |
-| --port | -p | 2000 | TCP port for CARLA client |
-| --safe |  |  | Don't spawn vehicles prone to accidents |
-| --filterv |  | vehicle.* | Filter vehicle models with string |
-| --filterw |  | walker.pedestrian.* | Filter pedestrian models with string |
-| --generationv |  | All | Specify vehicle generation, "1", "2" or "All" |
-| --generationw |  | All | Specify pedestrian generation, "1", "2" or "All" |
-| --tm-port |  | 8000 | Specify TCP port for the TM |
-| --asynch |  | Not active | Run the script in synchronous mode |
-| --hybrid |  | Not active | Activate hybrid mode for the TM |
-| --seed | -s |  | Integer seed for random generation (activates the deterministic mode for the TM) |
+| --number-of-vehicles | -n | 30 | 要生成的车辆数量 |
+| --number-of-walkers | -w | 10 | 要生成的行人数量 |
+| --host | -h | 127.0.0.1 | 主机 IP 地址 |
+| --port | -p | 2000 | 用于 Carla 客户端的 TCP 端口 |
+| --safe |  |  | 不要生成容易引发事故的载具 |
+| --filterv |  | vehicle.* | 按字符串筛选车型 |
+| --filterw |  | walker.pedestrian.* | 按字符串筛选行人模型 |
+| --generationv |  | All | 指定车辆世代：“1”、“2”或“All”（全部） |
+| --generationw |  | All | 指定行人生成世代，“1”、“2”或“全部” |
+| --tm-port |  | 8000 | 指定交通管理器的 TCP 端口 |
+| --asynch |  | 未激活 | 以同步模式运行脚本 |
+| --hybrid |  | 未激活 | 为交通管理器激活混合模式 |
+| --seed | -s |  | 用于随机生成的整数种子（激活交通管理器的确定性模式） |
 | --seedw |  |  | Integer seed for the pedestrian module |
 | --car-lights-on | | False | Enable automatic light managment by the TM |
 | --hero | | False | Nominate a hero vehicle |
 | --respawn | | False | Automatically respawn dormant vehicles in large maps |
-| --no-rendering | | Not active | Activate no-rendering mode for the CARLA server |
+| --no-rendering | | 未激活 | Activate no-rendering mode for the CARLA server |
 
 ---
 
@@ -195,18 +196,18 @@ This script demonstrates how to launch a traffic simulation in CARLA driven by [
 | --generationv |  | All | Specify vehicle generation, "1", "2" or "All" |
 | --generationw |  | All | Specify pedestrian generation, "1", "2" or "All" |
 | --seed | -s |  | Integer seed for random generation (activates the deterministic mode for the TM) |
-| --hero |  | Not active | Set one of the vehicles as a hero |
+| --hero |  | 未激活 | Set one of the vehicles as a hero |
 | --iai-key | | | Inverted AI API key |
-| --record | | Not active | Record the simulation using the CARLA recorder |
+| --record | | 未激活 | Record the simulation using the CARLA recorder |
 | --sim-length | | 60 | Simulation length in seconds |
 | --location | | carla:Town10HD | IAI formatted map for simulation  |
 | --capacity | | 100 | Quadtree leaf split threshold |
 | --width | | 250 | Width of area to initialize traffic |
 | --height | | 250 | Height of area to initialize traffic |
 | --map-center | | -50,20 | Center of the area to initialize |
-| --iai-async | | Not active | Call IAI DRIVE asynchronously |
+| --iai-async | | 未激活 | Call IAI DRIVE asynchronously |
 | --api-model | | bI5p | IAI API model version |
-| --iai-log | | Not active | Store a log file for the co-simulation |
+| --iai-log | | 未激活 | Store a log file for the co-simulation |
 | --iai-waypoint-distance | | 15 | Distance to next waypoint for IAI agents |
 | --iai-waypoint-detection-threshold | | 2 | Distance from waypoint to consider as completed |
 | --iai-max-distance-away | | 20 | Max distance away before a new waypoint is set for an agent |
@@ -247,10 +248,10 @@ This script demonstrates how to use the CARLA replayer.
 | --recorder_filename | -f | test1.log | Filename of recorded log |
 | --camera | -c | 0 | Camera follows actor with given integer ID |
 | --time-factor | -x | 1.0 | Time multiplier for playback, e.g. 2.0 for double speed |
-| --ignore-hero | -i | Not active | Ignore the hero vehicle |
-| --move-spectator |  | Not active | Move spectator camera |
-| --top-view |  | Not active | Activate top-down birdseye view |
-| --spawn-sensors | | Not active | Spawn sensors in the replaying simulation |
+| --ignore-hero | -i | 未激活 | Ignore the hero vehicle |
+| --move-spectator |  | 未激活 | Move spectator camera |
+| --top-view |  | 未激活 | Activate top-down birdseye view |
+| --spawn-sensors | | 未激活 | Spawn sensors in the replaying simulation |
 | --map-override | -m | | Map name to replace OpenDRIVE in log file |
 
 ---
@@ -269,10 +270,10 @@ This script demonstrates the visualization of LIDAR point clouds generated by th
 | --host | -h | 127.0.0.1 | Host IP address |
 | --port | -p | 2000 | TCP port for CARLA client |
 | --no-rendering |  |  | Activate no-rendering mode |
-| --semantic |  | Not active | Use semantic LIDAR |
-| --no-noise |  | Not active | Don't add noise and dropoff |
-| --no-autopilot |  | Not active | Disable's autopilot, vehicle remains motionless |
-| --show-axis |  | Not active | Show the Cartesian axes |
+| --semantic |  | 未激活 | Use semantic LIDAR |
+| --no-noise |  | 未激活 | Don't add noise and dropoff |
+| --no-autopilot |  | 未激活 | Disable's autopilot, vehicle remains motionless |
+| --show-axis |  | 未激活 | Show the Cartesian axes |
 | --filter |  | vehicle.* | Filter vehicle models with string |
 | --upper-fov |  | 15.0 | LIDAR's upper field of view in degrees |
 | --lower-fov |  | -25.0 | LIDAR's lower field of view in degrees |
@@ -359,10 +360,10 @@ This script demonstrates how to visualize the map and vehicles when using the no
 | --res |  | 1280x720 | Pixel resolution of the display window |
 | --filter |  | vehicle.* | Filter vehicle models with string |
 | --map |  | None | Start a new episode in a given map |
-| --no-rendering |  | Not active | Switch off server rendering |
-| --show-triggers |  | Not active | Show trigger boxes for traffic lights |
-| --show-connections |  | Not active | Show waypoint connections |
-| --show-spawn-points |  | Not active | Show recommended spawn points |
+| --no-rendering |  | 未激活 | Switch off server rendering |
+| --show-triggers |  | 未激活 | Show trigger boxes for traffic lights |
+| --show-connections |  | 未激活 | Show waypoint connections |
+| --show-spawn-points |  | 未激活 | Show recommended spawn points |
 
 ---
 
@@ -400,7 +401,7 @@ This script demonstrates how to project a LIDAR pointcloud into the camera plane
 | --res |  | 1280x720 | Pixel resolution of the display window |
 | --frames |  | 500 | Number of frames to record |
 | --dot-extent |  | 2 | LIDAR point extent in pixels |
-| --no-noise |  | Not active | Don't add noise and dropoff |
+| --no-noise |  | 未激活 | Don't add noise and dropoff |
 | --upper-fov |  | 15.0 | LIDAR's upper field of view in degrees |
 | --lower-fov |  | -25.0 | LIDAR's lower field of view in degrees |
 | --channels |  | 64.0 | Number of LIDAR channels |
