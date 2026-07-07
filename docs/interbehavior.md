@@ -8,7 +8,6 @@
 
 如果您有任何疑问，希望我们的常见问题解答 [F.A.Q. 维基页面](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) 和 [问题页面](https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed) 可以解答其中的一些问题。详细请查看 [视频演示(YouTube)](https://www.youtube.com/watch?v=yGIPSDOMGpY) 。
 
-**重要提示：** 目前 DReyeVR 仅支持基于 Unreal Engine 4.26 的 Carla 版本：[0.9.13](https://github.com/carla-simulator/carla/tree/0.9.13) 、[HUTB](https://github.com/OpenHUTB/hutb) 。
 
 ## 亮点
 ### 自主车辆
