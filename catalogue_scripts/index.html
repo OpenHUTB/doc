@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Scripts 目录 - 开源孪创</title>
+    <title>脚本目录 - 开源孪创</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Scripts \u76ee\u5f55";
+        var mkdocs_page_name = "\u811a\u672c\u76ee\u5f55";
         var mkdocs_page_input_path = "catalogue_scripts.md";
         var mkdocs_page_url = null;
       </script>
@@ -90,7 +90,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Scripts 目录</li>
+      <li class="breadcrumb-item active">脚本目录</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/doc/edit/master/docs/catalogue_scripts.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
@@ -100,8 +100,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="scripts">Scripts 目录</h1>
-<p>本文档概述了 HUTB Python API 的可用示例 Python 脚本和实用程序。您可以使用这些脚本来学习 HUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples">PythonAPI/examples</a> 目录中。</p>
+                <h1 id="_1">脚本目录</h1>
+<p>本文档概述了 OpenHUTB Python API 的可用示例 Python 脚本和实用程序。您可以使用这些脚本来学习 OpenHUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples">PythonAPI/examples</a> 目录中。</p>
 <ul>
 <li><a href="#manual-control">手动控制</a></li>
 <li><a href="#automatic-control">自动控制</a></li>
@@ -117,158 +117,158 @@
 <li><a href="#vehicle-gallery">载具画廊</a></li>
 </ul>
 <hr />
-<h2 id="_1">手动控制</h2>
+<h2 id="_2">手动控制</h2>
 <ul>
-<li>Script filename: <code>manual_control.py</code></li>
-<li>Example usage: <code>python3 manual_control.py --res 800x600 --sync</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control.py">manual_control.py</a></li>
+<li>示例使用：<code>python3 manual_control.py --res 800x600 --sync</code></li>
 </ul>
-<p>This script allows a user to manually control a vehicle through a CARLA map using the keyboard, with a visualization of sensor output in a Pygame window. It is one of the first scripts new users should experiment with to explore CARLA maps and to understand the behavior of vehicles and sensors. It is also very useful for testing and debugging when changes have been made to core CARLA functionality relating to rendering, physics, traffic or sensing that might affect appearance, driving behavior or sensor output.</p>
-<p>The script spawns a vehicle (the ego vehicle) at a randomly selected spawn point in the map and allows manual control of the vehicle through the arrow keys or WASD keys. Other keyboard shortcuts are available to change vehicles, change gears, change sensor type or start recording and many other functions. </p>
-<p>Manual control can be combined with the <a href="#generate-traffic">generate traffic script</a> to drive a vehicle through traffic. Launch the generate traffic script prior to launching manual control. Do not attempt to run both scripts in synchronous mode, there should only be 1 client running in synchronous mode. By default manual control runs in asynchronous mode and generate traffic runs in synchronous mode, hence they will work together smoothly in their default synchrony configuration. </p>
-<h3 id="key-commands">Key commands</h3>
+<p>该脚本允许用户通过键盘在 OpenHUTB 地图上手动控制车辆，并在 Pygame 窗口中可视化显示传感器输出。对于初次接触 OpenHUTB 的用户而言，这是探索 OpenHUTB 地图以及理解车辆与传感器行为的首选入门脚本之一。此外，当 OpenHUTB 的核心功能（如渲染、物理模拟、交通系统或感知模块）发生变更，且这些变更可能影响外观、驾驶行为或传感器输出时，该脚本也是进行测试与调试的有力工具。</p>
+<p>该脚本会在地图上随机选择的生成点处生成一辆载具（即“自车”），并允许用户通过方向键或 WASD 键对其进行手动控制。此外，还提供其他键盘快捷键，用于切换载具、换挡、更改传感器类型、开始录制以及执行多种其他功能。</p>
+<p>您可以将手动控制与<a href="#generate-traffic">生成交通流脚本</a>结合使用，以驾驶车辆穿梭于车流之中。请务必先启动“生成交通流”脚本，再启动手动控制。切勿尝试以同步模式同时运行这两个脚本；在同步模式下，应当仅有一个客户端在运行。默认情况下，手动控制以异步模式运行，而“生成交通流”脚本以同步模式运行，因此在默认的同步配置下，两者能够顺畅协作。</p>
+<h3 id="_3">键盘命令</h3>
 <table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Control</th>
+<th>键</th>
+<th>控制</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>W, &uarr;</td>
-<td>Throttle</td>
+<td>油门</td>
 </tr>
 <tr>
 <td>S, &darr;</td>
-<td>Brake</td>
+<td>刹车</td>
 </tr>
 <tr>
 <td>A/D, &larr;, &rarr;</td>
-<td>Steer left/right</td>
+<td>向左/向右转向</td>
 </tr>
 <tr>
 <td>Q</td>
-<td>Toggle reverse</td>
+<td>切换倒档</td>
 </tr>
 <tr>
 <td>Space</td>
-<td>Hand-brake</td>
+<td>手刹</td>
 </tr>
 <tr>
 <td>P</td>
-<td>Toggle autopilot</td>
+<td>切换自动驾驶</td>
 </tr>
 <tr>
 <td>M</td>
-<td>Toggle manual transmission</td>
+<td>切换手动变速箱</td>
 </tr>
 <tr>
 <td>,/.</td>
-<td>Gear up/down</td>
+<td>升档/降档</td>
 </tr>
 <tr>
 <td>CTRL + W</td>
-<td>Toggle constant velocity mode at 60 km/h</td>
+<td>切换至 60 km/h 恒速模式</td>
 </tr>
 <tr>
 <td>L</td>
-<td>Toggle next light type</td>
+<td>切换至下一种灯光类型</td>
 </tr>
 <tr>
 <td>SHIFT + L</td>
-<td>Toggle high beam</td>
+<td>切换远光灯</td>
 </tr>
 <tr>
 <td>Z/X</td>
-<td>Toggle right/left blinker</td>
+<td>切换右/左转向灯</td>
 </tr>
 <tr>
 <td>I</td>
-<td>Toggle interior light</td>
+<td>切换车内照明灯</td>
 </tr>
 <tr>
 <td>TAB</td>
-<td>Change sensor position</td>
+<td>更改传感器位置</td>
 </tr>
 <tr>
 <td>` or N</td>
-<td>Next sensor</td>
+<td>下一个传感器</td>
 </tr>
 <tr>
 <td>[1-9]</td>
-<td>Change to sensor [1-9]</td>
+<td>切换至传感器 [1-9]</td>
 </tr>
 <tr>
 <td>G</td>
-<td>Toggle radar visualization</td>
+<td>切换雷达可视化</td>
 </tr>
 <tr>
 <td>C</td>
-<td>Change weather (Shift+C reverse)</td>
+<td>更改天气（Shift+C 反向）</td>
 </tr>
 <tr>
 <td>Backspace</td>
-<td>Change vehicle</td>
+<td>更换车辆</td>
 </tr>
 <tr>
 <td>O</td>
-<td>Open/close all doors of vehicle</td>
+<td>打开/关闭车辆所有车门</td>
 </tr>
 <tr>
 <td>T</td>
-<td>Toggle vehicle's telemetry</td>
+<td>切换车辆遥测数据</td>
 </tr>
 <tr>
 <td>V</td>
-<td>Select next map layer (Shift+V reverse)</td>
+<td>选择下一个地图图层（Shift+V 反向）</td>
 </tr>
 <tr>
 <td>B</td>
-<td>Load current selected map layer (Shift+B to unload)</td>
+<td>加载当前选定的地图图层（按 Shift+B 卸载）</td>
 </tr>
 <tr>
 <td>R</td>
-<td>Toggle recording images to disk</td>
+<td>切换将图像录制到磁盘的功能</td>
 </tr>
 <tr>
 <td>CTRL + R</td>
-<td>Toggle recording of simulation (replacing any previous)</td>
+<td>切换模拟录制（将覆盖之前的录制内容）</td>
 </tr>
 <tr>
 <td>CTRL + P</td>
-<td>Start replaying last recorded simulation</td>
+<td>开始回放上次记录的模拟</td>
 </tr>
 <tr>
 <td>CTRL + +</td>
-<td>Increments the start time of the replay by 1 second (+SHIFT = 10 seconds)</td>
+<td>将回放的开始时间增加 1 秒（按住 SHIFT 键则增加 10 秒）</td>
 </tr>
 <tr>
 <td>CTRL + -</td>
-<td>Decrements the start time of the replay by 1 second (+SHIFT = 10 seconds)</td>
+<td>将回放的开始时间减少 1 秒（按住 SHIFT 键则减少 10 秒）</td>
 </tr>
 <tr>
 <td>F1</td>
-<td>Toggle HUD</td>
+<td>切换 HUD</td>
 </tr>
 <tr>
 <td>H/?</td>
-<td>Toggle help</td>
+<td>切换帮助</td>
 </tr>
 <tr>
 <td>ESC</td>
-<td>Quit</td>
+<td>退出</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_2">命令行参数</h3>
-<p>The manual control script has multiple command line arguments for configuration:</p>
+<h3 id="_4">命令行参数</h3>
+<p>该手动控制脚本包含多个用于配置的命令行参数：</p>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -276,76 +276,76 @@
 <td>--verbose</td>
 <td>-v</td>
 <td>-</td>
-<td>Print debug info</td>
+<td>打印调试信息</td>
 </tr>
 <tr>
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--autopilot</td>
 <td>-a</td>
-<td>Not active</td>
-<td>Enable autopilot for ego vehicle</td>
+<td>未激活</td>
+<td>启用本车自动驾驶功能</td>
 </tr>
 <tr>
 <td>--res</td>
 <td></td>
 <td>1280x720</td>
-<td>Pixel resolution of all camera sensors</td>
+<td>所有摄像头传感器的像素分辨率</td>
 </tr>
 <tr>
 <td>--filter</td>
 <td></td>
 <td>vehicle.*</td>
-<td>Filter for vehicle type</td>
+<td>按车型筛选</td>
 </tr>
 <tr>
 <td>--generation</td>
 <td></td>
 <td>2</td>
-<td>Specify vehicle model generation</td>
+<td>指定车型世代</td>
 </tr>
 <tr>
 <td>--rolename</td>
 <td></td>
 <td>hero</td>
-<td>Rolename assigned to the ego vehicle</td>
+<td>分配给自车（ego vehicle）的角色名称</td>
 </tr>
 <tr>
 <td>--gamma</td>
 <td></td>
 <td>2.2</td>
-<td>Gamma correction of the RGB camera</td>
+<td>RGB 相机的伽马校正</td>
 </tr>
 <tr>
 <td>--sync</td>
 <td></td>
-<td>Not active</td>
-<td>Activate the script in synchronous mode</td>
+<td>未激活</td>
+<td>以同步模式激活脚本</td>
 </tr>
 </tbody>
 </table>
-<h3 id="script-variants">Script variants</h3>
+<h3 id="_5">脚本变体</h3>
 <p>针对不同用途，有多种手动控制脚本版本。它们都使用相同的快捷键和大部分相同的命令行参数，有些版本还包含额外的命令行参数。</p>
 <h4 id="chrono">Chrono</h4>
 <ul>
-<li>Script filename: <code>manual_control_chrono.py</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_chrono.py">manual_control_chrono.py</a></li>
 </ul>
-<p>This script launches manual control with Chrono physics, using the Sedan powertrain parameters found in the <code>Co-Simulation/Chrono/Vehicles</code> directory of the CARLA repository/package. </p>
-<h4 id="_3">鱼眼相机</h4>
+<p>该脚本启动基于 Chrono 物理引擎的手动控制模式，并使用 OpenHUTB 仓库/软件包中 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/Co-Simulation/Chrono/Vehicles">Co-Simulation/Chrono/Vehicles</a> 目录下的轿车（Sedan）动力总成参数。</p>
+<h4 id="_6">鱼眼相机</h4>
 <ul>
-<li>脚本文件名：<code>manual_control_fisheye.py</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_fisheye.py">manual_control_fisheye.py</a></li>
 </ul>
-<p>此脚本以手动控制的方式启动鱼眼相机模型。此脚本与 <a href="#manual-control">手动控制</a> 脚本具有相同的快捷键和命令行参数。它还包含一些用于相机模型参数的额外命令行参数：</p>
+<p>此脚本以手动控制的方式启动鱼眼相机模型。此脚本与<a href="#manual-control">手动控制</a>脚本具有相同的快捷键和命令行参数。它还包含一些用于相机模型参数的额外命令行参数：</p>
 <table>
 <thead>
 <tr>
@@ -365,7 +365,7 @@
 <tr>
 <td>--fov_mask</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>视场之外的掩膜像素</td>
 </tr>
 <tr>
@@ -407,13 +407,13 @@
 <tr>
 <td>--equirectangular</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>等距柱状投影</td>
 </tr>
 <tr>
 <td>--perspective</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>透视投影</td>
 </tr>
 <tr>
@@ -424,25 +424,25 @@
 </tr>
 </tbody>
 </table>
-<h4 id="steering-wheel">Steering wheel</h4>
+<h4 id="_7">方向盘</h4>
 <ul>
-<li>Script filename: <code>manual_control_steeringwheel.py</code></li>
+<li>脚本名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control_steeringwheel.py">manual_control_steeringwheel.py</a></li>
 </ul>
-<p>This script demonstrates how to control CARLA using an external steering wheel through Pygame's Joystick module. </p>
+<p>该脚本演示了如何通过 Pygame 的 Joystick 模块，利用外部方向盘来控制 OpenHUTB。</p>
 <hr />
-<h2 id="_4">自动控制</h2>
+<h2 id="_8">自动控制</h2>
 <ul>
-<li>Script filename: <code>automatic_control.py</code></li>
-<li>Example usage: <code>python3 automatic_control.py --agent Basic --loop</code></li>
+<li>脚本文件名：<code>automatic_control.py</code></li>
+<li>示例使用：<code>python3 automatic_control.py --agent Basic --loop</code></li>
 </ul>
-<p>Automatic control makes use of the CARLA Agents library to automatically control a vehicle around a CARLA map. The CARLA agents library contains various simple driving agent implementations intended for demonstrative purposes. A Pygame window visualizes the vehicle's camera view. </p>
+<p>自动控制功能利用 Carla Agents 库，实现车辆在 OpenHUTB 地图上的自动驾驶。Carla Agents 库包含多种用于演示目的的简单驾驶智能体实现。Pygame 窗口用于可视化展示车辆的摄像机画面。</p>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -450,77 +450,205 @@
 <td>--verbose</td>
 <td>-v</td>
 <td></td>
-<td>Print debug info</td>
+<td>打印调试信息</td>
 </tr>
 <tr>
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--res</td>
 <td></td>
 <td>1280x720</td>
-<td>Pixel resolution of all camera sensors</td>
+<td>所有摄像头传感器的像素分辨率</td>
 </tr>
 <tr>
 <td>--filter</td>
 <td></td>
 <td>vehicle.*</td>
-<td>Filter for vehicle type</td>
+<td>按车型筛选</td>
 </tr>
 <tr>
 <td>--generation</td>
 <td></td>
 <td>2</td>
-<td>Specify vehicle model generation</td>
+<td>指定车型世代</td>
 </tr>
 <tr>
 <td>--sync</td>
 <td></td>
-<td>Not active</td>
-<td>Activate the script in synchronous mode</td>
+<td>未激活</td>
+<td>以同步模式激活脚本</td>
 </tr>
 <tr>
 <td>--loop</td>
 <td>-l</td>
-<td>Not active</td>
-<td>Sets a new random destination upon reaching the previous one</td>
+<td>未激活</td>
+<td>到达上一个目的地后，设定一个新的随机目的地。</td>
 </tr>
 <tr>
 <td>--agent</td>
 <td>-a</td>
 <td></td>
-<td>Agent type, "Behavior", "Basic" or "Constant"</td>
+<td>代理类型, "Behavior", "Basic" 或 "Constant"</td>
 </tr>
 <tr>
 <td>--behavior</td>
 <td>-b</td>
 <td></td>
-<td>Agent behavior, "cautious", "normal" or "aggressive"</td>
+<td>代理行为, "cautious", "normal" 或 "aggressive"</td>
 </tr>
 <tr>
 <td>--seed</td>
 <td>-s</td>
 <td></td>
-<td>Seed for repeat executions</td>
+<td>用于重复执行的种子值</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_5">生成交通流</h2>
+<h2 id="_9">生成交通流</h2>
 <ul>
-<li>Script filename: <code>generate_traffic.py</code></li>
-<li>Example usage: <code>python3 generate_traffic.py -n 100</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/generate_traffic.py">generate_traffic.py</a></li>
+<li>示例使用：<code>python3 generate_traffic.py -n 100</code></li>
 </ul>
-<p>This script generates traffic of varying density distributed across a chosen CARLA map. Pedestrians are also generated. The density of traffic and pedestrians can be chosen via command line arguments. The generate traffic script can be run in combination with manual control to drive a vehicle around a map populated with traffic, </p>
+<p>该脚本会在选定的 OpenHUTB 地图上生成不同密度的交通流，同时也会生成行人。交通流和行人的密度可以通过命令行参数进行选择。该交通流生成脚本可以与手动控制结合使用，使车辆能够在已生成交通流的地图上行驶。</p>
+<h3 id="_10">命令行参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--number-of-vehicles</td>
+<td>-n</td>
+<td>30</td>
+<td>要生成的车辆数量</td>
+</tr>
+<tr>
+<td>--number-of-walkers</td>
+<td>-w</td>
+<td>10</td>
+<td>要生成的行人数量</td>
+</tr>
+<tr>
+<td>--host</td>
+<td>-h</td>
+<td>127.0.0.1</td>
+<td>主机 IP 地址</td>
+</tr>
+<tr>
+<td>--port</td>
+<td>-p</td>
+<td>2000</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
+</tr>
+<tr>
+<td>--safe</td>
+<td></td>
+<td></td>
+<td>不要生成容易引发事故的载具</td>
+</tr>
+<tr>
+<td>--filterv</td>
+<td></td>
+<td>vehicle.*</td>
+<td>按字符串筛选车型</td>
+</tr>
+<tr>
+<td>--filterw</td>
+<td></td>
+<td>walker.pedestrian.*</td>
+<td>按字符串筛选行人模型</td>
+</tr>
+<tr>
+<td>--generationv</td>
+<td></td>
+<td>All</td>
+<td>指定车辆世代：“1”、“2”或“All”（全部）</td>
+</tr>
+<tr>
+<td>--generationw</td>
+<td></td>
+<td>All</td>
+<td>指定行人生成世代，“1”、“2”或“全部”</td>
+</tr>
+<tr>
+<td>--tm-port</td>
+<td></td>
+<td>8000</td>
+<td>指定交通管理器的 TCP 端口</td>
+</tr>
+<tr>
+<td>--asynch</td>
+<td></td>
+<td>未激活</td>
+<td>以同步模式运行脚本</td>
+</tr>
+<tr>
+<td>--hybrid</td>
+<td></td>
+<td>未激活</td>
+<td>为交通管理器激活混合模式</td>
+</tr>
+<tr>
+<td>--seed</td>
+<td>-s</td>
+<td></td>
+<td>用于随机生成的整数种子（激活交通管理器的确定性模式）</td>
+</tr>
+<tr>
+<td>--seedw</td>
+<td></td>
+<td></td>
+<td>Integer seed for the pedestrian module</td>
+</tr>
+<tr>
+<td>--car-lights-on</td>
+<td></td>
+<td>False</td>
+<td>Enable automatic light managment by the TM</td>
+</tr>
+<tr>
+<td>--hero</td>
+<td></td>
+<td>False</td>
+<td>Nominate a hero vehicle</td>
+</tr>
+<tr>
+<td>--respawn</td>
+<td></td>
+<td>False</td>
+<td>Automatically respawn dormant vehicles in large maps</td>
+</tr>
+<tr>
+<td>--no-rendering</td>
+<td></td>
+<td>未激活</td>
+<td>Activate no-rendering mode for the CARLA server</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ai">逆 AI 交通流</h2>
+<ul>
+<li>Script filename: <code>invertedai_traffic.py</code></li>
+<li>Example usage: <code>python3 invertedai_traffic.py -iai-key &lt;token&gt; --record</code></li>
+</ul>
+<p>This script demonstrates how to launch a traffic simulation in CARLA driven by <a href="https://www.inverted.ai/home">Inverted AI's</a> AI traffic engine. You will need to provide an Inverted AI API key, please <a href="https://www.inverted.ai/portal/login">register</a> on the website to obtain one. </p>
 <h3 id="command-line-arguments">Command line arguments</h3>
 <table>
 <thead>
@@ -587,134 +715,6 @@
 <td>Specify pedestrian generation, "1", "2" or "All"</td>
 </tr>
 <tr>
-<td>--tm-port</td>
-<td></td>
-<td>8000</td>
-<td>Specify TCP port for the TM</td>
-</tr>
-<tr>
-<td>--asynch</td>
-<td></td>
-<td>Not active</td>
-<td>Run the script in synchronous mode</td>
-</tr>
-<tr>
-<td>--hybrid</td>
-<td></td>
-<td>Not active</td>
-<td>Activate hybrid mode for the TM</td>
-</tr>
-<tr>
-<td>--seed</td>
-<td>-s</td>
-<td></td>
-<td>Integer seed for random generation (activates the deterministic mode for the TM)</td>
-</tr>
-<tr>
-<td>--seedw</td>
-<td></td>
-<td></td>
-<td>Integer seed for the pedestrian module</td>
-</tr>
-<tr>
-<td>--car-lights-on</td>
-<td></td>
-<td>False</td>
-<td>Enable automatic light managment by the TM</td>
-</tr>
-<tr>
-<td>--hero</td>
-<td></td>
-<td>False</td>
-<td>Nominate a hero vehicle</td>
-</tr>
-<tr>
-<td>--respawn</td>
-<td></td>
-<td>False</td>
-<td>Automatically respawn dormant vehicles in large maps</td>
-</tr>
-<tr>
-<td>--no-rendering</td>
-<td></td>
-<td>Not active</td>
-<td>Activate no-rendering mode for the CARLA server</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="ai">逆 AI 交通流</h2>
-<ul>
-<li>Script filename: <code>invertedai_traffic.py</code></li>
-<li>Example usage: <code>python3 invertedai_traffic.py -iai-key &lt;token&gt; --record</code></li>
-</ul>
-<p>This script demonstrates how to launch a traffic simulation in CARLA driven by <a href="https://www.inverted.ai/home">Inverted AI's</a> AI traffic engine. You will need to provide an Inverted AI API key, please <a href="https://www.inverted.ai/portal/login">register</a> on the website to obtain one. </p>
-<h3 id="command-line-arguments_1">Command line arguments</h3>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>--number-of-vehicles</td>
-<td>-n</td>
-<td>30</td>
-<td>Number of vehicles to spawn</td>
-</tr>
-<tr>
-<td>--number-of-walkers</td>
-<td>-w</td>
-<td>10</td>
-<td>Number of pedestrians to spawn</td>
-</tr>
-<tr>
-<td>--host</td>
-<td>-h</td>
-<td>127.0.0.1</td>
-<td>Host IP address</td>
-</tr>
-<tr>
-<td>--port</td>
-<td>-p</td>
-<td>2000</td>
-<td>TCP port for CARLA client</td>
-</tr>
-<tr>
-<td>--safe</td>
-<td></td>
-<td></td>
-<td>Don't spawn vehicles prone to accidents</td>
-</tr>
-<tr>
-<td>--filterv</td>
-<td></td>
-<td>vehicle.*</td>
-<td>Filter vehicle models with string</td>
-</tr>
-<tr>
-<td>--filterw</td>
-<td></td>
-<td>walker.pedestrian.*</td>
-<td>Filter pedestrian models with string</td>
-</tr>
-<tr>
-<td>--generationv</td>
-<td></td>
-<td>All</td>
-<td>Specify vehicle generation, "1", "2" or "All"</td>
-</tr>
-<tr>
-<td>--generationw</td>
-<td></td>
-<td>All</td>
-<td>Specify pedestrian generation, "1", "2" or "All"</td>
-</tr>
-<tr>
 <td>--seed</td>
 <td>-s</td>
 <td></td>
@@ -723,7 +723,7 @@
 <tr>
 <td>--hero</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Set one of the vehicles as a hero</td>
 </tr>
 <tr>
@@ -735,7 +735,7 @@
 <tr>
 <td>--record</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Record the simulation using the CARLA recorder</td>
 </tr>
 <tr>
@@ -777,7 +777,7 @@
 <tr>
 <td>--iai-async</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Call IAI DRIVE asynchronously</td>
 </tr>
 <tr>
@@ -789,7 +789,7 @@
 <tr>
 <td>--iai-log</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Store a log file for the co-simulation</td>
 </tr>
 <tr>
@@ -813,7 +813,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_6">开始记录</h2>
+<h2 id="_11">开始记录</h2>
 <ul>
 <li>Script filename: <code>start_recording.py</code></li>
 <li>Example usage: <code>python3 start_recording.py</code></li>
@@ -874,7 +874,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_7">开始重放</h2>
+<h2 id="_12">开始重放</h2>
 <ul>
 <li>Script filename: <code>start_recording.py</code></li>
 <li>Example usage: <code>python3 start_recording.py -f carla.log</code> </li>
@@ -929,25 +929,25 @@
 <tr>
 <td>--ignore-hero</td>
 <td>-i</td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Ignore the hero vehicle</td>
 </tr>
 <tr>
 <td>--move-spectator</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Move spectator camera</td>
 </tr>
 <tr>
 <td>--top-view</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Activate top-down birdseye view</td>
 </tr>
 <tr>
 <td>--spawn-sensors</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Spawn sensors in the replaying simulation</td>
 </tr>
 <tr>
@@ -965,7 +965,7 @@
 <li>Example usage: <code>python3 open3d_lidar.py --semantic --points-per-second 100000</code> </li>
 </ul>
 <p>This script demonstrates the visualization of LIDAR point clouds generated by the CARLA LIDAR sensor and semantic LIDAR sensor. The <a href="https://www.open3d.org">Open3D library</a> is used for visualization and is recommended by the CARLA development team for performant point-cloud visualization. </p>
-<h3 id="command-line-arguments_2">Command line arguments</h3>
+<h3 id="command-line-arguments_1">Command line arguments</h3>
 <table>
 <thead>
 <tr>
@@ -997,25 +997,25 @@
 <tr>
 <td>--semantic</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Use semantic LIDAR</td>
 </tr>
 <tr>
 <td>--no-noise</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Don't add noise and dropoff</td>
 </tr>
 <tr>
 <td>--no-autopilot</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Disable's autopilot, vehicle remains motionless</td>
 </tr>
 <tr>
 <td>--show-axis</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Show the Cartesian axes</td>
 </tr>
 <tr>
@@ -1075,7 +1075,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_8">边界框</h2>
+<h2 id="_13">边界框</h2>
 <ul>
 <li>Script filename: <code>bounding_boxes.py</code></li>
 <li>Example usage: <code>python3 bounding_boxes.py -d 100</code> </li>
@@ -1089,7 +1089,7 @@
 <p><strong>2D bounding boxes</strong>: The 2D bounding boxes are given in pixel-based image coordinates of the camera's viewplane. The 2D bounding boxes are derived from the instance segmentation image.</p>
 </li>
 </ul>
-<h3 id="key-commands_1">Key commands</h3>
+<h3 id="key-commands">Key commands</h3>
 <table>
 <thead>
 <tr>
@@ -1116,7 +1116,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-arguments_3">Command line arguments</h3>
+<h3 id="command-line-arguments_2">Command line arguments</h3>
 <table>
 <thead>
 <tr>
@@ -1154,7 +1154,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_9">非渲染模式</h2>
+<h2 id="_14">非渲染模式</h2>
 <ul>
 <li>Script filename: <code>no_rendering_mode.py</code></li>
 <li>Example usage: <code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
@@ -1163,7 +1163,7 @@
 <div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>--no-rendering
 </code></pre></div>
 <p>This script demonstrates how to visualize the map and vehicles when using the no-rendering mode of CARLA, which disables the spectator view, allowing CARLA to run in a higher performance configuration. This enables frame rates at or above 100 FPS. A Pygame window visualizes a top-down 2D representation of the scene with simple bounding boxes and 2D road surfaces. This is useful when using CARLA without sensors for traffic simulation or driving 3rd party renderers.</p>
-<h3 id="key-commands_2">Key commands</h3>
+<h3 id="key-commands_1">Key commands</h3>
 <table>
 <thead>
 <tr>
@@ -1234,7 +1234,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-arguments_4">Command line arguments</h3>
+<h3 id="command-line-arguments_3">Command line arguments</h3>
 <table>
 <thead>
 <tr>
@@ -1284,37 +1284,37 @@
 <tr>
 <td>--no-rendering</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Switch off server rendering</td>
 </tr>
 <tr>
 <td>--show-triggers</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Show trigger boxes for traffic lights</td>
 </tr>
 <tr>
 <td>--show-connections</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Show waypoint connections</td>
 </tr>
 <tr>
 <td>--show-spawn-points</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Show recommended spawn points</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_10">动态天气</h2>
+<h2 id="_15">动态天气</h2>
 <ul>
 <li>Script filename: <code>dynamic_weather.py</code></li>
 <li>Example usage: <code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
 </ul>
 <p>This script demonstrates how to modify the weather settings in CARLA during runtime, enabling changing weather conditions within a simulation. </p>
-<h3 id="command-line-arguments_5">Command line arguments</h3>
+<h3 id="command-line-arguments_4">Command line arguments</h3>
 <table>
 <thead>
 <tr>
@@ -1352,7 +1352,7 @@
 <li>Example usage: <code>python3 lidar_to_camera.py --res 800x600 --points-per-second 50000</code></li>
 </ul>
 <p>This script demonstrates how to project a LIDAR pointcloud into the camera plane. The script stores camera frames with the projected LIDAR points in a directory named <code>_out</code> in the root directory of the terminal used to run the script.</p>
-<h3 id="command-line-arguments_6">Command line arguments</h3>
+<h3 id="command-line-arguments_5">Command line arguments</h3>
 <table>
 <thead>
 <tr>
@@ -1402,7 +1402,7 @@
 <tr>
 <td>--no-noise</td>
 <td></td>
-<td>Not active</td>
+<td>未激活</td>
 <td>Don't add noise and dropoff</td>
 </tr>
 <tr>
@@ -1438,7 +1438,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_11">载具画廊</h2>
+<h2 id="_16">载具画廊</h2>
 <ul>
 <li>Script filename: <code>vehicle_gallery.py</code></li>
 <li>Example usage: <code>python3 vehicle_gallery.py</code> </li>
