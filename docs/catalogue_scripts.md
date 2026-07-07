@@ -1,23 +1,23 @@
 # 脚本目录
 
-本文档概述了 OpenHUTB Python API 的可用示例 Python 脚本和实用程序。您可以使用这些脚本来学习 OpenHUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 [PythonAPI/examples](https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples) 目录中。
+本文档概述了 OpenHUTB 可用 Python 示例的脚本和实用程序。您可以使用这些脚本来学习 OpenHUTB 的 Python API、执行实用功能或进行测试，并以此为基础编写自己的脚本。以下示例脚本位于 HUTB 代码库或软件包的 [PythonAPI/examples](https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples) 目录中。
 
-* [手动控制](#manual-control)
-* [自动控制](#automatic-control)
-* [生成交通流](#generate-traffic)
-* [逆 AI 交通流](#inverted-ai-traffic)
-* [开始记录](#start-recording)
-* [开始重放](#start-replaying)
-* [Open3D LIDAR](#open3d-lidar)
-* [边界框](#bounding-boxes)
-* [非渲染模式](#no-rendering-mode)
-* [动态天气](#dynamic-weather)
-* [激光雷达数据投影到相机平面](#lidar-to-camera)
-* [载具画廊](#vehicle-gallery)
+* [手动控制](#manual_control)
+* [自动控制](#automatic_control)
+* [生成交通流](#generate_traffic)
+* [逆 AI 交通流](#inverted_ai_traffic)
+* [开始记录](#start_recording)
+* [开始重放](#start_replaying)
+* [Open3D 可视化激光雷达数据](#open3d_lidar)
+* [边界框](#bounding_boxes)
+* [非渲染模式](#no_rendering_mode)
+* [动态天气](#dynamic_weather)
+* [激光雷达数据投影到相机平面](#lidar_to_camera)
+* [载具画廊](#vehicle_gallery)
 
 ---
 
-## 手动控制
+## 手动控制 <span id="manual_control"></span>
 
 * 脚本文件名：[manual_control.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/manual_control.py)
 * 示例使用：`python3 manual_control.py --res 800x600 --sync`
@@ -110,7 +110,7 @@
 | --k3              |  | 0.000854                                                                      | k3 Kannala-Brandt 参数                                         |
 | --equirectangular |  | 未激活                                                                    | 等距柱状投影                                          |
 | --perspective     |  | 未激活                                                                    | 透视投影                                              |
-| --longitude_shift | 0.0 | 将等距柱状投影模型的视角中心移动一定角度 |
+| --longitude_shift | 0.0 |  | 将等距柱状投影模型的视角中心移动一定角度
 
 #### 方向盘
 
@@ -120,7 +120,7 @@
 
 ---
 
-## 自动控制
+## 自动控制 <span id="automatic_control"></span>
 
 * 脚本文件名：`automatic_control.py`
 * 示例使用：`python3 automatic_control.py --agent Basic --loop`
@@ -143,7 +143,7 @@
 
 ---
 
-## 生成交通流
+## 生成交通流 <span id="generate_traffic"></span>
 
 * 脚本文件名：[generate_traffic.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/generate_traffic.py)
 * 示例使用：`python3 generate_traffic.py -n 100`
@@ -175,7 +175,7 @@
 
 ---
 
-## 逆 AI 交通流
+## 逆 AI 交通流 <span id="inverted_ai_traffic"></span>
 
 * 脚本文件名：[invertedai_traffic.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/invertedai_traffic.py)
 * 示例使用：`python3 invertedai_traffic.py -iai-key <token> --record`
@@ -215,7 +215,7 @@
 
 ---
 
-## 开始记录
+## 开始记录 <span id="start_recording"></span>
 
 * 脚本文件名：[start_recording.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_recording.py)
 * 示例使用：`python3 start_recording.py`
@@ -234,7 +234,7 @@
 
 ---
 
-## 开始重放
+## 开始重放 <span id="start_replaying"></span>
 
 * 脚本文件名：[start_replaying.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_replaying.py)
 * 示例使用：`python3 start_replaying.py -f carla.log` 
@@ -257,7 +257,7 @@
 
 ---
 
-## Open3D LIDAR
+## Open3D 可视化激光雷达数据 <span id="open3d_lidar"></span>
 
 * 脚本文件名：`open3d_lidar.py`
 * 示例使用： `python3 open3d_lidar.py --semantic --points-per-second 100000` 
@@ -287,7 +287,7 @@
 
 ---
 
-## 边界框
+## 边界框 <span id="bounding_boxes"></span>
 
 * 脚本文件名：[bounding_boxes.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/bounding_boxes.py)
 * 示例使用：`python3 bounding_boxes.py -d 100` 
@@ -318,7 +318,7 @@
 
 ---
 
-## 非渲染模式
+## 非渲染模式 <span id="no_rendering_mode"></span>
 
 * 脚本文件名：[no_rendering_mode.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/no_rendering_mode.py)
 * 示例使用：`python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020`
@@ -369,7 +369,7 @@
 
 ---
 
-## 动态天气
+## 动态天气 <span id="dynamic_weather"></span>
 
 * 脚本文件名：[dynamic_weather.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/dynamic_weather.py)
 * 示例使用：`python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020`
@@ -387,7 +387,7 @@
 
 ---
 
-## 激光雷达数据投影到相机平面
+## 激光雷达数据投影到相机平面 <span id="lidar_to_camera"></span>
 
 * 脚本文件名：[lidar_to_camera.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/lidar_to_camera.py)
 * 示例使用：`python3 lidar_to_camera.py --res 800x600 --points-per-second 50000`
@@ -414,7 +414,7 @@
 
 ---
 
-## 载具画廊
+## 载具画廊 <span id="vehicle_gallery"></span>
 
 * 脚本文件名：[vehicle_gallery.py](https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/vehicle_gallery.py)
 * 示例使用：`python3 vehicle_gallery.py`
