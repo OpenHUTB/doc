@@ -113,7 +113,7 @@
 <li><a href="#bounding-boxes">边界框</a></li>
 <li><a href="#no-rendering-mode">非渲染模式</a></li>
 <li><a href="#dynamic-weather">动态天气</a></li>
-<li><a href="#lidar-to-camera">LIDAR to camera</a></li>
+<li><a href="#lidar-to-camera">激光雷达数据投影到相机平面</a></li>
 <li><a href="#vehicle-gallery">载具画廊</a></li>
 </ul>
 <hr />
@@ -614,49 +614,49 @@
 <td>--seedw</td>
 <td></td>
 <td></td>
-<td>Integer seed for the pedestrian module</td>
+<td>行人模块的整数种子</td>
 </tr>
 <tr>
 <td>--car-lights-on</td>
 <td></td>
 <td>False</td>
-<td>Enable automatic light managment by the TM</td>
+<td>启用由交通管理器进行的自动交通灯管理</td>
 </tr>
 <tr>
 <td>--hero</td>
 <td></td>
 <td>False</td>
-<td>Nominate a hero vehicle</td>
+<td>提名一款英雄载具</td>
 </tr>
 <tr>
 <td>--respawn</td>
 <td></td>
 <td>False</td>
-<td>Automatically respawn dormant vehicles in large maps</td>
+<td>在大地图上自动重置处于休眠状态的载具</td>
 </tr>
 <tr>
 <td>--no-rendering</td>
 <td></td>
 <td>未激活</td>
-<td>Activate no-rendering mode for the CARLA server</td>
+<td>为 Carla 服务器启用无渲染模式</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="ai">逆 AI 交通流</h2>
 <ul>
-<li>Script filename: <code>invertedai_traffic.py</code></li>
-<li>Example usage: <code>python3 invertedai_traffic.py -iai-key &lt;token&gt; --record</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/invertedai_traffic.py">invertedai_traffic.py</a></li>
+<li>示例使用：<code>python3 invertedai_traffic.py -iai-key &lt;token&gt; --record</code></li>
 </ul>
-<p>This script demonstrates how to launch a traffic simulation in CARLA driven by <a href="https://www.inverted.ai/home">Inverted AI's</a> AI traffic engine. You will need to provide an Inverted AI API key, please <a href="https://www.inverted.ai/portal/login">register</a> on the website to obtain one. </p>
-<h3 id="command-line-arguments">Command line arguments</h3>
+<p>该脚本演示了如何启动由 <a href="https://www.inverted.ai/home">Inverted AI</a> 的 AI 交通引擎驱动的 Carla 交通仿真。您需要提供 Inverted AI API 密钥；请前往其官网<a href="https://www.inverted.ai/portal/login">注册</a>以获取密钥。</p>
+<h3 id="_11">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -664,168 +664,168 @@
 <td>--number-of-vehicles</td>
 <td>-n</td>
 <td>30</td>
-<td>Number of vehicles to spawn</td>
+<td>要生成的车辆数量</td>
 </tr>
 <tr>
 <td>--number-of-walkers</td>
 <td>-w</td>
 <td>10</td>
-<td>Number of pedestrians to spawn</td>
+<td>要生成的行人数量</td>
 </tr>
 <tr>
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--safe</td>
 <td></td>
 <td></td>
-<td>Don't spawn vehicles prone to accidents</td>
+<td>不要生成容易引发事故的载具。</td>
 </tr>
 <tr>
 <td>--filterv</td>
 <td></td>
 <td>vehicle.*</td>
-<td>Filter vehicle models with string</td>
+<td>按字符串筛选车型</td>
 </tr>
 <tr>
 <td>--filterw</td>
 <td></td>
 <td>walker.pedestrian.*</td>
-<td>Filter pedestrian models with string</td>
+<td>按字符串筛选行人模型</td>
 </tr>
 <tr>
 <td>--generationv</td>
 <td></td>
 <td>All</td>
-<td>Specify vehicle generation, "1", "2" or "All"</td>
+<td>指定载具的世代：“1”、“2”或“All”（全部）</td>
 </tr>
 <tr>
 <td>--generationw</td>
 <td></td>
 <td>All</td>
-<td>Specify pedestrian generation, "1", "2" or "All"</td>
+<td>指定行人的世代：“1”、“2”或“All”（全部）</td>
 </tr>
 <tr>
 <td>--seed</td>
 <td>-s</td>
 <td></td>
-<td>Integer seed for random generation (activates the deterministic mode for the TM)</td>
+<td>用于随机生成的整数种子（激活交通管理器的确定性模式）</td>
 </tr>
 <tr>
 <td>--hero</td>
 <td></td>
 <td>未激活</td>
-<td>Set one of the vehicles as a hero</td>
+<td>将其中一辆载具设为英雄单位。</td>
 </tr>
 <tr>
 <td>--iai-key</td>
 <td></td>
 <td></td>
-<td>Inverted AI API key</td>
+<td>Inverted AI API 密钥</td>
 </tr>
 <tr>
 <td>--record</td>
 <td></td>
 <td>未激活</td>
-<td>Record the simulation using the CARLA recorder</td>
+<td>使用 Carla 记录器记录仿真过程。</td>
 </tr>
 <tr>
 <td>--sim-length</td>
 <td></td>
 <td>60</td>
-<td>Simulation length in seconds</td>
+<td>模拟时长（秒）</td>
 </tr>
 <tr>
 <td>--location</td>
 <td></td>
 <td>carla:Town10HD</td>
-<td>IAI formatted map for simulation</td>
+<td>用于模拟仿真的 IAI 格式地图</td>
 </tr>
 <tr>
 <td>--capacity</td>
 <td></td>
 <td>100</td>
-<td>Quadtree leaf split threshold</td>
+<td>四叉树叶节点分裂阈值</td>
 </tr>
 <tr>
 <td>--width</td>
 <td></td>
 <td>250</td>
-<td>Width of area to initialize traffic</td>
+<td>初始化交通的区域宽度</td>
 </tr>
 <tr>
 <td>--height</td>
 <td></td>
 <td>250</td>
-<td>Height of area to initialize traffic</td>
+<td>触发交通流初始化的区域高度</td>
 </tr>
 <tr>
 <td>--map-center</td>
 <td></td>
 <td>-50,20</td>
-<td>Center of the area to initialize</td>
+<td>待初始化的区域中心</td>
 </tr>
 <tr>
 <td>--iai-async</td>
 <td></td>
 <td>未激活</td>
-<td>Call IAI DRIVE asynchronously</td>
+<td>异步调用 IAI DRIVE</td>
 </tr>
 <tr>
 <td>--api-model</td>
 <td></td>
 <td>bI5p</td>
-<td>IAI API model version</td>
+<td>IAI API 模型版本</td>
 </tr>
 <tr>
 <td>--iai-log</td>
 <td></td>
 <td>未激活</td>
-<td>Store a log file for the co-simulation</td>
+<td>存储联合模拟的日志文件</td>
 </tr>
 <tr>
 <td>--iai-waypoint-distance</td>
 <td></td>
 <td>15</td>
-<td>Distance to next waypoint for IAI agents</td>
+<td>IAI 智能体距离下一个航点的距离</td>
 </tr>
 <tr>
 <td>--iai-waypoint-detection-threshold</td>
 <td></td>
 <td>2</td>
-<td>Distance from waypoint to consider as completed</td>
+<td>视为已完成的航点距离</td>
 </tr>
 <tr>
 <td>--iai-max-distance-away</td>
 <td></td>
 <td>20</td>
-<td>Max distance away before a new waypoint is set for an agent</td>
+<td>为代理设置新航点前的最大距离</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_11">开始记录</h2>
+<h2 id="_12">开始记录</h2>
 <ul>
-<li>Script filename: <code>start_recording.py</code></li>
-<li>Example usage: <code>python3 start_recording.py</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_recording.py">start_recording.py</a></li>
+<li>示例使用：<code>python3 start_recording.py</code></li>
 </ul>
-<p>This script demonstrates how to use the CARLA recorder. Some traffic is spawned and the movement is recorded as a log by the <a href="../foundations/#recorder">CARLA recorder</a>. </p>
+<p>该脚本演示了如何使用 Carla 记录器。脚本会生成一些交通流，并利用<a href="../foundations/#recorder">Carla 记录器</a>将车辆的移动情况记录为日志。</p>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -833,60 +833,60 @@
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--number-of-vehicles</td>
 <td>-n</td>
 <td>30</td>
-<td>Number of vehicles to spawn</td>
+<td>要生成的载具数量</td>
 </tr>
 <tr>
 <td>--delay</td>
 <td>-d</td>
 <td>2.0</td>
-<td>Delay in seconds between spawns</td>
+<td>两次生成之间的延迟时间（秒）</td>
 </tr>
 <tr>
 <td>--safe</td>
 <td></td>
 <td></td>
-<td>Don't spawn vehicles prone to accidents</td>
+<td>不要生成容易引发事故的载具。</td>
 </tr>
 <tr>
 <td>--recorder_filename</td>
 <td>-f</td>
 <td>test1.log</td>
-<td>Filename of recorded log</td>
+<td>记录日志的文件名</td>
 </tr>
 <tr>
 <td>--recorder_time</td>
 <td>-t</td>
 <td>0</td>
-<td>Recording duration</td>
+<td>记录时长</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_12">开始重放</h2>
+<h2 id="_13">开始重放</h2>
 <ul>
-<li>Script filename: <code>start_recording.py</code></li>
-<li>Example usage: <code>python3 start_recording.py -f carla.log</code> </li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/start_replaying.py">start_replaying.py</a></li>
+<li>示例使用：<code>python3 start_replaying.py -f carla.log</code> </li>
 </ul>
-<p>This script demonstrates how to use the CARLA replayer.  </p>
+<p>该脚本演示了如何使用 Carla 重放器。  </p>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -894,13 +894,13 @@
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--duration</td>
@@ -912,67 +912,67 @@
 <td>--recorder_filename</td>
 <td>-f</td>
 <td>test1.log</td>
-<td>Filename of recorded log</td>
+<td>记录日志的文件名</td>
 </tr>
 <tr>
 <td>--camera</td>
 <td>-c</td>
 <td>0</td>
-<td>Camera follows actor with given integer ID</td>
+<td>摄像机跟随具有指定整数 ID 的参与者。</td>
 </tr>
 <tr>
 <td>--time-factor</td>
 <td>-x</td>
 <td>1.0</td>
-<td>Time multiplier for playback, e.g. 2.0 for double speed</td>
+<td>播放时间倍率，例如 2.0 表示双倍速度</td>
 </tr>
 <tr>
 <td>--ignore-hero</td>
 <td>-i</td>
 <td>未激活</td>
-<td>Ignore the hero vehicle</td>
+<td>忽略英雄载具</td>
 </tr>
 <tr>
 <td>--move-spectator</td>
 <td></td>
 <td>未激活</td>
-<td>Move spectator camera</td>
+<td>移动观察者相机</td>
 </tr>
 <tr>
 <td>--top-view</td>
 <td></td>
 <td>未激活</td>
-<td>Activate top-down birdseye view</td>
+<td>激活俯视鸟瞰视图</td>
 </tr>
 <tr>
 <td>--spawn-sensors</td>
 <td></td>
 <td>未激活</td>
-<td>Spawn sensors in the replaying simulation</td>
+<td>在重放模拟中生成传感器</td>
 </tr>
 <tr>
 <td>--map-override</td>
 <td>-m</td>
 <td></td>
-<td>Map name to replace OpenDRIVE in log file</td>
+<td>用于替换日志文件中 OpenDRIVE 名称的地图名称</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="open3d-lidar">Open3D LIDAR</h2>
 <ul>
-<li>Script filename: <code>open3d_lidar.py</code></li>
-<li>Example usage: <code>python3 open3d_lidar.py --semantic --points-per-second 100000</code> </li>
+<li>脚本文件名：<code>open3d_lidar.py</code></li>
+<li>示例使用： <code>python3 open3d_lidar.py --semantic --points-per-second 100000</code> </li>
 </ul>
-<p>This script demonstrates the visualization of LIDAR point clouds generated by the CARLA LIDAR sensor and semantic LIDAR sensor. The <a href="https://www.open3d.org">Open3D library</a> is used for visualization and is recommended by the CARLA development team for performant point-cloud visualization. </p>
-<h3 id="command-line-arguments_1">Command line arguments</h3>
+<p>该脚本演示了由 Carla 的激光雷达（LIDAR）传感器和语义激光雷达传感器生成的点云数据的可视化效果。可视化过程使用了 <a href="https://www.open3d.org">Open3D 库</a>，该库因其高效的点云可视化性能而受到 Carla 开发团队的推荐。</p>
+<h3 id="_14">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -980,150 +980,150 @@
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--no-rendering</td>
 <td></td>
 <td></td>
-<td>Activate no-rendering mode</td>
+<td>启用无渲染模式</td>
 </tr>
 <tr>
 <td>--semantic</td>
 <td></td>
 <td>未激活</td>
-<td>Use semantic LIDAR</td>
+<td>使用语义激光雷达</td>
 </tr>
 <tr>
 <td>--no-noise</td>
 <td></td>
 <td>未激活</td>
-<td>Don't add noise and dropoff</td>
+<td>不要增加噪音和丢弃</td>
 </tr>
 <tr>
 <td>--no-autopilot</td>
 <td></td>
 <td>未激活</td>
-<td>Disable's autopilot, vehicle remains motionless</td>
+<td>禁用自动驾驶功能，车辆保持静止。</td>
 </tr>
 <tr>
 <td>--show-axis</td>
 <td></td>
 <td>未激活</td>
-<td>Show the Cartesian axes</td>
+<td>显示笛卡尔坐标轴</td>
 </tr>
 <tr>
 <td>--filter</td>
 <td></td>
 <td>vehicle.*</td>
-<td>Filter vehicle models with string</td>
+<td>按字符串筛选车型</td>
 </tr>
 <tr>
 <td>--upper-fov</td>
 <td></td>
 <td>15.0</td>
-<td>LIDAR's upper field of view in degrees</td>
+<td>激光雷达的上方视场角（以度为单位）</td>
 </tr>
 <tr>
 <td>--lower-fov</td>
 <td></td>
 <td>-25.0</td>
-<td>LIDAR's lower field of view in degrees</td>
+<td>激光雷达视场角（以度为单位）的下限值</td>
 </tr>
 <tr>
 <td>--channels</td>
 <td></td>
 <td>64.0</td>
-<td>Number of LIDAR channels</td>
+<td>激光雷达通道数</td>
 </tr>
 <tr>
 <td>--range</td>
 <td></td>
 <td>100.0</td>
-<td>LIDAR's max range in meters</td>
+<td>激光雷达的最大量程（单位：米）</td>
 </tr>
 <tr>
 <td>--points-per-second</td>
 <td></td>
 <td>500000</td>
-<td>LIDAR points per second</td>
+<td>每秒激光雷达点数</td>
 </tr>
 <tr>
 <td>-x</td>
 <td></td>
 <td>0.0</td>
-<td>X-offset of LIDAR sensor</td>
+<td>激光雷达传感器的 X 轴偏移量</td>
 </tr>
 <tr>
 <td>-y</td>
 <td></td>
 <td>0.0</td>
-<td>Y-offset of LIDAR sensor</td>
+<td>激光雷达传感器的 Y 轴偏移量</td>
 </tr>
 <tr>
 <td>-z</td>
 <td></td>
 <td>0.0</td>
-<td>Z-offset of LIDAR sensor</td>
+<td>激光雷达传感器的 Z 轴偏移量</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_13">边界框</h2>
+<h2 id="_15">边界框</h2>
 <ul>
-<li>Script filename: <code>bounding_boxes.py</code></li>
-<li>Example usage: <code>python3 bounding_boxes.py -d 100</code> </li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/bounding_boxes.py">bounding_boxes.py</a></li>
+<li>示例使用：<code>python3 bounding_boxes.py -d 100</code> </li>
 </ul>
-<p>This script demonstrates how to derive 3D and 2D bounding boxes through the Python API and visualize them projected into a camera viewplane. The script also has the facitlity to record both 3D and 2D bounding boxes in JSON format alongside camera frames in PNG. The bounding boxes are visualized in a Pygame window. The visualization can be switched between the 3D and 2D bounding boxes using the <em>2</em> and <em>3</em> number keys. A distance threshold can be set as a command line argument, bounding boxes beyond this threshold will not be visualized or recorded.</p>
+<p>该脚本演示了如何通过 Python API 获取 3D 和 2D 边界框，并将其投影到相机视图平面上进行可视化。此外，该脚本还支持将 3D 和 2D 边界框信息以 JSON 格式保存，并同步记录 PNG 格式的相机帧图像。边界框在 Pygame 窗口中进行可视化显示；用户可以通过数字键“2”和“3”在 3D 和 2D 边界框视图之间进行切换。脚本允许通过命令行参数设置距离阈值，超出该阈值的边界框将不会被可视化或记录。</p>
 <ul>
 <li>
-<p><strong>3D bounding boxes</strong>: The 3D bounding box coordinates are given in the vehicle's local coordinate system, centered on the center of the vehicle's bounding box. For visualization the 3D bounding boxes are projected into the camera plane using the camera's intrinsic parameters. They are derived from each actor's <code>bounding_box</code> attribute.</p>
+<p><strong>3D 边界框</strong>: 3D 边界框的坐标是在车辆局部坐标系下给出的，以车辆边界框的中心为原点。为了进行可视化，利用相机的内参将 3D 边界框投影到相机平面上。这些坐标是根据每个参与者（actor）的 <code>bounding_box</code> 属性推导出来的。 </p>
 </li>
 <li>
-<p><strong>2D bounding boxes</strong>: The 2D bounding boxes are given in pixel-based image coordinates of the camera's viewplane. The 2D bounding boxes are derived from the instance segmentation image.</p>
+<p><strong>2D 边界框</strong>: 2D 边界框以相机视平面的像素级图像坐标表示。这些 2D 边界框由实例分割图像得出。 </p>
 </li>
 </ul>
-<h3 id="key-commands">Key commands</h3>
+<h3 id="_16">快捷键</h3>
 <table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Control</th>
+<th>键</th>
+<th>控制</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>R</td>
-<td>Start recording bounding boxes and camera frames</td>
+<td>开始记录边界框和摄像机帧</td>
 </tr>
 <tr>
 <td>3</td>
-<td>Visualize 3D bounding boxes</td>
+<td>可视化 3D 边界框</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Visualize 2D bounding boxes</td>
+<td>可视化 2D 边界框</td>
 </tr>
 <tr>
 <td>ESC</td>
-<td>Quit</td>
+<td>退出</td>
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-arguments_2">Command line arguments</h3>
+<h3 id="_17">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -1131,117 +1131,117 @@
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--distance</td>
 <td>-d</td>
 <td>50</td>
-<td>Distance threshold for bounding boxes</td>
+<td>边界框的距离阈值</td>
 </tr>
 <tr>
 <td>--res</td>
 <td></td>
 <td>1280x720</td>
-<td>Pixel resolution of the camera sensor (including the instance segmentation camera)</td>
+<td>相机传感器的像素分辨率（包括实例分割相机）</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_14">非渲染模式</h2>
+<h2 id="_18">非渲染模式</h2>
 <ul>
-<li>Script filename: <code>no_rendering_mode.py</code></li>
-<li>Example usage: <code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/no_rendering_mode.py">no_rendering_mode.py</a></li>
+<li>示例使用：<code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
 </ul>
-<p>To use this script effectively, you should launch the CARLA server in no-rendering mode like so:</p>
+<p>为了有效地使用此脚本，您应该按如下方式以无渲染模式启动 Carla 服务器：</p>
 <div class="highlight"><pre><span></span><code>./CarlaUE4.sh<span class="w"> </span>--no-rendering
 </code></pre></div>
-<p>This script demonstrates how to visualize the map and vehicles when using the no-rendering mode of CARLA, which disables the spectator view, allowing CARLA to run in a higher performance configuration. This enables frame rates at or above 100 FPS. A Pygame window visualizes a top-down 2D representation of the scene with simple bounding boxes and 2D road surfaces. This is useful when using CARLA without sensors for traffic simulation or driving 3rd party renderers.</p>
-<h3 id="key-commands_1">Key commands</h3>
+<p>该脚本演示了如何在 Carla 的“无渲染模式”（no-rendering mode）下可视化地图与载具。该模式会禁用观察者视图（spectator view），从而使 Carla 能够以高性能配置运行，实现 100 FPS 或更高的帧率。脚本利用 Pygame 窗口，通过简单的边界框和二维路面来呈现场景的俯视二维视图。当在不使用传感器的情况下进行交通仿真，或利用第三方渲染器进行渲染时，这种方式非常实用。</p>
+<h3 id="_19">快捷键</h3>
 <table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Control</th>
+<th>键</th>
+<th>控制</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>TAB</td>
-<td>Toggle hero mode</td>
+<td>切换英雄模式</td>
 </tr>
 <tr>
-<td>Mouse Wheel</td>
-<td>Zoom in / zoom out</td>
+<td>鼠标滚轮</td>
+<td>放大 / 缩小</td>
 </tr>
 <tr>
-<td>Mouse Drag</td>
-<td>Move map (map mode only)</td>
+<td>鼠标拖动</td>
+<td>移动地图（仅限地图模式）</td>
 </tr>
 <tr>
 <td>W, &uarr;</td>
-<td>Throttle</td>
+<td>油门</td>
 </tr>
 <tr>
 <td>S, &darr;</td>
-<td>Brake</td>
+<td>刹车</td>
 </tr>
 <tr>
 <td>A/D, &larr;, &rarr;</td>
-<td>Steer left/right</td>
+<td>向左/向右转向</td>
 </tr>
 <tr>
 <td>Q</td>
-<td>Toggle reverse</td>
+<td>切换倒车</td>
 </tr>
 <tr>
-<td>Space</td>
-<td>Hand-brake</td>
+<td>空格</td>
+<td>手刹</td>
 </tr>
 <tr>
 <td>P</td>
-<td>Toggle autopilot</td>
+<td>切换自动驾驶</td>
 </tr>
 <tr>
 <td>M</td>
-<td>Toggle manual transmission</td>
+<td>切换手动变速箱</td>
 </tr>
 <tr>
 <td>,/.</td>
-<td>Gear up/down</td>
+<td>升档/降档</td>
 </tr>
 <tr>
 <td>F1</td>
-<td>Toggle HUD</td>
+<td>切换 HUD</td>
 </tr>
 <tr>
 <td>I</td>
-<td>Toggle actor ids</td>
+<td>切换参与者 ID</td>
 </tr>
 <tr>
 <td>H/?</td>
-<td>Toggle help</td>
+<td>切换帮助</td>
 </tr>
 <tr>
 <td>ESC</td>
-<td>Quit</td>
+<td>退出</td>
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-arguments_3">Command line arguments</h3>
+<h3 id="_20">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -1249,79 +1249,79 @@
 <td>--verbose</td>
 <td>-v</td>
 <td></td>
-<td>Print debug info</td>
+<td>打印调试信息</td>
 </tr>
 <tr>
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--res</td>
 <td></td>
 <td>1280x720</td>
-<td>Pixel resolution of the display window</td>
+<td>显示窗口的像素分辨率</td>
 </tr>
 <tr>
 <td>--filter</td>
 <td></td>
 <td>vehicle.*</td>
-<td>Filter vehicle models with string</td>
+<td>按字符串筛选载具</td>
 </tr>
 <tr>
 <td>--map</td>
 <td></td>
 <td>None</td>
-<td>Start a new episode in a given map</td>
+<td>在指定地图上开始新的轮次</td>
 </tr>
 <tr>
 <td>--no-rendering</td>
 <td></td>
 <td>未激活</td>
-<td>Switch off server rendering</td>
+<td>关闭服务器端渲染</td>
 </tr>
 <tr>
 <td>--show-triggers</td>
 <td></td>
 <td>未激活</td>
-<td>Show trigger boxes for traffic lights</td>
+<td>显示交通信号灯的触发区域</td>
 </tr>
 <tr>
 <td>--show-connections</td>
 <td></td>
 <td>未激活</td>
-<td>Show waypoint connections</td>
+<td>显示航点连接</td>
 </tr>
 <tr>
 <td>--show-spawn-points</td>
 <td></td>
 <td>未激活</td>
-<td>Show recommended spawn points</td>
+<td>显示推荐生成点</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_15">动态天气</h2>
+<h2 id="_21">动态天气</h2>
 <ul>
-<li>Script filename: <code>dynamic_weather.py</code></li>
-<li>Example usage: <code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/dynamic_weather.py">dynamic_weather.py</a></li>
+<li>示例使用：<code>python3 no_rendering_mode.py --res 800x600 --filter lincoln_mkz_2020</code></li>
 </ul>
-<p>This script demonstrates how to modify the weather settings in CARLA during runtime, enabling changing weather conditions within a simulation. </p>
-<h3 id="command-line-arguments_4">Command line arguments</h3>
+<p>该脚本演示了如何在 Carla 运行时修改天气设置，从而实现在模拟过程中改变天气状况。</p>
+<h3 id="_22">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -1329,37 +1329,37 @@
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--speed</td>
 <td></td>
 <td>1.0</td>
-<td>Rate of weather changes</td>
+<td>天气变化速率</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="lidar-to-camera">LIDAR to camera</h2>
+<h2 id="_23">激光雷达数据投影到相机平面</h2>
 <ul>
-<li>Script filename: <code>lidar_to_camera.py</code></li>
-<li>Example usage: <code>python3 lidar_to_camera.py --res 800x600 --points-per-second 50000</code></li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/lidar_to_camera.py">lidar_to_camera.py</a></li>
+<li>示例使用：<code>python3 lidar_to_camera.py --res 800x600 --points-per-second 50000</code></li>
 </ul>
-<p>This script demonstrates how to project a LIDAR pointcloud into the camera plane. The script stores camera frames with the projected LIDAR points in a directory named <code>_out</code> in the root directory of the terminal used to run the script.</p>
-<h3 id="command-line-arguments_5">Command line arguments</h3>
+<p>该脚本演示了如何将激光雷达（LiDAR）点云投影到相机平面上。脚本会将包含投影点云的相机帧保存到运行该脚本的终端所在根目录下的 <code>_out</code> 文件夹中。</p>
+<h3 id="_24">命令行参数</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Short form</th>
-<th>Default</th>
-<th>Description</th>
+<th>参数</th>
+<th>简写形式</th>
+<th>默认值</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
@@ -1367,83 +1367,83 @@
 <td>--verbose</td>
 <td>-v</td>
 <td></td>
-<td>Print debug info</td>
+<td>打印调试信息</td>
 </tr>
 <tr>
 <td>--host</td>
 <td>-h</td>
 <td>127.0.0.1</td>
-<td>Host IP address</td>
+<td>主机 IP 地址</td>
 </tr>
 <tr>
 <td>--port</td>
 <td>-p</td>
 <td>2000</td>
-<td>TCP port for CARLA client</td>
+<td>用于 Carla 客户端的 TCP 端口</td>
 </tr>
 <tr>
 <td>--res</td>
 <td></td>
 <td>1280x720</td>
-<td>Pixel resolution of the display window</td>
+<td>显示窗口的像素分辨率</td>
 </tr>
 <tr>
 <td>--frames</td>
 <td></td>
 <td>500</td>
-<td>Number of frames to record</td>
+<td>要录制的帧数</td>
 </tr>
 <tr>
 <td>--dot-extent</td>
 <td></td>
 <td>2</td>
-<td>LIDAR point extent in pixels</td>
+<td>以像素为单位的激光雷达点范围</td>
 </tr>
 <tr>
 <td>--no-noise</td>
 <td></td>
 <td>未激活</td>
-<td>Don't add noise and dropoff</td>
+<td>不要添加噪音和丢弃</td>
 </tr>
 <tr>
 <td>--upper-fov</td>
 <td></td>
 <td>15.0</td>
-<td>LIDAR's upper field of view in degrees</td>
+<td>激光雷达视场角（以度为单位）的上限值</td>
 </tr>
 <tr>
 <td>--lower-fov</td>
 <td></td>
 <td>-25.0</td>
-<td>LIDAR's lower field of view in degrees</td>
+<td>激光雷达视场角（以度为单位）的下限值</td>
 </tr>
 <tr>
 <td>--channels</td>
 <td></td>
 <td>64.0</td>
-<td>Number of LIDAR channels</td>
+<td>激光雷达通道数</td>
 </tr>
 <tr>
 <td>--range</td>
 <td></td>
 <td>100.0</td>
-<td>LIDAR's max range in meters</td>
+<td>激光雷达的最大量程（单位：米）</td>
 </tr>
 <tr>
 <td>--points-per-second</td>
 <td></td>
 <td>100000</td>
-<td>LIDAR points per second</td>
+<td>每秒激光雷达点数</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_16">载具画廊</h2>
+<h2 id="_25">载具画廊</h2>
 <ul>
-<li>Script filename: <code>vehicle_gallery.py</code></li>
-<li>Example usage: <code>python3 vehicle_gallery.py</code> </li>
+<li>脚本文件名：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/examples/vehicle_gallery.py">vehicle_gallery.py</a></li>
+<li>示例使用：<code>python3 vehicle_gallery.py</code></li>
 </ul>
-<p>This script gives 360 degree views of all CARLA vehicles in sequence.</p>
+<p>该脚本按顺序展示所有 OpenHUTB 车辆的 360 度视图。</p>
               
             </div>
           </div><footer>
