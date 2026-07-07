@@ -342,9 +342,8 @@ __2.__ 解压包：
     - 将包移动到 _Import_ 文件夹并运行以下脚本来提取内容： 
 
 ```sh
-        cd path/to/carla/root
-
-        ./ImportAssets.sh
+cd path/to/carla/root
+./ImportAssets.sh
 ```
 
 - __在 Windows 上__:

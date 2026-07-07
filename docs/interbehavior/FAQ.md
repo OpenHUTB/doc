@@ -105,7 +105,7 @@ DReyeVR_vehicle = find_ego_vehicle(world)
 不过，自车（EgoVehicle）**并不非得是**特斯拉；事实上，它甚至不必是汽车，完全可以是摩托车手、消防车，或是其他继承自 [`ACarlaWheeledVehicle`](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Vehicle/CarlaWheeledVehicle.h) 的“参与者”（Actor）。
 
 
-目前我们还没有关于更换 EgoVehicle 网格的最新文档，但参考我们最初设计 EgoVehicle 并选定网格时的[早期指南](https://github.com/GustavoSilvera/VR-Carla-Docs/blob/main/VRPlayer.md) ，应该不难理解其中的操作。由于 `AEgoVehicle` 是一个基于 C++ 实现的蓝图类，因此任何 Carla 蓝图都可以通过更改父类（reparent）来适配该类，并继承其所有功能。
+目前我们还没有关于更换 EgoVehicle 网格的最新文档，但参考我们最初设计 EgoVehicle 并选定网格时的[早期配置可驾驶的 VR 玩家的指南](./VRPlayer.md) ，应该不难理解其中的操作。由于 `AEgoVehicle` 是一个基于 C++ 实现的蓝图类，因此任何 Carla 蓝图都可以通过更改父类（reparent）来适配该类，并继承其所有功能。
 
 不过，您需要修改一些针对我们特定网格模型预先设定的默认参数。例如，驾驶员头部位置、方向盘、仪表盘、后视镜等的位置都是相对于网格模型的，因此您需要相应地进行调整。
 
