@@ -20,8 +20,8 @@
 - [__V2X 传感器__](#v2x-sensor)
     - [协同感知](#cooperative-awareness-message)
     - [自定义消息](#custom-v2x-message)
-- [__表面法线激光雷达传感器__](#surface-normal-lidar-sensor)
-- [__VR 驾驶自我传感器__](#ego_sensor)
+- [__带表面法线的激光雷达传感器__](#surface-normal-lidar-sensor)
+- [__VR 驾驶的自我传感器__](#ego_sensor)
 - [__Air 传感器__](https://openhutb.github.io/air_doc/sensors/)
     - [相机](https://openhutb.github.io/air_doc/sensors/)
     - [气压计](https://openhutb.github.io/air_doc/sensors/)
@@ -1153,10 +1153,12 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 <br>
 
 ---
-## 表面法线激光雷达传感器 <span id="surface-normal-lidar-sensor"></span>
+## 带表面法线的激光雷达传感器 <span id="surface-normal-lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast_surface_normals
 * __输出：__ 每步输出 [carla.SurfaceNormalLidarMeasurement](python_api.md#carla.SurfaceNormalLidarMeasurement) (除非 `sensor_tick` 另有说明)。
+
+[点云法线](https://zhuanlan.zhihu.com/p/673449224)可以提供该点所处平面的方向和朝向（密闭体的内部还是外部）信息，是利用泊松重建算法进行**点云曲面重建**的关键输入。
 
 该传感器与 [激光雷达传感器](#lidar-sensor) 共享相同的接口。除了提供 `x, y, z` 坐标和强度值 `i` 之外，表面法线激光雷达传感器还会返回一个全局方向的表面法向量 `nx, ny, nz`。该向量表示激光束与表面相交点处的全局方向。实现代码参考 [拉取请求](https://github.com/carla-simulator/carla/pull/8773) ，实现原理参考 [论文](https://arxiv.org/abs/2503.08601) 。
 
@@ -1164,7 +1166,7 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 
 
 ---
-## VR 驾驶自我传感器 <span id="ego_sensor"></span>
+## VR 驾驶的自我传感器 <span id="ego_sensor"></span>
 
 * __蓝图：__ harplab.dreyevr_vehicle.*
 * __输出：__ 每步输出眼动仪数据（时间、凝视光线、2D瞳孔位置、瞳孔直径、眼睛开度、世界中的焦点等）、用户输入（油门、转向、刹车、转向信号等）、摄像头的图像。详细信息请参考 [VR 驾驶自我传感器](./interbehavior.md#ego_sensor) 。
