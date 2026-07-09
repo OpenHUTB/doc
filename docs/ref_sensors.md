@@ -24,7 +24,7 @@
 - [__VR 驾驶自我传感器__](#ego_sensor)
 - [__Air 传感器__](https://openhutb.github.io/air_doc/sensors/)
     - [相机](https://openhutb.github.io/air_doc/sensors/)
-    - [气压计](#https://openhutb.github.io/air_doc/sensors/)
+    - [气压计](https://openhutb.github.io/air_doc/sensors/)
     - [IMU](https://openhutb.github.io/air_doc/sensors/)
     - [GPS](https://openhutb.github.io/air_doc/sensors/)
     - [磁力计](https://openhutb.github.io/air_doc/sensors/)
@@ -34,7 +34,7 @@
 
 
 !!! 重要
-    所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考 [链接](sensor/sensor_imp.md) 。
+    所有传感器都使用虚幻引擎左手坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考[链接](sensor/sensor_imp.md) 。
 
 ---
 ## 碰撞检测器 <span id="collision-detector"></span>
@@ -567,7 +567,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 [鱼眼相机镜头](https://zhuanlan.zhihu.com/p/340751380) 是由十几个不同的透镜组合而成，在成像的过程中，入射光线经过不同程度的折射，投影到尺寸有限的成像平面上，使得鱼眼镜头拥有更大的视野范围。
 与针孔相机原理不同，鱼眼镜头采用非相似成像，在成像过程中引入畸变，通过对直径空间的压缩，突破成像视角的局限，从而达到广角成像。
-所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 `software/car/fisheye-camera` 下载包含鱼眼相机的可执行场景，其实现步骤和原理参考 [链接](./sensor/fisheye_camera.md) 。
+所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 software/car/fisheye-camera 下载包含鱼眼相机的可执行场景，其实现步骤和原理参考 [链接](./sensor/fisheye_camera.md) 。
 
 * __蓝图：__ sensor.camera.fisheye
 * __输出：__ 每一步一个 [carla.ImageCube](python_api.md#carla.ImageCube) (除非`sensor_tick`另有说明)。
@@ -1089,11 +1089,11 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 
 | 蓝图属性     | 类型   | 默认值      | 描述                                                                                                                               |
 |-------------------------|--------|----------|----------------------------------------------------------------------------------------------------------------------------------|
-| <td colspan=4> 	消息生成 | 
+| **消息生成** |  |  |  |
 | gen\_cam\_min           | float  | 0.1      | 两个连续 CAM 之间的最短时间间隔（秒）                                                                                                            |
 | gen\_cam\_max           | float  | 1.0      | 两个连续 CAM 之间的最大时间间隔（秒）                                                                                                            |
 | fixed\_rate             | bool   | false [true] | 在每个 Carla 节拍中生成一个 CAM（仅用于调试目的，会导致速度变慢）  |
-| <td colspan=4> 数据生成 | 
+| **数据生成** |  |  |  |
 | `noise_vel_stddev_x` | float  | 0\.0     | 噪声模型中速度的标准偏差参数（X 轴）。                                                           |
 | `noise_accel_stddev_x`          | float   | 0\.0     | 加速度（X 轴）噪声模型中的标准偏差参数。                                                      |
 | `noise_accel_stddev_y`          | float   | 0\.0     | 加速度噪声模型中的标准偏差参数（Y 轴）。                                                       |
@@ -1140,7 +1140,7 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | frequency\_ghz          | float  | 5.9 | 传输频率（GHz）。5.9 GHz 是多个物理信道的标准。                                                                                                                     |
 | noise\_seed             | int    | 0 | 噪声初始化的随机参数                                                                                                                                        |
 | filter\_distance        | float  | 500 | 最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过                                                                                                                   |
-| <td colspan=4> __路径损耗模型参数__ | | ||
+| **路径损耗模型参数** |  |  |  |
 | combined\_antenna\_gain | float  | 10.0 | 发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数                                                                                                             |
 | d\_ref                  | float  |  1.0  | 对数距离路径损耗模型的参考距离（单位：米）                                                                                                                             |
 | path\_loss\_exponent    | float  | 2.7 | 由于建筑物遮挡导致的非视距损耗参数                                                                                                                                 |
