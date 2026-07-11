@@ -1,7 +1,17 @@
 
 # 自定义开发
 
-## 同步 [ue4_dev 分支](https://github.com/carla-simulator/carla/commits/ue4-dev/)
+- [__同步 ue4_dev 分支__](#sync_ue4_dev)
+- [__合并某个提交__](#cherry_pick)
+- [__冲突解决__](#apply_reject)
+- [__Beyond Compare对比相同文件仍显示红色__](#same_red)
+- [__获取某一行代码相关的所有提交记录__](#git_blame)
+- [__其他__](#others)
+- [__参考__](#references)
+
+
+
+## 同步 [ue4_dev 分支](https://github.com/carla-simulator/carla/commits/ue4-dev/)  <span id="sync_ue4_dev"></span>
 
 1.在需要合并 [提交](https://github.com/carla-simulator/carla/commit/cf17eb576e866404eabac0c93af3558da0d91be3) 的地址栏中页面地址后添加`.patch`，下载对应提交的补丁。
 
@@ -17,7 +27,7 @@ git apply 【path/to/xxx.patch】
 如果有冲突则按行进行合并。
 
 
-## 合并某个提交
+## 合并某个提交  <span id="cherry_pick"></span>
 
 ```shell
 git checkout sync
@@ -29,7 +39,8 @@ git cherry-pick {commit_id}
 ```
 
 
-## 冲突解决
+## 冲突解决 <span id="apply_reject"></span>
+
 [open3d_lidar.py](../../../carla/PythonAPI/examples/open3d_lidar.py)
 强制打补丁
 ```shell
@@ -43,7 +54,7 @@ git apply --reject xxx.patch
 git config core.sparsecheckout true
 ```
 
-## Beyond Compare对比相同文件仍显示红色
+## Beyond Compare对比相同文件仍显示红色 <span id="same_red"></span>
 
 解决：[Beyond Compare对比相同文件仍显示红色怎么办](https://www.beyondcompare.cc/wenti/xianshi-hongse.html)
 
@@ -111,8 +122,16 @@ git checkout -b dev
 git push hutb
 ```
 
+## 获取某一行代码相关的所有提交记录 <span id="git_blame"></span>
 
-## 其他
+通过网页的 `git blame` 操作来完成：
+
+1.在网页中选中某一行代码左侧的行号的左边，会出现三个点的下拉菜单；
+
+2.选中下拉菜单中的`View git blame`，比如[虚幻引擎的ImportAssetsInternal这一行的提交历史](https://github.com/EpicGames/UnrealEngine/blame/release/Engine/Source/Developer/AssetTools/Private/AssetTools.cpp#L2980)，在弹出的页面中搜索`ImportAssetsInternal`，大致可以定位到想查看的[历史](https://github.com/EpicGames/UnrealEngine/commit/9e1786b97b3e986a4034cf5d3aeeeeb0cd028fb4)。
+
+
+## 其他 <span id="others"></span>
 
 ##### [获取公众号的主页链接](https://www.zhihu.com/question/51987041/answer/3059575358)
 
@@ -152,9 +171,9 @@ https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2ODk5MzE5Ng==&scene
 
 [持续集成](cicd.md)
 
-## 参考
 
 
+## 参考  <span id="references"></span>
 
 [git 生成补丁文件及打补丁](https://blog.csdn.net/xiewenhao12/article/details/117923288)
 
