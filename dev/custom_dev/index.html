@@ -101,7 +101,16 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">自定义开发</h1>
-<h2 id="ue4_dev">同步 <a href="https://github.com/carla-simulator/carla/commits/ue4-dev/">ue4_dev 分支</a></h2>
+<ul>
+<li><a href="#sync_ue4_dev"><strong>同步 ue4_dev 分支</strong></a></li>
+<li><a href="#cherry_pick"><strong>合并某个提交</strong></a></li>
+<li><a href="#apply_reject"><strong>冲突解决</strong></a></li>
+<li><a href="#same_red"><strong>Beyond Compare对比相同文件仍显示红色</strong></a></li>
+<li><a href="#git_blame"><strong>获取某一行代码相关的所有提交记录</strong></a></li>
+<li><a href="#others"><strong>其他</strong></a></li>
+<li><a href="#references"><strong>参考</strong></a></li>
+</ul>
+<h2 id="ue4_dev">同步 <a href="https://github.com/carla-simulator/carla/commits/ue4-dev/">ue4_dev 分支</a>  <span id="sync_ue4_dev"></span></h2>
 <p>1.在需要合并 <a href="https://github.com/carla-simulator/carla/commit/cf17eb576e866404eabac0c93af3558da0d91be3">提交</a> 的地址栏中页面地址后添加<code>.patch</code>，下载对应提交的补丁。</p>
 <p>2.检查patch是否能正常打入:
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>--check<span class="w"> </span>【path/to/xxx.patch】
@@ -110,7 +119,7 @@
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>【path/to/xxx.patch】
 </code></pre></div>
 如果有冲突则按行进行合并。</p>
-<h2 id="_2">合并某个提交</h2>
+<h2 id="_2">合并某个提交  <span id="cherry_pick"></span></h2>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>sync
 git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-3
 <span class="c1"># 记下最左侧的提交{commit_id}</span>
@@ -118,7 +127,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>hutb
 <span class="c1"># 从sync分支摘取提交到hutb分支</span>
 git<span class="w"> </span>cherry-pick<span class="w"> </span><span class="o">{</span>commit_id<span class="o">}</span>
 </code></pre></div>
-<h2 id="_3">冲突解决</h2>
+<h2 id="_3">冲突解决 <span id="apply_reject"></span></h2>
 <p><a href="../../../carla/PythonAPI/examples/open3d_lidar.py">open3d_lidar.py</a>
 强制打补丁
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>apply<span class="w"> </span>--reject<span class="w"> </span>xxx.patch
@@ -127,7 +136,7 @@ git<span class="w"> </span>cherry-pick<span class="w"> </span><span class="o">{<
 <p>注意：如果强行打补丁后，文件内容修改了，但是git没跟踪到修改记录，则需要启用稀疏检出（允许检出仓库中需要的部分内容）：
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>core.sparsecheckout<span class="w"> </span><span class="nb">true</span>
 </code></pre></div></p>
-<h2 id="beyond-compare">Beyond Compare对比相同文件仍显示红色</h2>
+<h2 id="beyond-compare">Beyond Compare对比相同文件仍显示红色 <span id="same_red"></span></h2>
 <p>解决：<a href="https://www.beyondcompare.cc/wenti/xianshi-hongse.html">Beyond Compare对比相同文件仍显示红色怎么办</a></p>
 <h2 id="gitlab">保存到Gitlab</h2>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>xj<span class="w"> </span>http://172.20.46.154:8090/traffic/carla.git
@@ -174,8 +183,12 @@ git<span class="w"> </span>push<span class="w"> </span>hutb
 git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>dev
 git<span class="w"> </span>push<span class="w"> </span>hutb
 </code></pre></div>
-<h2 id="_4">其他</h2>
-<h5 id="_5"><a href="https://www.zhihu.com/question/51987041/answer/3059575358">获取公众号的主页链接</a></h5>
+<h2 id="_4">获取某一行代码相关的所有提交记录 <span id="git_blame"></span></h2>
+<p>通过网页的 <code>git blame</code> 操作来完成：</p>
+<p>1.在网页中选中某一行代码左侧的行号的左边，会出现三个点的下拉菜单；</p>
+<p>2.选中下拉菜单中的<code>View git blame</code>，比如<a href="https://github.com/EpicGames/UnrealEngine/blame/release/Engine/Source/Developer/AssetTools/Private/AssetTools.cpp#L2980">虚幻引擎的ImportAssetsInternal这一行的提交历史</a>，在弹出的页面中搜索<code>ImportAssetsInternal</code>，大致可以定位到想查看的<a href="https://github.com/EpicGames/UnrealEngine/commit/9e1786b97b3e986a4034cf5d3aeeeeb0cd028fb4">历史</a>。</p>
+<h2 id="_5">其他 <span id="others"></span></h2>
+<h5 id="_6"><a href="https://www.zhihu.com/question/51987041/answer/3059575358">获取公众号的主页链接</a></h5>
 <ol>
 <li>
 <p>复制文章的链接，在电脑端浏览器打开。</p>
@@ -201,15 +214,15 @@ git<span class="w"> </span>push<span class="w"> </span>hutb
 </ol>
 <h5 id="commit"><a href="https://blog.csdn.net/zi__li/article/details/106604872">修改commit的记录</a></h5>
 <p>如果要只是要修改上一次commit的信息，如果是用TortoiseGit，在Commit界面选择Amend Last Commit即可修改。</p>
-<h5 id="_6">使用旧仓库存放新的提交记录</h5>
+<h5 id="_7">使用旧仓库存放新的提交记录</h5>
 <blockquote>
 <p>1.删除所有文件</p>
 <p>2.复制新的仓库文件到旧仓库（包括.git文件夹）</p>
 <p>3.修改.git/config文件，指向旧仓库的地址</p>
 </blockquote>
-<h5 id="_7">补充</h5>
+<h5 id="_8">补充</h5>
 <p><a href="../cicd/">持续集成</a></p>
-<h2 id="_8">参考</h2>
+<h2 id="_9">参考  <span id="references"></span></h2>
 <p><a href="https://blog.csdn.net/xiewenhao12/article/details/117923288">git 生成补丁文件及打补丁</a></p>
               
             </div>
