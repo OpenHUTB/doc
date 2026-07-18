@@ -1,9 +1,17 @@
 ### 生态系统 <span id="ecology"></span>
 
 
-[__Web 可视化器__](plugins_carlaviz.md) — 监听模拟并在网络浏览器中显示场景和一些模拟数据的插件
+[__使用自动驾驶模拟器的仓库列表__](used_by.md) - 收集使用了 Carla 接口的相关库
+
+[__使用低空模拟器的仓库列表__](https://openhutb.github.io/air_doc/third/used_by) -- 收集使用了 AirSim 接口的相关库
+
+[__使用具身人的仓库列表__](https://openhutb.github.io/doc/pedestrian/humanoid/)  -- 收集使用了 Mujoco 接口的相关库
+
+[__使用水下机器人的仓库列表__](https://openhutb.github.io/mujoco_plugin/underwater/used_by/)  -- 收集使用了 HoloOcean 接口的相关库
 
 [__ROS__](ros_documentation.md) — 机器人操作系统桥接器的简要概述和完整文档的链接
+
+[__Web 可视化器__](plugins_carlaviz.md) — 监听模拟并在网络浏览器中显示场景和一些模拟数据的插件
 
 [__CarSim 集成__](tuto_G_carsim_integration.md) — 关于如何使用 CarSim 车辆动力学引擎运行模拟的教程
 
@@ -22,8 +30,6 @@
 [__Openclaw Docker 部署 （DeepSeek API)__](software/openclaw_docker.md) - 通过沙盒环境隔离，安全部署，不污染系统环境
 
 [__待做列表__](todo.md) — 待完成的功能
-
-[__使用 Carla 的仓库列表__](used_by.md) - 收集引用了Carla 的相关库
 
 
 <!-- ### 基准测试 <span id="test"></span> -->

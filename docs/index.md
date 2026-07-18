@@ -1,8 +1,8 @@
 title: 主页
 
-# <center> [开源孪创](https://github.com/OpenHUTB/doc)
+# <center> [开源孪创](https://github.com/OpenHUTB/hutb)
 
-&emsp;&emsp; 欢迎使用开源孪创技术文档，该页面包含 [人](pedestrian.md) 和 [载具](vehicle.md) 的所有内容索引。阅读 [基础](introduction.md) 部分相关内容后可以按自己喜欢的顺序随意阅读。
+&emsp;&emsp; 欢迎使用开源孪创技术文档，该页面包含[人](pedestrian.md)和[载具](vehicle.md)的所有内容索引。阅读[基础](introduction.md)部分相关内容后可以按自己喜欢的顺序随意阅读。
 
 <!-- 参考：https://github.com/squidfunk/mkdocs-material/issues/6845#issuecomment-2192879200 -->
 /// html | div[style='float: left; width: 50%;']
@@ -28,4 +28,4 @@ title: 主页
 ///
 
 
-&emsp;&emsp; 如果对本文档中有任何问题可以在[仓库](https://github.com/OpenHUTB/doc)中的[问题](https://github.com/OpenHUTB/doc/issues)页面讨论或者提交[拉取请求](https://github.com/OpenHUTB/.github/blob/master/CONTRIBUTING.md)直接修改文档。
+&emsp;&emsp; 如果对本文档中有任何问题可以在的[问题](https://github.com/OpenHUTB/doc/issues)或[公众号](https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2ODk5MzE5Ng==)页面讨论或者提交[拉取请求](https://github.com/OpenHUTB/.github/blob/master/CONTRIBUTING.md)直接修改文档。
