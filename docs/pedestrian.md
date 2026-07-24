@@ -15,10 +15,10 @@
 
 [__自行车__](pedestrian/cycle.md) - 可提供最高程度的游戏内控制和反馈的自行车模拟器
 
-[__具身人模拟示例__](./pedestrian/humanoid.md) - 提供具身人 Mujoco、肌肉骨骼[OpenSim](pedestrian/OpenSim.md) 的仿真环境相关示例
+[__具身人模拟示例__](./pedestrian/humanoid.md) - 提供具身人 Mujoco、肌肉骨骼[OpenSim](pedestrian/OpenSim.md)的仿真环境相关示例
 
 [__行人实现分析__](./pedestrian/blueprint.md) - 行人蓝图实现原理
 
-[__Mujoco插件__](https://openhutb.github.io/mujoco_plugin/) - 提供 Mujoco和 HUTB 模拟器之间的协同仿真
+[__Mujoco 插件__](https://openhutb.github.io/mujoco_plugin/) - 提供 Mujoco和 OpenHUTB 模拟器之间[肌肉骨骼人](https://openhutb.github.io/mujoco_plugin/ms/human_700/)、[人形机器人](https://openhutb.github.io/mujoco_plugin/humanoid/g1/)的一体仿真
 
 [__行人物理场模拟__](pedestrian/tuto_content_chrono_opensim.md) — Chrono OpenSim 解析器
