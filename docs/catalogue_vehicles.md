@@ -37,69 +37,79 @@ vehicle.apply_control(control)
 
 # 车辆目录
 
+
 ## 第 2 代
 
 * __车__
-	* [__道奇__ - Charger 2020](#dodge-charger-2020)
-	* [__道奇__ - Police Charger 2020](#dodge-police-charger-2020)
-	* [__福特__ - 皇冠（出租车）](#ford-crown-taxi)
-	* [__林肯__ - MKZ 2020](#lincoln-mkz-2020)
-	* [__梅赛德斯__ - Coupe 2020](#mercedes-coupe-2020)
-	* [__迷你__ - Cooper S 2021](#mini-cooper-s-2021)
-	* [__尼桑__ - Patrol 2021](#nissan-patrol-2021)
+	* [__小米__ - su7](#su7)
+	* [__五菱宏光__ - mini-3](#mini_3)
+	* [__五菱宏光__ - mini-4](#mini_4)
+	* [__比亚迪__ - 宋](#bydsong_1)
+	* [__比亚迪__ - 海豹](#bydsong_seal)
+	* [__理想__ - lixiang](#lixiang)
+	* [__问界__ - M9](#wj)
+	* [__五菱宏光__ - wuling_1](#wuling_1)
+	* [__道奇__ - Charger 2020](#dodge_charger_2020)
+	* [__道奇__ - Police Charger 2020](#dodge_police_charger_2020)
+	* [__福特__ - 皇冠（出租车）](#ford_crown_taxi)
+	* [__林肯__ - MKZ 2020](#lincoln_mkz_2020)
+	* [__梅赛德斯__ - Coupe 2020](#mercedes_coupe_2020)
+	* [__迷你__ - Cooper S 2021](#mini_cooper_s_2021)
+	* [__尼桑__ - Patrol 2021](#nissan_patrol_2021)
 * __卡车__
-	* [__Carla Motors__ - 欧洲 HGV（驾驶室位于发动机上方）](#carla-motors-european-hgv-cab-over-engine-type)
-	* [__Carla Motors__ - 消防车](#carla-motors-firetruck)
-	* [__特斯拉__ - Cybertruck](#tesla-cybertruck)
+	* [__Carla Motors__ - 欧洲 HGV（驾驶室位于发动机上方）](#carla_motors_european_hgv_cab_over_engine_type)
+	* [__Carla Motors__ - 消防车](#carla_motors_firetruck)
+	* [__特斯拉__ - Cybertruck](#tesla_cybertruck)
 * __面包车__
-	* [__福特__ - 救护车](#ford-ambulance)
-	* [__梅赛德斯__ - Sprinter](#mercedes-sprinter)
-	* [__大众__ - T2 2021](#volkswagen-t2-2021)
+	* [__福特__ - 救护车](#ford_ambulance)
+	* [__梅赛德斯__ - Sprinter](#mercedes_sprinter)
+	* [__大众__ - T2 2021](#volkswagen_t2_2021)
 * __巴士__
-	* [__三菱__ - Fusorosa](#mitsubishi-fusorosa)
+	* [__比亚迪__ - 大巴](#byd_bus)
+	* [__三菱__ - Fusorosa](#mitsubishi_fusorosa)
 
 
-## 第一代
+## 第 1 代
 
 * __车__
-	* [__奥迪__ - A2](#audi-a2)
-	* [__奥迪__ - E-Tron](#audi-e-tron)
-	* [__奥迪__ - TT](#audi-tt)
-	* [__宝马__ - 多功能旅行车](#bmw-gran-tourer)
-	* [__雪佛兰__ - Impala](#chevrolet-impala)
-	* [__雪铁龙__ - C3](#citroen-c3)
-	* [__道奇__ - Police Charger](#dodge-police-charger)
-	* [__福特__ - Mustang](#ford-mustang)
-	* [__吉普车__ - Wrangler Rubicon](#jeep-wrangler-rubicon)
-	* [__林肯__ - MKZ 2017](#lincoln-mkz-2017)
-	* [__梅赛德斯__ - Coupe](#mercedes-coupe)
-	* [__微型车__ - Microlino](#micro-microlino)
-	* [__迷你__ - Cooper S](#mini-cooper-s)
-	* [__尼桑__ - Micra](#nissan-micra)
-	* [__尼桑__ - Patrol](#nissan-patrol)
-	* [__Seat__ - Leon](#seat-leon)
-	* [__特斯拉__ - Model 3](#tesla-model-3)
-	* [__Toyota__ - Prius](#toyota-prius)
+	* [__奥迪__ - A2](#audi_a2)
+	* [__奥迪__ - E-Tron](#audi_e_tron)
+	* [__奥迪__ - TT](#audi_tt)
+	* [__宝马__ - 多功能旅行车](#bmw_gran_tourer)
+	* [__雪佛兰__ - Impala](#chevrolet_impala)
+	* [__雪铁龙__ - C3](#citroen_c3)
+	* [__道奇__ - Police Charger](#dodge_police_charger)
+	* [__福特__ - Mustang](#ford_mustang)
+	* [__吉普车__ - Wrangler Rubicon](#jeep_wrangler_rubicon)
+	* [__林肯__ - MKZ 2017](#lincoln_mkz_2017)
+	* [__梅赛德斯__ - Coupe](#mercedes_coupe)
+	* [__微型车__ - Microlino](#micro_microlino)
+	* [__迷你__ - Cooper S](#mini_cooper_s)
+	* [__尼桑__ - Micra](#nissan_micra)
+	* [__尼桑__ - Patrol](#nissan_patrol)
+	* [__Seat__ - Leon](#seat_leon)
+	* [__特斯拉__ - Model 3](#tesla_model_3)
+	* [__丰田__ - 普锐斯](#toyota_prius)
 * __卡车__
-	* [__Carla Motors__ - CarlaCola](#carla-motors-carlacola)
+	* [__Carla Motors__ - CarlaCola](#carla_motors_carlacola)
 * __面包车__
-	* [__大众__ - T2](#volkswagen-t2)
+	* [__大众__ - T2](#volkswagen_t2)
 * __摩托车__
-	* [__哈雷戴维森__ - Low Rider](#harley-davidson-low-rider)
-	* [__Kawasaki__ - Ninja](#kawasaki-ninja)
-	* [__Vespa__ - ZX 125](#vespa-zx-125)
-	* [__Yamaha__ - YZF](#yamaha-yzf)
+	* [__哈雷戴维森__ - Low Rider](#harley_davidson_low_rider)
+	* [__川崎__ - Ninja](#kawasaki_ninja)
+	* [__韦士柏__ - ZX 125](#vespa_zx_125)
+	* [__雅马哈__ - YZF](#yamaha_yzf)
 * __自行车__
-	* [__BH__ - 越野自行车](#bh-crossbike)
-	* [__大名自行车__ - Century](#diamondback-century)
-	* [__Gazelle__ - Omafiets](#gazelle-omafiets)
+	* [__BH__ - 越野自行车](#bh_crossbike)
+	* [__大名自行车__ - Century](#diamondback_century)
+	* [__羚羊__ - Omafiets](#gazelle_omafiets)
 
 
 ---
 
-## 检查模拟器中的车辆
+## 查看模拟器中的车辆
 
-要检查目录中的车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID 并将其粘贴到行中`bp_lib.find('blueprint.id.goes_here')`：
+要查看目录中的车辆，请使用以下代码，从下面的车辆详细信息中检索蓝图 ID 并将其粘贴到行中`bp_lib.find('blueprint.id.goes_here')`（完整代码使用 [catalogue_vehicles.py](https://github.com/OpenHUTB/doc/blob/master/src/catalogue_vehicles.py)）：
 
 ```py
 client = carla.Client('localhost', 2000)
@@ -112,7 +122,7 @@ vehicle_loc = carla.Location(x=-46.9, y=20.0, z=0.2)
 vehicle_rot = carla.Rotation(pitch=0.0, yaw=142.0, roll=0.0)
 vehicle_trans = carla.Transform(vehicle_loc,vehicle_rot)
 
-# 在这里粘贴蓝图 ID
+# !!! 在这里粘贴蓝图 ID
 vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020') 
 
 # 设置视角变换
@@ -135,43 +145,37 @@ vehicle.destroy()
 
 ---
 
-## 车
+## 车  <span id="vehicle"></span>
 
-### mini-3
 
-![audi_a2](./img/catalogue/vehicles/vehicle.mini-3.mini-3.jpg)
+### 小米 su7  <span id="su7"></span>
+
+![su7](./img/catalogue/vehicles/vehicle.su7.su7.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.su7.su7<span>
+
+* __基本类型__: 小汽车
+
+
+### 五菱宏光 mini-3   <span id="mini_3"></span>
+
+![mini-3](./img/catalogue/vehicles/vehicle.mini-3.mini-3.jpg)
 
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-3.mini-3<span>
 
 * __基本类型__: 小汽车
 
 
-### 小米 su7
+### 五菱宏光 mini-4  <span id="mini_4"></span>
 
-![audi_a2](./img/catalogue/vehicles/vehicle.su7.su7.jpg)
-
-* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.su7.su7<span>
-
-* __基本类型__: 小汽车
-
-### 比亚迪大巴
-
-![audi_a2](./img/catalogue/vehicles/vehicle.byd_bus.byd_bus.jpg)
-
-* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.byd_bus.byd_bus<span>
-
-### mini-4
-
-![audi_a2](./img/catalogue/vehicles/vehicle.mini-4.mini-4.jpg)
+![mini-4](./img/catalogue/vehicles/vehicle.mini-4.mini-4.jpg)
 
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-4.mini-4<span>
 
 
+### 比亚迪宋  <span id="bydsong_1"></span>
 
-
-### 比亚迪宋
-
-![audi_a2](./img/catalogue/vehicles/vehicle.bydsong-1.bydsong-1.jpg)
+![bydsong-1](./img/catalogue/vehicles/vehicle.bydsong-1.bydsong-1.jpg)
 
 * __制造商__: 比亚迪
 * __型号__: 宋
@@ -180,18 +184,18 @@ vehicle.destroy()
 * __基本类型__: 小汽车
 
 
-### 比亚迪海豹
+### 比亚迪海豹 <span id="bydsong_seal"></span>
 
-![audi_a2](./img/catalogue/vehicles/vehicle.byd.seal.jpg)
+![bydsong_seal](./img/catalogue/vehicles/vehicle.byd.seal.jpg)
 
-* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-3.mini-3<span>
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.byd.seal<span>
 
 * __基本类型__: 小汽车
 
 
-### 理想
+### 理想  <span id="lixiang"></span>
 
-![audi_a2](./img/catalogue/vehicles/vehicle.lixiang-1.lixiang-1.jpg)
+![lixiang](./img/catalogue/vehicles/vehicle.lixiang-1.lixiang-1.jpg)
 
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.lixiang-1.lixiang-1<span>
 
@@ -232,18 +236,18 @@ vehicle.destroy()
 
 -->
 
-### wj
+### 问界 M9  <span id="wj"></span>
 
-![audi_a2](./img/catalogue/vehicles/vehicle.wj.wj.jpg)
+![wj](./img/catalogue/vehicles/vehicle.wj.wj.jpg)
 
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.wj.wj<span>
 
 * __基本类型__: 小汽车
 
 
-### wuling-1
+### 五菱宏光-1  <span id="wuling_1"></span>
 
-![audi_a2](./img/catalogue/vehicles/vehicle.wuling-1.wuling-1.jpg)
+![wuling-1](./img/catalogue/vehicles/vehicle.wuling-1.wuling-1.jpg)
 
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.wuling-1.wuling-1<span>
 
@@ -262,14 +266,7 @@ vehicle.destroy()
 -->
 
 
-
-
-
-
-
-
-
-### 奥迪 - A2
+### 奥迪 - A2  <span id="audi_a2"></span>
 
 ![audi_a2](./img/catalogue/vehicles/audi_a2.webp)
 
@@ -286,7 +283,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 奥迪 - E-Tron
+### 奥迪 - E-Tron  <span id="audi_e_tron"></span>
 
 ![audi_etron](./img/catalogue/vehicles/audi_etron.webp)
 
@@ -305,7 +302,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 奥迪 - TT
+### 奥迪 - TT  <span id="audi_tt"></span>
 
 ![audi_tt](./img/catalogue/vehicles/audi_tt.webp)
 
@@ -322,7 +319,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 宝马 - 多功能旅行车
+### 宝马 - 多功能旅行车  <span id="bmw_gran_tourer"></span>
 
 ![bmw_grandtourer](./img/catalogue/vehicles/bmw_grandtourer.webp)
 
@@ -339,7 +336,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 雪佛兰 - Impala
+### 雪佛兰 - Impala  <span id="chevrolet_impala"></span>
 
 ![chevrolet_impala](./img/catalogue/vehicles/chevrolet_impala.webp)
 
@@ -356,7 +353,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 雪铁龙 - C3
+### 雪铁龙 - C3  <span id="citroen_c3"></span>
 
 ![citroen_c3](./img/catalogue/vehicles/citroen_c3.webp)
 
@@ -373,7 +370,8 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 道奇 - Charger 2020
+
+### 道奇 - Charger 2020  <span id="dodge_charger_2020"></span>  
 
 ![dodge_charger_2020](./img/catalogue/vehicles/dodge_charger_2020.webp)
 
@@ -390,7 +388,8 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 道奇 - Police Charger
+
+### 道奇 - Police Charger <span id="dodge_police_charger"></span>
 
 ![dodge_charger_police](./img/catalogue/vehicles/dodge_charger_police.webp)
 
@@ -409,7 +408,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 道奇 - Police Charger 2020
+### 道奇 - Police Charger 2020  <span id="dodge_police_charger_2020"></span>
 
 ![dodge_charger_police_2020](./img/catalogue/vehicles/dodge_charger_police_2020.webp)
 
@@ -428,7 +427,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 福特 - 皇冠（出租车）
+### 福特 - 皇冠（出租车）  <span id="ford_crown_taxi"></span>
 
 ![ford_crown](./img/catalogue/vehicles/ford_crown.webp)
 
@@ -447,7 +446,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 福特 - Mustang
+### 福特 - Mustang  <span id="ford_mustang"></span>
 
 ![ford_mustang](./img/catalogue/vehicles/ford_mustang.webp)
 
@@ -464,7 +463,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 吉普车 - Wrangler Rubicon
+### 吉普车 - Wrangler Rubicon  <span id="jeep_wrangler_rubicon"></span>
 
 ![jeep_wrangler_rubicon](./img/catalogue/vehicles/jeep_wrangler_rubicon.webp)
 
@@ -481,7 +480,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 林肯 - MKZ 2017
+### 林肯 - MKZ 2017  <span id="lincoln_mkz_2017"></span>
 
 ![lincoln_mkz_2017](./img/catalogue/vehicles/lincoln_mkz_2017.webp)
 
@@ -498,7 +497,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 林肯 - MKZ 2020
+### 林肯 - MKZ 2020  <span id="lincoln_mkz_2020"></span>
 
 ![lincoln_mkz_2020](./img/catalogue/vehicles/lincoln_mkz_2020.webp)
 
@@ -515,7 +514,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 梅赛德斯 - Coupe
+### 梅赛德斯 - Coupe  <span id="mercedes_coupe"></span>
 
 ![mercedes_coupe](./img/catalogue/vehicles/mercedes_coupe.webp)
 
@@ -532,7 +531,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 梅赛德斯 - Coupe 2020
+### 梅赛德斯 - Coupe 2020  <span id="mercedes_coupe_2020"></span>
 
 ![mercedes_coupe_2020](./img/catalogue/vehicles/mercedes_coupe_2020.webp)
 
@@ -549,7 +548,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 微型车 - Microlino
+### 微型车 - Microlino  <span id="micro_microlino"></span>
 
 ![micro_microlino](./img/catalogue/vehicles/micro_microlino.webp)
 
@@ -568,7 +567,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 迷你 - Cooper S
+### 迷你 - Cooper S  <span id="mini_cooper_s"></span>
 
 ![mini_cooper_s](./img/catalogue/vehicles/mini_cooper_s.webp)
 
@@ -585,7 +584,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 迷你 - Cooper S 2021
+### 迷你 - Cooper S 2021  <span id="mini_cooper_s_2021"></span>
 
 ![mini_cooper_s_2021](./img/catalogue/vehicles/mini_cooper_s_2021.webp)
 
@@ -602,7 +601,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 尼桑 - Micra
+### 尼桑 - Micra  <span id="nissan_micra"></span>
 
 ![nissan_micra](./img/catalogue/vehicles/nissan_micra.webp)
 
@@ -619,7 +618,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 尼桑 - Patrol
+### 尼桑 - Patrol  <span id="nissan_patrol"></span>
 
 ![nissan_patrol](./img/catalogue/vehicles/nissan_patrol.webp)
 
@@ -636,7 +635,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 尼桑 - Patrol 2021
+### 尼桑 - Patrol 2021  <span id="nissan_patrol_2021"></span>
 
 ![nissan_patrol_2021](./img/catalogue/vehicles/nissan_patrol_2021.webp)
 
@@ -653,7 +652,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### Seat - Leon
+### Seat - Leon  <span id="seat_leon"></span>
 
 ![seat_leon](./img/catalogue/vehicles/seat_leon.webp)
 
@@ -670,7 +669,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 特斯拉 - Model 3
+### 特斯拉 - Model 3  <span id="tesla_model_3"></span>
 
 ![tesla_model3](./img/catalogue/vehicles/tesla_model3.webp)
 
@@ -689,13 +688,13 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Toyota - Prius
+### 丰田 - 普锐斯  <span id="toyota_prius"></span>
 
 ![toyota_prius](./img/catalogue/vehicles/toyota_prius.webp)
 
 
-* __制造商__: Toyota
-* __型号__: Prius
+* __制造商__: 丰田
+* __型号__: 普锐斯
 * __类别__: 紧凑型车
 * __世代__: 1
 * __蓝图 ID__: <span style="color:#00a6ed;">vehicle.toyota.prius<span>
@@ -711,7 +710,7 @@ vehicle.destroy()
 ---
 
 ## 卡车
-### Carla Motors - CarlaCola
+### Carla Motors - CarlaCola  <span id="carla_motors_carlacola"></span>
 
 ![carlamotors_carlacola](./img/catalogue/vehicles/carlamotors_carlacola.webp)
 
@@ -728,7 +727,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Carla Motors - 欧洲 HGV（驾驶室位于发动机上方）
+### Carla Motors - 欧洲 HGV（驾驶室位于发动机上方） <span id="carla_motors_european_hgv_cab_over_engine_type"></span>
 
 ![carlamotors_european_hgv](./img/catalogue/vehicles/carlamotors_european_hgv.webp)
 
@@ -745,7 +744,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Carla Motors - Firetruck
+### Carla Motors - 消防车  <span id="carla_motors_firetruck"></span>
 
 ![carlamotors_firetruck](./img/catalogue/vehicles/carlamotors_firetruck.webp)
 
@@ -764,7 +763,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 特斯拉 - Cybertruck
+### 特斯拉 - Cybertruck  <span id="tesla_cybertruck"></span>
 
 ![tesla_cybertruck](./img/catalogue/vehicles/tesla_cybertruck.webp)
 
@@ -786,7 +785,7 @@ vehicle.destroy()
 ---
 
 ## 面包车
-### 福特 - 救护车
+### 福特 - 救护车  <span id="ford_ambulance"></span>
 
 ![ford_ambulance](./img/catalogue/vehicles/ford_ambulance.webp)
 
@@ -805,7 +804,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 梅赛德斯 - Sprinter
+### 梅赛德斯 - Sprinter  <span id="mercedes_sprinter"></span>
 
 ![mercedes_sprinter](./img/catalogue/vehicles/mercedes_sprinter.webp)
 
@@ -822,7 +821,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#99c635;">True<span>
 
-### 大众 - T2
+### 大众 - T2  <span id="volkswagen_t2"></span>
 
 ![volkswagen_t2](./img/catalogue/vehicles/volkswagen_t2.webp)
 
@@ -839,7 +838,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 大众 - T2 2021
+### 大众 - T2 2021  <span id="volkswagen_t2_2021"></span>
 
 ![volkswagen_t2_2021](./img/catalogue/vehicles/volkswagen_t2_2021.webp)
 
@@ -859,7 +858,14 @@ vehicle.destroy()
 ---
 
 ## 巴士
-### 三菱 - Fusorosa
+
+### 比亚迪大巴  <span id="byd_bus"></span>
+
+![audi_a2](./img/catalogue/vehicles/vehicle.byd_bus.byd_bus.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.byd_bus.byd_bus<span>
+
+### 三菱 - Fusorosa  <span id="mitsubishi_fusorosa"></span>
 
 ![mitsubishi_fusorosa](./img/catalogue/vehicles/mitsubishi_fusorosa.webp)
 
@@ -879,7 +885,7 @@ vehicle.destroy()
 ---
 
 ## 摩托车
-### 哈雷戴维森 - Low Rider
+### 哈雷戴维森 - Low Rider  <span id="harley_davidson_low_rider"></span>
 
 ![harley-davidson_low_rider](./img/catalogue/vehicles/harley-davidson_low_rider.webp)
 
@@ -896,12 +902,12 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Kawasaki - Ninja
+### 川崎 - Ninja  <span id="kawasaki_ninja"></span>
 
 ![kawasaki_ninja](./img/catalogue/vehicles/kawasaki_ninja.webp)
 
 
-* __制造商__: Kawasaki
+* __制造商__: 川崎
 * __型号__: Ninja
 * __类别__: 摩托车
 * __世代__: 1
@@ -913,12 +919,12 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Vespa - ZX 125
+### 韦士柏 - ZX 125  <span id="vespa_zx_125"></span>
 
 ![vespa_zx125](./img/catalogue/vehicles/vespa_zx125.webp)
 
 
-* __制造商__: Vespa
+* __制造商__: [韦士柏](https://baike.baidu.com/item/Vespa/791252)
 * __型号__: ZX 125
 * __类别__: 摩托车
 * __世代__: 1
@@ -930,12 +936,12 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Yamaha - YZF
+### 雅马哈 - YZF  <span id="yamaha_yzf"></span>
 
 ![yamaha_yzf](./img/catalogue/vehicles/yamaha_yzf.webp)
 
 
-* __制造商__: Yamaha
+* __制造商__: 雅马哈
 * __型号__: YZF
 * __类别__: 摩托车
 * __世代__: 1
@@ -950,7 +956,7 @@ vehicle.destroy()
 ---
 
 ## 自行车
-### BH - 越野自行车
+### BH - 越野自行车  <span id="bh_crossbike"></span>
 
 ![bh_crossbike](./img/catalogue/vehicles/bh_crossbike.webp)
 
@@ -967,7 +973,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### 大名自行车 - Century
+### 大名自行车 - Century  <span id="diamondback_century"></span>
 
 ![diamondback_century](./img/catalogue/vehicles/diamondback_century.webp)
 
@@ -984,7 +990,7 @@ vehicle.destroy()
 
 * __有打开的门__: <span style="color:#f16c6c;">False<span>
 
-### Gazelle - Omafiets
+### 羚羊 - Omafiets  <span id="gazelle_omafiets"></span>
 
 ![gazelle_omafiets](./img/catalogue/vehicles/gazelle_omafiets.webp)
 
