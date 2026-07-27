@@ -347,9 +347,9 @@ python3 dynamic_weather.py
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
-| 命令                                        | 描述                                                                                                                                 |
-|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| `make help`                               | 打印所有可用的命令。                                                                                                                         |
+| 命令  | 描述 |
+|-------|--------|
+| `make help`     | 打印所有可用的命令。  |
 | `make launch`                             | 在编辑器窗口中启动 HUTB 服务器（会编译LibCarla和osm2odr）。                                                                                          |
 | `make launch-only`                        | 在编辑器窗口中启动 HUTB 服务器（不编译LibCarla和osm2odr）。                                                                                                          |
 | `make PythonAPI`                          | 构建 HUTB 客户端（需要重新安装HUTB的Python包`pip install --force-reinstall carla/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`）。 |

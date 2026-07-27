@@ -136,6 +136,139 @@ vehicle.destroy()
 ---
 
 ## 车
+
+### mini-3
+
+![audi_a2](./img/catalogue/vehicles/vehicle.mini-3.mini-3.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-3.mini-3<span>
+
+* __基本类型__: 小汽车
+
+
+### 小米 su7
+
+![audi_a2](./img/catalogue/vehicles/vehicle.su7.su7.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.su7.su7<span>
+
+* __基本类型__: 小汽车
+
+### 比亚迪大巴
+
+![audi_a2](./img/catalogue/vehicles/vehicle.byd_bus.byd_bus.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.byd_bus.byd_bus<span>
+
+### mini-4
+
+![audi_a2](./img/catalogue/vehicles/vehicle.mini-4.mini-4.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-4.mini-4<span>
+
+
+
+
+### 比亚迪宋
+
+![audi_a2](./img/catalogue/vehicles/vehicle.bydsong-1.bydsong-1.jpg)
+
+* __制造商__: 比亚迪
+* __型号__: 宋
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.bydsong-1.bydsong-1<span>
+
+* __基本类型__: 小汽车
+
+
+### 比亚迪海豹
+
+![audi_a2](./img/catalogue/vehicles/vehicle.byd.seal.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.mini-3.mini-3<span>
+
+* __基本类型__: 小汽车
+
+
+### 理想
+
+![audi_a2](./img/catalogue/vehicles/vehicle.lixiang-1.lixiang-1.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.lixiang-1.lixiang-1<span>
+
+* __基本类型__: 小汽车
+
+
+<!-- 
+### 小鹏
+
+![audi_a2](./img/catalogue/vehicles/vehicle.xiaopeng-1.xiaopeng-1.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.xiaopeng-1.xiaopeng-1<span>
+
+* __基本类型__: 小汽车
+
+-->
+
+<!-- 
+### 红旗
+
+![audi_a2](./img/catalogue/vehicles/vehicle.hongqi-2.hongqi-2.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.hongqi-2.hongqi-2<span>
+
+* __基本类型__: 小汽车
+
+-->
+
+
+<!-- 
+### 红旗1
+
+![audi_a2](./img/catalogue/vehicles/vehicle.hongqi-1.hongqi-1.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.hongqi-1.hongqi-1<span>
+
+* __基本类型__: 小汽车
+
+-->
+
+### wj
+
+![audi_a2](./img/catalogue/vehicles/vehicle.wj.wj.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.wj.wj<span>
+
+* __基本类型__: 小汽车
+
+
+### wuling-1
+
+![audi_a2](./img/catalogue/vehicles/vehicle.wuling-1.wuling-1.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.wuling-1.wuling-1<span>
+
+* __基本类型__: 小汽车
+
+
+<!-- 
+### vehicle.wuling-2.wuling-2
+
+![audi_a2](./img/catalogue/vehicles/vehicle.wuling-2.wuling-2.jpg)
+
+* __蓝图 ID__: <span style="color:#00a6ed;">vehicle.wuling-2.wuling-2<span>
+
+* __基本类型__: 小汽车
+
+-->
+
+
+
+
+
+
+
+
+
 ### 奥迪 - A2
 
 ![audi_a2](./img/catalogue/vehicles/audi_a2.webp)
