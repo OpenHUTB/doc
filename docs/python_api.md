@@ -1,4 +1,4 @@
-# [Python API 参考](https://carla.readthedocs.io/en/latest/python_api/) 
+# 无人车 [Python API](https://carla.readthedocs.io/en/latest/python_api/) 
 此参考包含 Python API 的所有详细信息。要查阅特定 HUTB 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 [hutb](https://github.com/OpenHUTB/hutb) 分支，可能会显示任何 HUTB 打包版本中不可用的功能。<hr>  
 
 ## carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a>
@@ -4335,6 +4335,8 @@ _</font>
 
 ---
 
+# 无人机 PythonAPI  <span id="air_api"></span>
+
 ## airsim.client.MultirotorClient<a name="airsim.client.MultirotorClient"></a>
 多旋翼无人机的客户端类，其基类为 VehicleClient, object。
 
@@ -4582,7 +4584,172 @@ _</font>
         - `vehicle_name` (_str, optional_) - 要向其发送此命令的多旋翼无人机的名称
     - **返回:** _msgpackrpc.future.Future_ - 使用 future.call.join() 等待方法执行完毕。例如：client.METHOD().join()
 
+
 ---
+
+# 潜水器
+
+## HoloOcean <span id="holoocean"></span>
+
+包含用于加载环境的高级接口的模块。
+
+### holoocean.holoocean.GL_VERSION 类<a name="holoocean.holoocean.GL_VERSION"></a>
+OpenGL 版本枚举。
+
+#### 实例变量
+- <a name="OPENGL3"></a>**<font color="#f8805a">OPENGL3</font>** (int)  
+OpenGL3 的值。
+- <a name="OPENGL3"></a>**<font color="#f8805a">OPENGL3</font>** (int)  
+OpenGL4 的值。
+
+#### 方法
+- <a name="holoocean.holoocean.make"></a>**<font color="#7fb800">holoocean.holoocean.make</font>**(<font color="#00a6ed">**scenario_name='', scenario_cfg=None, gl_version=4, window_res=None, verbose=False, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True**</font>)  
+创建 HoloOcean 环境。
+    - **参数：**
+        - `world_name`(_str_) - 要加载为环境的世界名称。必须与已安装软件包中的世界名称匹配。
+        - `scenario_cfg`(_dict_) - 字典包含场景配置信息，而不是从已安装的软件包中加载场景。字典的格式应与 JSON 配置文件格式一致。
+        - `gl_version`(_int_, optional) - 要使用的 OpenGL 版本（仅限 Linux）。默认为 GL_VERSION.OPENGL4。
+        - `window_res`((_int_, _int_), optional) - 引擎窗口加载时的高度和宽度。此设置会覆盖场景配置文件中的（可选）分辨率。
+        - `verbose`(_bool_, optional) - 是否以详细模式运行。默认为 False。
+        - `show_viewport`(_bool_, optional) - 是否在屏幕上显示视口窗口（仅限 Linux）。默认为 True
+        - `ticks_per_sec`(_int_, optional) - 每虚幻引擎秒数对应的节拍数。此值将覆盖配置文件 JSON 中的设置。默认值为 30。
+        - `frames_per_sec`(_int_ 或 _bool_, optional) - 每实际秒的最大帧数。此设置将覆盖配置文件 JSON 中的值。如果为 True，则与 ticks_per_sec 的值一致。如果为 False，则不启用此功能。如果为整数，则设置为该值。默认为 True。
+        - `copy_state`(_bool_, optional) - 返回状态时是否应复制或作为引用传递。默认为 True
+    - **返回:** _[HoloOceanEnvironment](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment)_ - 一个完整的海洋环境实例，包含指定世界所需的所有设置以及其他提供的参数。
+
+
+---
+
+## 代理 <span id="agents"></span>
+
+有关代理的更详细描述，请参阅 [HoloOcean 代理](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/agents.html#agents)。
+
+以下定义了可通过 HoloOcean 控制的不同代理。
+
+### holoocean.agents.AgentDefinition 类<a name="holoocean.agents.AgentDefinition"></a>
+
+表示初始化代理所需的信息。
+
+#### 方法
+- <a name="holoocean.agents.AgentDefinition"></a>**<font color="#7fb800">holoocean.holoocean.make</font>**(<font color="#00a6ed">**agent_name, agent_type, sensors=None, starting_loc=(0, 0, 0), starting_rot=(0, 0, 0), existing=False, is_main_agent=False**</font>)  
+表示初始化代理所需的信息。
+    - **参数：**
+        - `agent_name`(_str_) - 要控制的代理的名称。
+        - `agent_type`(_dict_ 或类型) - 要控制的 HoloOceanAgent 类型，字符串或类引用。
+        - `sensors`(传感器定义 [SensorDefinition](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition) 或类的类型) - 要从该代理读取的 HoloOceanSensors 列表。
+        - `starting_loc`(浮点的 _float_ 的列表 _list_) - 代理的起始 `[x, y, z]` 位置（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `starting_rot`(浮点的 _float_ 的列表 _list_) - 代理开始的`[roll、pitch、yaw]`旋转（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+        - `existing`(_bool_) - 代理是否存在于世界中（已弃用）
+
+---
+
+### holoocean.agents.AgentFactory 类<a name="holoocean.agents.AgentFactory"></a>
+创建代理对象。
+
+#### 方法
+- _static_ <a name="build_agent"></a>**<font color="#7fb800">build_agent</font>**(<font color="#00a6ed">**client, agent_def**</font>)  
+创建代理对象。
+    - **参数：**
+        - `client`([_holoocean.holooceanclient.HoloOceanClient_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient)) - 关联的 HoloOceanClient 代理
+        - `agent_def`([_AgentDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.AgentDefinition)) - 要实例化的代理的定义
+    - **返回:** 
+
+
+---
+
+### holoocean.agents.ControlSchemes 类<a name="holoocean.agents.ControlSchemes"></a>
+所有允许的控制方案。
+
+#### 实例变量
+- <a name="ANDROID_TORQUES"></a>**<font color="#f8805a">ANDROID_TORQUES</font>** (int)
+默认的 Android 控制方案。为每个关节指定扭矩。
+- <a name="CONTINUOUS_SPHERE_DEFAULT"></a>**<font color="#f8805a">CONTINUOUS_SPHERE_DEFAULT</font>** (int)  
+默认的 ContinuousSphere 控制方案。接受两个命令，[forward_delta, turn_delta]。
+- <a name="DISCRETE_SPHERE_DEFAULT"></a>**<font color="#f8805a">DISCRETE_SPHERE_DEFAULT</font>** (int)  
+默认的 DiscreteSphere 控制方案。取值范围为 0 到 4，分别对应前进、后退、右转和左转。
+- <a name="NAV_TARGET_LOCATION"></a>**<font color="#f8805a">NAV_TARGET_LOCATION</font>** (int)  
+默认的NavAgent控制方案。接受目标xyz坐标。
+- <a name="UAV_TORQUES"></a>**<font color="#f8805a">UAV_TORQUES</font>** (int)  
+默认无人机控制方案。接受横滚、俯仰和偏航扭矩以及推力。
+- <a name="UAV_ROLL_PITCH_YAW_RATE_ALT"></a>**<font color="#f8805a">UAV_ROLL_PITCH_YAW_RATE_ALT</font>** (int)  
+无人机控制方案。以横滚角、俯仰角、偏航角速率和高度为目标。
+- <a name="HAND_AGENT_MAX_TORQUES"></a>**<font color="#f8805a">HAND_AGENT_MAX_TORQUES</font>** (int)  
+默认的安卓控制方案。为每个关节指定扭矩。
+- <a name="AUV_THRUSTERS"></a>**<font color="#f8805a">AUV_THRUSTERS</font>** (int)  
+默认悬停式AUV控制方案。为每个推进器指定8维力矢量。
+- <a name="AUV_CONTROL"></a>**<font color="#f8805a">AUV_CONTROL</font>** (int)  
+已实现PD控制器。指定6维位置向量以及横滚、俯仰、偏航方向。
+- <a name="AUV_FORCES"></a>**<font color="#f8805a">AUV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+- <a name="TAUV_FINS"></a>**<font color="#f8805a">TAUV_FINS</font>** (int)  
+默认鱼雷式自主水下航行器（TorpedoAUV）控制方案。指定鳍片旋转角度的5维矢量（单位：度）和螺旋桨扭矩（单位：牛顿）。
+- <a name="TAUV_FORCES"></a>**<font color="#f8805a">TAUV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+- <a name="SV_THRUSTERS"></a>**<font color="#f8805a">SV_THRUSTERS</font>** (int)  
+默认水面航行器控制方案。指定左右推进器的二维力矢量。
+- <a name="SV_CONTROL"></a>**<font color="#f8805a">SV_CONTROL</font>** (int)  
+已实现PD控制器。指定要移动到的x和y坐标二维向量。
+- <a name="SV_FORCES"></a>**<font color="#f8805a">SV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+
+---
+
+
+### holoocean.agents.HoloOceanAgent 类<a name="holoocean.agents.HoloOceanAgent"></a>
+HoloOcean 中的学习型代理。
+
+代理可以执行动作、获得奖励，并接收来自传感器的观测数据。例如，Android 智能体、无人机和 SphereRobot 智能体。
+
+#### 实例变量
+- <a name="action_space"></a>**<font color="#f8805a">[action_space](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent.action_space)</font>** (int)  
+获取当前代理和控制方案的动作空间。
+- <a name="control_schemes"></a>**<font color="#f8805a">[control_schemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent.control_schemes)</font>** (int)  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回:** (_str_, [_ActionSpace_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace)) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="act"></a>**<font color="#7fb800">act</font>**(<font color="#00a6ed">**action**</font>)  
+设置代理的命令。操作取决于代理类型和当前控制方案。
+    - **参数：**
+        - `action`(_np.ndarray_) - 要采取的行动。
+- <a name="add_sensors"></a>**<font color="#7fb800">add_sensors</font>**(<font color="#00a6ed">**sensor_defs**</font>)  
+向特定代理对象添加传感器，并将传感器的实例附加到世界中的代理。
+    - **参数：**
+        - `sensor_defs`([_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)或[_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)的列表) - 要添加到代理中的传感器。
+- <a name="clear_action"></a>**<font color="#7fb800">clear_action</font>**(<font color="#00a6ed"></font>)  
+将操作值设为零，从而有效地删除之前的所有操作。
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+- <a name="has_camera"></a>**<font color="#7fb800">has_camera</font>**(<font color="#00a6ed"></font>)  
+指示该代理是否配备摄像头。
+    - **返回:** (_bool_) - 该代理是否配备传感器
+- <a name="remove_sensors"></a>**<font color="#7fb800">remove_sensors</font>**(<font color="#00a6ed">**sensor_defs**</font>)  
+从特定代理对象中移除传感器，并将其与世界中的代理分离。
+    - **参数：**
+        - `sensor_defs`([_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)或[_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)列表) - 从代理处移除传感器。
+- <a name="set_control_scheme"></a>**<font color="#7fb800">set_control_scheme</font>**(<font color="#00a6ed">**index**</font>)  
+设置代理的控制方案。请参阅 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes)。
+    - **参数：**
+        - `index`(_int_) - 要使用的控件方案。应使用 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes) 中的枚举值进行设置。
+- <a name="set_physics_state"></a>**<font color="#7fb800">set_physics_state</font>**(<font color="#00a6ed">**index**</font>)  
+设置代理的位置、旋转、速度和角速度。
+    - **参数：**
+        - `location`(_np.ndarray_) - 新位置（`[x, y, z]`（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+        - `rotation`(_np.ndarray_) - 新位置（`[roll, pitch, yaw]`（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)））
+        - `velocity`(_np.ndarray_) - 新位置（`[x, y, z]`（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+        - `angular_velocity`(_np.ndarray_) - 新位置（`[x, y, z]`，单位为度（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+- <a name="teleport"></a>**<font color="#7fb800">teleport</font>**(<font color="#00a6ed">**index**</font>)  
+将代理传送到特定位置，并按特定方向旋转。
+    - **参数：**
+        - `location`(_np.ndarray_，可选) - 一个包含三个元素的数组，用于指定目标世界坐标 `[x, y, z]`（单位为米）（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+        如果为 `None`（默认值），则保持当前位置。
+        - `rotation`(_np.ndarray_，可选) - 一个包含三个元素的数组，分别指定智能体的横滚角、俯仰角和偏航角（单位为度）。
+        如果为 `None`（默认值），则保持当前旋转角度。
+
+---
+
+
+
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
 [comment]: <> (=========================)
