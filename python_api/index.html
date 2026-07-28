@@ -6327,6 +6327,255 @@ OpenGL4 的值。</li>
 </li>
 </ul>
 <hr />
+<h3 id="holooceanagentshoveringauv">holoocean.agents.HoveringAUV 类<a name="holoocean.agents.HoveringAUV"></a></h3>
+<p>一个简单的自主水下航行器。所有变量实际上并未用于仿真，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。</p>
+<h4 id="_318">动作空间</h4>
+<p>具有以下三种可能的控制方案：</p>
+<p>1.推进器力：<code>[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]</code></p>
+<p>2.PD控制器：<code>[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]</code></p>
+<p>3.全局坐标系下的加速度：<code>[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]</code></p>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_319">变量</h4>
+<ul>
+<li><a name="mass"></a><strong><font color="#f8805a">mass</font></strong> (float)<br />
+载具质量（千克）</li>
+<li><a name="water_density"></a><strong><font color="#f8805a">water_density</font></strong> (float)<br />
+水的密度（kg/m<script type="math/tex">^3</script>）。</li>
+<li><a name="volume"></a><strong><font color="#f8805a">volume</font></strong> (float)<br />
+载具的体积（单位：m<script type="math/tex">^3</script>）。</li>
+<li><a name="cob"></a><strong><font color="#f8805a">cob</font></strong> (np.ndarray)<br />
+3 维浮心（Center of buoyancy）到质心矢量的距离（单位：米）。</li>
+<li><a name="I"></a><strong><font color="#f8805a">I</font></strong> (np.ndarray)<br />
+3x3 惯性（Inertia）矩阵。</li>
+<li><a name="thruster_d"></a><strong><font color="#f8805a">thruster_d</font></strong> (np.ndarray)<br />
+沿推进器推进方向的 8x3 单位向量矩阵。</li>
+<li><a name="thruster_p"></a><strong><font color="#f8805a">thruster_p</font></strong> (np.ndarray)<br />
+8x3 矩阵，表示推进器在局部坐标系中的位置（单位：米）。</li>
+</ul>
+<h4 id="_320">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#f8805a">control_schemes</font></strong>
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li><em>(str</em>, <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace"><em>ActionSpace)</em></a> - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_321">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>(joint_name)</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。</li>
+</ul>
+<hr />
+<h3 id="holooceanagentssphereagent">holoocean.agents.SphereAgent 类<a name="holoocean.agents.SphereAgent"></a></h3>
+<p>一个基本的球形机器人。</p>
+<p>更多详情请参见 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/sphere-agent.html#sphere-agent">SphereAgent</a>。</p>
+<h4 id="_322">动作空间</h4>
+<p>有两种可能的控制方案，一种是离散的，一种是连续的：</p>
+<table>
+<thead>
+<tr>
+<th colspan="1" rowspan="1">
+<p>控制方案</p>
+</th>
+<th colspan="1" rowspan="1">
+<p>值</p>
+</th>
+<th colspan="1" rowspan="1">
+<p>动作</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="1" rowspan="4">
+<p>离散<br />
+(<code>0</code>)<br />
+<br />
+<br />
+</p>
+</td>
+<td colspan="1" rowspan="1">
+<p><code>[0]</code></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>向前走</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><code>[1]</code></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>向后走</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><code>[2]</code></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>右转</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><code>[3]</code></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>左转</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>连续<br />
+(<code>1</code>)</p>
+</td>
+<td colspan="2" rowspan="1">
+<p><code>forward_speed</code>,<br />
+<code>rot_speed</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_323">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#7fb800">control_schemes</font></strong><br />
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em>, <em>ActionSpace</em>) - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_324">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>joint_name</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。</li>
+</ul>
+<hr />
+<h3 id="holooceanagentssurfacevessel">holoocean.agents.SurfaceVessel 类<a name="holoocean.agents.SurfaceVessel"></a></h3>
+<p>一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。</p>
+<h4 id="_325">动作空间</h4>
+<p>具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：<code>[left_fin, top_fin, right_fin, bottom_fin, thrust]</code>
+- 全局坐标系中的加速度：<code>[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]</code></p>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_326">变量</h4>
+<ul>
+<li><code>mass</code>(<em>float</em>) - 车辆质量（千克）</li>
+<li><code>water_density</code>(<em>float</em>) - 水的密度（kg/m<script type="math/tex">^3</script>）。</li>
+<li><code>volume</code>(<em>float</em>) - 载具体积（单位：m<script type="math/tex">^3</script>）。</li>
+<li><code>cob</code>(<em>np.ndarray</em>) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。</li>
+<li><code>I</code>(<em>np.ndarray</em>) - 3x3 惯性（Inertia）矩阵。</li>
+<li><code>thruster_p</code>(<em>np.ndarray</em>) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。</li>
+<li><code>fin_p</code>(<em>np.ndarray</em>) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。</li>
+</ul>
+<h4 id="_327">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#7fb800">control_schemes</font></strong><br />
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em>, <em>ActionSpace</em>) - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_328">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>joint_name</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。</li>
+</ul>
+<hr />
+<h3 id="holooceanagentstorpedoauv">holoocean.agents.TorpedoAUV 类<a name="holoocean.agents.TorpedoAUV"></a></h3>
+<p>一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。</p>
+<h4 id="_329">动作空间</h4>
+<p>具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：<code>[left_fin, top_fin, right_fin, bottom_fin, thrust]</code>
+- 全局坐标系中的加速度：<code>[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]</code></p>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_330">变量</h4>
+<ul>
+<li><code>mass</code>(<em>float</em>) - 车辆质量（千克）</li>
+<li><code>water_density</code>(<em>float</em>) - 水的密度（kg/m<script type="math/tex">^3</script>）。</li>
+<li><code>volume</code>(<em>float</em>) - 载具体积（单位：m<script type="math/tex">^3</script>）。</li>
+<li><code>cob</code>(<em>np.ndarray</em>) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。</li>
+<li><code>I</code>(<em>np.ndarray</em>) - 3x3 惯性（Inertia）矩阵。</li>
+<li><code>thruster_p</code>(<em>np.ndarray</em>) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。</li>
+<li><code>fin_p</code>(<em>np.ndarray</em>) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。</li>
+</ul>
+<h4 id="_331">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#7fb800">control_schemes</font></strong><br />
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em>, <em>ActionSpace</em>) - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_332">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>joint_name</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。</li>
+</ul>
+<hr />
+<h3 id="holooceanagentsturtleagent">holoocean.agents.TurtleAgent 类<a name="holoocean.agents.TurtleAgent"></a></h3>
+<p>一个简单的海龟机器人。</p>
+<h4 id="_333">动作空间</h4>
+<ul>
+<li>向前推力（<code>forward_force</code>）在两个方向上的上限均为 160</li>
+<li><code>rot_force</code> 的上限为 35，方向不限。</li>
+</ul>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_334">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#7fb800">control_schemes</font></strong><br />
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em>, <em>ActionSpace</em>) - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_335">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>joint_name</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。</li>
+</ul>
+<hr />
+<h3 id="holooceanagentsuavagent">holoocean.agents.UavAgent 类<a name="holoocean.agents.UavAgent"></a></h3>
+<p>无人机（四旋翼）代理</p>
+<h4 id="_336">动作空间</h4>
+<p>有两种可能的连续动作控制方案：</p>
+<p>1.<code>[pitch_torque, roll_torque, yaw_torque, thrust]</code></p>
+<p>2.<code>[pitch_target, roll_target, yaw_rate_target, altitude_target]</code></p>
+<p>更多详情请参阅 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/uav-agent.html#uav-agent">UavAgent</a>。</p>
+<p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
+<h4 id="_337">属性</h4>
+<ul>
+<li><a name="control_schemes"></a><strong><font color="#7fb800">control_schemes</font></strong><br />
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em>, <em>ActionSpace</em>) - 每个元组包含一个简短描述和 ActionSpace。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_338">方法</h4>
+<ul>
+<li><a name="get_joint_constraints"></a><strong><font color="#7fb800">get_joint_constraints</font></strong>(<font color="#00a6ed"><strong>joint_name</strong></font>)<br />
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
