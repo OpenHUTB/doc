@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>无人车  - 开源孪创</title>
+    <title>Python api - 开源孪创</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u65e0\u4eba\u8f66 ";
+        var mkdocs_page_name = "Python api";
         var mkdocs_page_input_path = "python_api.md";
         var mkdocs_page_url = null;
       </script>
@@ -90,7 +90,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">无人车 </li>
+      <li class="breadcrumb-item active">Python api</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/doc/edit/master/docs/python_api.md" class="icon icon-github"> 在 GitHub 上编辑</a>
     </li>
@@ -100,8 +100,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="python-api">无人车 <a href="https://carla.readthedocs.io/en/latest/python_api/">Python API</a></h1>
-<p>此参考包含 Python API 的所有详细信息。要查阅特定 HUTB 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 <a href="https://github.com/OpenHUTB/hutb">hutb</a> 分支，可能会显示任何 HUTB 打包版本中不可用的功能。<hr>  </p>
+                <p>此参考包含<a href="#car">无人车</a>、<a href="#air">无人机</a>、<a href="#water">潜水器</a>的所有 Python API 详细信息。<hr>  </p>
+<h1 id="python-api">无人车 <a href="https://carla.readthedocs.io/en/latest/python_api/">Python API</a> <span id="car"></span></h1>
 <h2 id="carlaackermanncontrollersettings">carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a></h2>
 <p>管理 Ackermann PID 控制器的设置。</p>
 <h3 id="_1">实例变量</h3>
@@ -5764,7 +5764,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </li>
 </ul>
 <hr />
-<h1 id="pythonapi">无人机 PythonAPI  <span id="air_api"></span></h1>
+<h1 id="pythonapi">无人机 PythonAPI  <span id="air"></span></h1>
 <h2 id="airsimclientmultirotorclient">airsim.client.MultirotorClient<a name="airsim.client.MultirotorClient"></a></h2>
 <p>多旋翼无人机的客户端类，其基类为 VehicleClient, object。</p>
 <h3 id="_308">方法</h3>
@@ -6140,7 +6140,7 @@ OpenDRIVE当前位置的 <b>s</b> 值 。</li>
 </li>
 </ul>
 <hr />
-<h1 id="_309">潜水器</h1>
+<h1 id="_309">潜水器  <span id="water"></span></h1>
 <h2 id="holoocean">HoloOcean <span id="holoocean"></span></h2>
 <p>包含用于加载环境的高级接口的模块。</p>
 <h3 id="holooceanholooceangl_version">holoocean.holoocean.GL_VERSION 类<a name="holoocean.holoocean.GL_VERSION"></a></h3>
@@ -6331,9 +6331,9 @@ OpenGL4 的值。</li>
 <p>一个简单的自主水下航行器。所有变量实际上并未用于仿真，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。</p>
 <h4 id="_318">动作空间</h4>
 <p>具有以下三种可能的控制方案：</p>
-<p>1.推进器力：<code>[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]</code></p>
-<p>2.PD控制器：<code>[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]</code></p>
-<p>3.全局坐标系下的加速度：<code>[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]</code></p>
+<p><strong>1.</strong>推进器力：[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]（<code>Vertical Front Starboard, Vertical Front Port, Vertical Back Port, Vertical Back Starboard, Angled Front Starboard, Angled Front Port, Angled Back Port, Angled Back Starboard</code>）</p>
+<p><strong>2.</strong>PD控制器：<code>[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]</code></p>
+<p><strong>3.</strong>全局坐标系下的加速度：<code>[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]</code></p>
 <p>继承自 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent">HoloOceanAgent</a>。</p>
 <h4 id="_319">变量</h4>
 <ul>
