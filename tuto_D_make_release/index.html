@@ -245,19 +245,30 @@ python<span class="w"> </span>..<span class="se">\u</span>til<span class="se">\c
 </code></pre></div>
 <hr />
 <h3 id="mkdocs">发布自定义mkdocs</h3>
-<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/mkdocs.git
+<ul>
+<li>
+<p>打包并发布
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/mkdocs.git
 <span class="nb">cd</span><span class="w"> </span>mkdocs
 pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;build&lt;0.10.0&#39;</span>
 <span class="c1"># 修mkdocs代码改后，将 `mkdocs\__init__.py` 中的版本号+1：</span>
 python<span class="w"> </span>-m<span class="w"> </span>build
 twine<span class="w"> </span>upload<span class="w"> </span>dist/*
 <span class="c1"># 用户名为`__token__`，密码为token。</span>
-</code></pre></div>
-* 上传提示代理报错：
+</code></pre></div></p>
+</li>
+<li>
+<p>开发 hutb-doc
+   <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>mkdocs
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div></p>
+</li>
+<li>
+<p>上传提示代理报错：
    <div class="highlight"><pre><span></span><code>requests.exceptions.ProxyError: HTTPSConnectionPool(host=&#39;upload.pypi.org&#39;, port=443): Max retries exceeded with url: /legacy/ (Caused by ProxyError(&#39;Unable to connect to proxy&#39;, SSLError(SSLZeroReturnError(6, &#39;TLS/SSL connection has been closed (EOF) (_ssl.c:1149)&#39;))))
 </code></pre></div>
    解决：关闭系统代理即可解决。</p>
-<ul>
+</li>
 <li>
 <p>上传，出现权限不够等错误注意 mkdocs 版本号+1，需要修改 <a href="https://github.com/OpenHUTB/mkdocs/blob/master/mkdocs/__init__.py">__init__.py</a> 。：
    <div class="highlight"><pre><span></span><code><span class="c1"># 如果报错 requests.exceptions.ChunkedEncodingError: (&#39;Connection broken: IncompleteRead(13780 bytes read, 8681 more expected)&#39;, IncompleteRead(13780 bytes read, 8681 more expected))</span>
@@ -275,9 +286,11 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w"
       Metadata-Version: 1.0, 1.1, 1.2, 2.0, 2.1, 2.2.
 </code></pre></div>
   解决：需要使用高版本 Python，比如 Python 3.8.20。</p>
-<p>使用方法：
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>hubt-doc<span class="w"> </span>-i<span class="w"> </span>https://pypi.org/simple
-</code></pre></div></p>
+<ul>
+<li>使用方法：
+   <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>hubt-doc<span class="w"> </span>-i<span class="w"> </span>https://pypi.org/simple
+</code></pre></div></li>
+</ul>
 <h3 id="_7">缩短链接</h3>
 <p>使用 <a href="https://tinyurl.com/app/my-urls">tinyurl</a> 缩短文件的长链接，比如 <a href="tinyurl.com/ohutb">tinyurl.com/ohutb</a> 指向 <a href="https://tiny.carla.org/carla-0-9-15-windows">carla-0-9-15</a> 。</p>
 <h3 id="_8">加速页面访问</h3>
