@@ -1,5 +1,7 @@
-# 无人车 [Python API](https://carla.readthedocs.io/en/latest/python_api/) 
-此参考包含 Python API 的所有详细信息。要查阅特定 HUTB 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 [hutb](https://github.com/OpenHUTB/hutb) 分支，可能会显示任何 HUTB 打包版本中不可用的功能。<hr>  
+
+此参考包含[无人车](#car)、[无人机](#air)、[潜水器](#water)的所有 Python API 详细信息。<hr>  
+
+# 无人车 [Python API](https://carla.readthedocs.io/en/latest/python_api/) <span id="car"></span>
 
 ## carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a>
 管理 Ackermann PID 控制器的设置。
@@ -4335,7 +4337,7 @@ _</font>
 
 ---
 
-# 无人机 PythonAPI  <span id="air_api"></span>
+# 无人机 PythonAPI  <span id="air"></span>
 
 ## airsim.client.MultirotorClient<a name="airsim.client.MultirotorClient"></a>
 多旋翼无人机的客户端类，其基类为 VehicleClient, object。
@@ -4587,7 +4589,7 @@ _</font>
 
 ---
 
-# 潜水器
+# 潜水器  <span id="water"></span>
 
 ## HoloOcean <span id="holoocean"></span>
 
@@ -4756,11 +4758,11 @@ HoloOcean 中的学习型代理。
 
 具有以下三种可能的控制方案：
 
-1.推进器力：`[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]`
+**1.**推进器力：[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]（`Vertical Front Starboard, Vertical Front Port, Vertical Back Port, Vertical Back Starboard, Angled Front Starboard, Angled Front Port, Angled Back Port, Angled Back Starboard`）
 
-2.PD控制器：`[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]`
+**2.**PD控制器：`[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]`
 
-3.全局坐标系下的加速度：`[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]`
+**3.**全局坐标系下的加速度：`[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]`
 
 继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
 
