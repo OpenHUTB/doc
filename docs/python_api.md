@@ -4749,6 +4749,215 @@ HoloOcean 中的学习型代理。
 ---
 
 
+### holoocean.agents.HoveringAUV 类<a name="holoocean.agents.HoveringAUV"></a>
+一个简单的自主水下航行器。所有变量实际上并未用于仿真，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+
+具有以下三种可能的控制方案：
+
+1.推进器力：`[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]`
+
+2.PD控制器：`[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]`
+
+3.全局坐标系下的加速度：`[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- <a name="mass"></a>**<font color="#f8805a">mass</font>** (float)  
+载具质量（千克）
+- <a name="water_density"></a>**<font color="#f8805a">water_density</font>** (float)  
+水的密度（kg/m\(^3\)）。
+- <a name="volume"></a>**<font color="#f8805a">volume</font>** (float)  
+载具的体积（单位：m\(^3\)）。
+- <a name="cob"></a>**<font color="#f8805a">cob</font>** (np.ndarray)  
+3 维浮心（Center of buoyancy）到质心矢量的距离（单位：米）。
+- <a name="I"></a>**<font color="#f8805a">I</font>** (np.ndarray)  
+3x3 惯性（Inertia）矩阵。
+- <a name="thruster_d"></a>**<font color="#f8805a">thruster_d</font>** (np.ndarray)  
+沿推进器推进方向的 8x3 单位向量矩阵。
+- <a name="thruster_p"></a>**<font color="#f8805a">thruster_p</font>** (np.ndarray)  
+8x3 矩阵，表示推进器在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#f8805a">control_schemes</font>**
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - _(str_, [_ActionSpace)_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**(joint_name)**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。
+
+---
+
+### holoocean.agents.SphereAgent 类<a name="holoocean.agents.SphereAgent"></a>
+
+一个基本的球形机器人。
+
+更多详情请参见 [SphereAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/sphere-agent.html#sphere-agent)。
+
+#### 动作空间
+有两种可能的控制方案，一种是离散的，一种是连续的：
+
++---------+----------+------+
+| 控制方案|    值    | 动作 |
++=========+==========+======+
+|         |   `[0]`  |向前走|
++         +----------+------+
+|  离散   |   `[1]`  |向后走|
++  (`0`)  +----------+------+
+|         |  `[2]`   | 右转 |
++         +----------+------+
+|         |   `[3]`  | 左转 |
++---------+----------+------+
+|   连续  | `forward_speed`,|
+|  (`1`)  |   `rot_speed`   |
++---------+----------+------+
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。
+
+
+
+---
+
+
+### holoocean.agents.SurfaceVessel 类<a name="holoocean.agents.SurfaceVessel"></a>
+
+一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：`[left_fin, top_fin, right_fin, bottom_fin, thrust]`
+- 全局坐标系中的加速度：`[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- `mass`(_float_) - 车辆质量（千克）
+- `water_density`(_float_) - 水的密度（kg/m\(^3\)）。
+- `volume`(_float_) - 载具体积（单位：m\(^3\)）。
+- `cob`(_np.ndarray_) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。
+- `I`(_np.ndarray_) - 3x3 惯性（Inertia）矩阵。
+- `thruster_p`(_np.ndarray_) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。
+- `fin_p`(_np.ndarray_) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+
+---
+
+
+### holoocean.agents.TorpedoAUV 类<a name="holoocean.agents.TorpedoAUV"></a>
+
+一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：`[left_fin, top_fin, right_fin, bottom_fin, thrust]`
+- 全局坐标系中的加速度：`[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- `mass`(_float_) - 车辆质量（千克）
+- `water_density`(_float_) - 水的密度（kg/m\(^3\)）。
+- `volume`(_float_) - 载具体积（单位：m\(^3\)）。
+- `cob`(_np.ndarray_) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。
+- `I`(_np.ndarray_) - 3x3 惯性（Inertia）矩阵。
+- `thruster_p`(_np.ndarray_) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。
+- `fin_p`(_np.ndarray_) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
+
+### holoocean.agents.TurtleAgent 类<a name="holoocean.agents.TurtleAgent"></a>
+
+一个简单的海龟机器人。
+
+#### 动作空间
+
+- 向前推力（`forward_force`）在两个方向上的上限均为 160
+- `rot_force` 的上限为 35，方向不限。
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
+
+### holoocean.agents.UavAgent 类<a name="holoocean.agents.UavAgent"></a>
+
+无人机（四旋翼）代理
+
+#### 动作空间
+
+有两种可能的连续动作控制方案：
+
+1.`[pitch_torque, roll_torque, yaw_torque, thrust]`
+
+2.`[pitch_target, roll_target, yaw_rate_target, altitude_target]`
+
+更多详情请参阅 [UavAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/uav-agent.html#uav-agent)。
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
 
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
