@@ -4961,6 +4961,189 @@ HoloOcean 中的学习型代理。
 ---
 
 
+## 环境 <span id="environments"></span>
+
+此模块包含 HoloOcean 的环境接口。环境包含与世界二进制文件或 HoloOceanCore 编辑器通信所需的所有元素。
+
+它指定了一个环境（其中包含若干代理）以及与这些代理通信的接口。
+
+
+---
+
+
+### holoocean.environments.HoloOceanEnvironment 类<a name="holoocean.environments.HoloOceanEnvironment"></a>
+
+用于与 HoloOcean 世界通信的代理。
+
+使用 [holoocean.holoocean.make()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/index.html#holoocean.holoocean.make) 实例化此对象。
+
+#### 构造方法
+- <a name="holoocean.environments.HoloOceanEnvironment"></a>**<font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font>**(<font color="#00a6ed">**agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None**</font>)  
+    - **参数：**
+        - `agent_definitions`([AgentDefinition]()的列表_list_) - 环境中已经存在的代理
+        - `binary_path`(_str_, 可选) - 用于加载世界文件的二进制文件路径。默认为 None。
+        - `window_size`((_int_, _int_)) - 要打开的窗口的高度和宽度
+        - `start_world`(_bool_, 可选) - 是否加载二进制文件。默认为 True。
+        - `uuid`(_str_) - 用于运行多个 holoocean 实例的唯一标识符。默认为“”。
+        - `gl_version`(_int_, 可选) - 用于 Linux 的 OpenGL 版本。默认为 4。
+        - `verbose`(_bool_) - 如果引擎日志输出应打印到标准输出，则应将其打印到标准输出。
+        - `pre_start_steps`(_int_) - 调用之前需要的节拍数
+        - `show_viewport`(_bool_, 可选) - 如果应显示窗口（仅限 Linux），则默认为 True。
+        - `ticks_per_sec`(_bool_, 可选) - 每虚幻引擎秒数对应的节拍数。此值将覆盖配置文件 JSON 中的设置。默认值为 30。
+        - `frames_per_sec`(_int_ 或 _bool_, 可选) - 每实际秒的最大帧数。此设置将覆盖配置文件 JSON 中的值。如果为 True，则与 ticks_per_sec 的值一致。如果为 False，则不启用此功能。如果为整数，则设置为该值。默认为 True。
+        - `copy_state`(_bool_, 可选) - 是否应复制状态或将其作为引用返回。默认为 True。
+        - `scenario`(_dict_) - 要加载的场景。有关架构，请参阅[场景文件格式](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#scenario-files)。
+
+#### 方法
+- <a name="act"></a>**<font color="#7fb800">act</font>**(<font color="#00a6ed">**agent_name, action**</font>)  
+**向特定代理提供操作，但不影响环境。**
+这是多代理环境的主要交互模式。在提供所有代理命令后，可以通过调用 tick 函数来应用这些命令。
+    - **参数：**
+        - `agent_name`(_str_) - 负责提供动作的代理名称。
+        - `action`(_np.ndarray_ 或 _list_) - 要对代理执行的操作。此操作将在每次调用 _tick_ 时执行，直到通过另一次调用 _act_ 函数提供新的操作为止。
+- <a name="add_agent"></a>**<font color="#7fb800">add_agent</font>**(<font color="#00a6ed">**agent_def, is_main_agent=False**</font>)  
+在游戏世界中添加一个代理。它会在下次调用 _tick()_ 或 _step()_ 函数时生成。该代理要到下一帧才能使用。
+    - **参数：**
+        - `agent_def`([_AgentDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.AgentDefinition)) - 要生成的代理的定义。
+- <a name="draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**start, end, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试箭头。 
+    - **参数：**
+        - `start`(_float_ 的列表 _list_) - 线段的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `end`(_float_ 的列表 _list_) - 箭头的末端位置 `[x, y, z]`（单位：米）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**center, extent, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试框。 
+    - **参数：**
+        - `center`(_float_ 的列表 _list_) - 框的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `extent`(_float_ 的列表 _list_) - 框的 `[x, y, z]` 范围
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_line"></a>**<font color="#7fb800">draw_line</font>**(<font color="#00a6ed">**center, extent, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一条调试线。 
+    - **参数：**
+        - `start`(_float_ 的列表 _list_) - 线段的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `end`(_float_ 的列表 _list_) - 线段的末端位置 `[x, y, z]`（单位：米）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_point"></a>**<font color="#7fb800">draw_point</font>**(<font color="#00a6ed">**loc, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试点。 
+    - **参数：**
+        - `loc`(_float_ 的列表 _list_) - 框的 [x, y, z] 起点。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**loc, color=None, thickness=10.0, lifetime=1.0**</font>)  
+返回指定代理和关节对应的 swing1、swing2 和 twist 极限值。如果该关节不适用于该代理，则返回 None。
+    - **返回：**
+        - _np.ndarray_ 
+- <a name="get_reward_terminal"></a>**<font color="#7fb800">get_reward_terminal</font>**(<font color="#00a6ed"></font>)  
+返回奖励和终止状态。 
+    - **返回：**
+        一个二元组：
+        - `reward`(_float_) - 环境返回的**奖励**值。
+        - `terminal`(_bool_) - 环境返回的布尔值**终止**信号。
+- <a name="info"></a>**<font color="#7fb800">info</font>**(<font color="#00a6ed"></font>)  
+返回一个包含环境特定信息的字符串。这些信息包括环境中存在哪些代理以及它们配备了哪些传感器。 
+    - **返回：**
+        - _str_ - 字符串格式的信息。
+- <a name="move_viewport"></a>**<font color="#7fb800">move_viewport</font>**(<font color="#00a6ed">**location, rotation**</font>)  
+将摄像机传送至指定位置。下一帧时，摄像机的位置和旋转角度将会更新。 
+    - **参数：**
+        - `location`(_float_ 的列表 _list_) - 要提供给相机的 [x, y, z] 坐标。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `rotation`(_float_ 的列表 _list_) - 相机向下拍摄的 x 轴。另外两个轴由水平的 y 轴和对应的 z 轴构成。（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+- <a name="reset"></a>**<font color="#7fb800">reset</font>**(<font color="#00a6ed"></font>)  
+重置环境并返回状态。如果是单代理环境，则返回该代理的状态。否则，返回一个从代理名称到状态的字典。 
+    - **参数：**
+        - (元组 _tuple_ 或字典 _dict_) - 返回值与 tick 相同。
+- <a name="send_acoustic_message"></a>**<font color="#7fb800">send_acoustic_message</font>**(<font color="#00a6ed"></font>)  
+从一个信标向另一个信标发送消息。 
+    - **参数：**
+        - `id_from` (_int_) - 发送调制解调器的整数 ID。
+        - `id_to` (_int_) - 接收调制解调器的整数 ID。
+        - `msg_type` (_str_) - 消息类型。请参阅 [holoocean.sensors.AcousticBeaconSensor](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.AcousticBeaconSensor) 获取列表。
+        - `msg_data` - 要发送的消息。目前可以是任何 Python 对象。
+- <a name="send_optical_message"></a>**<font color="#7fb800">send_optical_message</font>**(<font color="#00a6ed">**id_from, id_to, msg_data**</font>)  
+在光调制解调器传感器的各个实例之间发送数据。 
+    - **参数：**
+        - `id_from` (_int_) - 发送调制解调器的整数 ID。
+        - `id_to` (_int_) - 接收调制解调器的整数 ID。
+        - `msg_data` - 要发送的消息。目前可以是任何 Python 对象。
+- <a name="send_world_command"></a>**<font color="#7fb800">send_world_command</font>**(<font color="#00a6ed">**id_from, id_to, msg_data**</font>)  
+发送世界命令。世界命令会发送一个任意命令，该命令可能仅存在于特定的世界或包中。它由一个名称以及任意数量的字符串和数字参数组成，这些参数允许它改变世界的状态。如果发送的命令在世界中不存在，则环境将退出。  
+    - **参数：**
+        - `name` (_str_) - 命令名称，例如“OpenDoor”
+        - `num_params` (_int_ 的 _list_) - 任意数参数列表
+        - `string_params`(_string_ 的 _list_) - 任意字符串参数列表
+- <a name="set_control_scheme"></a>**<font color="#7fb800">set_control_scheme</font>**(<font color="#00a6ed">**agent_name, control_scheme**</font>)  
+为特定代理设置控制方案。 
+    - **参数：**
+        - `agent_name` (_str_) - 要为其设置控制方案的代理的名称。
+        - `control_scheme` (_int_ ) - 控制方案值（参见 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes)）
+- <a name="set_render_quality"></a>**<font color="#7fb800">set_render_quality</font>**(<font color="#00a6ed">**render_quality**</font>)  
+调整 HoloOcean 的渲染质量。 
+    - **参数：**
+        - `render_quality` (_int_) - 介于 0（低质量）和 3（极佳质量）之间的整数。
+- <a name="should_render_viewport"></a>**<font color="#7fb800">should_render_viewport</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+控制是否渲染视窗。 
+    - **参数：**
+        - `render_viewport` (_boolean_) - 是否应该渲染视口。
+- <a name="spawn_prop"></a>**<font color="#7fb800">spawn_prop</font>**(<font color="#00a6ed">**prop_type, location=None, rotation=None, scale=1, sim_physics=False, material='', tag=''**</font>)  
+在场景中生成一个基本道具对象，例如盒子或球体。环境重置后，该道具将消失。 
+    - **参数：**
+        - `prop_type` (_str_) - 要生成的道具类型。可以是立方体`box`、球体`sphere`、圆柱体`cylinder`或圆锥体`cone`。
+        - `location` (_float_ 的列表 _list_ ) - 道具的 `[x, y, z]` 位置。
+        - `rotation` (_float_ 的列表 _list_ ) - 道具的 `[roll, pitch, yaw]` 旋转。
+        - `scale` (_float_ 的列表 _list_ 或者 _float_) - `[x, y, z]` 三个标量用于指定道具尺寸，默认尺寸为 1 米。如果给定一个浮点值，则所有维度都将缩放到该值。
+        - `sim_physics` (_boolean_ ) - 物体是否可移动以及是否受重力影响。
+        - `material` (_str_ ) - 道具的材质（纹理）类型。可以是白色`white`、金色`gold`、鹅卵石`cobblestone`、砖块`brick`、木头`wood`、草地`grass`、铁`steel`或黑色`black`。如果留空，道具将使用简单的灰色方格纹理。
+        - `tag` (_str_ ) - 要应用于属性的标签。用于任务引用。
+- <a name="step"></a>**<font color="#7fb800">step</font>**(<font color="#00a6ed">**action, ticks=1, publish=True**</font>)  
+向主代理提供一个动作，并指示环境执行一次操作。这是单代理环境的主要交互方式。 
+    - **参数：**
+        - `action` (_np.ndarray_) - 使用此操作遍历环境的次数。如果 ticks > 1，则此函数返回最后生成的状态。
+        - `publish` (_bool_ ) - 是否按场景定义发布。默认为 True。
+    - **返回：**
+        - (_dict_) - 一个字典，内容从代理名称到其完整状态。完整状态是另一个字典，从 holoocean.sensors.Sensors 枚举到 np.ndarray，包含每个传感器的信息。传感器始终包含奖励传感器和终端传感器。奖励和终端也可以通过 [get_reward_terminal()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment.get_reward_terminal) 获取。返回上次执行 tick 后的状态。
+- <a name="tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**num_ticks=1, publish=True**</font>)  
+对环境进行一次更新。通常用于多代理环境。 
+    - **参数：**
+        - `num_ticks` (_int_) - 要执行的节拍数。默认为 1。
+        - `publish` (_bool_ ) - 是否按场景定义发布。默认为 True。
+    - **返回：**
+        - (_dict_) - 一个字典，内容从代理名称到其完整状态。完整状态是另一个字典，从 holoocean.sensors.Sensors 枚举到 np.ndarray，包含每个传感器的信息。传感器始终包含奖励传感器和终端传感器。奖励和终端也可以通过 [get_reward_terminal()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment.get_reward_terminal) 获取。返回上次执行 tick 后的状态。
+
+
+#### 属性
+- <a name="action_space"></a>**<font color="#7fb800">action_space</font>**  
+**向特定代理提供操作，但不影响环境。**
+为主代理提供动作空间。
+    - **返回：**
+        - [_ActionSpace_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace) - 主代理的动作空间
+- <a name="beacons"></a>**<font color="#7fb800">beacons</font>**  
+获取环境中所有 AcousticBeaconSensor 实例。 
+    - **返回：**
+        - _AcousticBeaconSensor_ 的列表 _list_ - 环境中所有声学信标传感器的列表
+- <a name="beacons_id"></a>**<font color="#7fb800">beacons_id</font>**  
+获取环境中所有 AcousticBeaconSensor 的 ID。
+    - **返回：**
+        - _int_ 类型的列表 _list_ - 环境中所有声学信标传感器 ID 的列表
+- <a name="modems"></a>**<font color="#7fb800">modems</font>**  
+获取环境中所有 OpticalModemSensor 实例。
+    - **返回：**
+        - _OpticalModemSensor_ 的列表 _list_ - 环境中所有光纤调制解调器传感器的列表
+- <a name="modems_id"></a>**<font color="#7fb800">modems_id</font>**  
+获取环境中所有 OpticalModemSensor 的 ID。
+    - **返回：**
+        - _int_ 的列表 _list_ - 环境中所有 OpticalModemSensor ID 的列表
+
+
+---
+
+
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
 [comment]: <> (=========================)
