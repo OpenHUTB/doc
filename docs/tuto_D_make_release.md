@@ -178,21 +178,28 @@ ___
 
 ### 发布自定义mkdocs
 
-```shell
-git clone https://github.com/OpenHUTB/mkdocs.git
-cd mkdocs
-pip install 'build<0.10.0'
-# 修mkdocs代码改后，将 `mkdocs\__init__.py` 中的版本号+1：
-python -m build
-twine upload dist/*
-# 用户名为`__token__`，密码为token。
-```
+* 打包并发布
+   ```shell
+   git clone https://github.com/OpenHUTB/mkdocs.git
+   cd mkdocs
+   pip install 'build<0.10.0'
+   # 修mkdocs代码改后，将 `mkdocs\__init__.py` 中的版本号+1：
+   python -m build
+   twine upload dist/*
+   # 用户名为`__token__`，密码为token。
+   ```
+
+* 开发 hutb-doc
+   ```shell
+   cd mkdocs
+   pip install -e .
+   ```
+
 * 上传提示代理报错：
    ```text
    requests.exceptions.ProxyError: HTTPSConnectionPool(host='upload.pypi.org', port=443): Max retries exceeded with url: /legacy/ (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1149)'))))
    ```
    解决：关闭系统代理即可解决。
-
 
 
 * 上传，出现权限不够等错误注意 mkdocs 版本号+1，需要修改 [\_\_init__.py](https://github.com/OpenHUTB/mkdocs/blob/master/mkdocs/__init__.py) 。：
@@ -214,10 +221,10 @@ twine upload dist/*
   解决：需要使用高版本 Python，比如 Python 3.8.20。
 
 
-使用方法：
-```shell
-pip install hubt-doc -i https://pypi.org/simple
-```
+* 使用方法：
+   ```shell
+   pip install hubt-doc -i https://pypi.org/simple
+   ```
 
 
 ### 缩短链接
