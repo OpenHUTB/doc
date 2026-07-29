@@ -8649,6 +8649,47 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <li><a name="holoocean.sensors.WorldNumSensor"></a><strong><font color="#7fb800">holoocean.sensors.WorldNumSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
+<h2 id="lcm">LCM <span id="lcm"></span></h2>
+<p>LCM 包 <code>__init__.py</code> 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！</p>
+<h3 id="holooceanlcmsensordata">holoocean.lcm.SensorData 类<a name="holoocean.lcm.SensorData"></a></h3>
+<p>用于各种可发布传感器数据的封装类。 </p>
+<h4 id="_441">方法</h4>
+<ul>
+<li><a name="holoocean.lcm.SensorData"></a><strong><font color="#7fb800">holoocean.lcm.SensorData</font></strong>(<font color="#00a6ed"><strong>sensor_type, channel</strong></font>)<br />
+在相应的传感器类中设置值。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>sensor_type</code>(<em>str</em> ) - 要导入的传感器类型</li>
+<li><code>channel</code>(<em>str</em> ) - 要发布到的通道名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_value"></a><strong><font color="#7fb800">set_value</font></strong>(<font color="#00a6ed"><strong>timestamp, value</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>timestamp</code>(<em>int</em> ) - 自上次发布数据以来的毫秒数</li>
+<li><code>value</code>(<em>list</em> ) - 要放入 LCM 传感器类的传感器数据列表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceanlcmgen">holoocean.lcm.gen 类<a name="holoocean.lcm.gen"></a></h3>
+<p>用于各种可发布传感器数据的封装类。 </p>
+<h4 id="_442">方法</h4>
+<ul>
+<li><a name="holoocean.lcm.gen"></a><strong><font color="#7fb800">holoocean.lcm.gen</font></strong>(<font color="#00a6ed"><strong>lang, path='.', headers=None</strong></font>)<br />
+为传感器生成 LCM 文件，可使用任意请求的语言。 <ul>
+<li><strong>参数：</strong><ul>
+<li><code>lang</code>(<em>str</em> ) - 可选值包括 “cpp”, “c”, “java”, “python”, “lua”, “csharp”, “go”</li>
+<li><code>path</code>(<em>str</em> , optional) - 文件保存位置。默认是当前目录。</li>
+<li><code>headers</code>(<em>str</em> , optional) - 用于存放 C 的 .h 文件的位置。默认与 C 文件相同，由 path 参数指定。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
