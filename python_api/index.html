@@ -7014,6 +7014,312 @@ OpenGL4 的值。</li>
 </li>
 </ul>
 <hr />
+<h2 id="_350">命令 <span id="commands"></span></h2>
+<p>此模块包含用于格式化命令并将其发送到 HoloOcean 后端的类。这些命令大多仅供 HoloOcean 内部使用，普通用户无需关心这些命令。</p>
+<h3 id="holooceancommandaddsensorcommand">holoocean.command.AddSensorCommand 类<a name="holoocean.command.AddSensorCommand"></a></h3>
+<p>OpenGL 版本枚举。</p>
+<h4 id="_351">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.AddSensorCommand"></a><strong><font color="#7fb800">holoocean.command.AddSensorCommand</font></strong>(<font color="#00a6ed"><strong>sensor_definition</strong></font>)<br />
+向代理添加传感器。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>sensor_definition</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition"><em>SensorDefinition</em></a>) - 添加的传感器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="holooceancommandcommand">holoocean.command.Command 类<a name="holoocean.command.Command"></a></h3>
+<p>Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean 二进制文件之间的进程间通信 (IPC)。派生类必须设置 <code>_command_type</code>。<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command.add_number_parameters">add_number_parameters()</a> 和 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command.add_number_parameters">add_number_parameters()</a> 的调用顺序很重要，它们会被添加到有序列表中。请确保按照客户端期望的顺序添加参数。</p>
+<h4 id="_352">方法</h4>
+<ul>
+<li><a name="add_number_parameters"></a><strong><font color="#7fb800">add_number_parameters</font></strong>(<font color="#00a6ed"><strong>number</strong></font>)<br />
+将给定的数字参数添加到内部列表中。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>number</code>(<em>int</em> / <em>float</em> 的列表 <em>list</em> 或单个_int_ / <em>float</em>) - 要添加到参数中的数字或数字列表。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="add_string_parameters"></a><strong><font color="#7fb800">add_string_parameters</font></strong>(<font color="#00a6ed"><strong>number</strong></font>)<br />
+将给定的字符串参数添加到内部列表中。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>number</code>(<em>str</em> 的列表 <em>list</em> 或 <em>str</em> ) - 要添加到参数中的字符串或字符串列表。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_command_type"></a><strong><font color="#7fb800">set_command_type</font></strong>(<font color="#00a6ed"><strong>command_type</strong></font>)<br />
+设置命令类型。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>command_type</code>(<em>str</em> ) - 这是它将被设置为的命令名称。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="to_json"></a><strong><font color="#7fb800">to_json</font></strong>(<font color="#00a6ed"></font>)<br />
+转换为JSON格式。<ul>
+<li><strong>参数：</strong><ul>
+<li>(<em>str</em> ) - 该对象以 JSON 字符串的形式存在。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandcommandcenter">holoocean.command.CommandCenter 类<a name="holoocean.command.CommandCenter"></a></h3>
+<p>管理待发送给客户端（引擎）的待处理命令。</p>
+<h4 id="_353">方法</h4>
+<ul>
+<li><a name="holoocean.command.CommandCenter"></a><strong><font color="#7fb800">holoocean.command.CommandCenter</font></strong>(<font color="#00a6ed"><strong>client</strong></font>)<br />
+管理待发送给客户端（引擎）的待处理命令。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>client</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient"><em>HoloOceanClient</em></a> ) - 发送命令的客户端。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="clear"></a><strong><font color="#7fb800">clear</font></strong>(<font color="#00a6ed"></font>)<br />
+清除待处理的命令。</li>
+<li><a name="enqueue_command"></a><strong><font color="#7fb800">enqueue_command</font></strong>(<font color="#00a6ed"><strong>command_to_send</strong></font>)<br />
+将命令添加到传出队列。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>command_to_send</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command"><em>Command</em></a> ) - 添加到队列的命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="handle_buffer"></a><strong><font color="#7fb800">handle_buffer</font></strong>(<font color="#00a6ed"></font>)<br />
+如果需要，将命令列表写入命令缓冲区。检查是否应该写入命令缓冲区，将所有已排队的命令写入缓冲区，然后清除 self._commands 列表的内容。</li>
+</ul>
+<h4 id="_354">属性</h4>
+<ul>
+<li><a name="queue_size"></a><strong><font color="#f8805a">queue_size</font></strong> (int)  <ul>
+<li><strong>返回:</strong> (<em>int</em>) - 命令队列的大小。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandcommandsgroup">holoocean.command.CommandsGroup 类<a name="holoocean.command.CommandsGroup"></a></h3>
+<p>表示命令列表。可以将命令列表转换为 JSON 格式。</p>
+<h4 id="_355">方法</h4>
+<ul>
+<li><a name="add_command"></a><strong><font color="#7fb800">add_command</font></strong>(<font color="#00a6ed"><strong>command</strong></font>)<br />
+向列表中添加命令。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>command</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command"><em>Command</em></a> ) - 要添加的命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="clear"></a><strong><font color="#7fb800">clear</font></strong>(<font color="#00a6ed"></font>)<br />
+清除命令列表。</li>
+<li><a name="to_json"></a><strong><font color="#7fb800">to_json</font></strong>(<font color="#00a6ed"></font>)<br />
+将命令添加到传出队列。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - 添加到队列的命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_356">属性</h4>
+<ul>
+<li><a name="size"></a><strong><font color="#f8805a">size</font></strong> (int)  <ul>
+<li><strong>返回:</strong> (<em>int</em>) - 用于存储命令数组对象的 JSON 数据以及数组中的所有命令。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandcustomcommand">holoocean.command.CustomCommand 类<a name="holoocean.command.CustomCommand"></a></h3>
+<p>向当前加载的世界发送自定义命令。</p>
+<h4 id="_357">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.CustomCommand"></a><strong><font color="#7fb800">holoocean.command.CustomCommand</font></strong>(<font color="#00a6ed"><strong>name, num_params=None, string_params=None</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>name</code>(<em>str</em>) - 命令名称，例如“OpenDoor”</li>
+<li><code>num_params</code>(<em>int</em> 的列表) - 任意数参数列表</li>
+<li><code>string_params</code>(<em>int</em> 的列表) - 任意字符串参数列表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommanddebugdrawcommand">holoocean.command.DebugDrawCommand 类<a name="holoocean.command.DebugDrawCommand"></a></h3>
+<p>在世界中绘制调试几何图形。</p>
+<h4 id="_358">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.DebugDrawCommand"></a><strong><font color="#7fb800">holoocean.command.DebugDrawCommand</font></strong>(<font color="#00a6ed"><strong>draw_type, start, end, color, thickness, lifetime</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>draw_type</code>(<em>int</em>) - 要绘制的对象类型<ul>
+<li><code>0</code>: 线</li>
+<li><code>1</code>：箭头</li>
+<li><code>2</code>: 框</li>
+<li><code>3</code>：点</li>
+</ul>
+</li>
+<li><code>start</code>(<em>float</em> 的列表) - 物体起始位置的 <code>[x, y, z]</code> 坐标（单位：米）。（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）</li>
+<li><code>end</code>(<em>float</em> 的列表) - 物体的末端 <code>[x, y, z]</code> 位置（以米为单位）（不用于点，也不用于框的范围）</li>
+<li><code>color</code>(<em>float</em>) - <code>[r, g, b]</code> 颜色值（从 0 到 255）。</li>
+<li><code>thickness</code>(<em>float</em>) - 线条/物体的粗细</li>
+<li><code>lifetime</code>(<em>float</em>) - 对象应保持存在的模拟秒数。如果为 0，则保持存在。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandrgbcameraratecommand">holoocean.command.RGBCameraRateCommand 类<a name="holoocean.command.RGBCameraRateCommand"></a></h3>
+<p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
+<h4 id="_359">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.RGBCameraRateCommand"></a><strong><font color="#7fb800">holoocean.command.RGBCameraRateCommand</font></strong>(<font color="#00a6ed"><strong>agent_name, sensor_name, ticks_per_capture</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent_name</code>(<em>str</em>) - 要修改的代理姓名</li>
+<li><code>sensor_name</code>(<em>str</em> ) - 要修改的传感器名称</li>
+<li><code>ticks_per_capture</code>(<em>int</em> ) - 两次捕获之间的节拍数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandremovesensorcommand">holoocean.command.RemoveSensorCommand 类<a name="holoocean.command.RemoveSensorCommand"></a></h3>
+<p>从代理中移除传感器。</p>
+<h4 id="_360">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.RemoveSensorCommand"></a><strong><font color="#7fb800">holoocean.command.RemoveSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent</code>(<em>str</em>) - 要修改的代理姓名</li>
+<li><code>sensor</code>(<em>str</em> ) - 要移除的传感器名称</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandrenderqualitycommand">holoocean.command.RenderQualityCommand 类<a name="holoocean.command.RenderQualityCommand"></a></h3>
+<p>调整 HoloOcean 的渲染质量。</p>
+<h4 id="_361">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.RenderQualityCommand"></a><strong><font color="#7fb800">holoocean.command.RenderQualityCommand</font></strong>(<font color="#00a6ed"><strong>render_quality</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>render_quality</code>(<em>int</em>) - 0 = 低，1 = 中，3 = 高，3 = 史诗级</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandrenderviewportcommand">holoocean.command.RenderViewportCommand 类<a name="holoocean.command.RenderViewportCommand"></a></h3>
+<p>启用或禁用窗口。请注意，这不会阻止窗口显示，只会阻止其更新。</p>
+<h4 id="_362">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.RenderViewportCommand"></a><strong><font color="#7fb800">holoocean.command.RenderViewportCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>render_viewport</code>(<em>bool</em>) - 是否需要渲染视窗</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandrotatesensorcommand">holoocean.command.RotateSensorCommand 类<a name="holoocean.holoocean.command.RotateSensorCommand"></a></h3>
+<p>调整 HoloOcean 的渲染质量。</p>
+<h4 id="_363">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.RotateSensorCommand"></a><strong><font color="#7fb800">holoocean.command.RotateSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor, rotation</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent</code>(<em>str</em>) - 代理名称</li>
+<li><code>sensor</code>(<em>str</em>) - 要旋转的传感器的名称</li>
+<li><code>rotation</code>(<em>float</em> 的列表) - 传感器<code>[roll, pitch, yaw]</code>的旋转。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandsendacousticmessagecommand">holoocean.command.SendAcousticMessageCommand 类<a name="holoocean.command.SendAcousticMessageCommand"></a></h3>
+<p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
+<h4 id="_364">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.SendAcousticMessageCommand"></a><strong><font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent_name</code>(<em>str</em>) - 要修改的代理名称</li>
+<li><code>sensor_name</code>(<em>str</em>) - 要修改的传感器名称</li>
+<li><code>num</code>(<em>int</em> ) - 两次捕获之间的节拍数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandsendopticalmessagecommand">holoocean.command.SendOpticalMessageCommand 类<a name="holoocean.command.SendOpticalMessageCommand"></a></h3>
+<p>通过光纤调制解调器发送信息。</p>
+<hr />
+<h3 id="holooceancommandspawnagentcommand">holoocean.command.SpawnAgentCommand 类<a name="holoocean.command.SpawnAgentCommand"></a></h3>
+<p>在世界上生成一个代理。</p>
+<h4 id="_365">方法</h4>
+<ul>
+<li><a name="holoocean.command.SpawnAgentCommand"></a><strong><font color="#7fb800">holoocean.command.SpawnAgentCommand</font></strong>(<font color="#00a6ed"><strong>location, rotation, name, agent_type, is_main_agent=False</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li><code>location</code>(<em>float</em> 的列表 <em>list</em> ) - 生成代理的 <code>[x, y, z]</code> 位置（参见坐标系）</li>
+<li><code>name</code>(<em>str</em> ) - 代理的名称</li>
+<li><code>agent_type</code>(<em>str</em> 或类型) - 要生成的代理类型（UAVAgent、NavAgent 等）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_location"></a><strong><font color="#7fb800">set_location</font></strong>(<font color="#00a6ed"><strong>location</strong></font>)<br />
+设置代理的生成位置。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>location</code>(<em>float</em> 的列表 <em>list</em> ) - 生成代理的 <code>[x, y, z]</code> 位置（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_name"></a><strong><font color="#7fb800">set_name</font></strong>(<font color="#00a6ed"><strong>name</strong></font>)<br />
+设置代理的生成位置。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>name</code>(<em>str</em> ) - 设置代理的名称。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_rotation"></a><strong><font color="#7fb800">set_rotation</font></strong>(<font color="#00a6ed"><strong>name</strong></font>)<br />
+设置代理的生成旋转。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>rotation</code>(<em>float</em> 的列表 <em>list</em> ) - 代理的<code>[roll, pitch, yaw]</code>旋转。（参见“旋转”部分）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_type"></a><strong><font color="#7fb800">set_type</font></strong>(<font color="#00a6ed"><strong>name</strong></font>)<br />
+设置代理类型。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent_type</code>(<em>str</em> 或 <em>type</em> ) - 要生成的代理类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceancommandteleportcameracommand">holoocean.command.TeleportCameraCommand 类<a name="holoocean.command.TeleportCameraCommand"></a></h3>
+<p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
+<h4 id="_366">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.TeleportCameraCommand"></a><strong><font color="#7fb800">holoocean.command.TeleportCameraCommand</font></strong>(<font color="#00a6ed"><strong>location, rotation</strong></font>)<br />
+移动窗口的相机（代理跟随器）<ul>
+<li><strong>参数：</strong><ul>
+<li><code>agent_name</code>(<em>float</em> 的列表 <em>list</em> ) - 要赋予相机的 <code>[x, y, z]</code> 位置（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）</li>
+<li><code>rotation</code>(<em>float</em> 的列表 <em>list</em> ) - 要赋予相机的 <code>[roll, pitch, yaw]</code> 位置（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations">旋转</a>）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
