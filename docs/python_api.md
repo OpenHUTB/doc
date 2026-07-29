@@ -6650,6 +6650,47 @@ HoloOcean 中通用异常的基类。
 ---
 
 
+## 天气控制 <span id="weather"></span>
+
+环境天气/时间控制器。
+
+
+### holoocean.weather.WeatherController 类<a name="holoocean.weather.WeatherController"></a>
+
+声学信标传感器。可通过 `send_acoustic_message()` 命令向其他信标发送消息。
+
+#### 方法
+- <a name="holoocean.weather.WeatherController"></a>**<font color="#7fb800">holoocean.weather.WeatherController</font>**(<font color="#00a6ed">**send_world_command**</font>)  
+    - **参数：**
+        - (_function_ ) - 用于向世界发送命令的回调函数
+- <a name="set_day_time"></a>**<font color="#7fb800">set_day_time</font>**(<font color="#00a6ed">**hour**</font>)  
+更改时间。当下次调用 tick() 或 step() 时，时间将会改变。到下一个 tick 时，光照和天空球体将更新为新的小时数。如果场景中没有天空球体、天光或定向光源，此命令将退出环境。
+    - **参数：**
+        - `hour`(_int_ ) - 24 小时制的小时数为：[0, 23]。
+- <a name="set_fog_density"></a>**<font color="#7fb800">set_fog_density</font>**(<font color="#00a6ed">**density**</font>)  
+更改雾的密度。更改将在下次调用 tick() 或 step() 时生效。到下一个 tick 时，世界中的指数高度雾将具有新的密度。如果世界中没有雾，则会以给定的密度创建雾。
+    - **参数：**
+        - `density`(_float_ ) - 新的密度值，介于 0 和 1 之间。如果给定的密度无效，则不会发送该命令。
+- <a name="set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**weather_type**</font>)  
+设置世界天气。新的天气将在下次调用 tick() 或 step() 时应用。到下一个 tick 时，光照、天空球、雾以及相关的粒子系统将根据给定的天气进行更新和/或生成。如果世界中不存在天空球、天光或定向光源，此命令将退出环境。在所有可下载的世界中，默认天气为晴天。如果指定的字符串类型不可用，则不会发送该命令。
+    - **参数：**
+        - `weather_type`(_str_ ) - 天气类型，可以是雨天（`rain`）、阴天（`cloudy`）或晴天（`sunny`）。
+
+!!! 注意
+    由于此命令会影响雾的浓度，因此在调用 `set_weather` 命令之前，通过 `change_fog_density` 命令所做的任何更改都将被撤销。如果您希望应用特定的更改，建议在调用 `set_weather` 命令之后再调用 `change_fog_density` 命令。
+
+- <a name="start_day_cycle"></a>**<font color="#7fb800">start_day_cycle</font>**(<font color="#00a6ed">**day_length**</font>)  
+启动昼夜循环。循环将在下次调用 `tick()` 或 `step()` 函数时开始。之后，天空球体将在每个游戏刻更新太阳角度，并随着其在天空中的移动而变化。一天的长度大致等于指定的分钟数。如果世界中不存在天空球体、天光或定向光源，则此命令将退出环境。
+    - **参数：**
+        - `day_length`(_int_ ) - 每天的分钟数将是。
+- <a name="stop_day_cycle"></a>**<font color="#7fb800">stop_day_cycle</font>**(<font color="#00a6ed"></font>)  
+停止昼夜循环。循环将在下次调用 tick() 或 step() 时停止。到下一个 tick 时，昼夜循环将停止在当前位置。如果场景中没有天空球、天光或定向光源，此命令将退出环境。
+
+        
+        
+
+
+
 
 
 [comment]: <> (=========================)
