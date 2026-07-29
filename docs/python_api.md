@@ -6595,7 +6595,7 @@ LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手�
 ---
 
 
-## 实用工具 <span id="shmem"></span>
+## 实用工具 <span id="utils"></span>
 
 有用的小工具。
 
@@ -6625,10 +6625,30 @@ LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手�
     - **返回：**
         - (_str_ ) - 以可读形式表示的字节数。
 
+---
 
 
+## 异常 <span id="exceptions"></span>
+
+HoloOcean 异常。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.util.convert_unicode"></a>**<font color="#7fb800">holoocean.util.convert_unicode</font>**  
+用户为 HoloOcean 提供了无效的配置。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.HoloOceanException"></a>**<font color="#7fb800">holoocean.exceptions.HoloOceanException</font>**  
+HoloOcean 中通用异常的基类。
+
+    - **参数：**
+        - `message`(_str_) - 错误信息字符串。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.NotFoundException"></a>**<font color="#7fb800">holoocean.exceptions.NotFoundException</font>**  
+当找不到软件包时抛出异常。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.TimeoutException"></a>**<font color="#7fb800">holoocean.exceptions.TimeoutException</font>**  
+与引擎通信超时时引发异常。
 
 ---
+
 
 
 
