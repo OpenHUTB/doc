@@ -5144,6 +5144,109 @@ HoloOcean 中的学习型代理。
 ---
 
 
+## 空间 <span id="spaces"></span>
+
+包含动作空间定义。
+
+### holoocean.spaces.ActionSpace 类<a name="holoocean.spaces.ActionSpace"></a>
+抽象 ActionSpace 类。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="ActionSpace"></a>**<font color="#7fb800">ActionSpace</font>**(<font color="#00a6ed">**shape, buffer_shape=None**</font>)  
+抽象 ActionSpace 类。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `buffer_shape`(_int_ 的列表 _list_，可选) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+
+---
+
+
+### holoocean.spaces.ContinuousActionSpace 类<a name="holoocean.spaces.ContinuousActionSpace"></a>
+接受浮点输入的动作空间。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="holoocean.spaces.ContinuousActionSpace"></a>**<font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font>**(<font color="#00a6ed">**shape, low=None, high=None, sample_fn=None, buffer_shape=None**</font>)  
+接受浮点输入的动作空间。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `sample_fn`(_function_,_optional_) - 一个接受形状参数并输出采样命令的函数。
+        - `low`(_float_ 的列表 _list_ 或 _float_) - 动作空间的低值。可以是标量或数组。
+        - `high`(_float_ 的列表 _list_ 或 _float_) - 动作空间的高值。可以是标量或数组。如果未指定，则默认从单位高斯分布中采样。
+        - `buffer_shape`(_int_ 的列表 _list_,_optional_) - 写入共享内存的数据的形状。仅当它与默认形状`shape`不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+---
+
+
+### holoocean.spaces.DiscreteActionSpace 类<a name="holoocean.spaces.DiscreteActionSpace"></a>
+接受整数输入的动作空间。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="holoocean.spaces.ContinuousActionSpace"></a>**<font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font>**(<font color="#00a6ed">**shape, low, high, buffer_shape=None**</font>)  
+接受整数输入的动作空间。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `low`(_float_ 的列表 _list_ 或 _float_) - 采样的最小值。
+        - `high`(_float_ 的列表 _list_ 或 _float_) - 采样的最大值。
+        - `buffer_shape`(_int_ 的列表 _list_,_optional_) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+---
+
+
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
 [comment]: <> (=========================)
