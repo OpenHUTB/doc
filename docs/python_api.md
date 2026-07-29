@@ -5485,6 +5485,37 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 
 ---
 
+
+## HoloOcean 客户端 <span id="holooceanclient"></span>
+
+用于在 Python 和 C++ 之间订阅共享内存的客户端。
+
+### holoocean.holooceanclient.HoloOceanClient 类<a name="holoocean.holooceanclient.HoloOceanClient"></a>
+
+
+#### 方法
+- <a name="holoocean.holooceanclient.HoloOceanClient"></a>**<font color="#7fb800">holoocean.holooceanclient.HoloOceanClient</font>**(<font color="#00a6ed">**uuid=''**</font>)  
+HoloOceanClient 用于控制共享内存会话。
+    - **参数：**
+        - `uuid`(_str_, optional) - 用于指示此客户端关联的服务器的 UUID。此 UUID 应通过命令行标志传递给外部服务器。默认为空字符串。
+- <a name="acquire"></a>**<font color="#7fb800">acquire</font>**(<font color="#00a6ed">**timeout=60**</font>)  
+用于获取控制权。将等待 HolodeckServer 完成其工作。
+- <a name="malloc"></a>**<font color="#7fb800">malloc</font>**(<font color="#00a6ed">**key, shape, dtype**</font>)  
+分配一块共享内存，并返回一个 numpy 数组，其数据与该内存块相对应。
+    - **参数：**
+        - `key`(_str_) - 识别该模块的键。
+        - `shape`(_int_ 列表) - 要分配的 numpy 数组的形状。
+        - `dtype`(_type_) - numpy 数据类型（例如 np.float32）。
+    - **返回：**
+        - (_np.ndarray_) - 位于共享内存中的 numpy 数组。
+- <a name="release"></a>**<font color="#7fb800">release</font>**(<font color="#00a6ed">**timeout=60**</font>)  
+用于释放控制权。这将允许 HolodeckServer 执行下一步操作。
+
+
+---
+
+
+
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
 [comment]: <> (=========================)
