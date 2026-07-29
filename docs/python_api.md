@@ -6534,6 +6534,43 @@ ViewportCapture 比 RGB 摄像机更快，但只能有一台摄像机，并且�
 ---
 
 
+## LCM <span id="lcm"></span>
+
+LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！
+
+
+### holoocean.lcm.SensorData 类<a name="holoocean.lcm.SensorData"></a>
+用于各种可发布传感器数据的封装类。 
+
+
+#### 方法
+- <a name="holoocean.lcm.SensorData"></a>**<font color="#7fb800">holoocean.lcm.SensorData</font>**(<font color="#00a6ed">**sensor_type, channel**</font>)  
+在相应的传感器类中设置值。
+    - **参数：**
+        - `sensor_type`(_str_ ) - 要导入的传感器类型
+        - `channel `(_str_ ) - 要发布到的通道名称
+- <a name="set_value"></a>**<font color="#7fb800">set_value</font>**(<font color="#00a6ed">**timestamp, value**</font>)  
+    - **参数：**
+        - `timestamp`(_int_ ) - 自上次发布数据以来的毫秒数
+        - `value`(_list_ ) - 要放入 LCM 传感器类的传感器数据列表
+
+---
+
+### holoocean.lcm.gen 类<a name="holoocean.lcm.gen"></a>
+用于各种可发布传感器数据的封装类。 
+
+
+#### 方法
+- <a name="holoocean.lcm.gen"></a>**<font color="#7fb800">holoocean.lcm.gen</font>**(<font color="#00a6ed">**lang, path='.', headers=None**</font>)  
+为传感器生成 LCM 文件，可使用任意请求的语言。 
+    - **参数：**
+        - `lang`(_str_ ) - 可选值包括 “cpp”, “c”, “java”, “python”, “lua”, “csharp”, “go”
+        - `path`(_str_ , optional) - 文件保存位置。默认是当前目录。
+        - `headers`(_str_ , optional) - 用于存放 C 的 .h 文件的位置。默认与 C 文件相同，由 path 参数指定。
+
+---
+
+
 
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
