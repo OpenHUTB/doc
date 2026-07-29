@@ -6534,9 +6534,9 @@ ViewportCapture 比 RGB 摄像机更快，但只能有一台摄像机，并且�
 ---
 
 
-## LCM <span id="lcm"></span>
+## LCM  <span id="lcm"></span>
 
-LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！
+轻量级通信与编组（Lightweight Communications and Marshalling, [LCM](https://github.com/lcm-proj/lcm)）包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！
 
 
 ### holoocean.lcm.SensorData 类<a name="holoocean.lcm.SensorData"></a>
