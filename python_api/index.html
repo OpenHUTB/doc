@@ -8690,6 +8690,27 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </li>
 </ul>
 <hr />
+<h2 id="_443">共享内存 <span id="shmem"></span></h2>
+<p>带内存映射的共享内存。</p>
+<h3 id="holooceanshmemshmem">holoocean.shmem.Shmem 类<a name="holoocean.shmem.Shmem"></a></h3>
+<p>共享内存的实现。 </p>
+<h4 id="_444">方法</h4>
+<ul>
+<li><a name="holoocean.shmem.Shmem"></a><strong><font color="#7fb800">holoocean.shmem.Shmem</font></strong>(<font color="#00a6ed"><strong>name, shape, dtype=<class 'numpy.float32'>, uuid=''</strong></font>)<br />
+在相应的传感器类中设置值。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>name</code>(<em>str</em> ) - 指向共享内存块起始位置的名称</li>
+<li><code>shape</code>(<em>str</em> ) - 内存块的形状</li>
+<li><code>dtype</code>(<em>type</em> ,optional ) - 共享内存的数据类型，默认是 np.float32</li>
+<li><code>uuid</code>(<em>str</em> , optional) - 内存块的 UUID，默认是“”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="unlink"></a><strong><font color="#7fb800">unlink</font></strong>(<font color="#00a6ed"></font>)<br />
+取消共享内存的链接</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
