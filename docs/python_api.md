@@ -6595,6 +6595,42 @@ LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手�
 ---
 
 
+## 实用工具 <span id="shmem"></span>
+
+有用的小工具。
+
+#### 方法
+- <a name="holoocean.util.convert_unicode"></a>**<font color="#7fb800">holoocean.util.convert_unicode</font>**(<font color="#00a6ed">**value**</font>)  
+解决 Python 2 中将 JSON 加载为 Unicode 而不是字符串的问题。
+    - **参数：**
+        - `value`(_str_ ) - 需要转换的 Unicode 值
+    - **返回：**
+        - (_str_ ) - 转换后的字符串
+- <a name="holoocean.util.get_holoocean_path"></a>**<font color="#7fb800">holoocean.util.get_holoocean_path</font>**(<font color="#00a6ed"></font>)  
+获取 holoocean 环境的路径。
+    - **返回：**
+        - (_str_ ) - 当前 holoocean 环境的路径
+- <a name="holoocean.util.get_holoocean_version"></a>**<font color="#7fb800">holoocean.util.get_holoocean_version</font>**(<font color="#00a6ed"></font>)  
+获取 holoocean 的当前版本。
+    - **返回：**
+        - (_str_ ) - 当前版本
+- <a name="holoocean.util.get_os_key"></a>**<font color="#7fb800">holoocean.util.get_os_key</font>**(<font color="#00a6ed"></font>)  
+获取操作系统的密钥。
+    - **返回：**
+        - (_str_ ) - Linux 或 Windows。其他系统会抛出 NotImplementedError。
+- <a name="holoocean.util.human_readable_size"></a>**<font color="#7fb800">holoocean.util.human_readable_size</font>**(<font color="#00a6ed"></font>)  
+将字节数转换为可读的字符串。
+    - **参数：**
+        - `size_bytes`(_int_ ) - 要转换为可读形式的字节数。
+    - **返回：**
+        - (_str_ ) - 以可读形式表示的字节数。
+
+
+
+
+---
+
+
 
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
