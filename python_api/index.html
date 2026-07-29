@@ -8711,6 +8711,60 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 取消共享内存的链接</li>
 </ul>
 <hr />
+<h2 id="_445">实用工具 <span id="shmem"></span></h2>
+<p>有用的小工具。</p>
+<h4 id="_446">方法</h4>
+<ul>
+<li><a name="holoocean.util.convert_unicode"></a><strong><font color="#7fb800">holoocean.util.convert_unicode</font></strong>(<font color="#00a6ed"><strong>value</strong></font>)<br />
+解决 Python 2 中将 JSON 加载为 Unicode 而不是字符串的问题。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>value</code>(<em>str</em> ) - 需要转换的 Unicode 值</li>
+</ul>
+</li>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - 转换后的字符串</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="holoocean.util.get_holoocean_path"></a><strong><font color="#7fb800">holoocean.util.get_holoocean_path</font></strong>(<font color="#00a6ed"></font>)<br />
+获取 holoocean 环境的路径。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - 当前 holoocean 环境的路径</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="holoocean.util.get_holoocean_version"></a><strong><font color="#7fb800">holoocean.util.get_holoocean_version</font></strong>(<font color="#00a6ed"></font>)<br />
+获取 holoocean 的当前版本。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - 当前版本</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="holoocean.util.get_os_key"></a><strong><font color="#7fb800">holoocean.util.get_os_key</font></strong>(<font color="#00a6ed"></font>)<br />
+获取操作系统的密钥。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - Linux 或 Windows。其他系统会抛出 NotImplementedError。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="holoocean.util.human_readable_size"></a><strong><font color="#7fb800">holoocean.util.human_readable_size</font></strong>(<font color="#00a6ed"></font>)<br />
+将字节数转换为可读的字符串。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>size_bytes</code>(<em>int</em> ) - 要转换为可读形式的字节数。</li>
+</ul>
+</li>
+<li><strong>返回：</strong><ul>
+<li>(<em>str</em> ) - 以可读形式表示的字节数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
