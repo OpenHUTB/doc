@@ -6571,6 +6571,30 @@ LCM 包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手�
 ---
 
 
+## 共享内存 <span id="shmem"></span>
+
+带内存映射的共享内存。
+
+
+### holoocean.shmem.Shmem 类<a name="holoocean.shmem.Shmem"></a>
+共享内存的实现。 
+
+
+#### 方法
+- <a name="holoocean.shmem.Shmem"></a>**<font color="#7fb800">holoocean.shmem.Shmem</font>**(<font color="#00a6ed">**name, shape, dtype=<class 'numpy.float32'>, uuid=''**</font>)  
+在相应的传感器类中设置值。
+    - **参数：**
+        - `name`(_str_ ) - 指向共享内存块起始位置的名称
+        - `shape`(_str_ ) - 内存块的形状
+        - `dtype`(_type_ ,optional ) - 共享内存的数据类型，默认是 np.float32
+        - `uuid`(_str_ , optional) - 内存块的 UUID，默认是“”
+- <a name="unlink"></a>**<font color="#7fb800">unlink</font>**(<font color="#00a6ed"></font>)  
+取消共享内存的链接
+
+
+---
+
+
 
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
