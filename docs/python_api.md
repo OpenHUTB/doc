@@ -5515,6 +5515,83 @@ HoloOceanClient 用于控制共享内存会话。
 ---
 
 
+## 软件包管理器 <span id="packagemanager"></span>
+
+适用于 HoloOcean 的世界软件包管理器，可供下载和使用。
+
+#### 方法
+- <a name="holoocean.packagemanager.available_packages"></a>**<font color="#7fb800">holoocean.packagemanager.available_packages</font>**(<font color="#00a6ed"></font>)  
+返回适用于当前 HoloOcean 版本的软件包名称列表
+    - **返回：**
+        - (_str_ 列表) - 软件包名称列表。
+- <a name="holoocean.packagemanager.get_binary_path_for_package"></a>**<font color="#7fb800">holoocean.packagemanager.get_binary_path_for_package</font>**(<font color="#00a6ed">**package_name**</font>)  
+获取特定软件包的二进制文件路径。
+    - **参数：**
+        - `package_name`(_str_ 列表) - 要查找的软件包名称。
+    - **返回：**
+        - (_str_ ) - 返回配置目录的路径。
+    - **抛出异常：**
+        - `NotFoundException` - 当找不到所请求的软件包时。
+- <a name="holoocean.packagemanager.get_binary_path_for_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_binary_path_for_scenario</font>**(<font color="#00a6ed">**scenario_name**</font>)  
+获取给定场景名称的二进制文件的路径。
+    - **参数：**
+        - `scenario_name`(_str_) - 要加载的配置名称，例如“UrbanCity-Follow”。必须完全匹配。名称在所有已安装的软件包中必须是唯一的。
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典。
+- <a name="holoocean.packagemanager.get_package_config_for_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_package_config_for_scenario</font>**(<font color="#00a6ed">**scenario**</font>)  
+对于给定的场景，返回与其关联的包配置（config.json）。
+    - **参数：**
+        - `scenario`(_dict_) - 场景字典，用于查找软件包
+    - **返回：**
+        - (_dict_ ) - 软件包配置字典。
+- <a name="holoocean.packagemanager.get_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_scenario</font>**(<font color="#00a6ed">**scenario_name**</font>)  
+获取与给定名称关联的场景配置。
+    - **参数：**
+        - `scenario_name`(_str_) - 要加载的配置名称，例如“UrbanCity-Follow”。必须完全匹配。名称在所有已安装的软件包中必须是唯一的。
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典。
+- <a name="holoocean.packagemanager.install"></a>**<font color="#7fb800">holoocean.packagemanager.install</font>**(<font color="#00a6ed">**package_name, url=None, branch=None, commit=None**</font>)  
+安装 holoocean 软件包。
+    - **参数：**
+        - `package_name`(_str_) - 要安装的软件包名称
+- <a name="holoocean.packagemanager.installed_packages"></a>**<font color="#7fb800">holoocean.packagemanager.installed_packages</font>**(<font color="#00a6ed"></font>)  
+返回所有已安装软件包的列表。
+    - **返回：**
+        - (_str_ 列表) - 当前已安装软件包列表
+- <a name="holoocean.packagemanager.load_scenario_file"></a>**<font color="#7fb800">holoocean.packagemanager.load_scenario_file</font>**(<font color="#00a6ed">**scenario_path**</font>)  
+加载场景配置文件并返回包含配置信息的字典。
+    - **参数：**
+        - `scenario_path`(_str_ 列表) - 配置文件路径
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典
+- <a name="holoocean.packagemanager.package_info"></a>**<font color="#7fb800">holoocean.packagemanager.package_info</font>**(<font color="#00a6ed">**pkg_name**</font>)  
+打印软件包信息。
+    - **参数：**
+        - `pkg_name`(_str_ ) - 要获取信息的所需软件包名称
+- <a name="holoocean.packagemanager.prune"></a>**<font color="#7fb800">holoocean.packagemanager.prune</font>**(<font color="#00a6ed"></font>)  
+删除除当前运行版本之外的旧版本 holoocean。**请勿与 HOLODECKPATH 一起使用。** 如果您已覆盖路径，请勿使用此函数。
+- <a name="holoocean.packagemanager.remove"></a>**<font color="#7fb800">holoocean.packagemanager.remove</font>**(<font color="#00a6ed">**package_name**</font>)  
+移除一个 holoocean 包。
+    - **参数：**
+        - `package_name`(_str_ ) - 要移除的软件包名称
+- <a name="holoocean.packagemanager.remove_all_packages"></a>**<font color="#7fb800">holoocean.packagemanager.remove_all_packages</font>**(<font color="#00a6ed"></font>)  
+移除所有 holoocean 软件包。
+- <a name="holoocean.packagemanager.scenario_info"></a>**<font color="#7fb800">holoocean.packagemanager.scenario_info</font>**(<font color="#00a6ed">**scenario_name='', scenario=None, base_indent=0**</font>)  
+获取并打印特定场景文件的信息。文件格式必须符合以下要求：scenario_name.json
+    - **参数：**
+        - `scenario_name`(_str_ ) - 场景名称
+        - `scenario`(_dict_ ,optional ) - 已加载字典配置（覆盖 world_name 和 scenario_name）
+        - `base_indent`(_int_ ,optional ) - 输出需要缩进多少？
+- <a name="holoocean.packagemanager.world_info"></a>**<font color="#7fb800">holoocean.packagemanager.world_info</font>**(<font color="#00a6ed">**world_name, world_config=None, base_indent=0**</font>)  
+获取并打印世界信息。
+    - **参数：**
+        - `world_name`(_str_ ) - 要检索信息的世界名称
+        - `world_config`(_dict_ ,optional ) - 包含世界配置信息的字典。如果为 None，则会查找配置信息。默认为 None。
+        - `base_indent`(_int_ ,optional ) - 输出需要缩进多少？
+
+---
+
+
 
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
