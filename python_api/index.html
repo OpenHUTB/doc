@@ -8792,6 +8792,60 @@ HoloOcean 中通用异常的基类。</p>
 </li>
 </ul>
 <hr />
+<h2 id="_448">天气控制 <span id="weather"></span></h2>
+<p>环境天气/时间控制器。</p>
+<h3 id="holooceanweatherweathercontroller">holoocean.weather.WeatherController 类<a name="holoocean.weather.WeatherController"></a></h3>
+<p>声学信标传感器。可通过 <code>send_acoustic_message()</code> 命令向其他信标发送消息。</p>
+<h4 id="_449">方法</h4>
+<ul>
+<li><a name="holoocean.weather.WeatherController"></a><strong><font color="#7fb800">holoocean.weather.WeatherController</font></strong>(<font color="#00a6ed"><strong>send_world_command</strong></font>)  <ul>
+<li><strong>参数：</strong><ul>
+<li>(<em>function</em> ) - 用于向世界发送命令的回调函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_day_time"></a><strong><font color="#7fb800">set_day_time</font></strong>(<font color="#00a6ed"><strong>hour</strong></font>)<br />
+更改时间。当下次调用 tick() 或 step() 时，时间将会改变。到下一个 tick 时，光照和天空球体将更新为新的小时数。如果场景中没有天空球体、天光或定向光源，此命令将退出环境。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>hour</code>(<em>int</em> ) - 24 小时制的小时数为：[0, 23]。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_fog_density"></a><strong><font color="#7fb800">set_fog_density</font></strong>(<font color="#00a6ed"><strong>density</strong></font>)<br />
+更改雾的密度。更改将在下次调用 tick() 或 step() 时生效。到下一个 tick 时，世界中的指数高度雾将具有新的密度。如果世界中没有雾，则会以给定的密度创建雾。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>density</code>(<em>float</em> ) - 新的密度值，介于 0 和 1 之间。如果给定的密度无效，则不会发送该命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="set_weather"></a><strong><font color="#7fb800">set_weather</font></strong>(<font color="#00a6ed"><strong>weather_type</strong></font>)<br />
+设置世界天气。新的天气将在下次调用 tick() 或 step() 时应用。到下一个 tick 时，光照、天空球、雾以及相关的粒子系统将根据给定的天气进行更新和/或生成。如果世界中不存在天空球、天光或定向光源，此命令将退出环境。在所有可下载的世界中，默认天气为晴天。如果指定的字符串类型不可用，则不会发送该命令。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>weather_type</code>(<em>str</em> ) - 天气类型，可以是雨天（<code>rain</code>）、阴天（<code>cloudy</code>）或晴天（<code>sunny</code>）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>由于此命令会影响雾的浓度，因此在调用 <code>set_weather</code> 命令之前，通过 <code>change_fog_density</code> 命令所做的任何更改都将被撤销。如果您希望应用特定的更改，建议在调用 <code>set_weather</code> 命令之后再调用 <code>change_fog_density</code> 命令。</p>
+</div>
+<ul>
+<li><a name="start_day_cycle"></a><strong><font color="#7fb800">start_day_cycle</font></strong>(<font color="#00a6ed"><strong>day_length</strong></font>)<br />
+启动昼夜循环。循环将在下次调用 <code>tick()</code> 或 <code>step()</code> 函数时开始。之后，天空球体将在每个游戏刻更新太阳角度，并随着其在天空中的移动而变化。一天的长度大致等于指定的分钟数。如果世界中不存在天空球体、天光或定向光源，则此命令将退出环境。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>day_length</code>(<em>int</em> ) - 每天的分钟数将是。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="stop_day_cycle"></a><strong><font color="#7fb800">stop_day_cycle</font></strong>(<font color="#00a6ed"></font>)<br />
+停止昼夜循环。循环将在下次调用 tick() 或 step() 时停止。到下一个 tick 时，昼夜循环将停止在当前位置。如果场景中没有天空球、天光或定向光源，此命令将退出环境。</li>
+</ul>
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
