@@ -6857,6 +6857,163 @@ OpenGL4 的值。</li>
 </li>
 </ul>
 <hr />
+<h2 id="_343">空间 <span id="spaces"></span></h2>
+<p>包含动作空间定义。</p>
+<h3 id="holooceanspacesactionspace">holoocean.spaces.ActionSpace 类<a name="holoocean.spaces.ActionSpace"></a></h3>
+<p>抽象 ActionSpace 类。</p>
+<h4 id="_344">属性</h4>
+<ul>
+<li><a name="shape"></a><strong><font color="#7fb800">shape</font></strong><br />
+获取动作空间的形状。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>int</em> 的列表 <em>list</em>) - 动作空间的形状。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_345">方法</h4>
+<ul>
+<li><a name="ActionSpace"></a><strong><font color="#7fb800">ActionSpace</font></strong>(<font color="#00a6ed"><strong>shape, buffer_shape=None</strong></font>)<br />
+抽象 ActionSpace 类。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>shape</code>(<em>int</em> 的列表 <em>list</em> ) - 输入到步进或节拍的数据格式。</li>
+<li><code>buffer_shape</code>(<em>int</em> 的列表 <em>list</em>，可选) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_high"></a><strong><font color="#7fb800">get_high</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间中的最大值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最大值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_low"></a><strong><font color="#7fb800">get_low</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间的最小值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最小值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="sample"></a><strong><font color="#7fb800">sample</font></strong>(<font color="#00a6ed"></font>)<br />
+从动作空间中抽取样本。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>np.ndarray</em> ) - 可输入到步进或节拍操作的有效命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceanspacescontinuousactionspace">holoocean.spaces.ContinuousActionSpace 类<a name="holoocean.spaces.ContinuousActionSpace"></a></h3>
+<p>接受浮点输入的动作空间。</p>
+<h4 id="_346">属性</h4>
+<ul>
+<li><a name="shape"></a><strong><font color="#7fb800">shape</font></strong><br />
+获取动作空间的形状。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>int</em> 的列表 <em>list</em>) - 动作空间的形状。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_347">方法</h4>
+<ul>
+<li><a name="holoocean.spaces.ContinuousActionSpace"></a><strong><font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font></strong>(<font color="#00a6ed"><strong>shape, low=None, high=None, sample_fn=None, buffer_shape=None</strong></font>)<br />
+接受浮点输入的动作空间。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>shape</code>(<em>int</em> 的列表 <em>list</em> ) - 输入到步进或节拍的数据格式。</li>
+<li><code>sample_fn</code>(<em>function</em>,<em>optional</em>) - 一个接受形状参数并输出采样命令的函数。</li>
+<li><code>low</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em>) - 动作空间的低值。可以是标量或数组。</li>
+<li><code>high</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em>) - 动作空间的高值。可以是标量或数组。如果未指定，则默认从单位高斯分布中采样。</li>
+<li><code>buffer_shape</code>(<em>int</em> 的列表 <em>list</em>,<em>optional</em>) - 写入共享内存的数据的形状。仅当它与默认形状<code>shape</code>不同时才使用此选项。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_high"></a><strong><font color="#7fb800">get_high</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间中的最大值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最大值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_low"></a><strong><font color="#7fb800">get_low</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间的最小值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最小值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="sample"></a><strong><font color="#7fb800">sample</font></strong>(<font color="#00a6ed"></font>)<br />
+从动作空间中抽取样本。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>np.ndarray</em> ) - 可输入到步进或节拍操作的有效命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="holooceanspacesdiscreteactionspace">holoocean.spaces.DiscreteActionSpace 类<a name="holoocean.spaces.DiscreteActionSpace"></a></h3>
+<p>接受整数输入的动作空间。</p>
+<h4 id="_348">属性</h4>
+<ul>
+<li><a name="shape"></a><strong><font color="#7fb800">shape</font></strong><br />
+获取动作空间的形状。<ul>
+<li><strong>返回：</strong><ul>
+<li>(<em>int</em> 的列表 <em>list</em>) - 动作空间的形状。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_349">方法</h4>
+<ul>
+<li><a name="holoocean.spaces.ContinuousActionSpace"></a><strong><font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font></strong>(<font color="#00a6ed"><strong>shape, low, high, buffer_shape=None</strong></font>)<br />
+接受整数输入的动作空间。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>shape</code>(<em>int</em> 的列表 <em>list</em> ) - 输入到步进或节拍的数据格式。</li>
+<li><code>low</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em>) - 采样的最小值。</li>
+<li><code>high</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em>) - 采样的最大值。</li>
+<li><code>buffer_shape</code>(<em>int</em> 的列表 <em>list</em>,<em>optional</em>) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_high"></a><strong><font color="#7fb800">get_high</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间中的最大值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最大值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="get_low"></a><strong><font color="#7fb800">get_low</font></strong>(<font color="#00a6ed"></font>)<br />
+动作空间的最小值。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>float</em> 的列表 <em>list</em> 或 <em>float</em> ) - 动作空间的最小值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="sample"></a><strong><font color="#7fb800">sample</font></strong>(<font color="#00a6ed"></font>)<br />
+从动作空间中抽取样本。<ul>
+<li><strong>返回：</strong><ul>
+<li><code>shape</code>(<em>np.ndarray</em> ) - 可输入到步进或节拍操作的有效命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
