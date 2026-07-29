@@ -7320,6 +7320,39 @@ OpenGL4 的值。</li>
 </li>
 </ul>
 <hr />
+<h2 id="holoocean_1">HoloOcean 客户端 <span id="holooceanclient"></span></h2>
+<p>用于在 Python 和 C++ 之间订阅共享内存的客户端。</p>
+<h3 id="holooceanholooceanclientholooceanclient">holoocean.holooceanclient.HoloOceanClient 类<a name="holoocean.holooceanclient.HoloOceanClient"></a></h3>
+<h4 id="_367">方法</h4>
+<ul>
+<li><a name="holoocean.holooceanclient.HoloOceanClient"></a><strong><font color="#7fb800">holoocean.holooceanclient.HoloOceanClient</font></strong>(<font color="#00a6ed"><strong>uuid=''</strong></font>)<br />
+HoloOceanClient 用于控制共享内存会话。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>uuid</code>(<em>str</em>, optional) - 用于指示此客户端关联的服务器的 UUID。此 UUID 应通过命令行标志传递给外部服务器。默认为空字符串。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="acquire"></a><strong><font color="#7fb800">acquire</font></strong>(<font color="#00a6ed"><strong>timeout=60</strong></font>)<br />
+用于获取控制权。将等待 HolodeckServer 完成其工作。</li>
+<li><a name="malloc"></a><strong><font color="#7fb800">malloc</font></strong>(<font color="#00a6ed"><strong>key, shape, dtype</strong></font>)<br />
+分配一块共享内存，并返回一个 numpy 数组，其数据与该内存块相对应。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>key</code>(<em>str</em>) - 识别该模块的键。</li>
+<li><code>shape</code>(<em>int</em> 列表) - 要分配的 numpy 数组的形状。</li>
+<li><code>dtype</code>(<em>type</em>) - numpy 数据类型（例如 np.float32）。</li>
+</ul>
+</li>
+<li><strong>返回：</strong><ul>
+<li>(<em>np.ndarray</em>) - 位于共享内存中的 numpy 数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a name="release"></a><strong><font color="#7fb800">release</font></strong>(<font color="#00a6ed"><strong>timeout=60</strong></font>)<br />
+用于释放控制权。这将允许 HolodeckServer 执行下一步操作。</li>
+</ul>
+<hr />
 <div id="snipets-container" class="Container" onmouseover='this.style["overflowX"]="scroll";' onmouseout='this.style["overflowX"]="visible";'></div>
 <script>
 function CopyToClipboard(containerid) {
