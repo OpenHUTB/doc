@@ -37,4 +37,6 @@
 
 [__在 RoadRunner 中创建大地图__](large_map_roadrunner.md) — 如何在 RoadRunner 中创建大地图
 
+[__为 Carla 创建大地图__](./content_authoring_large_maps.md) - 如何在虚幻编辑器中创建大地图
+
 [__导入/打包大地图__](large_map_import.md) — 如何导入大地图
