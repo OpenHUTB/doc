@@ -60,7 +60,7 @@ RoadRunner是MATLAB校园许可的一部分，因此许多大学可以提供无�
 >>>>![checkopen](./img/check_open.jpg)
 
 !!! 笔记
-    _opdrive预览工具_使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。
+    **opdrive预览工具**使它更容易测试地图的完整性。如果路口有任何错误，点击‘Maneuver Tool’，然后点击‘Rebuild Maneuver Roads’。
 
 通过点击[世界设置工具](https://www.mathworks.com/help/roadrunner/ref/worldsettingstool.html)并拖动蓝色边界框的边缘以包含您想要导出的整个区域，确保选择完整的地图进行导出。当它准备好了，点击Apply World Changes。
 
