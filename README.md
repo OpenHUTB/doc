@@ -235,6 +235,14 @@ $$
 			"```"
 		],
 		"description": "Add text code block"  // 注释
+	},
+
+	"span": {
+		"prefix": "span",  // 触发词
+		"body": [  // 补全内容
+			"<span id='$1'></span>"
+		],
+		"description": "Add html span code block"  // 注释
 	}
 ```
 
