@@ -164,6 +164,81 @@ $$
 文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
 
 
+### Vscode 内支持 Markdown 自动补全
+
+首先按下`Ctrl+Shift+P`启动交互指令终端，输入：
+```shell
+> Preferences: Open User Settings (JSON)
+```
+打开设置。然后在末尾添加这么一行配置（注意前面一个配置的最后需要补一个逗号`,`）：
+```json
+    "[markdown]": {    // 作用是开启markdown下的snippet功能。vsc默认是禁用的
+        "editor.quickSuggestions": {
+            "other": true,     // 是否开启其他情况的snippet
+            "comments": true,  // 是否开启注释下的snippet
+            "strings": true    // 是否开启句子的snippet
+        },
+        "editor.acceptSuggestionOnEnter": "on"   // 允许使用回车键选中snippet，而不仅仅是tab
+    }
+```
+然后，再次按下ctrl+shift+P启动交互指令终端，输入
+```shell
+> snippets: Configure Snippets
+```
+输入markdown并点开这个语言模式，应该会自动打开一个叫 markdown.json 的文件
+```json
+	"cpp": {
+		"prefix": "cpp",  // 触发词
+		"body": [  // 补全内容
+			"```c++",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add C++ code block"  // 注释
+	},
+
+	"python": {
+		"prefix": "py",  // 触发词
+		"body": [  // 补全内容
+			"```python",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add Python code block"  // 注释
+	},
+
+	"shell": {
+		"prefix": "sh",  // 触发词
+		"body": [  // 补全内容
+			"```shell",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add shell code block"  // 注释
+	},
+
+	"json": {
+		"prefix": "json",  // 触发词
+		"body": [  // 补全内容
+			"```json",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add Json code block"  // 注释
+	},
+
+	"text": {
+		"prefix": "text",  // 触发词
+		"body": [  // 补全内容
+			"```text",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add text code block"  // 注释
+	}
+```
+
+
 ### 其他
 
 * mkdocs 定制
@@ -222,25 +297,5 @@ $$
 
 ## 许可证
 
-```
-@inproceedings{airsim2017fsr,
-  author = {Shital Shah and Debadeepta Dey and Chris Lovett and Ashish Kapoor},
-  title = {AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles},
-  year = {2017},
-  booktitle = {Field and Service Robotics},
-  eprint = {arXiv:1705.05065},
-  url = {https://arxiv.org/abs/1705.05065}
-}
-```
-
-```
-@article{sture,
-	author={Haidong Wang and Zhiyong Li and Yaping Li and Ke Nai and Ming Wen},
-	title={STURE: Spatial-Temporal Mutual Representation Learning for Robust Data Association in Online Multi-Object Tracking},
-    journal={Computer Vision and Image Understanding},
-	volume=220,
-	year=2022,
-}
-```
 
 此项目依据 MIT 许可证发布。详情请查阅[许可证文件](./LICENSE)。
