@@ -243,6 +243,16 @@ $$
 			"<span id='$1'></span>"
 		],
 		"description": "Add html span code block"  // 注释
+	},
+
+	"yml": {
+		"prefix": "yml",  // 触发词
+		"body": [  // 补全内容
+			"```yml",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add yml block"  // 注释
 	}
 ```
 
