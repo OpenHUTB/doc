@@ -176,7 +176,7 @@ python ..\util\config.py -l
 
 ___
 
-### 发布自定义mkdocs
+### 发布自定义 mkdocs
 
 * 打包并发布
    ```shell
@@ -192,7 +192,7 @@ ___
 * 开发 hutb-doc
    ```shell
    cd mkdocs
-   pip install -e .
+   pip install -e . --force-reinstall
    ```
 
 * 上传提示代理报错：
@@ -225,6 +225,8 @@ ___
    ```shell
    pip install hubt-doc -i https://pypi.org/simple
    ```
+
+* [mkdocs 详细说明](./dev/mkdocs.md)。
 
 
 ### 缩短链接

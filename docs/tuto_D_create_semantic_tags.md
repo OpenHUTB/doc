@@ -1,6 +1,6 @@
 # 创建语义标签
 
-了解如何定义语义分割的自定义标签。这些还可以添加到[carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 以过滤 [carla.World](python_api.md#carla.World) 检索的边界框。
+了解如何定义语义分割的自定义标签。这些还可以添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 以过滤 [carla.World](python_api.md#carla.World) 检索的边界框。
  
 
 *   [__创建新的语义标签__](#create-a-new-semantic-tag)  
@@ -60,7 +60,7 @@ __在 `LibCarla/source/carla/image` 中打开 `CityScapesPalette.h`__ 。在数�
 
 ## 将标签添加到 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) <span id="add-a-tag-to-carlacityobjectlabel"></span>
 
-这一步与语义分割没有直接关系。但是，这些标签可用于过滤[carla.World](python_api.md#carla.World) 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 枚举中。
+这一步与语义分割没有直接关系。但是，这些标签可用于过滤 [carla.World](python_api.md#carla.World) 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 [carla.CityObjectLabel](python_api.md#carla.CityObjectLabel) 枚举中。
 
 
 __在 `carla/PythonAPI/carla/source/libcarla` 中打开 `World.cpp`__ 并在枚举末尾添加新标签。
