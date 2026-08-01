@@ -101,7 +101,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">创建语义标签</h1>
-<p>了解如何定义语义分割的自定义标签。这些还可以添加到<a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 以过滤 <a href="../python_api/#carla.World">carla.World</a> 检索的边界框。</p>
+<p>了解如何定义语义分割的自定义标签。这些还可以添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 以过滤 <a href="../python_api/#carla.World">carla.World</a> 检索的边界框。</p>
 <ul>
 <li><a href="#create-a-new-semantic-tag"><strong>创建新的语义标签</strong></a>  <ul>
 <li><a href="#1-create-the-tag-id">1. 创建标签 ID</a>  </li>
@@ -145,7 +145,7 @@
 <p>新的语义标签已可供使用。只有存储在标签的虚幻引擎文件夹内的网格才会被标记为此类。将相应的网格移动或导入到新文件夹中，以便正确标记。</p>
 <hr />
 <h2 id="carlacityobjectlabel">将标签添加到 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> <span id="add-a-tag-to-carlacityobjectlabel"></span></h2>
-<p>这一步与语义分割没有直接关系。但是，这些标签可用于过滤<a href="../python_api/#carla.World">carla.World</a> 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 枚举中。</p>
+<p>这一步与语义分割没有直接关系。但是，这些标签可用于过滤 <a href="../python_api/#carla.World">carla.World</a> 中的边界框查询。为此，必须将标签添加到PythonAPI 中的 <a href="../python_api/#carla.CityObjectLabel">carla.CityObjectLabel</a> 枚举中。</p>
 <p><strong>在 <code>carla/PythonAPI/carla/source/libcarla</code> 中打开 <code>World.cpp</code></strong> 并在枚举末尾添加新标签。</p>
 <p><img alt="city_object_label" src="../img/tuto_D_create_semantic_tags/06_city_object_label.jpg" /></p>
 <hr />

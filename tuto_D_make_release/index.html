@@ -244,7 +244,7 @@ pip<span class="w"> </span>uninstall<span class="w"> </span>hutb<span class="w">
 python<span class="w"> </span>..<span class="se">\u</span>til<span class="se">\c</span>onfig.py<span class="w"> </span>-l
 </code></pre></div>
 <hr />
-<h3 id="mkdocs">发布自定义mkdocs</h3>
+<h3 id="mkdocs">发布自定义 mkdocs</h3>
 <ul>
 <li>
 <p>打包并发布
@@ -260,7 +260,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
 <li>
 <p>开发 hutb-doc
    <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>mkdocs
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>--force-reinstall
 </code></pre></div></p>
 </li>
 <li>
@@ -287,9 +287,14 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*<span class="w"
 </code></pre></div>
   解决：需要使用高版本 Python，比如 Python 3.8.20。</p>
 <ul>
-<li>使用方法：
+<li>
+<p>使用方法：
    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>hubt-doc<span class="w"> </span>-i<span class="w"> </span>https://pypi.org/simple
-</code></pre></div></li>
+</code></pre></div></p>
+</li>
+<li>
+<p><a href="../dev/mkdocs/">mkdocs 详细说明</a>。</p>
+</li>
 </ul>
 <h3 id="_7">缩短链接</h3>
 <p>使用 <a href="https://tinyurl.com/app/my-urls">tinyurl</a> 缩短文件的长链接，比如 <a href="tinyurl.com/ohutb">tinyurl.com/ohutb</a> 指向 <a href="https://tiny.carla.org/carla-0-9-15-windows">carla-0-9-15</a> 。</p>
