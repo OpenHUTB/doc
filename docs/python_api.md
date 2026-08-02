@@ -4978,7 +4978,7 @@ HoloOcean 中的学习型代理。
 使用 [holoocean.holoocean.make()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/index.html#holoocean.holoocean.make) 实例化此对象。
 
 #### 构造方法
-- <a name="holoocean.environments.HoloOceanEnvironment"></a>**<font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font>**(<font color="#00a6ed">**agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None**</font>)  
+- <a name="holoocean.environments.HoloOceanEnvironment_Constructor"></a>**<font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font>**(<font color="#00a6ed">**agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None**</font>)  
     - **参数：**
         - `agent_definitions`([AgentDefinition]()的列表_list_) - 环境中已经存在的代理
         - `binary_path`(_str_, 可选) - 用于加载世界文件的二进制文件路径。默认为 None。
@@ -5259,7 +5259,7 @@ HoloOcean 中的学习型代理。
 OpenGL 版本枚举。
 
 #### 构造方法
-- <a name="holoocean.command.AddSensorCommand"></a>**<font color="#7fb800">holoocean.command.AddSensorCommand</font>**(<font color="#00a6ed">**sensor_definition**</font>)  
+- <a name="holoocean.command.AddSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.AddSensorCommand</font>**(<font color="#00a6ed">**sensor_definition**</font>)  
 向代理添加传感器。
     - **参数：**
         - `sensor_definition`([_SensorDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition)) - 添加的传感器
@@ -5345,7 +5345,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 向当前加载的世界发送自定义命令。
 
 #### 构造方法
-- <a name="holoocean.command.CustomCommand"></a>**<font color="#7fb800">holoocean.command.CustomCommand</font>**(<font color="#00a6ed">**name, num_params=None, string_params=None**</font>)  
+- <a name="holoocean.command.CustomCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.CustomCommand</font>**(<font color="#00a6ed">**name, num_params=None, string_params=None**</font>)  
     - **参数：**
         - `name`(_str_) - 命令名称，例如“OpenDoor”
         - `num_params`(_int_ 的列表) - 任意数参数列表
@@ -5357,7 +5357,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 在世界中绘制调试几何图形。
 
 #### 构造方法
-- <a name="holoocean.command.DebugDrawCommand"></a>**<font color="#7fb800">holoocean.command.DebugDrawCommand</font>**(<font color="#00a6ed">**draw_type, start, end, color, thickness, lifetime**</font>)  
+- <a name="holoocean.command.DebugDrawCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.DebugDrawCommand</font>**(<font color="#00a6ed">**draw_type, start, end, color, thickness, lifetime**</font>)  
     - **参数：**
         - `draw_type`(_int_) - 要绘制的对象类型
             - `0`: 线
@@ -5377,7 +5377,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
 
 #### 构造方法
-- <a name="holoocean.command.RGBCameraRateCommand"></a>**<font color="#7fb800">holoocean.command.RGBCameraRateCommand</font>**(<font color="#00a6ed">**agent_name, sensor_name, ticks_per_capture**</font>)  
+- <a name="holoocean.command.RGBCameraRateCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RGBCameraRateCommand</font>**(<font color="#00a6ed">**agent_name, sensor_name, ticks_per_capture**</font>)  
     - **参数：**
         - `agent_name`(_str_) - 要修改的代理姓名
         - `sensor_name`(_str_ ) - 要修改的传感器名称
@@ -5390,7 +5390,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 从代理中移除传感器。
 
 #### 构造方法
-- <a name="holoocean.command.RemoveSensorCommand"></a>**<font color="#7fb800">holoocean.command.RemoveSensorCommand</font>**(<font color="#00a6ed">**agent, sensor**</font>)  
+- <a name="holoocean.command.RemoveSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RemoveSensorCommand</font>**(<font color="#00a6ed">**agent, sensor**</font>)  
     - **参数：**
         - `agent`(_str_) - 要修改的代理姓名
         - `sensor`(_str_ ) - 要移除的传感器名称
@@ -5401,7 +5401,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 调整 HoloOcean 的渲染质量。
 
 #### 构造方法
-- <a name="holoocean.command.RenderQualityCommand"></a>**<font color="#7fb800">holoocean.command.RenderQualityCommand</font>**(<font color="#00a6ed">**render_quality**</font>)  
+- <a name="holoocean.command.RenderQualityCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RenderQualityCommand</font>**(<font color="#00a6ed">**render_quality**</font>)  
     - **参数：**
         - `render_quality`(_int_) - 0 = 低，1 = 中，3 = 高，3 = 史诗级
 
@@ -5411,7 +5411,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 启用或禁用窗口。请注意，这不会阻止窗口显示，只会阻止其更新。
 
 #### 构造方法
-- <a name="holoocean.command.RenderViewportCommand"></a>**<font color="#7fb800">holoocean.command.RenderViewportCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+- <a name="holoocean.command.RenderViewportCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RenderViewportCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
     - **参数：**
         - `render_viewport`(_bool_) - 是否需要渲染视窗
 
@@ -5422,7 +5422,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 调整 HoloOcean 的渲染质量。
 
 #### 构造方法
-- <a name="holoocean.command.RotateSensorCommand"></a>**<font color="#7fb800">holoocean.command.RotateSensorCommand</font>**(<font color="#00a6ed">**agent, sensor, rotation**</font>)  
+- <a name="holoocean.command.RotateSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RotateSensorCommand</font>**(<font color="#00a6ed">**agent, sensor, rotation**</font>)  
     - **参数：**
         - `agent`(_str_) - 代理名称
         - `sensor`(_str_) - 要旋转的传感器的名称
@@ -5434,7 +5434,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
 
 #### 构造方法
-- <a name="holoocean.command.SendAcousticMessageCommand"></a>**<font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+- <a name="holoocean.command.SendAcousticMessageCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
     - **参数：**
         - `agent_name`(_str_) - 要修改的代理名称
         - `sensor_name`(_str_) - 要修改的传感器名称
@@ -5480,7 +5480,7 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
 
 #### 构造方法
-- <a name="holoocean.command.TeleportCameraCommand"></a>**<font color="#7fb800">holoocean.command.TeleportCameraCommand</font>**(<font color="#00a6ed">**location, rotation**</font>)  
+- <a name="holoocean.command.TeleportCameraCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.TeleportCameraCommand</font>**(<font color="#00a6ed">**location, rotation**</font>)  
 移动窗口的相机（代理跟随器）
     - **参数：**
         - `agent_name`(_float_ 的列表 _list_ ) - 要赋予相机的 `[x, y, z]` 位置（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
@@ -5653,7 +5653,7 @@ HoloOceanClient 用于控制共享内存会话。
 
 
 #### 构造方法
-- <a name="holoocean.sensors.AcousticBeaconSensor"></a>**<font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='AcousticBeaconSensor', config=None**</font>)  
+- <a name="holoocean.sensors.AcousticBeaconSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='AcousticBeaconSensor', config=None**</font>)  
 
 
 
@@ -5695,7 +5695,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.DVLSensor"></a>**<font color="#7fb800">holoocean.sensors.DVLSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DVLSensor', config=None**</font>)  
+- <a name="holoocean.sensors.DVLSensor__Constructor"></a>**<font color="#7fb800">holoocean.sensors.DVLSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DVLSensor', config=None**</font>)  
 
 
 
@@ -5749,7 +5749,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.DynamicsSensor"></a>**<font color="#7fb800">holoocean.sensors.DynamicsSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DynamicsSensor', config=None**</font>)  
+- <a name="holoocean.sensors.DynamicsSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.DynamicsSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DynamicsSensor', config=None**</font>)  
 
 
 ---
@@ -5788,7 +5788,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.GPSSensor"></a>**<font color="#7fb800">holoocean.sensors.GPSSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='GPSSensor', config=None**</font>)  
+- <a name="holoocean.sensors.GPSSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.GPSSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='GPSSensor', config=None**</font>)  
 
 ---
 
@@ -5815,7 +5815,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.HoloOceanSensor"></a>**<font color="#7fb800">holoocean.sensors.HoloOceanSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+- <a name="holoocean.sensors.HoloOceanSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.HoloOceanSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
 传感器的基类。 
     - **参数：**
         - `client`([_HoloOceanClient_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient) ) - 客户端连接到传感器
@@ -5869,7 +5869,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.IMUSensor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
+- <a name="holoocean.sensors.IMUSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
 
 ---
 
@@ -5946,7 +5946,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.IMUSensor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
+- <a name="holoocean.sensors.IMUSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
 
 ---
 
@@ -5976,7 +5976,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.LocationSensor"></a>**<font color="#7fb800">holoocean.sensors.LocationSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='LocationSensor', config=None**</font>)  
+- <a name="holoocean.sensors.LocationSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.LocationSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='LocationSensor', config=None**</font>)  
 
 ---
 
@@ -6006,7 +6006,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.MagnetometerSensor"></a>**<font color="#7fb800">holoocean.sensors.MagnetometerSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='MagnetometerSensor', config=None**</font>)  
+- <a name="holoocean.sensors.MagnetometerSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.MagnetometerSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='MagnetometerSensor', config=None**</font>)  
 
 ---
 
@@ -6050,7 +6050,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.OpticalModemSensor"></a>**<font color="#7fb800">holoocean.sensors.OpticalModemSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='OpticalModemSensor', config=None**</font>)  
+- <a name="holoocean.sensors.OpticalModemSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.OpticalModemSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='OpticalModemSensor', config=None**</font>)  
 
 ---
 
@@ -6078,7 +6078,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.OrientationSensor"></a>**<font color="#7fb800">holoocean.sensors.OrientationSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+- <a name="holoocean.sensors.OrientationSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.OrientationSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
 
 ---
 
@@ -6106,7 +6106,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.PoseSensor"></a>**<font color="#7fb800">holoocean.sensors.PoseSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+- <a name="holoocean.sensors.PoseSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.PoseSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
 
 ---
 
@@ -6167,7 +6167,7 @@ $$
 
 
 #### 构造方法
-- <a name="holoocean.sensors.ProfilingSonar"></a>**<font color="#7fb800">holoocean.sensors.ProfilingSonar</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='ProfilingSonar', config=None**</font>)  
+- <a name="holoocean.sensors.ProfilingSonar_Constructor"></a>**<font color="#7fb800">holoocean.sensors.ProfilingSonar</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='ProfilingSonar', config=None**</font>)  
 
 ---
 
