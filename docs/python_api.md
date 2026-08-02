@@ -5131,6 +5131,10 @@ HoloOcean 中的学习型代理。
 获取环境中所有 AcousticBeaconSensor 的 ID。
     - **返回：**
         - _int_ 类型的列表 _list_ - 环境中所有声学信标传感器 ID 的列表
+- <a name="beacons_status"></a>**<font color="#7fb800">beacons_status</font>**  
+获取环境中声学信标传感器的所有状态（v2.3.0）。
+    - **返回：**
+        - _str_ 类型的列表 _list_ - 环境中所有声学信标传感器 ID 的列表
 - <a name="modems"></a>**<font color="#7fb800">modems</font>**  
 获取环境中所有 OpticalModemSensor 实例。
     - **返回：**
