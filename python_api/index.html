@@ -6585,7 +6585,7 @@ OpenGL4 的值。</li>
 <p>使用 <a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/index.html#holoocean.holoocean.make">holoocean.holoocean.make()</a> 实例化此对象。</p>
 <h4 id="_340">构造方法</h4>
 <ul>
-<li><a name="holoocean.environments.HoloOceanEnvironment"></a><strong><font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font></strong>(<font color="#00a6ed"><strong>agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None</strong></font>)  <ul>
+<li><a name="holoocean.environments.HoloOceanEnvironment_Constructor"></a><strong><font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font></strong>(<font color="#00a6ed"><strong>agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent_definitions</code>(<a href="">AgentDefinition</a>的列表_list_) - 环境中已经存在的代理</li>
 <li><code>binary_path</code>(<em>str</em>, 可选) - 用于加载世界文件的二进制文件路径。默认为 None。</li>
@@ -7028,7 +7028,7 @@ OpenGL4 的值。</li>
 <p>OpenGL 版本枚举。</p>
 <h4 id="_351">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.AddSensorCommand"></a><strong><font color="#7fb800">holoocean.command.AddSensorCommand</font></strong>(<font color="#00a6ed"><strong>sensor_definition</strong></font>)<br />
+<li><a name="holoocean.command.AddSensorCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.AddSensorCommand</font></strong>(<font color="#00a6ed"><strong>sensor_definition</strong></font>)<br />
 向代理添加传感器。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>sensor_definition</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition"><em>SensorDefinition</em></a>) - 添加的传感器</li>
@@ -7143,7 +7143,7 @@ OpenGL4 的值。</li>
 <p>向当前加载的世界发送自定义命令。</p>
 <h4 id="_357">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.CustomCommand"></a><strong><font color="#7fb800">holoocean.command.CustomCommand</font></strong>(<font color="#00a6ed"><strong>name, num_params=None, string_params=None</strong></font>)  <ul>
+<li><a name="holoocean.command.CustomCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.CustomCommand</font></strong>(<font color="#00a6ed"><strong>name, num_params=None, string_params=None</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>name</code>(<em>str</em>) - 命令名称，例如“OpenDoor”</li>
 <li><code>num_params</code>(<em>int</em> 的列表) - 任意数参数列表</li>
@@ -7158,7 +7158,7 @@ OpenGL4 的值。</li>
 <p>在世界中绘制调试几何图形。</p>
 <h4 id="_358">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.DebugDrawCommand"></a><strong><font color="#7fb800">holoocean.command.DebugDrawCommand</font></strong>(<font color="#00a6ed"><strong>draw_type, start, end, color, thickness, lifetime</strong></font>)  <ul>
+<li><a name="holoocean.command.DebugDrawCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.DebugDrawCommand</font></strong>(<font color="#00a6ed"><strong>draw_type, start, end, color, thickness, lifetime</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>draw_type</code>(<em>int</em>) - 要绘制的对象类型<ul>
 <li><code>0</code>: 线</li>
@@ -7182,7 +7182,7 @@ OpenGL4 的值。</li>
 <p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
 <h4 id="_359">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.RGBCameraRateCommand"></a><strong><font color="#7fb800">holoocean.command.RGBCameraRateCommand</font></strong>(<font color="#00a6ed"><strong>agent_name, sensor_name, ticks_per_capture</strong></font>)  <ul>
+<li><a name="holoocean.command.RGBCameraRateCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.RGBCameraRateCommand</font></strong>(<font color="#00a6ed"><strong>agent_name, sensor_name, ticks_per_capture</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent_name</code>(<em>str</em>) - 要修改的代理姓名</li>
 <li><code>sensor_name</code>(<em>str</em> ) - 要修改的传感器名称</li>
@@ -7197,7 +7197,7 @@ OpenGL4 的值。</li>
 <p>从代理中移除传感器。</p>
 <h4 id="_360">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.RemoveSensorCommand"></a><strong><font color="#7fb800">holoocean.command.RemoveSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor</strong></font>)  <ul>
+<li><a name="holoocean.command.RemoveSensorCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.RemoveSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent</code>(<em>str</em>) - 要修改的代理姓名</li>
 <li><code>sensor</code>(<em>str</em> ) - 要移除的传感器名称</li>
@@ -7211,7 +7211,7 @@ OpenGL4 的值。</li>
 <p>调整 HoloOcean 的渲染质量。</p>
 <h4 id="_361">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.RenderQualityCommand"></a><strong><font color="#7fb800">holoocean.command.RenderQualityCommand</font></strong>(<font color="#00a6ed"><strong>render_quality</strong></font>)  <ul>
+<li><a name="holoocean.command.RenderQualityCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.RenderQualityCommand</font></strong>(<font color="#00a6ed"><strong>render_quality</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>render_quality</code>(<em>int</em>) - 0 = 低，1 = 中，3 = 高，3 = 史诗级</li>
 </ul>
@@ -7224,7 +7224,7 @@ OpenGL4 的值。</li>
 <p>启用或禁用窗口。请注意，这不会阻止窗口显示，只会阻止其更新。</p>
 <h4 id="_362">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.RenderViewportCommand"></a><strong><font color="#7fb800">holoocean.command.RenderViewportCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
+<li><a name="holoocean.command.RenderViewportCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.RenderViewportCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>render_viewport</code>(<em>bool</em>) - 是否需要渲染视窗</li>
 </ul>
@@ -7237,7 +7237,7 @@ OpenGL4 的值。</li>
 <p>调整 HoloOcean 的渲染质量。</p>
 <h4 id="_363">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.RotateSensorCommand"></a><strong><font color="#7fb800">holoocean.command.RotateSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor, rotation</strong></font>)  <ul>
+<li><a name="holoocean.command.RotateSensorCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.RotateSensorCommand</font></strong>(<font color="#00a6ed"><strong>agent, sensor, rotation</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent</code>(<em>str</em>) - 代理名称</li>
 <li><code>sensor</code>(<em>str</em>) - 要旋转的传感器的名称</li>
@@ -7252,7 +7252,7 @@ OpenGL4 的值。</li>
 <p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
 <h4 id="_364">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.SendAcousticMessageCommand"></a><strong><font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
+<li><a name="holoocean.command.SendAcousticMessageCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font></strong>(<font color="#00a6ed"><strong>render_viewport</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent_name</code>(<em>str</em>) - 要修改的代理名称</li>
 <li><code>sensor_name</code>(<em>str</em>) - 要修改的传感器名称</li>
@@ -7317,7 +7317,7 @@ OpenGL4 的值。</li>
 <p>设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。</p>
 <h4 id="_366">构造方法</h4>
 <ul>
-<li><a name="holoocean.command.TeleportCameraCommand"></a><strong><font color="#7fb800">holoocean.command.TeleportCameraCommand</font></strong>(<font color="#00a6ed"><strong>location, rotation</strong></font>)<br />
+<li><a name="holoocean.command.TeleportCameraCommand_Constructor"></a><strong><font color="#7fb800">holoocean.command.TeleportCameraCommand</font></strong>(<font color="#00a6ed"><strong>location, rotation</strong></font>)<br />
 移动窗口的相机（代理跟随器）<ul>
 <li><strong>参数：</strong><ul>
 <li><code>agent_name</code>(<em>float</em> 的列表 <em>list</em> ) - 要赋予相机的 <code>[x, y, z]</code> 位置（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）</li>
@@ -7572,7 +7572,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_373">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.AcousticBeaconSensor"></a><strong><font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='AcousticBeaconSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.AcousticBeaconSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='AcousticBeaconSensor', config=None</strong></font>)  </li>
 </ul>
 <h3 id="holooceansensorsdvlsensor">holoocean.sensors.DVLSensor 类<a name="holoocean.sensors.DVLSensor"></a></h3>
 <p>多普勒速度记录传感器。</p>
@@ -7624,7 +7624,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_376">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.DVLSensor"></a><strong><font color="#7fb800">holoocean.sensors.DVLSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DVLSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.DVLSensor__Constructor"></a><strong><font color="#7fb800">holoocean.sensors.DVLSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DVLSensor', config=None</strong></font>)  </li>
 </ul>
 <h3 id="holooceansensorsdepthsensor">holoocean.sensors.DepthSensor 类<a name="holoocean.sensors.DepthSensor"></a></h3>
 <p>压力/深度传感器。</p>
@@ -7688,7 +7688,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_381">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.DynamicsSensor"></a><strong><font color="#7fb800">holoocean.sensors.DynamicsSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DynamicsSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.DynamicsSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.DynamicsSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DynamicsSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsgpssensor">holoocean.sensors.GPSSensor 类<a name="holoocean.sensors.GPSSensor"></a></h3>
@@ -7736,7 +7736,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_384">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.GPSSensor"></a><strong><font color="#7fb800">holoocean.sensors.GPSSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='GPSSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.GPSSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.GPSSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='GPSSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsholooceansensor">holoocean.sensors.HoloOceanSensor 类<a name="holoocean.sensors.HoloOceanSensor"></a></h3>
@@ -7771,7 +7771,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_386">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.HoloOceanSensor"></a><strong><font color="#7fb800">holoocean.sensors.HoloOceanSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)<br />
+<li><a name="holoocean.sensors.HoloOceanSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.HoloOceanSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)<br />
 传感器的基类。 <ul>
 <li><strong>参数：</strong><ul>
 <li><code>client</code>(<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient"><em>HoloOceanClient</em></a> ) - 客户端连接到传感器</li>
@@ -7834,7 +7834,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_389">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.IMUSensor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.IMUSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsimagingsonar">holoocean.sensors.ImagingSonar 类<a name="holoocean.sensors.ImagingSonar"></a></h3>
@@ -7936,7 +7936,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_394">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.IMUSensor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.IMUSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorslocationsensor">holoocean.sensors.LocationSensor 类<a name="holoocean.sensors.LocationSensor"></a></h3>
@@ -7968,7 +7968,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_397">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.LocationSensor"></a><strong><font color="#7fb800">holoocean.sensors.LocationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='LocationSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.LocationSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.LocationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='LocationSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsmagnetometersensor">holoocean.sensors.MagnetometerSensor 类<a name="holoocean.sensors.MagnetometerSensor"></a></h3>
@@ -8004,7 +8004,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_400">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.MagnetometerSensor"></a><strong><font color="#7fb800">holoocean.sensors.MagnetometerSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='MagnetometerSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.MagnetometerSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.MagnetometerSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='MagnetometerSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsopticalmodemsensor">holoocean.sensors.OpticalModemSensor 类<a name="holoocean.sensors.OpticalModemSensor"></a></h3>
@@ -8063,7 +8063,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_403">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.OpticalModemSensor"></a><strong><font color="#7fb800">holoocean.sensors.OpticalModemSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='OpticalModemSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.OpticalModemSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.OpticalModemSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='OpticalModemSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsorientationsensor">holoocean.sensors.OrientationSensor 类<a name="holoocean.sensors.OrientationSensor"></a></h3>
@@ -8094,7 +8094,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_405">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.OrientationSensor"></a><strong><font color="#7fb800">holoocean.sensors.OrientationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.OrientationSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.OrientationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsposesensor">holoocean.sensors.PoseSensor 类<a name="holoocean.sensors.PoseSensor"></a></h3>
@@ -8125,7 +8125,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_407">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.PoseSensor"></a><strong><font color="#7fb800">holoocean.sensors.PoseSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.PoseSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.PoseSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsprofilingsonar">holoocean.sensors.ProfilingSonar 类<a name="holoocean.sensors.ProfilingSonar"></a></h3>
@@ -8205,7 +8205,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 <h4 id="_411">构造方法</h4>
 <ul>
-<li><a name="holoocean.sensors.ProfilingSonar"></a><strong><font color="#7fb800">holoocean.sensors.ProfilingSonar</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='ProfilingSonar', config=None</strong></font>)  </li>
+<li><a name="holoocean.sensors.ProfilingSonar_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.ProfilingSonar</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='ProfilingSonar', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsrgbcamera">holoocean.sensors.RGBCamera 类<a name="holoocean.sensors.RGBCamera"></a></h3>
