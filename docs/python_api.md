@@ -5489,6 +5489,19 @@ Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean �
 
 ---
 
+### holoocean.command.TideCommand 类<a name="holoocean.command.TideCommand"></a>
+改变当前世界的水位（v2.3.0）。
+
+#### 构造方法
+- <a name="holoocean.command.TideCommand"></a>**<font color="#7fb800">holoocean.command.TideCommand</font>**(<font color="#00a6ed">**adjustment, absolute**</font>)  
+改变当前世界的水位。
+    - **参数：**
+        - `adjustment`(_float_ ) - 以米为单位，表示要调整的水位数值，或要设置的水位。
+        - `absolute`(_bool_ ) - 如果要设置新的水位，则为 True；如果要按偏移量调整潮汐，则为 False。
+
+
+---
+
 
 ## HoloOcean 客户端 <span id="holooceanclient"></span>
 
@@ -5959,7 +5972,7 @@ $$
 
 #### 配置
 
-配置模（`configuration`）块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
 
 * `Sigma`/`Cov`：协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 => 无噪声。
 
@@ -5987,7 +6000,7 @@ $$
 
 #### 配置
 
-配置模（`configuration`）块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
 
 * `Sigma`/`Cov`：测量协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 => 无噪声。
 
