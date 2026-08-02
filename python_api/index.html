@@ -7328,10 +7328,25 @@ OpenGL4 的值。</li>
 </li>
 </ul>
 <hr />
+<h3 id="holooceancommandtidecommand">holoocean.command.TideCommand 类<a name="holoocean.command.TideCommand"></a></h3>
+<p>改变当前世界的水位（v2.3.0）。</p>
+<h4 id="_367">构造方法</h4>
+<ul>
+<li><a name="holoocean.command.TideCommand"></a><strong><font color="#7fb800">holoocean.command.TideCommand</font></strong>(<font color="#00a6ed"><strong>adjustment, absolute</strong></font>)<br />
+改变当前世界的水位。<ul>
+<li><strong>参数：</strong><ul>
+<li><code>adjustment</code>(<em>float</em> ) - 以米为单位，表示要调整的水位数值，或要设置的水位。</li>
+<li><code>absolute</code>(<em>bool</em> ) - 如果要设置新的水位，则为 True；如果要按偏移量调整潮汐，则为 False。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
 <h2 id="holoocean_1">HoloOcean 客户端 <span id="holooceanclient"></span></h2>
 <p>用于在 Python 和 C++ 之间订阅共享内存的客户端。</p>
 <h3 id="holooceanholooceanclientholooceanclient">holoocean.holooceanclient.HoloOceanClient 类<a name="holoocean.holooceanclient.HoloOceanClient"></a></h3>
-<h4 id="_367">方法</h4>
+<h4 id="_368">方法</h4>
 <ul>
 <li><a name="holoocean.holooceanclient.HoloOceanClient"></a><strong><font color="#7fb800">holoocean.holooceanclient.HoloOceanClient</font></strong>(<font color="#00a6ed"><strong>uuid=''</strong></font>)<br />
 HoloOceanClient 用于控制共享内存会话。<ul>
@@ -7361,9 +7376,9 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 用于释放控制权。这将允许 HolodeckServer 执行下一步操作。</li>
 </ul>
 <hr />
-<h2 id="_368">软件包管理器 <span id="packagemanager"></span></h2>
+<h2 id="_369">软件包管理器 <span id="packagemanager"></span></h2>
 <p>适用于 HoloOcean 的世界软件包管理器，可供下载和使用。</p>
-<h4 id="_369">方法</h4>
+<h4 id="_370">方法</h4>
 <ul>
 <li><a name="holoocean.packagemanager.available_packages"></a><strong><font color="#7fb800">holoocean.packagemanager.available_packages</font></strong>(<font color="#00a6ed"></font>)<br />
 返回适用于当前 HoloOcean 版本的软件包名称列表<ul>
@@ -7495,7 +7510,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </li>
 </ul>
 <hr />
-<h2 id="_370">传感器 <span id="sensors"></span></h2>
+<h2 id="_371">传感器 <span id="sensors"></span></h2>
 <p>所有传感器信息的定义。UE 对传感器的设置使得运动检测先于传感器检测发生。</p>
 <h3 id="holooceansensorsacousticbeaconsensor">holoocean.sensors.AcousticBeaconSensor 类<a name="holoocean.sensors.AcousticBeaconSensor"></a></h3>
 <p>声学信标传感器。可通过 <code>send_acoustic_message()</code> 命令向其他信标发送消息。</p>
@@ -7527,7 +7542,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </li>
 </ul>
 <p>这些消息类型基于 <a href="https://www.blueprintsubsea.com/pages/product.php?PN=BP00795">Blueprint Subsea SeaTrac X150</a> 。</p>
-<h4 id="_371">配置</h4>
+<h4 id="_372">配置</h4>
 <p>配置（<code>configuration</code>）块（参见“<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>”）接受以下选项：</p>
 <ul>
 <li>
@@ -7543,7 +7558,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>DistanceSigma</code>/<code>DistanceCov</code>：确定 MaxDistance 距离的噪声标准差/协方差。必须为标量值。（默认值为 0 =&gt; 无噪声）</p>
 </li>
 </ul>
-<h4 id="_372">属性</h4>
+<h4 id="_373">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7570,7 +7585,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_373">构造方法</h4>
+<h4 id="_374">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.AcousticBeaconSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='AcousticBeaconSensor', config=None</strong></font>)  </li>
 </ul>
@@ -7581,7 +7596,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 [velocity_x, velocity_y, velocity_z, range_x_forw, range_y_forw, range_x_back, range_y_back] 
 </script>
 </p>
-<h4 id="_374">配置</h4>
+<h4 id="_375">配置</h4>
 <p>配置（<code>configuration</code>）块（参见“<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>”）接受以下选项：</p>
 <ul>
 <li>
@@ -7603,7 +7618,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>范围标准差（<code>RangeSigma</code>）/范围协方差（<code>RangeCov</code>）：应用于每个声束范围的协方差/标准差。可以是标量、4 维向量或 4x4 矩阵。只能设置其中一个。默认值为 0 =&gt; 无噪声。</p>
 </li>
 </ul>
-<h4 id="_375">属性</h4>
+<h4 id="_376">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7622,19 +7637,19 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_376">构造方法</h4>
+<h4 id="_377">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.DVLSensor__Constructor"></a><strong><font color="#7fb800">holoocean.sensors.DVLSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DVLSensor', config=None</strong></font>)  </li>
 </ul>
 <h3 id="holooceansensorsdepthsensor">holoocean.sensors.DepthSensor 类<a name="holoocean.sensors.DepthSensor"></a></h3>
 <p>压力/深度传感器。</p>
 <p>返回一个包含以下元素的 1D NumPy 数组：<code>[position_z]</code></p>
-<h4 id="_377">配置</h4>
+<h4 id="_378">配置</h4>
 <p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li><code>Sigma</code>/<code>Cov</code>：要应用的协方差/标准差，标量值。默认为 0 =&gt; 无噪声。</li>
 </ul>
-<h4 id="_378">属性</h4>
+<h4 id="_379">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7657,7 +7672,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>提供实现自定义动力学所需的所有相关信息。返回值均位于全局坐标系中，如下所示：
 <code>[acceleration, velocity, position, angular accel., angular velocity, rpy]</code></p>
 <p>其中所有值均为三维向量，rpy 包括横滚角、俯仰角和偏航角。这是唯一一个默认情况下不在自身接口中运行，而是在 COM 接口中运行的传感器。这主要是为了方便，因为在进行自定义动力学时，99% 的情况下都需要在 COM 接口中获取信息。</p>
-<h4 id="_379">配置</h4>
+<h4 id="_380">配置</h4>
 <p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -7667,7 +7682,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>UseRPY</code>：是否以横滚角、俯仰角、偏航角或四元数的形式返回方向信息。默认为 true。如果为 true，传感器返回一个 18 维向量；如果为 false，传感器返回一个 19 维向量。四元数以标量形式指定，最后一个值即为 x、y、z、w。</p>
 </li>
 </ul>
-<h4 id="_380">属性</h4>
+<h4 id="_381">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7686,7 +7701,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_381">构造方法</h4>
+<h4 id="_382">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.DynamicsSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.DynamicsSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='DynamicsSensor', config=None</strong></font>)  </li>
 </ul>
@@ -7694,7 +7709,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsgpssensor">holoocean.sensors.GPSSensor 类<a name="holoocean.sensors.GPSSensor"></a></h3>
 <p>如果代理足够接近地面，则获取其在世界中的位置。</p>
 <p>返回 <code>[x, y, z]</code> 格式的坐标（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）。</p>
-<h4 id="_382">配置</h4>
+<h4 id="_383">配置</h4>
 <p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -7707,7 +7722,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>DepthSigma</code>/<code>DepthCov</code>：深度协方差/标准差。必须是标量。二选一。默认值为 0 =&gt; 无噪声。</p>
 </li>
 </ul>
-<h4 id="_383">属性</h4>
+<h4 id="_384">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7734,7 +7749,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_384">构造方法</h4>
+<h4 id="_385">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.GPSSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.GPSSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='GPSSensor', config=None</strong></font>)  </li>
 </ul>
@@ -7742,7 +7757,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsholooceansensor">holoocean.sensors.HoloOceanSensor 类<a name="holoocean.sensors.HoloOceanSensor"></a></h3>
 <p>如果代理足够接近地面，则获取其在世界中的位置。</p>
 <p>返回 <code>[x, y, z]</code> 格式的坐标（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）。</p>
-<h4 id="_385">属性</h4>
+<h4 id="_386">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7769,7 +7784,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_386">构造方法</h4>
+<h4 id="_387">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.HoloOceanSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.HoloOceanSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)<br />
 传感器的基类。 <ul>
@@ -7794,7 +7809,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
   [ang_vel_bias_roll,  ang_vel_bias_pitch, ang_vel_bias_yaw]    ]
 </code></pre></div>
 其中加速度分量的单位为米/秒，角速度的单位为弧度/秒。</p>
-<h4 id="_387">配置</h4>
+<h4 id="_388">配置</h4>
 <p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -7813,7 +7828,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>ReturnBias</code>：传感器是否应随加速度/角速度一起返回偏差值。默认值为 false。</p>
 </li>
 </ul>
-<h4 id="_388">属性</h4>
+<h4 id="_389">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7832,7 +7847,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_389">构造方法</h4>
+<h4 id="_390">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.IMUSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
 </ul>
@@ -7840,7 +7855,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsimagingsonar">holoocean.sensors.ImagingSonar 类<a name="holoocean.sensors.ImagingSonar"></a></h3>
 <p>模拟成像声呐。有关如何配置所使用的八叉树的更多信息，请参阅<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree">配置八叉树</a>。</p>
 <p>配置（<code>configuration</code>）块（请参阅<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）接受以下各节中的任何选项。</p>
-<h4 id="_390">基本配置</h4>
+<h4 id="_391">基本配置</h4>
 <ul>
 <li>
 <p>方位角（<code>Azimuth</code>）：方位角（左右方向），以度为单位，默认值为 120。</p>
@@ -7861,7 +7876,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>方位角分格数（<code>AzimuthBins</code>）/方位分辨率（<code>AzimuthRes</code>）：生成图像的方位角分格数，或每个方位角的分辨率（长度，以度为单位）。二选一。默认值为 512 个分格。</p>
 </li>
 </ul>
-<h4 id="_391">噪声配置</h4>
+<h4 id="_392">噪声配置</h4>
 <ul>
 <li>
 <p><code>AddSigma</code>/<code>AddCov</code>：来自瑞利分布的加性噪声​​的标准差/协方差。必须为浮点数。只能设置其中一个。默认值为 0 或关闭。</p>
@@ -7885,7 +7900,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>RangeSigma</code>：将添加到距离测量值中的加性噪声​​标准差（服从指数分布），强度值将根据概率密度函数 (pdf) 进行缩放。必须为浮点数。默认值为 0，即关闭。</p>
 </li>
 </ul>
-<h4 id="_392">高级配置</h4>
+<h4 id="_393">高级配置</h4>
 <ul>
 <li>
 <p><code>ShowWarning</code>：是否在屏幕上显示声呐计算警告。默认为 True。</p>
@@ -7915,7 +7930,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>UseApprox</code>（使用近似值）：是否使用速度较快的 Atan2 近似值，还是速度较慢的精确值。默认值为 True。</p>
 </li>
 </ul>
-<h4 id="_393">属性</h4>
+<h4 id="_394">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7934,7 +7949,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_394">构造方法</h4>
+<h4 id="_395">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.IMUSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.IMUSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='IMUSensor', config=None</strong></font>)  </li>
 </ul>
@@ -7942,12 +7957,12 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorslocationsensor">holoocean.sensors.LocationSensor 类<a name="holoocean.sensors.LocationSensor"></a></h3>
 <p>获取代理在世界中的位置。</p>
 <p>返回 <code>[x, y, z]</code> 格式的坐标（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system">坐标系</a>）。</p>
-<h4 id="_395">配置</h4>
-<p>配置模（<code>configuration</code>）块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
+<h4 id="_396">配置</h4>
+<p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li><code>Sigma</code>/<code>Cov</code>：协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 =&gt; 无噪声。</li>
 </ul>
-<h4 id="_396">属性</h4>
+<h4 id="_397">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -7966,15 +7981,15 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_397">构造方法</h4>
+<h4 id="_398">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.LocationSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.LocationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='LocationSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsmagnetometersensor">holoocean.sensors.MagnetometerSensor 类<a name="holoocean.sensors.MagnetometerSensor"></a></h3>
 <p>获取局部坐标系中的全局 x 轴（或给定向量）。</p>
-<h4 id="_398">配置</h4>
-<p>配置模（<code>configuration</code>）块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
+<h4 id="_399">配置</h4>
+<p>配置（<code>configuration</code>）模块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li>
 <p><code>Sigma</code>/<code>Cov</code>：测量协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 =&gt; 无噪声。</p>
@@ -7983,7 +7998,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>MagneticVector</code>：要在全局坐标系中测量的给定三维向量。默认值为 [1,0,0]。</p>
 </li>
 </ul>
-<h4 id="_399">属性</h4>
+<h4 id="_400">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8002,14 +8017,14 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_400">构造方法</h4>
+<h4 id="_401">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.MagnetometerSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.MagnetometerSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='MagnetometerSensor', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsopticalmodemsensor">holoocean.sensors.OpticalModemSensor 类<a name="holoocean.sensors.OpticalModemSensor"></a></h3>
 <p>处理代理之间使用光纤调制解调器的通信。可以通过 <code>send_optical_message()</code> 命令向其他调制解调器发送消息。</p>
-<h4 id="_401">配置</h4>
+<h4 id="_402">配置</h4>
 <p>配置模（<code>configuration</code>）块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置模块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -8034,7 +8049,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>DebugNumSides</code>：调试锥的边数。（默认值：72）</p>
 </li>
 </ul>
-<h4 id="_402">属性</h4>
+<h4 id="_403">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8061,7 +8076,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_403">构造方法</h4>
+<h4 id="_404">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.OpticalModemSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.OpticalModemSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='OpticalModemSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8073,7 +8088,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
   [forward_y, right_y, up_y],
   [forward_z, right_z, up_z] ]
 </code></pre></div></p>
-<h4 id="_404">属性</h4>
+<h4 id="_405">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8092,7 +8107,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_405">构造方法</h4>
+<h4 id="_406">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.OrientationSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.OrientationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8104,7 +8119,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
   [0, 1] ]
 </code></pre></div>
 其中 R 是旋转矩阵（见 OrientationSensor），p 是机器人的世界位置（见 LocationSensor）</p>
-<h4 id="_406">属性</h4>
+<h4 id="_407">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8123,7 +8138,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_407">构造方法</h4>
+<h4 id="_408">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.PoseSensor_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.PoseSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8131,7 +8146,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsprofilingsonar">holoocean.sensors.ProfilingSonar 类<a name="holoocean.sensors.ProfilingSonar"></a></h3>
 <p>模拟一个多波束剖面声呐。这主要是基于成像声呐（<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.ImagingSonar">ImagingSonar</a>），只是默认设置不同。有关如何配置使用的八叉树，请参见配置八叉树。</p>
 <p>配置（<code>configuration</code>）块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）可以接受以下各节中的任何选项。</p>
-<h4 id="_408">基本配置</h4>
+<h4 id="_409">基本配置</h4>
 <ul>
 <li>
 <p>方位角（<code>Azimuth</code>）：可见的方位角（左右方向），以度为单位，默认值为120。</p>
@@ -8152,7 +8167,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>方位箱（<code>AzimuthBins</code>）/方位分辨率（<code>AzimuthRes</code>）：生成图像的方位箱数量，或每个箱的分辨率（度）。设置其中之一即可。默认480个箱。</p>
 </li>
 </ul>
-<h4 id="_409">噪声配置</h4>
+<h4 id="_410">噪声配置</h4>
 <ul>
 <li>
 <p><code>AddSigma</code>/<code>AddCov</code>：来自瑞利分布的加性噪声标准差/协方差。需要是浮点数。两者只能设置一个。默认是0，或关闭。</p>
@@ -8173,7 +8188,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>AzimuthStreaks</code>：引入哪种方位伪影。-1是去除伪影，0是没有伪影，1是增益伪影。默认是0。</p>
 </li>
 </ul>
-<h4 id="_410">高级配置</h4>
+<h4 id="_411">高级配置</h4>
 <ul>
 <li>
 <p><code>ShowWarning</code>：是否在屏幕上显示关于声纳计算的警告。默认值为 True。</p>
@@ -8203,7 +8218,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>UseApprox</code>：是否使用更快的 Atan2 近似值，还是使用较慢的精确实现。默认值为 True。</p>
 </li>
 </ul>
-<h4 id="_411">构造方法</h4>
+<h4 id="_412">构造方法</h4>
 <ul>
 <li><a name="holoocean.sensors.ProfilingSonar_Constructor"></a><strong><font color="#7fb800">holoocean.sensors.ProfilingSonar</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='ProfilingSonar', config=None</strong></font>)  </li>
 </ul>
@@ -8211,7 +8226,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsrgbcamera">holoocean.sensors.RGBCamera 类<a name="holoocean.sensors.RGBCamera"></a></h3>
 <p>捕捉代理的视角。</p>
 <p>默认的捕捉分辨率是 256x256x256x4，对应 RGBA 通道。分辨率可以提高，但会显著影响性能。</p>
-<h4 id="_412">配置</h4>
+<h4 id="_413">配置</h4>
 <p>配置块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -8221,7 +8236,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>CaptureHeight</code>：捕获图像的高度</p>
 </li>
 </ul>
-<h4 id="_413">属性</h4>
+<h4 id="_414">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8240,7 +8255,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_414">方法</h4>
+<h4 id="_415">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.RGBCamera"></a><strong><font color="#7fb800">holoocean.sensors.RGBCamera</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='RGBCamera', config=None</strong></font>)  </li>
 <li><a name="set_ticks_per_capture"></a><strong><font color="#7fb800">set_ticks_per_capture</font></strong>(<font color="#00a6ed"><strong>ticks_per_capture</strong></font>) 
@@ -8257,7 +8272,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>返回指定参数方向上最近碰撞的距离。例如，如果一个代理在不同角度有两个测距传感器，每个传感器有24个激光器，LaserDebug 的轨迹大概会是这样的：</p>
 <p><img alt="" src="../img/water/UAVRangeFinder.png" /></p>
 <p>也就是说，对于1个激光，你会有1个激光朝前；对于3个激光，你会有一个向前，另外两个均匀分布在圆周上，相隔120度；对于24个激光，你会每隔15度放置一个激光。</p>
-<h4 id="_415">配置</h4>
+<h4 id="_416">配置</h4>
 <p>配置块（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -8273,7 +8288,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>LaserDebug</code>：显示调试轨迹。默认值为false。</p>
 </li>
 </ul>
-<h4 id="_416">属性</h4>
+<h4 id="_417">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8292,7 +8307,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_417">方法</h4>
+<h4 id="_418">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.RangeFinderSensor"></a><strong><font color="#7fb800">holoocean.sensors.RangeFinderSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='RangeFinderSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8300,7 +8315,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorsrotationsensor">holoocean.sensors.RotationSensor 类<a name="holoocean.sensors.RotationSensor"></a></h3>
 <p>获取代理在世界中的旋转，在固定坐标系下的 XYZ 旋转，单位为度。</p>
 <p>返回 <code>[roll, pitch, yaw]</code>（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations">旋转</a>）</p>
-<h4 id="_418">属性</h4>
+<h4 id="_419">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8319,7 +8334,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_419">方法</h4>
+<h4 id="_420">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.RotationSensor"></a><strong><font color="#7fb800">holoocean.sensors.RotationSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8327,7 +8342,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorssensordefinition">holoocean.sensors.SensorDefinition 类<a name="holoocean.sensors.SensorDefinition"></a></h3>
 <p>获取代理在世界中的旋转，在固定坐标系下的 XYZ 旋转，单位为度。</p>
 <p>返回 <code>[roll, pitch, yaw]</code>（参见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations">旋转</a>）</p>
-<h4 id="_420">属性</h4>
+<h4 id="_421">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8346,7 +8361,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_421">方法</h4>
+<h4 id="_422">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.SensorDefinition"></a><strong><font color="#7fb800">holoocean.sensors.SensorDefinition</font></strong>(<font color="#00a6ed"><strong>agent_name, agent_type, sensor_name, sensor_type, socket='', location=(0, 0, 0), rotation=(0, 0, 0), config=None, existing=False, lcm_channel=None, tick_every=None</strong></font>)<br />
 一个用于新传感器及其参数的类，用于添加新传感器。 <ul>
@@ -8375,7 +8390,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <hr />
 <h3 id="holooceansensorssensorfactory">holoocean.sensors.SensorFactory 类<a name="holoocean.sensors.SensorFactory"></a></h3>
 <p>给定一个传感器定义，创建相应的 HoloOceanSensor 对象。</p>
-<h4 id="_422">方法</h4>
+<h4 id="_423">方法</h4>
 <ul>
 <li><a name="build_sensor"></a><strong><font color="#7fb800">build_sensor</font></strong>(<font color="#00a6ed"><strong>client, sensor_def</strong></font>)<br />
 构建与客户端关联的指定传感器。 <ul>
@@ -8391,7 +8406,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorssidescansonar">holoocean.sensors.SidescanSonar 类<a name="holoocean.sensors.SidescanSonar"></a></h3>
 <p>模拟侧扫声纳。有关如何配置使用的八叉树的更多信息，请参阅<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree">配置八叉树</a>。</p>
 <p>配置（<code>configuration</code>）块（见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）可接受以下各节中的任何选项。</p>
-<h4 id="_423">基本配置</h4>
+<h4 id="_424">基本配置</h4>
 <ul>
 <li>
 <p>方位角（<code>Azimuth</code>）：以度为单位可见的方位角（左右），默认为170。</p>
@@ -8409,7 +8424,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>距离格（<code>RangeBins</code>）/距离分辨率（<code>RangeRes</code>）：生成图像的距离格数量，或者每个格子的分辨率（米）。设置其中之一即可。默认为0.05米。</p>
 </li>
 </ul>
-<h4 id="_424">噪声配置</h4>
+<h4 id="_425">噪声配置</h4>
 <ul>
 <li>
 <p><code>AddSigma</code>/<code>AddCov</code>：来自雷利分布的加性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。</p>
@@ -8418,7 +8433,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>MultSigma</code>/<code>MultCov</code>：来自正态分布的乘性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。</p>
 </li>
 </ul>
-<h4 id="_425">高级配置</h4>
+<h4 id="_426">高级配置</h4>
 <ul>
 <li>
 <p><code>ShowWarning</code>：是否在屏幕上显示关于声纳计算的警告。默认值为 True。</p>
@@ -8451,7 +8466,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>UseApprox</code>：是否使用更快的 Atan2 近似值，还是使用较慢的精确实现。默认值为 True。</p>
 </li>
 </ul>
-<h4 id="_426">属性</h4>
+<h4 id="_427">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8470,7 +8485,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_427">方法</h4>
+<h4 id="_428">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.SidescanSonar"></a><strong><font color="#7fb800">holoocean.sensors.SidescanSonar</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='SidescanSonar', config=None</strong></font>)  </li>
 </ul>
@@ -8478,9 +8493,9 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <h3 id="holooceansensorssinglebeamsonar">holoocean.sensors.SinglebeamSonar 类<a name="holoocean.sensors.SinglebeamSonar"></a></h3>
 <p>模拟回声测深仪，它是一种拥有单个锥形波束的声纳传感器。有关如何配置使用的八叉树，请参阅<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree">配置八叉树</a>。</p>
 <p>返回一个一维 numpy 数组，包含传感器每个距离区间中的平均强度。数组的长度由为传感器选择的距离区间数量决定。</p>
-<h4 id="_428">配置</h4>
+<h4 id="_429">配置</h4>
 <p>配置块（见配置块）可以接受以下各节中的任何选项。</p>
-<h4 id="_429">基本配置</h4>
+<h4 id="_430">基本配置</h4>
 <ul>
 <li>
 <p><code>OpeningAngle</code>：锥体的可见开口角度，以度为单位，默认为30。在本说明文档中，开口角度为锥体半顶角的2倍。</p>
@@ -8495,7 +8510,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>RangeBins</code>/<code>RangeRes</code>：生成图像的距离划分数，或每个划分的分辨率（长度，单位为米）。设置其中一个即可。默认为200划分。</p>
 </li>
 </ul>
-<h4 id="_430">噪声配置</h4>
+<h4 id="_431">噪声配置</h4>
 <ul>
 <li>
 <p><code>AddSigma</code>/<code>AddCov</code>：来自雷利分布的加性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。</p>
@@ -8507,7 +8522,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>RangeSigma</code>：将从指数分布中生成的加性噪声标准差添加到距离测量中。需要是浮点数。默认值为0/关闭。</p>
 </li>
 </ul>
-<h4 id="_431">高级配置</h4>
+<h4 id="_432">高级配置</h4>
 <ul>
 <li>
 <p><code>ShowWarning</code>：是否在屏幕上显示关于声纳计算的警告。默认值为 True。</p>
@@ -8540,7 +8555,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><code>UseApprox</code>：是否使用 Atan2 的快速近似计算，或者使用较慢的精确实现。默认值为 True。</p>
 </li>
 </ul>
-<h4 id="_432">属性</h4>
+<h4 id="_433">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8559,14 +8574,14 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_433">方法</h4>
+<h4 id="_434">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.SinglebeamSonar"></a><strong><font color="#7fb800">holoocean.sensors.SinglebeamSonar</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='SinglebeamSonar', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsvelocitysensor">holoocean.sensors.VelocitySensor 类<a name="holoocean.sensors.VelocitySensor"></a></h3>
 <p>返回传感器在全局坐标系下的 x、y 和 z 速度。</p>
-<h4 id="_434">属性</h4>
+<h4 id="_435">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8585,7 +8600,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_435">方法</h4>
+<h4 id="_436">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.VelocitySensor"></a><strong><font color="#7fb800">holoocean.sensors.VelocitySensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8594,7 +8609,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>捕捉视窗正在看到的内容。</p>
 <p>ViewportCapture 比 RGB 摄像机更快，但只能有一台摄像机，并且它必须捕捉视口正在捕捉的内容。如果性能很关键，可以考虑使用这台摄像机而不是 RGBCamera。</p>
 <p>使用 teleport_camera() 定位摄像机可能会很有用。</p>
-<h4 id="_436">配置</h4>
+<h4 id="_437">配置</h4>
 <p>配置（<code>configuration</code>）块（见<a href="https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block">配置块</a>）接受以下选项：</p>
 <ul>
 <li>
@@ -8607,7 +8622,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p><strong>这些尺寸必须与视口尺寸匹配</strong></p>
 <p>如果你已经配置了视口的大小（<code>window_height/width</code>），你必须确保这个配置块的 <code>CaptureWidth/Height</code> 设置为相同的尺寸。</p>
 <p>默认分辨率是 <code>1280x720</code>，与默认视口分辨率相匹配。</p>
-<h4 id="_437">属性</h4>
+<h4 id="_438">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8626,14 +8641,14 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_438">方法</h4>
+<h4 id="_439">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.ViewportCapture"></a><strong><font color="#7fb800">holoocean.sensors.ViewportCapture</font></strong>(<font color="#00a6ed"><strong>client, agent_name, agent_type, name='ViewportCapture', config=None</strong></font>)  </li>
 </ul>
 <hr />
 <h3 id="holooceansensorsworldnumsensor">holoocean.sensors.WorldNumSensor 类<a name="holoocean.sensors.WorldNumSensor"></a></h3>
 <p>返回与给定键对应的世界中的任意数值。这是特定于世界的。</p>
-<h4 id="_439">属性</h4>
+<h4 id="_440">属性</h4>
 <ul>
 <li><a name="data_shape"></a><strong><font color="#f8805a">data_shape</font></strong> (int)<br />
 传感器数据的形状。<ul>
@@ -8652,7 +8667,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </ul>
 </li>
 </ul>
-<h4 id="_440">方法</h4>
+<h4 id="_441">方法</h4>
 <ul>
 <li><a name="holoocean.sensors.WorldNumSensor"></a><strong><font color="#7fb800">holoocean.sensors.WorldNumSensor</font></strong>(<font color="#00a6ed"><strong>client, agent_name=None, agent_type=None, name='DefaultSensor', config=None</strong></font>)  </li>
 </ul>
@@ -8661,7 +8676,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <p>轻量级通信与编组（Lightweight Communications and Marshalling, <a href="https://github.com/lcm-proj/lcm">LCM</a>）包 <code>__init__.py</code> 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！</p>
 <h3 id="holooceanlcmsensordata">holoocean.lcm.SensorData 类<a name="holoocean.lcm.SensorData"></a></h3>
 <p>用于各种可发布传感器数据的封装类。 </p>
-<h4 id="_441">方法</h4>
+<h4 id="_442">方法</h4>
 <ul>
 <li><a name="holoocean.lcm.SensorData"></a><strong><font color="#7fb800">holoocean.lcm.SensorData</font></strong>(<font color="#00a6ed"><strong>sensor_type, channel</strong></font>)<br />
 在相应的传感器类中设置值。<ul>
@@ -8684,7 +8699,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 <hr />
 <h3 id="holooceanlcmgen">holoocean.lcm.gen 类<a name="holoocean.lcm.gen"></a></h3>
 <p>用于各种可发布传感器数据的封装类。 </p>
-<h4 id="_442">方法</h4>
+<h4 id="_443">方法</h4>
 <ul>
 <li><a name="holoocean.lcm.gen"></a><strong><font color="#7fb800">holoocean.lcm.gen</font></strong>(<font color="#00a6ed"><strong>lang, path='.', headers=None</strong></font>)<br />
 为传感器生成 LCM 文件，可使用任意请求的语言。 <ul>
@@ -8698,11 +8713,11 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </li>
 </ul>
 <hr />
-<h2 id="_443">共享内存 <span id="shmem"></span></h2>
+<h2 id="_444">共享内存 <span id="shmem"></span></h2>
 <p>带内存映射的共享内存。</p>
 <h3 id="holooceanshmemshmem">holoocean.shmem.Shmem 类<a name="holoocean.shmem.Shmem"></a></h3>
 <p>共享内存的实现。 </p>
-<h4 id="_444">方法</h4>
+<h4 id="_445">方法</h4>
 <ul>
 <li><a name="holoocean.shmem.Shmem"></a><strong><font color="#7fb800">holoocean.shmem.Shmem</font></strong>(<font color="#00a6ed"><strong>name, shape, dtype=<class 'numpy.float32'>, uuid=''</strong></font>)<br />
 在相应的传感器类中设置值。<ul>
@@ -8719,9 +8734,9 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 取消共享内存的链接</li>
 </ul>
 <hr />
-<h2 id="_445">实用工具 <span id="utils"></span></h2>
+<h2 id="_446">实用工具 <span id="utils"></span></h2>
 <p>有用的小工具。</p>
-<h4 id="_446">方法</h4>
+<h4 id="_447">方法</h4>
 <ul>
 <li><a name="holoocean.util.convert_unicode"></a><strong><font color="#7fb800">holoocean.util.convert_unicode</font></strong>(<font color="#00a6ed"><strong>value</strong></font>)<br />
 解决 Python 2 中将 JSON 加载为 Unicode 而不是字符串的问题。<ul>
@@ -8773,7 +8788,7 @@ HoloOceanClient 用于控制共享内存会话。<ul>
 </li>
 </ul>
 <hr />
-<h2 id="_447">异常 <span id="exceptions"></span></h2>
+<h2 id="_448">异常 <span id="exceptions"></span></h2>
 <p>HoloOcean 异常。</p>
 <ul>
 <li>
@@ -8800,11 +8815,11 @@ HoloOcean 中通用异常的基类。</p>
 </li>
 </ul>
 <hr />
-<h2 id="_448">天气控制 <span id="weather"></span></h2>
+<h2 id="_449">天气控制 <span id="weather"></span></h2>
 <p>环境天气/时间控制器。</p>
 <h3 id="holooceanweatherweathercontroller">holoocean.weather.WeatherController 类<a name="holoocean.weather.WeatherController"></a></h3>
 <p>声学信标传感器。可通过 <code>send_acoustic_message()</code> 命令向其他信标发送消息。</p>
-<h4 id="_449">方法</h4>
+<h4 id="_450">方法</h4>
 <ul>
 <li><a name="holoocean.weather.WeatherController"></a><strong><font color="#7fb800">holoocean.weather.WeatherController</font></strong>(<font color="#00a6ed"><strong>send_world_command</strong></font>)  <ul>
 <li><strong>参数：</strong><ul>
