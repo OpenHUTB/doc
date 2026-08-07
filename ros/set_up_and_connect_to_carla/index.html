@@ -103,7 +103,7 @@
                 <h1 id="carla"><a href="https://www.mathworks.com/help/ros/ug/set-up-and-connect-to-carla-simulator.html">设置并连接到 Carla 模拟器</a></h1>
 <p>此示例展示如何使用 ROS Toolbox 设置并连接到 Carla 模拟器来模拟自动驾驶应用程序。</p>
 <p>您可以利用 Carla 模拟器复制从城市到高速公路的各种驾驶场景，并在受控虚拟环境中评估其自动驾驶算法的有效性。该模拟器包括各种传感器模型、车辆动力学和交通状况，使用户可以模拟真实世界的设置。您可以使用 Simulink 软件向车辆控制发布者发送转向、制动和油门控制信号，并控制 Carla Ego 车辆并研究自动驾驶的各种元素。</p>
-<p>从 <a href="https://github.com/carla-simulator/carla/releases">链接</a> 中下载 Carla 0.9.13 版本的模拟器。如果您使用的是 Windows 机器，请同时下载并安装 ROS 虚拟机。此虚拟机基于 Ubuntu Linux 操作系统，并已预先配置为支持使用 ROS Toolbox 构建的应用程序。</p>
+<p>从 <a href="https://github.com/carla-simulator/carla/releases">链接</a> 中下载 Carla 0.9.13 版本的模拟器。如果您使用的是 Windows 机器，请同时<a href="https://ww2.mathworks.cn/support/product/robotics/ros2-vm-installation-instructions-v9.html">下载</a>并安装好 ROS 的虚拟机。此虚拟机基于 Ubuntu Linux 操作系统，并已预先配置为支持使用 ROS Toolbox 构建的应用程序。</p>
 <p>此示例在 Windows 主机上演示。</p>
 <h2 id="carla_1">启动 Carla 服务器</h2>
 <p>要在 Windows 主机上启动 Carla 服务器，请导航到 Carla 的安装位置并单击应用程序可执行文件<code>CarlaUE4.exe</code>。</p>
@@ -111,20 +111,16 @@
 <h2 id="carla-ros-bridge">设置 Carla ROS Bridge</h2>
 <p>1.启动虚拟机。</p>
 <p>2.在 Ubuntu 桌面上，单击 <code>ROS Noetic Core Terminal</code> 快捷方式以启动 ROS 主控。主控启动后，记下 <code>ROS_MASTER_URI</code>。</p>
-<p>3.在 Ubuntu 桌面上，单击 <code>ROS Noetic Terminal</code> 快捷方式以启动 ROS 终端。运行此命令以设置 Carla ROS 桥接环境。
-```shell script
-. ~/carla-ros-bridge/catkin_ws/devel/setup.bash</p>
-<h1 id="_1">或者运行</h1>
-<p>source ~/carla-ros-bridge/catkin_ws/devel/setup.bash
-<div class="highlight"><pre><span></span><code>![](../img/ros/setup.bash.png)
-
-
-## 使用 Carla 客户端启动 Ego Vehicle
-在同一个终端中，运行follow命令以在您喜欢的 Carla 模拟器环境中启动 Ego 车辆。例如，您可以follow在 Carla 模拟器的 Town03 环境中运行命令以在加油站附近启动车辆。
-
-运行此命令将主机地址**更改为您的机器的IP主机地址**（您的IP地址通过`ipconfig`命令进行查看，一般和这里`172.18.226.60`的不一致）。
-```shell script
-roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch host:=172.18.226.60 timeout:=60000 town:=&#39;Town03&#39; spawn_point:=-25,-134,0.5,0,0,-90
+<p>3.在 Ubuntu 桌面上，单击 <code>ROS Noetic Terminal</code> 快捷方式以启动 ROS 终端。运行此命令以设置 Carla ROS 桥接环境。</p>
+<div class="highlight"><pre><span></span><code>.<span class="w"> </span>~/carla-ros-bridge/catkin_ws/devel/setup.bash
+<span class="c1"># 或者运行</span>
+<span class="nb">source</span><span class="w"> </span>~/carla-ros-bridge/catkin_ws/devel/setup.bash
+</code></pre></div>
+<p><img alt="" src="../../img/ros/setup.bash.png" /></p>
+<h2 id="carla-ego-vehicle">使用 Carla 客户端启动 Ego Vehicle</h2>
+<p>在同一个终端中，运行follow命令以在您喜欢的 Carla 模拟器环境中启动 Ego 车辆。例如，您可以follow在 Carla 模拟器的 Town03 环境中运行命令以在加油站附近启动车辆。</p>
+<p>运行此命令将主机地址<strong>更改为您的机器的IP主机地址</strong>（您的IP地址通过<code>ipconfig</code>命令进行查看，一般和这里<code>172.18.226.60</code>的不一致）。
+<div class="highlight"><pre><span></span><code>roslaunch<span class="w"> </span>carla_ros_bridge<span class="w"> </span>carla_ros_bridge_with_example_ego_vehicle.launch<span class="w"> </span>host:<span class="o">=</span><span class="m">172</span>.18.226.60<span class="w"> </span>timeout:<span class="o">=</span><span class="m">60000</span><span class="w"> </span>town:<span class="o">=</span><span class="s1">&#39;Town03&#39;</span><span class="w"> </span>spawn_point:<span class="o">=</span>-25,-134,0.5,0,0,-90
 </code></pre></div></p>
 <!-- 192.168.159.129 -->
 
@@ -135,17 +131,16 @@ roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch host
 </code></pre></div></p>
 <h2 id="matlab-carla-ros">Matlab 验证 Carla ROS 连接</h2>
 <p>将 Matlab 连接到在 VM Ware 中运行的 ROS 主机的 11311 端口。
-```shell script</p>
-<h1 id="ipifconfig">注意命令中的IP地址需要改为虚拟机中的地址，通过ifconfig查看</h1>
-<p>rosinit( 'http://172.18.226.233:11311' )
-<div class="highlight"><pre><span></span><code>通过运行以下自省命令，验证您是否可以访问与 Carla 模拟器相关的 ROS 主题。
-```shell script
-rostopic list
+<div class="highlight"><pre><span></span><code><span class="c1"># 注意命令中的IP地址需要改为虚拟机中的地址，通过ifconfig查看</span>
+rosinit<span class="o">(</span><span class="w"> </span><span class="s1">&#39;http://172.18.226.233:11311&#39;</span><span class="w"> </span><span class="o">)</span>
 </code></pre></div></p>
-<h2 id="_2">常见问题</h2>
+<p>通过运行以下自省命令，验证您是否可以访问与 Carla 模拟器相关的 ROS 主题。
+<div class="highlight"><pre><span></span><code>rostopic<span class="w"> </span>list
+</code></pre></div></p>
+<h2 id="_1">常见问题</h2>
 <ul>
-<li>执行 roslaunch 报错</li>
-</ul>
+<li>
+<p>执行 roslaunch 报错</p>
 <p>报错信息：AttributeError: 'CarlaRosBridge' object has no attribute 'shutdown'
 <div class="highlight"><pre><span></span><code><span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;/home/user/carla-ros-bridge/catkin_ws/src/ros-bridge/carla_ros_bridge/src/carla_ros_bridge/bridge.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">349</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>destroy
 <span class="w">    </span>self.shutdown.set<span class="o">()</span>
@@ -153,18 +148,24 @@ AttributeError:<span class="w"> </span><span class="s1">&#39;CarlaRosBridge&#39;
 </code></pre></div></p>
 <p>解决：Carla服务端的版本切换到 0.9.13。
 杀死2000端口的CarlaUE4.exe进程，重新启动（通过ros来实现从Town10切换到Town03地图）。</p>
-<ul>
-<li>AttributeError: module 'numpy' has no attribute 'bool'.
-报错信息：
-<div class="highlight"><pre><span></span><code><span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;/home/user/.local/lib/python3.8/site-packages/numpy/__init__.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">305</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>__getattr__
+</li>
+<li>
+<p>AttributeError: module 'numpy' has no attribute 'bool'.
+    报错信息：
+    <div class="highlight"><pre><span></span><code><span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;/home/user/.local/lib/python3.8/site-packages/numpy/__init__.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">305</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>__getattr__
 <span class="w">    </span>raise<span class="w"> </span>AttributeError<span class="o">(</span>__former_attrs__<span class="o">[</span>attr<span class="o">])</span>
 AttributeError:<span class="w"> </span>module<span class="w"> </span><span class="s1">&#39;numpy&#39;</span><span class="w"> </span>has<span class="w"> </span>no<span class="w"> </span>attribute<span class="w"> </span><span class="s1">&#39;bool&#39;</span>.
-</code></pre></div></li>
-</ul>
+</code></pre></div></p>
 <p>原因：原来的numpy版本为 1.24.4</p>
 <p>解决：
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">numpy</span><span class="o">==</span><span class="m">1</span>.23.1
 </code></pre></div></p>
+</li>
+</ul>
+<h2 id="_2">参考</h2>
+<ul>
+<li><a href="https://ww2.mathworks.cn/help/ros/ug/set-up-and-connect-to-carla-simulator.html">Set Up and Connect to CARLA Simulator</a></li>
+</ul>
               
             </div>
           </div><footer>
