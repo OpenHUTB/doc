@@ -3,7 +3,6 @@ Extract code blocks from markdown files
 """
 import re
 from typing import TextIO, Callable
-import subprocess
 import os
 
 
@@ -11,9 +10,6 @@ class RunMethods:
     """Functions that receive a block of code and "run" it somehow"""
 
     EXECUTE = lambda block: exec(block)
-
-    def SUBPROCESS(cmd: list[str] = ["python", "-c"]) -> Callable[[str], None]:
-        return lambda block: subprocess.run([*cmd, block], check=True)
 
 
 def run_code_from_markdown_blocks(
