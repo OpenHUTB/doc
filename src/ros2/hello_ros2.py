@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
+# 需要 Python>=3.10
 pip install rclpy-intellisense
-pip install rcl_interfaces
+# pip install rcl_interfaces
 @说明: ROS2节点示例-发布“Hello World”日志信息, 使用面向过程的实现方式
 """
 
