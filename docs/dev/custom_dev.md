@@ -133,6 +133,10 @@ git push hutb
 
 ## 其他 <span id="others"></span>
 
+##### 查看 Carla 社区编译所使用的软件版本
+
+编译日志来源位于[action 页面下](https://github.com/carla-simulator/carla/actions/runs/28805314315/job/85419192850)，查看Carla社区是用什么版本软件编译通过的。
+
 ##### [获取公众号的主页链接](https://www.zhihu.com/question/51987041/answer/3059575358)
 
 1. 复制文章的链接，在电脑端浏览器打开。
