@@ -102,9 +102,10 @@
               
                 <h1 id="_1"><a href="https://carla.readthedocs.io/en/latest/ref_sensors/">传感器参考</a></h1>
 <ul>
+<li><a href="./"><strong>地面传感器</strong></a><ul>
 <li><a href="#collision-detector"><strong>碰撞检测器</strong></a></li>
 <li><a href="#depth-camera"><strong>深度相机</strong></a></li>
-<li><a href="#gnss-sensor"><strong>全球导航卫星系统传感器</strong></a></li>
+<li><a href="#gnss-sensor"><strong>全球导航卫星系统传感器 (GNSS)</strong></a></li>
 <li><a href="#imu-sensor"><strong>惯性测量单元传感器</strong></a></li>
 <li><a href="#lane-invasion-detector"><strong>压线检测器</strong></a></li>
 <li><a href="#lidar-sensor"><strong>激光雷达传感器</strong></a></li>
@@ -119,22 +120,48 @@
 <li><a href="#instance-segmentation-camera"><strong>实例分割相机</strong></a></li>
 <li><a href="#dvs-camera"><strong>动态视觉传感器相机</strong></a></li>
 <li><a href="#optical-flow-camera"><strong>光流相机</strong></a></li>
-<li><a href="#v2x-sensor"><strong>V2X 传感器</strong></a><ul>
-<li><a href="#cooperative-awareness-message">协同感知</a></li>
-<li><a href="#custom-v2x-message">自定义消息</a></li>
-</ul>
-</li>
+<li><a href="#v2x-sensor"><strong>V2X 传感器</strong></a></li>
 <li><a href="#surface-normal-lidar-sensor"><strong>带表面法线的激光雷达传感器</strong></a></li>
 <li><a href="#ego_sensor"><strong>VR 驾驶的自我传感器</strong></a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>Air 传感器</strong></a><ul>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">相机</a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">气压计</a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">IMU</a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">GPS</a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">磁力计</a></li>
-<li><a href="https://openhutb.github.io/air_doc/sensors/">距离传感器</a></li>
-<li><a href="https://openhutb.github.io/air_doc/lidar/">激光雷达</a></li>
-<li><a href="https://openhutb.github.io/air_doc/InfraredCamera/">热红外相机</a></li>
+</ul>
+</li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>空域传感器</strong></a><ul>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>相机</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>气压计</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>IMU</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>全球定位系统 (GPS)</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>磁力计</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/sensors/"><strong>距离传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/lidar/"><strong>激光雷达</strong></a></li>
+<li><a href="https://openhutb.github.io/air_doc/InfraredCamera/"><strong>热红外相机</strong></a></li>
+</ul>
+</li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/sensors/"><strong>水域传感器</strong></a><ul>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/singlebeam_sonar_sensor/"><strong>单波束声呐</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/sidescan_sonar_sensor/"><strong>侧扫声呐</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/imaging_sonar_sensor/"><strong>成像声呐</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/profiling_sonar_sensor/"><strong>剖面声呐</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/dvl_sensor/"><strong>多普勒测速仪 (DVL)</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/depth_sensor/"><strong>深度传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/rgb_camera_sensor/"><strong>RGB 摄像机</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/camera_sensor/"><strong>摄像机</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/semantic_segmentation_camera_sensor/"><strong>语义分割相机</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/imu_sensor/"><strong>惯性测量单元 (IMU)</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/gps_sensor/"><strong>全球定位系统 (GPS)</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/magnetometer_sensor/"><strong>磁力计</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/range_finder_sensor/"><strong>测距传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/raycast_lidar_sensor/"><strong>Raycast激光雷达</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/raycast_semantic_lidar_sensor/"><strong>Raycast语义激光雷达传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/bst_sensor/"><strong>生物量、盐度和温度（BST）传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/acoustic_beacon_sensor/"><strong>声学信标</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/optical_modem_sensor/"><strong>光调制解调器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/viewport_capture_sensor/"><strong>视窗传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/location_sensor/"><strong>位置传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/rotation_sensor/"><strong>旋转传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/orientation_sensor/"><strong>朝向传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/pose_sensor/"><strong>姿态传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/velocity_sensor/"><strong>速度传感器</strong></a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/sensors/dynamics_sensor/"><strong>动力学传感器</strong></a></li>
 </ul>
 </li>
 </ul>
