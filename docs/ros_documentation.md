@@ -18,6 +18,8 @@ ROS 桥具有以下特点：
 - [__通过虚拟机设置并连接到 Carla 仿真器__](https://openhutb.github.io/ros2/set_up_and_connect_to_carla/)
 - [__为 ROS 1 安装 ROS 桥__](ros_installation_ros1.md)
 - [__为 ROS 2 安装 ROS 桥__](ros_installation_ros2.md)
+- [__向 Carla 添加新的 ROS 2 消息类型__](./ros2/adding_message_types.md)
+
 
 ---
 
