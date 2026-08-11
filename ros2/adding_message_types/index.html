@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>向 Carla 添加新的 ROS 2 消息类型 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5411 Carla \u6dfb\u52a0\u65b0\u7684 ROS 2 \u6d88\u606f\u7c7b\u578b";
+        var mkdocs_page_input_path = "ros2/adding_message_types.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">载具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">无人车</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/air_doc/dev/Carla_Air/">无人机</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/mujoco_plugin/underwater/">潜水器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">向 Carla 添加新的 ROS 2 消息类型</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ros2/adding_message_types.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="carla-ros-2">向 Carla 添加新的 ROS 2 消息类型</h1>
+<p>Carla 使用 Fast-CDR（Common Data Representation）将手写的 C++ POD （Plain Old Data）结构体直接序列化到 CDR 字节缓冲区，从而发布 ROS 2 数据。构建时没有 IDL（Interface Definition Language）编译器或代码生成步骤。因此，支持新的消息类型需要手动完成 7 个步骤。本指南将逐步介绍每个步骤。</p>
+<h2 id="_1">前提条件</h2>
+<ul>
+<li>已安装并运行 Docker（仅在步骤 <a href="#step_4">4</a> 中需要）。</li>
+<li>要添加的类型的 <code>.msg</code> 文件。标准的 ROS 2 类型（例如 <code>sensor_msgs/msg/NavSatFix</code>）在任何 ROS 2 安装中都已存在。如果您要定义新的 <code>carla_msgs</code> 类型，请先编写它（参见步骤 <a href="#step_1">1</a>）。 </li>
+</ul>
+<hr />
+<h2 id="1-msg-ros-2">步骤 1 - 编写 <code>.msg</code> 文件（标准 ROS 2 类型可跳过此步骤） <span id='step_1'></span></h2>
+<p>如果该类型已存在于标准 ROS 2 包中，请跳过此步骤，并在步骤 <a href="#step_4">4</a> 中使用现有的 <code>.msg</code> 文件。</p>
+<p>对于新的 <code>carla_msgs</code> 类型，请按照 <a href="https://design.ros2.org/articles/legacy_interface_definition.html">ROS 2 接口定义格式</a> 创建 <code>.msg</code> 文件。每行要么是字段声明，要么是注释（<code># ...</code>）：</p>
+<div class="highlight"><pre><span></span><code># carla_msgs/msg/CarlaSpeedometer.msg
+std_msgs/Header header
+float32 speed   # m/s
+</code></pre></div>
+<p>嵌套类型的字段类型名称使用 <code>pkg_name/TypeName</code>（字段行本身不包含 <code>msg/</code>）。支持的基本类型：<code>bool</code>、<code>int8</code>、<code>uint8</code>、<code>int16</code>、<code>uint16</code>、<code>int32</code>、<code>uint32</code>、<code>int64</code>、<code>uint64</code>、<code>float32</code>、<code>float64</code>、<code>string</code>。固定数组使用 <code>type[N]</code>；无界序列使用 <code>type[]</code>。</p>
+<hr />
+<h2 id="2-c-pod">步骤 2 - 创建 C++ POD 结构体  <span id='step_2'></span></h2>
+<p>创建 <code>LibCarla/source/carla/ros2/types/msg/MyType.h</code> 文件。规则：</p>
+<ul>
+<li>该结构体位于命名空间 <code>namespace carla::ros2::msg</code> 中。</li>
+<li>仅包含 <code>&lt;array&gt;</code>、<code>&lt;vector&gt;</code>、<code>&lt;string&gt;</code>、<code>&lt;cstdint&gt;</code> 以及同级的 <code>msg/*.h</code> 头文件 - 不包含 DDS 或 Fast-CDR。</li>
+<li>将基本类型字段初始化为零，使用 <code>= 0</code> 或 <code>= 0.0</code>。 </li>
+<li>对于固定长度数组，使用 <code>std::array&lt;T, N&gt;</code>；对于无界序列，使用 <code>std::vector&lt;T&gt;</code>。</li>
+<li>按值嵌套其他消息类型。</li>
+</ul>
+<p><strong>叶子类型</strong>（所有字段均为基本类型）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// LibCarla/source/carla/ros2/types/msg/MyLeaf.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">carla</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ros2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">msg</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyLeaf</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}}}</span><span class="w"> </span><span class="c1">// namespace carla::ros2::msg</span>
+</code></pre></div>
+<p><strong>复合类型</strong>（嵌套消息、固定数组、字符串）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// LibCarla/source/carla/ros2/types/msg/MyComposite.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/Header.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/Vector3.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">carla</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ros2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">msg</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyComposite</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">frame_id</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Vector3</span><span class="w"> </span><span class="n">velocity</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w">   </span><span class="c1">// 固定的 3x3 矩阵</span>
+<span class="p">};</span>
+
+<span class="p">}}}</span><span class="w"> </span><span class="c1">// namespace carla::ros2::msg</span>
+</code></pre></div>
+<p><strong>序列类型</strong>（可变长度向量）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// LibCarla/source/carla/ros2/types/msg/MyList.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/SomeElement.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">carla</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ros2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">msg</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyList</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SomeElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">items</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}}}</span><span class="w"> </span><span class="c1">// namespace carla::ros2::msg</span>
+</code></pre></div>
+<h3 id="msg-pod">并排示例：<code>.msg</code> 到 POD</h3>
+<p>将 <code>sensor_msgs/msg/Imu.msg</code> 完全转换为等效的 POD 结构体。每个 <code>.msg</code> 行都按顺序映射到一个 C++ 字段；嵌套类型解析为相应的 <code>msg::*</code> 结构体并通过头文件包含。</p>
+<p><code>sensor_msgs/msg/Imu.msg</code>:</p>
+<div class="highlight"><pre><span></span><code># sensor_msgs/msg/Imu.msg
+std_msgs/Header header
+geometry_msgs/Quaternion orientation
+float64[9] orientation_covariance
+geometry_msgs/Vector3 angular_velocity
+float64[9] angular_velocity_covariance
+geometry_msgs/Vector3 linear_acceleration
+float64[9] linear_acceleration_covariance
+</code></pre></div>
+<p><code>LibCarla/source/carla/ros2/types/msg/Imu.h</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// LibCarla/source/carla/ros2/types/msg/Imu.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/Header.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/Quaternion.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;carla/ros2/types/msg/Vector3.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">carla</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ros2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">msg</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Imu</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Quaternion</span><span class="w"> </span><span class="n">orientation</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orientation_covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="n">Vector3</span><span class="w"> </span><span class="n">angular_velocity</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">angular_velocity_covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="n">Vector3</span><span class="w"> </span><span class="n">linear_acceleration</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">linear_acceleration_covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">};</span>
+
+<span class="p">}}}</span><span class="w"> </span><span class="c1">// namespace carla::ros2::msg</span>
+</code></pre></div>
+<p>上述映射规则：</p>
+<table>
+<thead>
+<tr>
+<th><code>.msg</code> 标记</th>
+<th>C++ 字段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std_msgs/Header header</code></td>
+<td><code>Header header;</code> （按值嵌套）</td>
+</tr>
+<tr>
+<td><code>geometry_msgs/Quaternion q</code></td>
+<td><code>Quaternion q;</code> （按值嵌套）</td>
+</tr>
+<tr>
+<td><code>float64[9] covariance</code></td>
+<td><code>std::array&lt;double, 9&gt; covariance = {};</code></td>
+</tr>
+<tr>
+<td><code>float64 x</code></td>
+<td><code>double x = 0.0;</code></td>
+</tr>
+<tr>
+<td><code>string frame_id</code></td>
+<td><code>std::string frame_id;</code></td>
+</tr>
+<tr>
+<td><code>type[] items</code></td>
+<td><code>std::vector&lt;type&gt; items;</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><code>type_name()</code> 函数（步骤 <a href="#step_5">5</a>）中的 <code>dds_::Imu_</code> 类型修饰以及 DDS 线格式均通过 Fast-CDR 从此 POD 布局自动派生；无需维护单独的 IDL 定义。</p>
+</div>
+<hr />
+<h2 id="3-cdr">步骤 3 - 注册 CDR 序列化  <span id='step_3'></span></h2>
+<p>打开 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/LibCarla/source/carla/ros2/types/CdrSerialization.h">LibCarla/source/carla/ros2/types/CdrSerialization.h</a> 文件并添加：</p>
+<ol>
+<li>在文件顶部添加一个包含新头文件的 <code>#include</code> 语句。</li>
+<li>添加一个 <code>serialize_cdr</code> / <code>deserialize_cdr</code> 重载对。</li>
+</ol>
+<p><strong>放置位置</strong>：将重载添加到结构体所依赖的任何类型的重载之后（文件按依赖程度从低到高排序，以避免前向声明）。</p>
+<p><strong>叶子类型示例</strong>（仅限基本类型 - 使用 <code>cdr &lt;&lt;</code> / <code>cdr &gt;&gt;</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyLeaf</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">speed</span><span class="p">;</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deserialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyLeaf</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">speed</span><span class="p">;</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>复合类型示例</strong>（嵌套类型调用它们自己的重载；字符串和 <code>std::array</code> 通过 <code>cdr &lt;&lt;</code> 直接序列化）：</p>
+<div class="highlight"><pre><span></span><code><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyComposite</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">serialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">header</span><span class="p">);</span><span class="w">   </span><span class="c1">// 嵌套消息（msg::）类型</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">frame_id</span><span class="p">;</span><span class="w">              </span><span class="c1">// std::string</span>
+<span class="w">  </span><span class="n">serialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">velocity</span><span class="p">);</span><span class="w"> </span><span class="c1">// 嵌套消息（msg::）类型</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">covariance</span><span class="p">;</span><span class="w">            </span><span class="c1">// std::array&lt;double, 9&gt;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deserialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyComposite</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">deserialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">header</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">frame_id</span><span class="p">;</span>
+<span class="w">  </span><span class="n">deserialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">velocity</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">covariance</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>序列示例</strong>（<code>std::vector</code> 结构体 - 手动写入长度）：</p>
+<div class="highlight"><pre><span></span><code><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 根据 DDS-XTypes 1.3 条款 7.4.1.1，CDR 序列长度为 uint32_t</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">serialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deserialize_cdr</span><span class="p">(</span>
+<span class="w">    </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">Cdr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="o">::</span><span class="n">MyList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">n</span><span class="p">{</span><span class="mi">0u</span><span class="p">};</span>
+<span class="w">  </span><span class="n">cdr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">kMaxCdrSequenceElements</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">eprosima</span><span class="o">::</span><span class="n">fastcdr</span><span class="o">::</span><span class="n">exception</span><span class="o">::</span><span class="n">BadParamException</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;MyList::items length exceeds sane CDR sequence cap&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">m</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">deserialize_cdr</span><span class="p">(</span><span class="n">cdr</span><span class="p">,</span><span class="w"> </span><span class="n">item</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>对于 <code>std::vector&lt;uint8_t&gt;</code>（字节数组，例如 <code>Image::data</code>），FastCDR 会自动处理长度前缀，只需使用 <code>cdr &lt;&lt; m.data</code> 即可，无需手动循环。</p>
+<hr />
+<h2 id="4-rihs01">步骤 4 - 计算 RIHS01 类型哈希  <span id='step_4'></span></h2>
+<p>ROS 2 Iron 及更高版本会在两个节点相互发现时检查 DDS <code>USER_DATA</code> QoS 字段中的类型哈希。如果哈希不存在，则每个端点都会记录：</p>
+<div class="highlight"><pre><span></span><code>[WARN] [rmw_cyclonedds_cpp]: Failed to parse type hash for topic &#39;rt/...&#39;
+</code></pre></div>
+<p>Carla 会在每种消息类型的 <code>CdrTopicInfo&lt;T&gt;::type_hash()</code> 函数中嵌入一个硬编码的 RIHS01 哈希值。使用 <code>Util/ros2/compute_type_hash.sh</code> 脚本可以获取特定类型的正确哈希值。此脚本仅需 Docker 容器，无需本地安装 ROS 2。</p>
+<p><strong>标准 ROS 2 类型</strong>（<code>.msg</code> 文件已安装在容器内）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 首先从容器中提取 Imu.msg，然后进行计算：</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>osrf/ros:jazzy-desktop<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cat<span class="w"> </span>/opt/ros/jazzy/share/sensor_msgs/msg/Imu.msg<span class="w"> </span>&gt;<span class="w"> </span>/tmp/Imu.msg
+
+Util/ros2/compute_type_hash.sh<span class="w"> </span>sensor_msgs/msg/Imu<span class="w"> </span>/tmp/Imu.msg
+<span class="c1"># 输出: RIHS01_7d9a00ff...</span>
+</code></pre></div>
+<p><strong>新增 <code>carla_msgs</code> 类型</strong>（请提供您自己的 <code>.msg</code> 文件）：</p>
+<div class="highlight"><pre><span></span><code>Util/ros2/compute_type_hash.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>carla_msgs/msg/CarlaSpeedometer<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/path/to/carla_msgs/msg/CarlaSpeedometer.msg
+<span class="c1"># 输出: RIHS01_&lt;64 hex chars&gt;</span>
+</code></pre></div>
+<p>该脚本向标准输出打印一行：</p>
+<div class="highlight"><pre><span></span><code>RIHS01_&lt;64 lowercase hex digits&gt;
+</code></pre></div>
+<p>将此值粘贴到步骤 <a href="#step_5">5</a> 中的 <code>CdrTopicInfo.h</code> 文件中。</p>
+<div class="admonition 故障排除">
+<p class="admonition-title">故障排除</p>
+<p>如果在 Docker 中构建 colcon（<code>colcon build</code>）失败，最常见的原因是缺少 <code>.msg</code> 依赖项，而该依赖项不在标准的 <code>jazzy</code> 安装包中。请将缺失的软件包添加到 <code>rosidl_generate_interfaces</code> 工作区，或者，对于最新版本的软件包，请切换到更新的 <code>osrf/ros</code> 标签。</p>
+</div>
+<hr />
+<h2 id="5-cdrtopicinfoh">步骤 5 - 在 <code>CdrTopicInfo.h</code> 中注册  <span id='step_5'></span></h2>
+<p>向 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/LibCarla/source/carla/ros2/types/CdrTopicInfo.h">LibCarla/source/carla/ros2/types/CdrTopicInfo.h</a> 添加一个特化（specialization）：</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">CdrTopicInfo</span><span class="o">&lt;</span><span class="n">msg</span><span class="o">::</span><span class="n">MyComposite</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">type_name</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// DDS 名称混淆：&lt;package&gt;::msg::dds_::&lt;TypeName&gt;_</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;my_pkg::msg::dds_::MyComposite_&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">type_hash</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;RIHS01_&lt;hash from Step 4&gt;&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">max_serialized_size</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="n">byte</span><span class="w"> </span><span class="n">count</span><span class="o">&gt;</span><span class="n">u</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>此外，请在 <code>CdrTopicInfo.h</code> 文件顶部添加新头文件的 <code>#include</code> 指令。</p>
+<p><strong><code>type_name()</code>:</strong> 遵循 ROS 2 RMW 使用的 DDS 名称混淆约定：<code>&lt;package&gt;::msg::dds_::&lt;TypeName&gt;_</code>（注意末尾的下划线）。</p>
+<p><strong><code>type_hash()</code>:</strong> REP-2011 类型哈希值，由所有写入器和读取器在 <code>USER_DATA</code> QoS 字段中发布（REP-2016 有效载荷 <code>typehash=RIHS01_&lt;hex&gt;;</code>）。对等 ROS 2 RMW 在发现过程中读取此哈希值，以执行基于类型哈希值的端点匹配，并且在 Jazzy 及更高版本中，用于抑制<code>Failed to parse type hash for topic ...</code>警告。</p>
+<p>粘贴步骤 <a href="#step_4">4</a> 中的  <code>RIHS01_...</code> 字符串。哈希值是按消息定义固定的；如果 <code>.msg</code> 定义发生更改，请更新它。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 典型案例：固定根据 .msg 定义计算出的哈希值</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">type_hash</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;RIHS01_7d9a00ff...&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// “RIHS01_”之后的64个十六进制字符</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>仅当无法为该类型计算规范哈希值时（例如，没有对应 <code>.msg</code> 文件的自定义有效负载），才返回 <code>nullptr</code>。此时，中间件会为该端点发出一个空的 <code>USER_DATA</code> 有效负载；对等方会在 Jazzy 日志中记录缺失类型哈希值的警告，但连接仍然会建立。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 备用方案：此类型不存在规范的 .msg 文件</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">type_hash</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong><code>max_serialized_size()</code>:</strong> 预分配内存大小的提示（以字节为单位），不包括 4 字节的 DDS 封装头。对于固定长度类型，将所有字段的字节大小相加。对于可变长度类型，选择一个合理的上限值。这只是一个提示；实际有效载荷的大小是动态确定的。</p>
+<p>快速大小调整指南：</p>
+<ul>
+<li><code>bool</code>, <code>uint8</code>, <code>int8</code>: 1 字节</li>
+<li><code>uint16</code>, <code>int16</code>: 2 字节</li>
+<li><code>uint32</code>, <code>int32</code>, <code>float32</code>: 4 字节</li>
+<li><code>uint64</code>, <code>int64</code>, <code>float64</code>, <code>double</code>: 8 字节</li>
+<li><code>std::string</code>: 4（长度）+ 容量估计值（字节）</li>
+<li><code>std::array&lt;double, 9&gt;</code>: 72 字节</li>
+<li>嵌套结构体：递归地对其字段求和</li>
+</ul>
+<hr />
+<h2 id="6-">步骤 6 - 添加测试  <span id='step_6'></span></h2>
+<p>打开 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/LibCarla/source/test/server">LibCarla/source/test/server/test_type_hash.cpp</a> 文件并添加：</p>
+<ol>
+<li>在 <code>TEST(TypeHash, FormatAllTypes)</code> 函数内添加一个 <code>CHECK_HASH(MyComposite)</code> 调用。 </li>
+<li>在 <code>TEST(TypeHash, UniqueAcrossAllTypes)</code> 函数内，在哈希向量中添加一个 <code>CdrTopicInfo&lt;msg::MyComposite&gt;::type_hash()</code> 条目。</li>
+</ol>
+<p>这两个测试验证哈希字符串是否符合 <code>RIHS01_&lt;64 hex&gt;</code> 格式，并且在所有已注册的类型中是唯一的。</p>
+<hr />
+<h2 id="7-">步骤 7 - 构建并验证  <span id='step_7'></span></h2>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>carla-development-ue4-20.04<span class="w"> </span>make<span class="w"> </span>LibCarla<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">&quot;--ros2&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>carla-development-ue4-20.04<span class="w"> </span>make<span class="w"> </span>check.LibCarla
+</code></pre></div>
+<p>所有测试必须通过。如果哈希值格式错误或重复，新的 <code>CHECK_HASH</code> 条目将失败。</p>
+<hr />
+<h2 id="_2">常见问题解答</h2>
+<ul>
+<li><strong>为什么哈希值是硬编码的？</strong></li>
+</ul>
+<p>Carla 在构建时没有运行 IDL 编译器（<code>rosidl</code>、<code>idlc</code>）。正确计算 RIHS01 哈希值需要 <code>rosidl_generator_type_description</code>，而该编译器只能在 ROS 2 构建环境中运行。从一次性 Docker 构建中硬编码值是零依赖且正确的，因为标准消息定义在每个发行版中都是稳定的。</p>
+<ul>
+<li><strong>Humble 和 Jazzy 上的哈希值相同吗？</strong></li>
+</ul>
+<p>是的，对于两个发行版之间定义未更改的任何消息（<code>std_msgs</code>、<code>geometry_msgs</code>、<code>sensor_msgs</code>、<code>nav_msgs</code>、<code>builtin_interfaces</code>、<code>tf2_msgs</code>、<code>rosgraph_msgs</code>、<code>ackermann_msgs</code> 中的所有消息），哈希值相同。在 Jazzy 上计算哈希值，它在 Humble 上也会匹配。</p>
+<ul>
+<li><strong>什么是网络传输格式？</strong></li>
+</ul>
+<p>经典 CDR，编码版本 1，小端序 (CDR_LE)。定义于：</p>
+<ul>
+<li>OMG DDSI-RTPS v2.5 第 10 节（封装头）</li>
+<li>DDS-XTypes 1.3 第 7.4.1.1 条（序列/字符串编码）</li>
+<li><a href="https://ros.org/reps/rep-2011.html">REP-2011</a> (RIHS01 哈希算法)</li>
+<li><a href="https://ros.org/reps/rep-2016.html">REP-2016</a> (USER_DATA 键值格式)</li>
+</ul>
+<hr />
+<h2 id="_3">参考资料</h2>
+<ul>
+<li><a href="https://www.omg.org/spec/DDSI-RTPS/2.5/PDF">OMG DDSI-RTPS v2.5 规范（PDF）</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2777080357724781"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
