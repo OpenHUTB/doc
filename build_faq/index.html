@@ -300,6 +300,38 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="boost">启动虚幻编辑器时候报boost里的变量找不到的错：</h6>
+<p><div class="highlight"><pre><span></span><code>Unreal<span class="se">\C</span>arlaUE4<span class="se">\P</span>lugins<span class="se">\C</span>arla<span class="se">\C</span>arlaDependencies<span class="se">\i</span>nclude<span class="se">\b</span>oost/asio/detail/impl/winsock_init.ipp<span class="o">(</span><span class="m">36</span><span class="o">)</span>:<span class="w"> </span>error<span class="w"> </span>C2039:<span class="w"> </span><span class="s2">&quot;InterlockedIncrement&quot;</span>:
+大模型提示说是<span class="w"> </span>UE4<span class="w"> </span>把<span class="w"> </span>InterlockedIncrement<span class="w"> </span>等宏<span class="w"> </span>define<span class="w"> </span>成了自己封装的版本；第三方库（boost、rpclib<span class="w"> </span>等）也用这些名字，两者冲突会导致编译错误。
+</code></pre></div>
+<a href="https://github.com/louiszengCN/CarlaAir/issues/14#issuecomment-4260028832">解决</a>：</p>
+<p>本质上确实是UE4的Windows宏环境和Boost.Asio冲突，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号</p>
+<p>可以尝试以下几种方法：</p>
+<ul>
+<li>把'MapPreviewUserWidget.h'改成和'OpenDriveToMap.h'一样的模式：
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compiler/disable-ue4-macros.h&gt;</span>
+<span class="n">THIRD_PARTY_INCLUDES_START</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/asio.hpp&gt;</span>
+<span class="n">THIRD_PARTY_INCLUDES_END</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compiler/enable-ue4-macros.h&gt;</span>
+</code></pre></div></li>
+<li>
+<p>全仓再搜一遍 UE 模块里是否还有直接<code>#include &lt;boost/asio...&gt;</code>或其他Boost/Windows敏感头没有包桥接</p>
+</li>
+<li>
+<p>保持<code>CarlaTools.Build.cs</code>里的 <code>ASIO_NO_EXCEPTIONS</code> / <code>BOOST_NO_EXCEPTIONS</code> / 'LIBCARLA_NO_EXCEPTIONS'定义不变</p>
+</li>
+<li>
+<p>修改后清理一次 UE 构建缓存并重新生成工程文件，再重新编译，避免 UBT 继续吃旧中间产物
+建议至少清掉：</p>
+<ul>
+<li>'Unreal/CarlaUE4/Intermediate'</li>
+<li>'Unreal/CarlaUE4/Binaries'</li>
+<li>'Unreal/CarlaUE4/Plugins/CarlaTools/Intermediate'</li>
+<li>'Unreal/CarlaUE4/Plugins/CarlaTools/Binaries'</li>
+</ul>
+</li>
+</ul>
 <h6 id="_7">删除/新建虚拟环境报错：</h6>
 <div class="highlight"><pre><span></span><code><span class="c1"># 删除报错</span>
 WARNING<span class="w"> </span>conda.gateways.disk.delete:unlink_or_rename_to_trash<span class="o">(</span><span class="m">184</span><span class="o">)</span>:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>remove<span class="w"> </span>or<span class="w"> </span>rename<span class="w"> </span>C:<span class="se">\s</span>oftware<span class="se">\a</span>naconda3<span class="se">\e</span>nvs<span class="se">\h</span>utb_3.14<span class="se">\L</span>ibrary<span class="se">\b</span>in<span class="se">\f</span>fi.dll.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.<span class="w">  </span>Please<span class="w"> </span>remove<span class="w"> </span>this<span class="w"> </span>file<span class="w"> </span>manually<span class="w"> </span><span class="o">(</span>you<span class="w"> </span>may<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>reboot<span class="w"> </span>to<span class="w"> </span>free<span class="w"> </span>file<span class="w"> </span>handles<span class="o">)</span>
@@ -584,7 +616,7 @@ set PYTHON_VERSION=3.7
 <p>VS2019升级为2022</p>
 <div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Visual Studio 16 2022&quot;</span><span class="w"> </span>-A<span class="w"> </span>x64<span class="w">       </span>-DCMAKE_CXX_FLAGS_RELEASE<span class="o">=</span><span class="s2">&quot;/MD /MP&quot;</span><span class="w">         </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:/work/workspace/carla/Build/UE4Carla/hutb_editor/carla1/PythonAPI/carla/dependencies/&quot;</span><span class="w">         </span>-DPROJ_INCLUDE_DIR<span class="o">=</span>D:<span class="se">\w</span>ork<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\B</span>uild<span class="se">\U</span>E4Carla<span class="se">\h</span>utb_editor<span class="se">\c</span>arla1<span class="se">\B</span>uild<span class="se">\\</span>proj-install<span class="se">\i</span>nclude<span class="w">         </span>-DPROJ_LIBRARY<span class="o">=</span>D:<span class="se">\w</span>ork<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\B</span>uild<span class="se">\U</span>E4Carla<span class="se">\h</span>utb_editor<span class="se">\c</span>arla1<span class="se">\B</span>uild<span class="se">\\</span>proj-install<span class="se">\l</span>ib<span class="se">\p</span>roj.lib<span class="w">         </span>-DXercesC_INCLUDE_DIR<span class="o">=</span>D:<span class="se">\w</span>ork<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\B</span>uild<span class="se">\U</span>E4Carla<span class="se">\h</span>utb_editor<span class="se">\c</span>arla1<span class="se">\B</span>uild<span class="se">\\</span>xerces-c-3.2.3-install<span class="se">\i</span>nclude<span class="w">         </span>-DXercesC_LIBRARY<span class="o">=</span>D:<span class="se">\w</span>ork<span class="se">\w</span>orkspace<span class="se">\c</span>arla<span class="se">\B</span>uild<span class="se">\U</span>E4Carla<span class="se">\h</span>utb_editor<span class="se">\c</span>arla1<span class="se">\B</span>uild<span class="se">\\</span>xerces-c-3.2.3-install<span class="se">\l</span>ib<span class="se">\x</span>erces-c.lib<span class="w">         </span><span class="s2">&quot;D:\work\workspace\carla\Build\UE4Carla\hutb_editor\carla1\Build\osm2odr-source\&quot;</span>
 </code></pre></div>
-<h6 id="boost"><a href="https://github.com/boostorg/log/issues/113">boost报错</a></h6>
+<h6 id="boost_1"><a href="https://github.com/boostorg/log/issues/113">boost报错</a></h6>
 <p>报错信息：<code>carla1\LibCarla\source\carla\FileSystem.cpp(43,14): error C2039: "directory_iterator": 不是 "boost::filesystem" 的成员</code>，英文：<code>error C2039: 'directory_iterator': is not a member of 'boost::filesystem'</code></p>
 <p>解决：<a href="https://github.com/boostorg/log/pull/112">引入丢失的filesystem头文件</a> 。</p>
 <h6 id="make-nothing-to-be-done-for-check"><a href="">make: Nothing to be done for `check'.</a></h6>
