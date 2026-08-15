@@ -264,8 +264,8 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 | **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                                                                                                           |
 | [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                                                                                               |
 | [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                                                                                                        |
-| [__湖南工商大学__](./img/hutb/hutb_air.jpg)  | 基于湖南工商大学道路布局的地图（可执行场景位于 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。 |
-| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园（Changsha CEC Software Park, CCSP）道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`，资产位于`D:\model1\model1\tileset.json`）。                                                                                               |
+| [__湖南工商大学__](./img/hutb/hutb_air.jpg)  | 基于湖南工商大学道路布局的地图（可执行场景位于 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ，地图名为`HutbCity`）。 |
+| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园（Changsha CEC Software Park, CCSP）道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`，资产位于`D:\model1\model1\tileset.json`，地图名为`baidutest2test`）。                                                                                               |
 
 ![](./img/hutb/hutb_air.jpg)
 

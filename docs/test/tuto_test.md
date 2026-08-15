@@ -4,13 +4,16 @@ HUTB 的测试框架目前只支持 Ubuntu 平台，执行命令`make smoke_test
 
 测试命令：
 ```shell
+conda create -n nn_3.10 python=3.10 -y
 CarlaUE4.exe --carla-rpc-port=3654 --carla-streaming-port=0 -nosound
 conda activate hutb_3.10
 cd PythonAPI/test
+pip install -r requirements.txt
 # -m (module)：以模块运行
 # -v (verbose)：打印详细信息
 python -m nose2 -v smoke.test_spawnpoints.TestSpawnpoints
  >spawn.log
+python -m nose2 -v smoke.test_ros2.TestROS2
 ```
 
 所有地图：
