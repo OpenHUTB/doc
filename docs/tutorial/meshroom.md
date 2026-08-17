@@ -147,12 +147,22 @@
 - Blender  
 - Windows 3D 查看器  
 
-
+重建效果：
 ![重建结果](../img/model_preview.png)
+
+
+导入湖工商场景后的效果：
+
+![](../img/hutb/Einstein.jpg)
+
+![](../img/hutb/hutb_air.jpg)
+
 
 ## 使用方法
 
 - [下载 3D 模型](https://pan.quark.cn/s/9d989d5757d9)
+- [完整地图下载链接](../core_map.md#non-layered-maps)
+- [完整资产仓库链接](https://git.code.tencent.com/OpenHUTB/Content) - 获取所有地图资产仓库修改权限请发送邮件到 open@hutb.edu.cn
 - [基于摄影测量的三维重建详细教程](https://openhutb.github.io/3d/)
 
 

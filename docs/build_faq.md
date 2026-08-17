@@ -237,6 +237,11 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+
+###### fatal error C1083: compiler/disable-ue4-macros.h: No such file or directory
+
+原因： LibCarla没有成功安装到：hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies
+
 ###### 启动虚幻编辑器时候报boost里的变量找不到的错：
 ```shell
 Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\boost/asio/detail/impl/winsock_init.ipp(36): error C2039: "InterlockedIncrement":
@@ -244,13 +249,13 @@ Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\boost/asio/detail/impl/w
 ```
 [解决](https://github.com/louiszengCN/CarlaAir/issues/14#issuecomment-4260028832)：
 
-本质上确实是UE4的Windows宏环境和Boost.Asio冲突，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号
+本质上确实是 **UE4** 的 Windows 宏环境和 **Boost.Asio 冲突**，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号
 
 可以尝试以下几种方法：
 
 * 把'MapPreviewUserWidget.h'改成和'OpenDriveToMap.h'一样的模式：
 ```cpp
-#include <compiler/disable-ue4-macros.h>
+#include <compiler/disable-ue4-macros.h>  // 禁用 UE4 的宏，然后才能不冲突的使用 boost/asio 里的宏
 THIRD_PARTY_INCLUDES_START
 #include <boost/asio.hpp>
 THIRD_PARTY_INCLUDES_END

@@ -270,7 +270,7 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 ![](./img/hutb/hutb_air.jpg)
 
 !!! 注意
-	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。
+	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。[完整资产仓库链接](https://git.code.tencent.com/OpenHUTB/Content)，获取所有地图资产仓库修改权限请发送邮件到 open@hutb.edu.cn
 
 
 ### 分层地图 <span id="layered-maps"></span>
