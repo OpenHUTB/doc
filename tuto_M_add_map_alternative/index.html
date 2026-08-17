@@ -270,6 +270,10 @@
 </ul>
 <p>完成定制后，您可以 <a href="../tuto_M_generate_pedestrian_navigation/">生成行人导航信息</a> 。</p>
 <hr />
+<h2 id="carla">将地图包含在 Carla 打包版本中</h2>
+<p>如果您想在通过 <code>make package</code> 创建的 Carla 打包版本中使用创建的地图，则需要修改项目设置：</p>
+<p>依次进入“设置 --&gt; 项目设置... --&gt; 项目/打包 --&gt; 要包含在打包构建中的地图列表”，并将创建的地图路径添加到显示的数组中。此选项会修改 <code>DefaultGame.ini</code> 文件，并将创建的地图添加到要打包的地图列表中。</p>
+<hr />
 <p>建议使用 <a href="../tuto_M_add_map_package/">Carla 包</a> 和 <a href="../tuto_M_add_map_source/">Carla 源代码构建</a> 指南中详细介绍的自动化流程来导入地图，但是如果需要，可以使用本节中列出的方法。如果您在使用其他方法时遇到任何问题，请随时在论坛中发帖。</p>
               
             </div>

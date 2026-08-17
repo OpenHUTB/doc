@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Introduction - 开源孪创</title>
+    <title>Quickstart extras - 开源孪创</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Introduction";
-        var mkdocs_page_input_path = "introduction.md";
+        var mkdocs_page_name = "Quickstart extras";
+        var mkdocs_page_input_path = "ext_quickstart.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -90,9 +90,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">Quickstart extras</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/introduction.md"> 编辑页面</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ext_quickstart.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -100,38 +100,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p><strong>入门示例</strong></p>
-<ol>
-<li>
-<p>下载 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的 software/hutb/hutb_car_vr_air_mujoco.zip，解压运行 CarlaUE4.exe 启动场景，按 W、S、A、D 键进行场景浏览；</p>
-</li>
-<li>
-<p>安装特定 Python 版本的功能包：<code>pip install PythonAPI/carla/dist/hutb-*.whl</code>（或者使用<code>pip install hutb</code> 安装 ），然后运行 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples">PythonAPI/examples</a> 中的脚本（如果运行报错，请参考 <a href="../faq/use_faq/">解决方法</a>）：</p>
+                <h1 id="quickstart-extras">Quickstart extras</h1>
+<p>The following sections contain additional options and details for installing and running a packaged version of the CARLA simulator.</p>
 <ul>
-<li>运行 <code>python manual_control.py  --filter walker.pedestrian.*</code> 生成键盘控制的人，运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py">manual_control.py</a> 生成一辆键盘控制的车</li>
-<li>运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 生成人车流</li>
-<li><a href="../ue/switch_mode/">切换</a> 到 <a href="../interbehavior/">VR 模式</a> ：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/util/config.py">config.py</a> --map Town10HD?GAME=VR ；切换到 <a href="https://openhutb.github.io/air_doc/">无人机模式</a> ：<code>config.py --map Town10HD?GAME=AIR</code></li>
+<li><strong><a href="#command-line-options">Command-line options</a></strong>  </li>
+<li><strong><a href="#config-script">Config script</a></strong></li>
+<li><strong><a href="#import-additional-assets">Import additional assets</a></strong>  </li>
+</ul>
+<hr />
+<h2 id="command-line-options">Command-line options</h2>
+<p>There are some configuration options available when launching CARLA and they can be used as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>./CarlaUE4.sh<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">3000</span>
+</code></pre></div>
+<ul>
+<li><code>--ros2</code> - Launch CARLA with the native ROS2 connector enabled</li>
+<li><code>--rmw=&lt;middleware&gt;</code> - Select the ROS2 middleware (RMW) used by the native connector. Accepted values: <code>fastdds</code>, <code>cyclonedds</code>, <code>zenoh</code>. Default: <code>fastdds</code>. Only valid together with <code>--ros2</code>. CycloneDDS and Zenoh are Linux only; on Windows only <code>fastdds</code> is supported.</li>
+<li><code>-carla-rpc-port=N</code> - Listen for client connections at port <code>N</code>. Streaming port is set to <code>N+1</code> by default.  </li>
+<li><code>-carla-streaming-port=N</code> - Specify the port for sensor data streaming. Use 0 to get a random unused port. The second port will be automatically set to <code>N+1</code>.  </li>
+<li><code>-quality-level={Low,Epic}</code> - Change graphics quality level. Find out more in <a href="../adv_rendering_options/">rendering options</a>.  </li>
+<li><strong><a href="https://docs.unrealengine.com/en-US/Programming/Basics/CommandLineArguments">List of Unreal Engine 4 command-line arguments</a>.</strong> - There are a lot of options provided by Unreal Engine however not all of these are available in CARLA.  </li>
+</ul>
+<hr />
+<h2 id="config-script">Config script</h2>
+<p>The script <a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/util/config.py"><code>PythonAPI/util/config.py</code></a> provides more configuration options and should be run when the server has been started:</p>
+<div class="highlight"><pre><span></span><code>./config.py<span class="w"> </span>--no-rendering<span class="w">      </span><span class="c1"># Disable rendering</span>
+./config.py<span class="w"> </span>--map<span class="w"> </span>Town05<span class="w">        </span><span class="c1"># Change map</span>
+./config.py<span class="w"> </span>--weather<span class="w"> </span>ClearNoon<span class="w"> </span><span class="c1"># Change weather</span>
+
+./config.py<span class="w"> </span>--help<span class="w"> </span><span class="c1"># Check all the available configuration options</span>
+</code></pre></div>
+<hr />
+<h2 id="import-additional-assets">Import additional assets</h2>
+<p>Each release has its own additional package of extra assets and maps. These are stored separately to reduce the size of the build, so they can only be imported after the main package has been installed. </p>
+<p><strong>1.</strong> <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">Download</a> the appropriate package for your desired version of CARLA.</p>
+<p><strong>2.</strong> Import the assets:</p>
+<ul>
+<li><strong>On Linux</strong>:
+Move the compressed archive to the <em>Import</em> folder and run the following script to extract the contents:  </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>path/to/carla/root
+
+./ImportAssets.sh
+</code></pre></div>
+<ul>
+<li>
+<p><strong>On Windows</strong>:</p>
+<ul>
+<li>Extract the contents directly in the root folder. </li>
 </ul>
 </li>
-</ol>
-<h3 id="_1">基础 <span id="primary"></span></h3>
-<p><a href="../start_introduction/"><strong>介绍</strong></a> — 对 OpenHUTB 的期望</p>
-<p><a href="../start_quickstart/"><strong>快速启动</strong></a> — 获取 OpenHUTB 版本</p>
-<p><a href="../tuto_first_steps/"><strong>第一步</strong></a> — 开始进行 OpenHUTB 操作，介绍最重要的概念</p>
-<p><a href="../tuto_E_gallery/"><strong>示例</strong></a> — OpenHUTB 经典示例</p>
-<p><a href="../tutorials/"><strong>教程</strong></a> — OpenHUTB 详细教程</p>
-<!-- ## 主题 -->
-
-<p><a href="../foundations/"><strong>基础</strong></a> — OpenHUTB 服务器和客户端进行操作和通信所需的基本概念</p>
-<p><a href="../core_world/"><strong>第一、 世界和客户端</strong></a> — 管理和访问模拟</p>
-<p><a href="../core_actors/"><strong>第二、 参与者和蓝图</strong></a> — 了解参与者以及如何处理它们</p>
-<p><a href="../core_map/"><strong>第三、地图和导航</strong></a> — 发现不同的地图以及车辆如何移动</p>
-<p><a href="../core_sensors/"><strong>第四、传感器和数据</strong></a> — 使用传感器检索模拟数据</p>
-<p><a href="../tuto_G_retrieve_data/"><strong>检索模拟数据</strong></a> — 使用记录器正确收集数据的分步指南</p>
-<p><a href="../tuto_G_bounding_boxes/"><strong>边界框</strong></a> — 将 OpenHUTB 对象的边界框投影到相机中</p>
-<p><a href="../ext_quickstart/"><strong>快速入门附加项</strong></a> — 包含安装和运行 OpenHUTB 模拟器软件包版本的更多选项和详细信息</p>
-<p><a href="../ext_docs/"><strong>扩展文档</strong></a> — 有关 OpenHUTB 许多广泛功能的深入文档</p>
-<p><a href="../faq/use_faq/"><strong>使用常见问题</strong></a> — 解决最常见的使用问题</p>
+</ul>
+<hr />
               
             </div>
           </div><footer>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Introduction - 开源孪创</title>
+    <title>Extended documentation - 开源孪创</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Introduction";
-        var mkdocs_page_input_path = "introduction.md";
+        var mkdocs_page_name = "Extended documentation";
+        var mkdocs_page_input_path = "ext_docs.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -90,9 +90,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">Extended documentation</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/introduction.md"> 编辑页面</a>
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ext_docs.md"> 编辑页面</a>
     </li>
   </ul>
   <hr/>
@@ -100,38 +100,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p><strong>入门示例</strong></p>
-<ol>
-<li>
-<p>下载 <a href="https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb">链接</a> 中的 software/hutb/hutb_car_vr_air_mujoco.zip，解压运行 CarlaUE4.exe 启动场景，按 W、S、A、D 键进行场景浏览；</p>
-</li>
-<li>
-<p>安装特定 Python 版本的功能包：<code>pip install PythonAPI/carla/dist/hutb-*.whl</code>（或者使用<code>pip install hutb</code> 安装 ），然后运行 <a href="https://github.com/OpenHUTB/hutb/tree/hutb/PythonAPI/examples">PythonAPI/examples</a> 中的脚本（如果运行报错，请参考 <a href="../faq/use_faq/">解决方法</a>）：</p>
-<ul>
-<li>运行 <code>python manual_control.py  --filter walker.pedestrian.*</code> 生成键盘控制的人，运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py">manual_control.py</a> 生成一辆键盘控制的车</li>
-<li>运行 <a href="https://github.com/OpenHUTB/doc/blob/master/src/examples/generate_traffic.py">generate_traffic.py</a> 生成人车流</li>
-<li><a href="../ue/switch_mode/">切换</a> 到 <a href="../interbehavior/">VR 模式</a> ：<a href="https://github.com/OpenHUTB/hutb/blob/hutb/PythonAPI/util/config.py">config.py</a> --map Town10HD?GAME=VR ；切换到 <a href="https://openhutb.github.io/air_doc/">无人机模式</a> ：<code>config.py --map Town10HD?GAME=AIR</code></li>
-</ul>
-</li>
-</ol>
-<h3 id="_1">基础 <span id="primary"></span></h3>
-<p><a href="../start_introduction/"><strong>介绍</strong></a> — 对 OpenHUTB 的期望</p>
-<p><a href="../start_quickstart/"><strong>快速启动</strong></a> — 获取 OpenHUTB 版本</p>
-<p><a href="../tuto_first_steps/"><strong>第一步</strong></a> — 开始进行 OpenHUTB 操作，介绍最重要的概念</p>
-<p><a href="../tuto_E_gallery/"><strong>示例</strong></a> — OpenHUTB 经典示例</p>
-<p><a href="../tutorials/"><strong>教程</strong></a> — OpenHUTB 详细教程</p>
-<!-- ## 主题 -->
-
-<p><a href="../foundations/"><strong>基础</strong></a> — OpenHUTB 服务器和客户端进行操作和通信所需的基本概念</p>
-<p><a href="../core_world/"><strong>第一、 世界和客户端</strong></a> — 管理和访问模拟</p>
-<p><a href="../core_actors/"><strong>第二、 参与者和蓝图</strong></a> — 了解参与者以及如何处理它们</p>
-<p><a href="../core_map/"><strong>第三、地图和导航</strong></a> — 发现不同的地图以及车辆如何移动</p>
-<p><a href="../core_sensors/"><strong>第四、传感器和数据</strong></a> — 使用传感器检索模拟数据</p>
-<p><a href="../tuto_G_retrieve_data/"><strong>检索模拟数据</strong></a> — 使用记录器正确收集数据的分步指南</p>
-<p><a href="../tuto_G_bounding_boxes/"><strong>边界框</strong></a> — 将 OpenHUTB 对象的边界框投影到相机中</p>
-<p><a href="../ext_quickstart/"><strong>快速入门附加项</strong></a> — 包含安装和运行 OpenHUTB 模拟器软件包版本的更多选项和详细信息</p>
-<p><a href="../ext_docs/"><strong>扩展文档</strong></a> — 有关 OpenHUTB 许多广泛功能的深入文档</p>
-<p><a href="../faq/use_faq/"><strong>使用常见问题</strong></a> — 解决最常见的使用问题</p>
+                <h1 id="extended-documentation">Extended documentation</h1>
+<p>Below, you will find in depth documentation on the many extensive features of CARLA.</p>
+<h2 id="advanced-concepts">Advanced concepts</h2>
+<p><a href="../adv_recorder/"><strong>Recorder</strong></a> — Register the events in a simulation and play it again.<br />
+<a href="../adv_rendering_options/"><strong>Rendering options</strong></a> — From quality settings to no-render or off-screen modes.<br />
+<a href="../adv_synchrony_timestep/"><strong>Synchrony and time-step</strong></a> — Client-server communication and simulation time.<br />
+<a href="../adv_benchmarking/"><strong>Benchmarking Performance</strong></a> — Perform benchmarking using our prepared script.<br />
+<a href="../adv_agents/"><strong>CARLA Agents</strong></a> — Agents scripts allow single vehicles to roam the map or drive to a set destination.<br />
+<a href="../adv_multigpu/"><strong>Multi GPU</strong></a> — Set up the CARLA simulator to use multiple GPUs for processing.</p>
+<h2 id="traffic-simulation">Traffic Simulation</h2>
+<p><a href="../ts_traffic_simulation_overview/"><strong>Traffic Simulation Overview</strong></a> — An overview of the different options available to populate your scenes with traffic.<br />
+<a href="../adv_traffic_manager/"><strong>Traffic Manager</strong></a> — Simulate urban traffic by setting vehicles to autopilot mode.  </p>
+<h2 id="references">References</h2>
+<p><a href="../ref_recorder_binary_file_format/"><strong>Recorder binary file format</strong></a> — Detailed explanation of the recorder file format.<br />
+<a href="../ref_sensors/"><strong>Sensors reference</strong></a> — Everything about sensors and the data they retrieve.  </p>
+<h2 id="custom-maps">Custom Maps</h2>
+<p><a href="../adv_digital_twin/"><strong>Digital Twin Tool</strong></a> — A procedural map generation tool that uses OpenStreetMap data<br />
+<a href="../tuto_M_custom_map_overview/"><strong>Overview of custom maps in CARLA</strong></a> — An overview of the process and options involved in adding a custom, standard sized map. <br />
+<a href="../tuto_M_generate_map/"><strong>Create a map in RoadRunner</strong></a> — How to generate a customs, standard sized map in RoadRunner.<br />
+<a href="../tuto_M_add_map_package/"><strong>Import map in CARLA package</strong></a> How to import a map in a CARLA package.<br />
+<a href="../tuto_M_add_map_source/"><strong>Import map in CARLA source build</strong></a> — How to import a map in CARLA built from source.<br />
+<a href="../tuto_M_add_map_alternative/"><strong>Alternative ways to import maps</strong></a> — Alternative methods to import maps.<br />
+<a href="../tuto_M_manual_map_package/"><strong>Manually prepare map package</strong></a> — How to prepare a map for manual import.<br />
+<a href="../tuto_M_custom_layers/"><strong>Customizing maps: Layered maps</strong></a> — How to create sub-layers in your custom map.<br />
+<a href="../tuto_M_custom_add_tl/"><strong>Customizing maps: Traffic lights and signs</strong></a> — How to add traffic lights and signs to your custom map.<br />
+<a href="../tuto_M_custom_road_painter/"><strong>Customizing maps: Road painter</strong></a> — How to use the road painter tool to change the appearance of the road.
+<a href="../tuto_M_custom_buildings/"><strong>Customizing Maps: Procedural Buildings</strong></a> — Populate your custom map with buildings.<br />
+<a href="../tuto_M_custom_weather_landscape/"><strong>Customizing maps: Weather and landscape</strong></a> — Create the weather profile for your custom map and populate the landscape.<br />
+<a href="../tuto_M_generate_pedestrian_navigation/"><strong>Generate pedestrian navigation</strong></a> — Obtain the information needed for walkers to move around.  </p>
+<h2 id="large-maps">Large Maps</h2>
+<p><a href="../large_map_overview/"><strong>Large maps overview</strong></a> — An explanation of how large maps work in CARLA.<br />
+<a href="../large_map_roadrunner/"><strong>Create a Large Map in RoadRunner</strong></a> — How to create a large map in RoadRunner.<br />
+<a href="../large_map_import/"><strong>Import/Package a Large Map</strong></a> — How to import a large map.  </p>
               
             </div>
           </div><footer>
