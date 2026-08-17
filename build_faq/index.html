@@ -300,16 +300,18 @@ export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 <h2 id="windows_1">Windows 构建</h2>
 <!-- ======================================================================= -->
 
+<h6 id="fatal-error-c1083-compilerdisable-ue4-macrosh-no-such-file-or-directory">fatal error C1083: compiler/disable-ue4-macros.h: No such file or directory</h6>
+<p>原因： LibCarla没有成功安装到：hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies</p>
 <h6 id="boost">启动虚幻编辑器时候报boost里的变量找不到的错：</h6>
 <p><div class="highlight"><pre><span></span><code>Unreal<span class="se">\C</span>arlaUE4<span class="se">\P</span>lugins<span class="se">\C</span>arla<span class="se">\C</span>arlaDependencies<span class="se">\i</span>nclude<span class="se">\b</span>oost/asio/detail/impl/winsock_init.ipp<span class="o">(</span><span class="m">36</span><span class="o">)</span>:<span class="w"> </span>error<span class="w"> </span>C2039:<span class="w"> </span><span class="s2">&quot;InterlockedIncrement&quot;</span>:
 大模型提示说是<span class="w"> </span>UE4<span class="w"> </span>把<span class="w"> </span>InterlockedIncrement<span class="w"> </span>等宏<span class="w"> </span>define<span class="w"> </span>成了自己封装的版本；第三方库（boost、rpclib<span class="w"> </span>等）也用这些名字，两者冲突会导致编译错误。
 </code></pre></div>
 <a href="https://github.com/louiszengCN/CarlaAir/issues/14#issuecomment-4260028832">解决</a>：</p>
-<p>本质上确实是UE4的Windows宏环境和Boost.Asio冲突，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号</p>
+<p>本质上确实是 <strong>UE4</strong> 的 Windows 宏环境和 <strong>Boost.Asio 冲突</strong>，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号</p>
 <p>可以尝试以下几种方法：</p>
 <ul>
 <li>把'MapPreviewUserWidget.h'改成和'OpenDriveToMap.h'一样的模式：
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compiler/disable-ue4-macros.h&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compiler/disable-ue4-macros.h&gt;</span><span class="c1">  // 禁用 UE4 的宏，然后才能不冲突的使用 boost/asio 里的宏</span>
 <span class="n">THIRD_PARTY_INCLUDES_START</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/asio.hpp&gt;</span>
 <span class="n">THIRD_PARTY_INCLUDES_END</span>
