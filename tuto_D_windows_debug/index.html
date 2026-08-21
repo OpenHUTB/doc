@@ -353,6 +353,13 @@ Compiland就是编译的单元，我们可以看到全路径信息。然后到�
 </ol>
 <p>从菜单<code>窗口-&gt;开发者工具</code>中的<code>蓝图调试器</code>，可以查看调用堆栈、变量值等信息，具体操作请查看<a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blueprint-debugging?application_version=4.27">蓝图调试</a> 。</p>
 <h2 id="_6">其他 <span id="other"></span></h2>
+<h3 id="openhutbexe">窗口关闭后 OpenHUTB.exe 进程仍然运行</h3>
+<p><div class="highlight"><pre><span></span><code>netstat<span class="w"> </span>-aon<span class="p">|</span>findstr<span class="w"> </span><span class="s2">&quot;2000&quot;</span>
+</code></pre></div>
+最后一个数字为进程ID（在任务管理器中也能看到）。</p>
+<p>33848</p>
+<p>下载<a href="https://learn.microsoft.com/zh-cn/sysinternals/downloads/process-explorer">进程资源管理器</a>，右键<code>procexp64.exe</code>点击<strong>以管理员身份运行</strong>，在 Process Explorer 窗口中，找到目标进程(可以通过 PID 搜索)，使用菜单<code>Find-&gt;Findhandleor DLL...</code>搜索。</p>
+<p>view-&gt;选中[DLLs]，点击选中你要查看的程序，然后点击菜单栏的【view】--&gt;[lower pane]</p>
 <h3 id="dll">检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span></h3>
 <p>下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。</p>
 <div class="admonition 笔记">
