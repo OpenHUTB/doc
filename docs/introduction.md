@@ -1,3 +1,5 @@
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2777080357724781"
+     crossorigin="anonymous"></script>
 
 **入门示例**
 

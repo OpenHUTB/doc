@@ -301,6 +301,21 @@ python setup.py build
 
 ## 其他 <span id="other"></span>
 
+### 窗口关闭后 OpenHUTB.exe 进程仍然运行
+
+```shell
+netstat -aon|findstr "2000"
+```
+最后一个数字为进程ID（在任务管理器中也能看到）。
+
+33848
+
+
+
+下载[进程资源管理器](https://learn.microsoft.com/zh-cn/sysinternals/downloads/process-explorer)，右键`procexp64.exe`点击**以管理员身份运行**，在 Process Explorer 窗口中，找到目标进程(可以通过 PID 搜索)，使用菜单`Find->Findhandleor DLL...`搜索。
+
+view->选中[DLLs]，点击选中你要查看的程序，然后点击菜单栏的【view】-->[lower pane]
+
 ### 检查所依赖dll库的符号是否加载 <span id="check_dll_loaded"></span>
 下断点，F5调试。然后“调试 - 窗口 - 模块”打开模块窗口。
 
