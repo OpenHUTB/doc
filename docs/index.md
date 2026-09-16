@@ -2,7 +2,7 @@ title: 主页
 
 # <center> [开源孪创](https://OpenHUTB.github.io/.github/)
 
-&emsp;&emsp; 欢迎使用社区的技术文档，该页面包含[**人**](pedestrian.md)和[**载具**](./vehicle.md)所有内容的索引。阅读[基础](introduction.md)部分相关内容后可以按自己喜欢的顺序随意阅读。
+&emsp;&emsp; 欢迎使用社区技术文档，该页面包含[**人**](pedestrian.md)和[**载具**](./vehicle.md)所有内容的索引。阅读[基础](introduction.md)部分相关内容后可以按自己喜欢的顺序随意阅读。
 
 <!-- 参考：https://github.com/squidfunk/mkdocs-material/issues/6845#issuecomment-2192879200 -->
 /// html | div[style='float: left; width: 50%;']
