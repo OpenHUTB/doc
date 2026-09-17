@@ -21,6 +21,7 @@
   |--------------------| -- | --- | --- |
   | [HTC Vive Pro Eye](https://business.vive.com/us/product/vive-pro-eye-office/) | ✓                  | ✓ | Windows, Linux |
   | [Quest 2](https://www.oculus.com/quest-2/) | ✓ | × | Windows |
+  | [Pimax Dream Air](https://store.pimax.com/pages/dream-air) | ✓ | × | Windows |
   
   - 虽然我们还没有测试其他耳机，但如果 SteamVR 支持，它们仍然可以用于基本的虚拟现实用途（非眼动追踪）。
   - 由于我们使用 [SRanipal](https://forum.htc.com/topic/5641-sranipal-faq/) 作为眼动追踪器 SDK，因此眼动追踪目前**仅**支持 HTC Vive Pro Eye。我们很乐意通过贡献添加其他 SDK 来支持更多设备。
@@ -30,6 +31,7 @@
     - 包括方向盘的力反馈。
     - 我们使用了 [Logitech G923 赛车方向盘和踏板](https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html)
       - 虽然我们可以在没有经过测试的情况下保证开箱即用的功能，但是可以在 [此处](https://github.com/HARPLab/LogitechWheelPlugin/blob/master/README.md) 找到受支持设备的完整列表。
+  - Pimax Crystal 手柄：识别为 SteamVR oculus_touch 设备，摇杆/扳机比例驾驶，详见 [Pimax Dream Air 手柄驾驶](interbehavior/Tutorials/PimaxDriving.md)。
   - 编辑器模式下按`2`（非数字键）表示脱离第一视角车辆控制，按`1`表示进入第一视角车辆控制。
 
 - 逼真的（可参数化的）后视镜和侧视镜
