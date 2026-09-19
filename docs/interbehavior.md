@@ -21,17 +21,17 @@
   |--------------------| -- | --- | --- |
   | [HTC Vive Pro Eye](https://business.vive.com/us/product/vive-pro-eye-office/) | ✓                  | ✓ | Windows, Linux |
   | [Quest 2](https://www.oculus.com/quest-2/) | ✓ | × | Windows |
-  | [Pimax Dream Air](https://store.pimax.com/pages/dream-air) | ✓ | × | Windows |
+  | [Pimax Dream Air](https://store.pimax.com/pages/dream-air) | ✓ | ✓（combined gaze） | Windows |
   
-  - 虽然我们还没有测试其他耳机，但如果 SteamVR 支持，它们仍然可以用于基本的虚拟现实用途（非眼动追踪）。
-  - 由于我们使用 [SRanipal](https://forum.htc.com/topic/5641-sranipal-faq/) 作为眼动追踪器 SDK，因此眼动追踪目前**仅**支持 HTC Vive Pro Eye。我们很乐意通过贡献添加其他 SDK 来支持更多设备。
+  - 虽然我们还没有测试其他头显，但如果 SteamVR 支持，它们仍然可以用于基本的虚拟现实用途；眼动追踪需要对应的运行时和后端。
+  - HTC Vive Pro Eye 通过 [SRanipal](https://forum.htc.com/topic/5641-sranipal-faq/) 接入；Pimax Dream Air 通过 Pimax PVR 1.26 运行时接入，详见 [Pimax Dream Air 驾驶与眼动追踪](interbehavior/Tutorials/PimaxDriving.md)。
 - 车辆控制：
   - 通用键盘 WASD + 鼠标，按`Z`表示倒车
   - 使用此开源 [LogitechWheelPlugin](https://github.com/HARPLab/LogitechWheelPlugin) 支持 Logitech 方向盘
     - 包括方向盘的力反馈。
     - 我们使用了 [Logitech G923 赛车方向盘和踏板](https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html)
       - 虽然我们可以在没有经过测试的情况下保证开箱即用的功能，但是可以在 [此处](https://github.com/HARPLab/LogitechWheelPlugin/blob/master/README.md) 找到受支持设备的完整列表。
-  - Pimax Crystal 手柄：识别为 SteamVR oculus_touch 设备，摇杆/扳机比例驾驶，详见 [Pimax Dream Air 手柄驾驶](interbehavior/Tutorials/PimaxDriving.md)。
+  - Pimax Crystal 手柄：识别为 SteamVR `oculus_touch` 设备，支持摇杆/扳机比例驾驶和连续座椅调整，详见 [Pimax Dream Air 驾驶与眼动追踪](interbehavior/Tutorials/PimaxDriving.md)。
   - 编辑器模式下按`2`（非数字键）表示脱离第一视角车辆控制，按`1`表示进入第一视角车辆控制。
 
 - 逼真的（可参数化的）后视镜和侧视镜
@@ -76,7 +76,7 @@
 ### 自我传感器 <span id="ego_sensor"></span>
 与 Carla 兼容的**自主车辆传感器**（参见 [EgoSensor.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h) ）是一种“隐形传感器”，可跟踪以下信息：
 
-- 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) VR 耳机进行实时**眼动跟踪** 
+- 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) 或 [Pimax Dream Air](interbehavior/Tutorials/PimaxDriving.md) VR 头显进行实时**眼动跟踪**
   - 眼动仪数据包括：
     - 时间信息（基于耳机、世界和眼动仪）
     - 三维眼睛凝视光线（左、右及组合）
@@ -85,7 +85,8 @@
     - 眼睛睁开度（左和右）
     - 世界中的焦点及命中的参与者信息
     - 完整列表请参见 [DReyeVRData.h:EyeTracker](https://github.com/OpenHUTB/carla/blob/a67930eb9bc3ce2a7f1ffb15efc5fad5efaa3e75/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h#L110)
-  - 实时眼标线可视化
+  - Pimax PVR 1.26 当前提供 combined gaze 和设备时间戳，不提供单眼原点、瞳孔直径或眼睛开合度
+  - 实时眼标线可视化；Pimax 模式下视线附着于 VR 相机，车辆行驶时保持稳定
 - 实时用户输入（油门、转向、刹车、转向信号等）
 - 基于摄像头的图像（截图）帧捕获
   - 由于性能密集程度高，通常用于重播而不是实时。
@@ -158,7 +159,7 @@
 - 请参阅 [安装步骤](interbehavior/Install.md) 来安装和构建 VR 驾驶
 - 请参阅 [使用 VR 驾驶](interbehavior/Usage.md) 了解如何使用我们提供的 VR 驾驶功能
 - 请参阅 [开发](interbehavior/Development.md) 以开始 VR 驾驶开发并添加新功能
-- 请参阅多个 VR 驾驶教程，包括：[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md)。
+- 请参阅多个 VR 驾驶教程，包括：[Pimax Dream Air 驾驶与眼动追踪](./interbehavior/Tutorials/PimaxDriving.md)、[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md)。
 - [自定义自主车辆](interbehavior/Tutorials/CustomEgo.md)
 - [配置可驾驶的 VR 玩家](./interbehavior/VRPlayer.md)
 - [问题分析](interbehavior/implementation.md) 
