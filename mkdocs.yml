@@ -35,6 +35,10 @@ extra_javascript:
   - js/umlconvert.js
 
 plugins:
+  - mkdocs-video:
+      is_video: True
+      video_autoplay: True
+      video_loop: True
   - search:
       lang: ja
       separator: '[\s\-\.]+'

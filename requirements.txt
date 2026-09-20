@@ -2,3 +2,4 @@ python-markdown-math
 imageio
 pymdown-extensions
 markdown-grid-tables
+mkdocs-video

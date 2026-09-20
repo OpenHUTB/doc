@@ -37,12 +37,7 @@
 
 下面的视频为 Dream Air 实机内录。蓝色注视线的起点固定在头显前方，终点随眼球注视方向移动；车辆行驶时，视线会跟随相机，不会落在车辆后方。
 
-<video controls playsinline width="100%" preload="metadata" poster="/doc/interbehavior/Figures/PimaxDreamAir_EyeTracking_Poster.jpg">
-  <source src="/doc/interbehavior/Videos/PimaxDreamAir_EyeTracking.mp4" type="video/mp4">
-  当前浏览器不支持内嵌视频，请使用下方链接观看。
-</video>
-
-[下载或单独观看 Pimax Dream Air 眼动追踪演示](../Videos/PimaxDreamAir_EyeTracking.mp4)
+![type:video](../Videos/PimaxDreamAir_EyeTracking.mp4)
 
 设备图样：Pimax Dream Air 头显与 Crystal 手柄置于桌面，显示器同步输出旁观画面，红字 `0 R` 表示当前车速 0、倒挡。
 
