@@ -44,13 +44,37 @@ git config --global --unset https.proxy
 
 [下载地址](https://steampp.net/) 。定制软件启动的特性：
 
-* 默认启动加速页面：
+以下配置文件定位方法已在 Windows 11 25H2、Watt Toolkit（Steam++）3.1.0 上验证。配置文件目录可能与软件安装目录不同，即使软件安装在其他盘，也可以先尝试以下方法。
 
-    将`steam/AppData/Settings/UISettings.json`设置为`  "StartDefaultPageName": "Accelerator-CommunityFix"`
+按 `Win + R`，输入 `cmd` 并按回车，打开命令提示符。分别执行以下命令：
 
-* 启动软件时默认开启加速：
 
-    将`steam/AppData/Plugins/Accelerator/Settings/ProxySettings.json`设置为`"ProgramStartupRunProxy": true,`
+```bat
+explorer "%LOCALAPPDATA%\Steam++\Settings"
+explorer "%LOCALAPPDATA%\Steam++\Plugins\Accelerator\Settings"
+```
+
+第一条命令打开的文件夹中包含 `UISettings.json`，第二条命令打开的文件夹中包含 `ProxySettings.json`。
+
+修改前，请从系统托盘完全退出 Steam++。使用记事本打开原文件，找到下面的字段，只修改对应的值，保留其他内容和原有的行末逗号，不要用示例替换整个文件。
+
+- 默认启动加速页面：
+
+  在 `UISettings.json` 中找到 `StartDefaultPageName`，将其值改为 `"Accelerator-CommunityFix"`：
+
+  ```json
+  "StartDefaultPageName": "Accelerator-CommunityFix"
+  ```
+
+- 启动软件时默认开启加速：
+
+  在 `ProxySettings.json` 中找到 `ProgramStartupRunProxy`，将其值改为 `true`，注意 `true` 不加引号：
+
+  ```json
+  "ProgramStartupRunProxy": true
+  ```
+
+保存两个文件后，重新启动 Steam++。不手动切换页面或点击加速按钮，检查软件是否自动进入“网页加速”页面，并自动开启加速。
 
 ### Github 访问加速
 
