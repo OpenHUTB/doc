@@ -121,7 +121,7 @@ float32 speed   # m/s
 <p>创建 <code>LibCarla/source/carla/ros2/types/msg/MyType.h</code> 文件。规则：</p>
 <ul>
 <li>该结构体位于命名空间 <code>namespace carla::ros2::msg</code> 中。</li>
-<li>仅包含 <code>&lt;array&gt;</code>、<code>&lt;vector&gt;</code>、<code>&lt;string&gt;</code>、<code>&lt;cstdint&gt;</code> 以及同级的 <code>msg/*.h</code> 头文件 - 不包含 DDS 或 Fast-CDR。</li>
+<li>仅包含 <code>&lt;array&gt;</code>、<code>&lt;vector&gt;</code>、<code>&lt;string&gt;</code>、<code>&lt;cstdint&gt;</code> 以及同级的 <code>msg/*.h</code> 头文件 - 禁止引入 DDS、Fast-CDR 相关头文件与依赖。</li>
 <li>将基本类型字段初始化为零，使用 <code>= 0</code> 或 <code>= 0.0</code>。 </li>
 <li>对于固定长度数组，使用 <code>std::array&lt;T, N&gt;</code>；对于无界序列，使用 <code>std::vector&lt;T&gt;</code>。</li>
 <li>按值嵌套其他消息类型。</li>
@@ -154,7 +154,7 @@ float32 speed   # m/s
 <span class="w">  </span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="p">;</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">frame_id</span><span class="p">;</span>
 <span class="w">  </span><span class="n">Vector3</span><span class="w"> </span><span class="n">velocity</span><span class="p">;</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w">   </span><span class="c1">// 固定的 3x3 矩阵</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">&gt;</span><span class="w"> </span><span class="n">covariance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w">   </span><span class="c1">// 车辆运动协方差3×3固定矩阵</span>
 <span class="p">};</span>
 
 <span class="p">}}}</span><span class="w"> </span><span class="c1">// namespace carla::ros2::msg</span>
@@ -308,7 +308,7 @@ float64[9] linear_acceleration_covariance
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>对于 <code>std::vector&lt;uint8_t&gt;</code>（字节数组，例如 <code>Image::data</code>），FastCDR 会自动处理长度前缀，只需使用 <code>cdr &lt;&lt; m.data</code> 即可，无需手动循环。</p>
+<p>对于 <code>std::vector&lt;uint8_t&gt;</code>（字节数组，例如 <code>Image::data</code>），FastCDR 会自动处理长度前缀，只需使用 <code>cdr &lt;&lt; m.data</code> 即可，无需手动遍历循环处理，由 FastCDR 自动解析。</p>
 <hr>
 <h2 id="4-rihs01">步骤 4 - 计算 RIHS01 类型哈希  <span id="step_4"></span></h2>
 <p>ROS 2 Iron 及更高版本会在两个节点相互发现时检查 DDS <code>USER_DATA</code> QoS 字段中的类型哈希。如果哈希不存在，则每个端点都会记录：</p>
@@ -352,7 +352,7 @@ Util/ros2/compute_type_hash.sh<span class="w"> </span>sensor_msgs/msg/Imu<span c
 <span class="p">};</span>
 </code></pre></div>
 <p>此外，请在 <code>CdrTopicInfo.h</code> 文件顶部添加新头文件的 <code>#include</code> 指令。</p>
-<p><strong><code>type_name()</code>:</strong> 遵循 ROS 2 RMW 使用的 DDS 名称混淆约定：<code>&lt;package&gt;::msg::dds_::&lt;TypeName&gt;_</code>（注意末尾的下划线）。</p>
+<p><strong><code>type_name()</code>:</strong> 遵循 ROS 2 RMW 使用的DDS 名称修饰约定：<code>&lt;package&gt;::msg::dds_::&lt;TypeName&gt;_</code>（注意末尾的下划线）。</p>
 <p><strong><code>type_hash()</code>:</strong> REP-2011 类型哈希值，由所有写入器和读取器在 <code>USER_DATA</code> QoS 字段中发布（REP-2016 有效载荷 <code>typehash=RIHS01_&lt;hex&gt;;</code>）。对等 ROS 2 RMW 在发现过程中读取此哈希值，以执行基于类型哈希值的端点匹配，并且在 Jazzy 及更高版本中，用于抑制<code>Failed to parse type hash for topic ...</code>警告。</p>
 <p>粘贴步骤 <a href="#step_4">4</a> 中的  <code>RIHS01_...</code> 字符串。哈希值是按消息定义固定的；如果 <code>.msg</code> 定义发生更改，请更新它。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 典型案例：固定根据 .msg 定义计算出的哈希值</span>
