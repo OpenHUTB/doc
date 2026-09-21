@@ -138,16 +138,26 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </code></pre></div>
 <h3 id="steamapp">Steamapp 加速</h3>
 <p><a href="https://steampp.net/">下载地址</a> 。定制软件启动的特性：</p>
+<p>以下配置文件定位方法已在 Windows 11 25H2、Watt Toolkit（Steam++）3.1.0 上验证。配置文件目录可能与软件安装目录不同，即使软件安装在其他盘，也可以先尝试以下方法。</p>
+<p>按 <code>Win + R</code>，输入 <code>cmd</code> 并按回车，打开命令提示符。分别执行以下命令：</p>
+<div class="highlight"><pre><span></span><code>explorer <span class="s2">"</span><span class="nv">%LOCALAPPDATA%</span><span class="s2">\Steam++\Settings"</span>
+explorer <span class="s2">"</span><span class="nv">%LOCALAPPDATA%</span><span class="s2">\Steam++\Plugins\Accelerator\Settings"</span>
+</code></pre></div>
+<p>第一条命令打开的文件夹中包含 <code>UISettings.json</code>，第二条命令打开的文件夹中包含 <code>ProxySettings.json</code>。</p>
+<p>修改前，请从系统托盘完全退出 Steam++。使用记事本打开原文件，找到下面的字段，只修改对应的值，保留其他内容和原有的行末逗号，不要用示例替换整个文件。</p>
 <ul>
-<li>
-<p>默认启动加速页面：</p>
-<p>将<code>steam/AppData/Settings/UISettings.json</code>设置为<code>"StartDefaultPageName": "Accelerator-CommunityFix"</code></p>
-</li>
-<li>
-<p>启动软件时默认开启加速：</p>
-<p>将<code>steam/AppData/Plugins/Accelerator/Settings/ProxySettings.json</code>设置为<code>"ProgramStartupRunProxy": true,</code></p>
-</li>
+<li>默认启动加速页面：</li>
 </ul>
+<p>在 <code>UISettings.json</code> 中找到 <code>StartDefaultPageName</code>，将其值改为 <code>"Accelerator-CommunityFix"</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"StartDefaultPageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accelerator-CommunityFix"</span>
+</code></pre></div>
+<ul>
+<li>启动软件时默认开启加速：</li>
+</ul>
+<p>在 <code>ProxySettings.json</code> 中找到 <code>ProgramStartupRunProxy</code>，将其值改为 <code>true</code>，注意 <code>true</code> 不加引号：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"ProgramStartupRunProxy"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p>保存两个文件后，重新启动 Steam++。不手动切换页面或点击加速按钮，检查软件是否自动进入“网页加速”页面，并自动开启加速。</p>
 <h3 id="github">Github 访问加速</h3>
 <p>有时候 Github 访问不了，可以下载并运行 <a href="https://gitee.com/OpenHUTB/sw/releases/tag/up">链接</a> 中对应平台的软件（比如 Windows 平台中下载 <a href="https://gitee.com/OpenHUTB/software/releases/download/speed_up_github/fastgithub-win-x64.zip">fastgithub-win-x64.zip</a> 解压后运行<code>FastGithub.UI.exe</code>即可正常访问Github）。</p>
 <p>其他方法：<a href="https://www.cnblogs.com/ting1/p/18356265">链接</a> 。</p>
