@@ -5,7 +5,7 @@
 
 ## 先决条件
 
-要运行此示例，请确保系统中安装了`docker`，该实例用于启动`rviz`实例以可视化传感器数据。
+要运行此示例，请确保系统已安装 Docker。Docker 用于启动 RViz，可视化传感器数据。
 
 
 ## 使用
@@ -30,13 +30,13 @@ make launch ARGS="--ros2 --editor-flags='--ros2'"
 python3 ros2_native.py --file stack.json
 ```
 
-* `stack.json`文件定义传感器配置。
+* `stack.json` 文件定义传感器配置。
 * 您可以编辑此文件以根据您的要求调整传感器设置。
 
 
-### 步骤3：运行 RViz 以可视化传感器数据 
+### 第 3 步：运行 RViz 以可视化传感器数据 
 
-启动`rviz`以可视化 CARLA 的传感器输出：
+启动`rviz` 以可视化 CARLA 的传感器输出：
 
 > [!NOTE]
 必须在您的系统上安装 Docker 才能完成此步骤。

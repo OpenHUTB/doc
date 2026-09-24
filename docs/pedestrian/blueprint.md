@@ -4,7 +4,7 @@
 
 使用 [manual_control.py](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/PythonAPI/examples/manual_control.py#L257) 生成行人：
 ```python
-self.world.try_spawn_actor(blueprint, spawn_point)
+self.world.try_spawn_actor()(blueprint, spawn_point)
 ```
 
 [hutb/PythonAPI/carla/source/libcarla/World.cpp](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/PythonAPI/carla/source/libcarla/World.cpp#L331) 中定义了 try_spawn_action() 调用 TrySpawnActor。
@@ -23,7 +23,7 @@ SharedPtr<Actor> World::TrySpawnActor(
     ...
 }
 ```
-然后调用 World.cpp 的 [SpwanActor()](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127) ：
+然后调用 World.cpp 的 [SpawnActor()](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127) ：
 ```cpp
 SharedPtr<Actor> World::SpawnActor(
   ...

@@ -17,8 +17,9 @@
 md Files\x64
 md Files\x86
 # 提取文件到新建的目录中
-expand.exe *x86.cab -F:*.DLL .\Files\x86 -R
-expand.exe *x64.cab -F:*.DLL .\Files\x64 -R
+expand.exe -r *x86.cab -F:*.DLL .\Files\x86
+expand.exe -r *x64.cab -F:*.DLL .\Files\x64
+
 ```
 
 现在，这些动态链接库已被提取到“D:\DX9\Files\x86”和“D:\DX9\Files\x64”这两个目录中。

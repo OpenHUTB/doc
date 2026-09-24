@@ -37,7 +37,7 @@ TypeError: expected str, bytes or os.PathLike object, not int
 
 2.运行`print(pygame.font.get_fonts())`，输出的最后一行即为有问题的字体，比如`1776905345`（不以字体文件为后缀）
 
-3.运行`regedit`打开注册表编辑器，删除包含有问题字体的项，比如`Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts`的`1776905345`在`sdk_init_timestamp`项中。在 Python 中再次运行`pygame.font.get_fonts()`即可解决。
+3.运行`regedit`打开注册表编辑器，删除包含有问题字体的项，比如``Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts`下名为`1776905345``即可解决。
 
 ---
 
@@ -86,7 +86,7 @@ TypeError: expected str, bytes or os.PathLike object, not int
 运行CarlaUE4.exe报错：
 ```shell
 The UE4-CarlaUE4 Game has crashed and will close
-LowLevelFatalError [File:Unknown] [Line: 136]Exception thrown: bind: ??h????E???????k?"????h???????-????m? [system 10013 atD:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function 'bind']
+LowLevelFatalError [File:Unknown] [Line: 136]Exception thrown: bind: ??h????E???????k?"????h???????-????m? [system 10013 at D:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function 'bind']
 ```
 > 原因：本地端口被其他程序占用。
 >
