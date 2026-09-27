@@ -121,7 +121,7 @@ git<span class="w"> </span>status
 <span class="c1"># 现在，git 应该显示相对于我们上游 DReyeVR 分支的更改，而不是相对于 CARLA 0.9.13 分支的更改。</span>
 </code></pre></div>
 <h2 id="_2">反向安装</h2>
-<p>一旦您对 Carla 代码库中与 DReyeVR 相关的部分进行了更改，手动将所有这些更改复制回 DReyeVR 代码库（如果您想将其提交到上游）将非常繁琐。作为我们构建系统的一部分，我们提供了一个“反向安装”（<code>r-install</code>）程序，用于镜像安装 <code>install</code> 功能，并将 DReyeVR（通过 <code>make install</code>）安装的所有相应文件复制回 DReyeVR：</p>
+<p>一旦您对 Carla 代码库中与 DReyeVR 相关的部分进行了更改，手动将所有这些更改复制回 DReyeVR 代码库（如果您想将其提交到上游）将非常繁琐。作为我们构建系统的一部分，我们提供了一个“反向安装”（r-install）<strong>工具</strong>，用于镜像安装 <code>install</code> 功能，并将 DReyeVR（通过 <code>make install</code>）安装的所有相应文件复制回 DReyeVR：</p>
 <details>
 
 <summary> 点击打开示例以生成输出</summary>
@@ -225,14 +225,14 @@ make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARL
 <ol>
 <li><a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/AActor/"><code>AActor</code></a> (UE4): 用于在世界中生成任何对象的底层虚幻类</li>
 <li><a href="https://github.com/carla-simulator/carla/blob/0.9.13/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Sensor.h"><code>ASensor</code></a> (Carla): Carla 参与者为Carla 世界中的传感器表现提供了结构模板</li>
-<li><a href="../Carla/Sensor/DReyeVRSensor.h"><code>ADReyeVRSensor</code></a> (DReyeVR): 我们的传感器实例包含所有与 Carla 相关的任务逻辑 <ul>
+<li><a href="../Carla/Sensor/DReyeVRSensor.h"><code>ADReyeVRSensor</code></a> (DReyeVR): 该抽象基类 DReyeVRSensor 封装所有和 CARLA 相关的任务逻辑 <ul>
 <li>流式传输到 PythonAPI</li>
-<li>从回放器接收数据以进行进行重放</li>
+<li>从回放器接收数据以进行重放</li>
 <li>包含 <code>DReyeVR::AggregateData</code> 实例，其中包含所有数据</li>
 </ul>
 </li>
-<li><a href="../DReyeVR/EgoSensor.h"><code>AEgoSensor</code></a> (DReyeVR): 我们的主要参与者包含了所有与 DReyeVR 相关的自定义数据变量/函数逻辑。<ul>
-<li>眼动跟踪逻辑（SRanipal）、自主车辆跟踪等。</li>
+<li><a href="../DReyeVR/EgoSensor.h"><code>AEgoSensor</code></a> (DReyeVR): EgoSensor（派生类）包含全部 DReyeVR 自定义数据成员与业务逻辑。<ul>
+<li>眼动追踪逻辑（SRanipal）、自车状态采集等。</li>
 </ul>
 </li>
 </ol>
@@ -310,7 +310,7 @@ make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARL
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">/// CAUTION: 确保读写操作的顺序相同</span>
 <span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// 现有代码</span>
-<span class="w">    </span><span class="n">WriteValue</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">OutFile</span><span class="p">,</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">());</span>
+<span class="w">   </span><span class="n">WriteValue</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">OutFile</span><span class="p">,</span><span class="w"> </span><span class="n">GetNewVariable</span><span class="p">());</span>
 <span class="p">}</span>
 
 <span class="n">FString</span><span class="w"> </span><span class="n">AggregateData</span><span class="o">::</span><span class="n">ToString</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// 此打印方式用于显示记录器信息</span>
@@ -325,7 +325,7 @@ make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARL
 注意：
 - 将相关的变量集合放在结构体中便于更好地组织。为此，我们将 DReyeVRData 设计为包含多个 <code>DReyeVR::DataSerializer</code> 对象，每个对象都实现了各自的序列化方法。我们的 <code>AggregateData</code> 实例包含了所有结构体以及一个用于访问成员变量的轻量级 API。 
 - 以上示例展示了如何直接修改/添加新变量到 <code>DReyeVR::AggregateData</code> 对象。但更好的做法是修改现有的 <code>DReyeVR::DReyeVRSerializer</code> 对象，或者创建一个新的对象（继承自虚类），并自行定义所有抽象方法。这样可以实现更细粒度的子类/结构体抽象，就像我们大多数变量那样。
-<p>完成此步骤后，您可以通过使用 EgoSensor 的 <code>GetData()</code> 函数获取 <code>DReyeVR::AggregateData</code> 类的唯一全局（静态<code>static</code>）实例来自由读取/写入此变量，如下所示：</p>
+<p>完成这一步后，你可以调用 EgoSensor 的 GetData() 获取 EgoSensor 所持有的 DReyeVR::AggregateData 实例，读写新增变量，如下所示：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 例如，在其他文件中，例如 EgoVehicle.cpp：</span>
 <span class="kt">float</span><span class="w"> </span><span class="n">NewVariable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EgoSensor</span><span class="o">-&gt;</span><span class="n">GetData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNewVariable</span><span class="p">();</span>
 <span class="p">...</span><span class="w"> </span><span class="c1">// 你的代码</span>
