@@ -123,8 +123,8 @@
 md<span class="w"> </span>Files<span class="se">\x</span><span class="m">64</span>
 md<span class="w"> </span>Files<span class="se">\x</span><span class="m">86</span>
 <span class="c1"># 提取文件到新建的目录中</span>
-expand.exe<span class="w"> </span>*x86.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">86</span><span class="w"> </span>-R
-expand.exe<span class="w"> </span>*x64.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">64</span><span class="w"> </span>-R
+expand.exe<span class="w"> </span>-r<span class="w"> </span>*x86.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">86</span>
+expand.exe<span class="w"> </span>-r<span class="w"> </span>*x64.cab<span class="w"> </span>-F:*.DLL<span class="w"> </span>.<span class="se">\F</span>iles<span class="se">\x</span><span class="m">64</span>
 </code></pre></div>
 <p>现在，这些动态链接库已被提取到“D:\DX9\Files\x86”和“D:\DX9\Files\x64”这两个目录中。</p>
 <p>如果您的游戏软件提示缺少 DirectX 9-10 运行环境，请按照以下步骤操作：</p>

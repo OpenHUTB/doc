@@ -103,7 +103,7 @@
                 <div><h1 id="ros2">ROS2 原生示例</h1>
 <p>此示例演示了如何在 CARLA 中使用 ROS 2 原生接口。</p>
 <h2 id="_1">先决条件</h2>
-<p>要运行此示例，请确保系统中安装了<code>docker</code>，该实例用于启动<code>rviz</code>实例以可视化传感器数据。</p>
+<p>要运行此示例，请确保系统已安装 Docker。Docker 用于启动 RViz，可视化传感器数据。</p>
 <h2 id="_2">使用</h2>
 <h3 id="1-ros2-carla">第 1 步：在启用 ROS2 的情况下启动 CARLA 模拟器</h3>
 <p>在启用 ROS 2 集成的情况下启动 CARLA 模拟器：</p>
@@ -118,11 +118,11 @@ make<span class="w"> </span>launch<span class="w"> </span><span class="nv">ARGS<
 <div class="highlight"><pre><span></span><code>python3<span class="w"> </span>ros2_native.py<span class="w"> </span>--file<span class="w"> </span>stack.json
 </code></pre></div>
 <ul>
-<li><code>stack.json</code>文件定义传感器配置。</li>
+<li><code>stack.json</code> 文件定义传感器配置。</li>
 <li>您可以编辑此文件以根据您的要求调整传感器设置。</li>
 </ul>
-<h3 id="3-rviz">步骤3：运行 RViz 以可视化传感器数据</h3>
-<p>启动<code>rviz</code>以可视化 CARLA 的传感器输出：</p>
+<h3 id="3-rviz">第 3 步：运行 RViz 以可视化传感器数据</h3>
+<p>启动<code>rviz</code> 以可视化 CARLA 的传感器输出：</p>
 <blockquote>
 <p>[!NOTE]
 必须在您的系统上安装 Docker 才能完成此步骤。</p>

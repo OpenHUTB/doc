@@ -131,7 +131,7 @@ TypeError: expected str, bytes or os.PathLike object, not int
 <p>解决：
 1.在 <code>envs\hutb\lib\site-packages\pygame\sysfont.py</code> 的 <code>if splitext(font)[1].lower() not in OpenType_extensions:</code>之前添加<code>print(font)</code></p>
 <p>2.运行<code>print(pygame.font.get_fonts())</code>，输出的最后一行即为有问题的字体，比如<code>1776905345</code>（不以字体文件为后缀）</p>
-<p>3.运行<code>regedit</code>打开注册表编辑器，删除包含有问题字体的项，比如<code>Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts</code>的<code>1776905345</code>在<code>sdk_init_timestamp</code>项中。在 Python 中再次运行<code>pygame.font.get_fonts()</code>即可解决。</p>
+<p>3.运行<code>regedit</code>打开注册表编辑器，删除包含有问题字体的项，比如<code>Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts`下名为`1776905345</code>即可解决。</p>
 <hr>
 <ul>
 <li>
@@ -181,7 +181,7 @@ pip<span class="w"> </span>install<span class="w"> </span>hutb-2.9.16-cp310-cp31
 <h1 id="_5">崩溃</h1>
 <p>运行CarlaUE4.exe报错：
 </p><div class="highlight"><pre><span></span><code>The<span class="w"> </span>UE4-CarlaUE4<span class="w"> </span>Game<span class="w"> </span>has<span class="w"> </span>crashed<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>close
-LowLevelFatalError<span class="w"> </span><span class="o">[</span>File:Unknown<span class="o">]</span><span class="w"> </span><span class="o">[</span>Line:<span class="w"> </span><span class="m">136</span><span class="o">]</span>Exception<span class="w"> </span>thrown:<span class="w"> </span>bind:<span class="w"> </span>??h????E???????k?<span class="s2">"????h???????-????m? [system 10013 atD:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function 'bind']</span>
+LowLevelFatalError<span class="w"> </span><span class="o">[</span>File:Unknown<span class="o">]</span><span class="w"> </span><span class="o">[</span>Line:<span class="w"> </span><span class="m">136</span><span class="o">]</span>Exception<span class="w"> </span>thrown:<span class="w"> </span>bind:<span class="w"> </span>??h????E???????k?<span class="s2">"????h???????-????m? [system 10013 at D:/carla unreal/carla/Build/boost-1.80.0-install/include\boost/asio/detail/win_iocp_socket_service.hpp:244:5 in function 'bind']</span>
 </code></pre></div>
 <blockquote>
 <p>原因：本地端口被其他程序占用。</p>

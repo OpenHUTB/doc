@@ -116,7 +116,7 @@
 <span class="w">    </span><span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div>
-然后调用 World.cpp 的 <a href="https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127">SpwanActor()</a> ：
+然后调用 World.cpp 的 <a href="https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127">SpawnActor()</a> ：
 <div class="highlight"><pre><span></span><code><span class="n">SharedPtr</span><span class="o">&lt;</span><span class="n">Actor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">World</span><span class="o">::</span><span class="n">SpawnActor</span><span class="p">(</span>
 <span class="w">  </span><span class="p">...</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">_episode</span><span class="p">.</span><span class="n">Lock</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="p">(</span><span class="n">blueprint</span><span class="p">,</span><span class="w"> </span><span class="n">transform</span><span class="p">,</span><span class="w"> </span><span class="n">parent_actor</span><span class="p">,</span><span class="w"> </span><span class="n">attachment_type</span><span class="p">,</span><span class="w"> </span><span class="n">GarbageCollectionPolicy</span><span class="o">::</span><span class="n">Inherit</span><span class="p">,</span><span class="w"> </span><span class="n">socket_name</span><span class="p">);</span>

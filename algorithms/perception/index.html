@@ -110,7 +110,7 @@
 <p><strong>3D 障碍物检测</strong>：我们的系统采用先进的传感器技术来实时检测和分析三维障碍物。即使在动态和具有挑战性的场景中，这种功能也使我们的自动驾驶车辆能够做出明智的决策并确保安全导航。</p>
 </li>
 <li>
-<p><strong>2D 物体检测</strong>：识别和识别车辆周围环境中的物体对于安全导航至关重要。我们的框架利用尖端算法来识别和分类各种对象，例如行人、车辆和标牌，有助于增强态势感知。
+<p><strong>2D 物体检测</strong>：识别车辆周围环境中的物体对于安全导航至关重要。我们的框架利用尖端算法来识别和分类各种对象，例如行人、车辆和标牌，有助于增强态势感知。
   <img alt="ISS Architecture" src="../../img/ecosys_iss/perception/detection_pp_small.gif"></p>
 </li>
 </ul>
@@ -157,7 +157,7 @@
 </li>
 </ul>
 <p>weights文件链接：https://pan.baidu.com/s/184hR_PQZttYeAz9QE4XOQg  提取码：hyus </p>
-<p>将weight文件放在weights目录下。</p>
+<p>将 weights 文件放在 weights 目录下。</p>
 <h3 id="_6">运行</h3>
 <p>1.连接Carla服务端</p>
 <p>./CarlaUE4.sh</p>
@@ -165,7 +165,7 @@
 <div class="highlight"><pre><span></span><code>python3 spawn_npc.py -n 80
 </code></pre></div>
 <blockquote>
-<p>注意: spawn_npc.py 在 <code>PythonAPI/examples</code>，该测试是在Carla-0.9.12，最新版Carla没有spawn_npc.py,但是会出现行人倒着走的问题，不妨使用generate_trrafic.py。</p>
+<p>注意: spawn_npc.py 在 <code>PythonAPI/examples</code>，该测试是在Carla-0.9.12，最新版Carla没有spawn_npc.py,但是会出现行人倒着走的问题，不妨使用generate_traffic.py。</p>
 </blockquote>
 <p>3.执行<code>python3 object_detection.py</code> </p>
 <p><strong>用GPU执行</strong></p>
