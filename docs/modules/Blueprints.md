@@ -96,18 +96,21 @@ UStaticMesh*: 生成的静态网格资源指针，失败返回 nullptr。
     
     需确保材质实例有效，否则记录错误日志。
 
-## 2.3 GetTransversemercProjection
+## 2.3 GetTransverseMercProjection
 功能：将经纬度坐标转换为引擎内的平面墨卡托投影坐标（单位：厘米）。
 示例：
 ```cpp
-FVector2D Position = UMapGenFunctionLibrary::GetTransversemercProjection(39.9, 116.4, 39.9, 116.4);  
-// 输出: (0, 0)（原点坐标）
+FVector2D Position = UMapGenFunctionLibrary::GetTransverseMercProjection(39.9, 116.4, 39.9, 116.4);  
+// 输出: (0, 0)（原点坐标） 
 ```
 
 ## 2.4 辅助函数
 ```shell
 SetThreadToSleep
-功能：使当前线程休眠指定秒数（需取消注释 FGenericPlatformProcess::Sleep）。
+功能：使当前线程休眠指定秒数。
+参数：
+- Seconds (float)：休眠时间，单位秒。
+
 
 FlushRenderingCommandsInBlueprint
 功能：强制刷新渲染命令队列，确保图形操作完成。
@@ -118,37 +121,36 @@ CleanupGEngine
 
 
 # 3. 关键数据结构
-FProceduralCustomMesh
 成员：
-```shell
-Vertices (TArray<FVector>): 顶点坐标数组。
 
-Triangles (TArray<int32>): 三角形索引数组。
+- `Vertices` (`TArray<FVector>`)：顶点坐标数组，引擎坐标系（单位：厘米）。
+- `Triangles` (`TArray<int32>`)：三角形索引数组，顶点顺序为顺时针时代表正面。
+- `Normals` (`TArray<FVector>`)：逐顶点法线，应与 `Vertices` 一一对应。
+- `UV0` (`TArray<FVector2D>`)：第一套 UV 坐标，每个元素为 `(U, V)`，范围通常为 `[0, 1]`。
 
-Normals / UV0 (TArray<FVector>): 法线与UV数据。
+注意事项：
+
+- `UV0` 使用 `FVector2D` 而非 `FVector`，传入 `FVector` 将导致编译错误。
+- `Normals` 数组若为空，网格描述仍可生成，但光照结果可能异常，建议始终填充。
 ```
 
 
 # 4. 使用示例
 生成静态网格
 cpp
- 1. 准备数据
-```shell
+ // 1. 准备数据
 FProceduralCustomMesh Data;   
 Data.Vertices = { FVector(0,0,0), FVector(100,0,0), FVector(0,100,0) };  
 Data.Triangles = { 0, 1, 2 };   
 Data.Normals = { FVector(0,0,1), FVector(0,0,1), FVector(0,0,1) };   
-```
 
- 2. 创建材质实例    
-```shell
-UMaterialInstance* Material = LoadObject<UMaterialInstance>(...); 
-```
+// 2. 创建材质实例    
+UMaterialInstance* Material = LoadObject<UMaterialInstance>(
+    nullptr, 
+    TEXT("/Game/Materials/MI_Road.MI_Road") // 替换为实际材质路径
+); 
 
-
-3. 生成网格  
-
-```shell
+// 3. 生成网格  
 UStaticMesh* Mesh = UMapGenFunctionLibrary::CreateMesh(  
     Data,  
     TArray<FProcMeshTangent>(),  
