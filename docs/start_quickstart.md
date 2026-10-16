@@ -223,7 +223,7 @@ python config.py -l --host 172.21.108.56
 
 <div class="build-buttons">
 <p>
-<a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Go to first steps">
+<a href="../tuto_first_steps" target="_blank" class="btn btn-neutral" title="Go to first steps">
 前往：第一步</a>
 </p>
 </div>
