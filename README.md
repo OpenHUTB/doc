@@ -161,7 +161,7 @@ $$
 常见图的绘制请参考[绘图指南](docs/demo/figure.md) 。
 
 
-文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
+文档页面显示支持 [Latex 公式](https://squidfunk.github.io/mkdocs-material/reference/math/) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
 
 
 ### Vscode 内支持 Markdown 自动补全
