@@ -428,14 +428,14 @@ make PythonAPI
 
 **为特定 Python 版本构建 Python API**
 
-上述命令将为系统 Python 版本构建 Python API。您可以按照以下说明将目标版本定位到 Python 3.11 及更高版本：
+上述命令按当前 Python 环境构建 API。下方分别列出 Python 3.8–3.11 和 Python 3.12 的构建步骤；目标版本需与所用分支的构建脚本及依赖相匹配：
 
 * 使用开发头文件和 distutils 在系统级别安装目标 Python 版本，将 *X* 替换为所需版本：
 
 ```sh
-# 某些 Python 版本可能需要 Deadsnakes PPA
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
+# 仅当系统软件源不提供目标版本时，才需要添加 Deadsnakes PPA
+# sudo add-apt-repository ppa:deadsnakes/ppa  # 仅在系统仓库缺少目标版本时取消注释
+# sudo apt update  # 启用 PPA 后再取消注释并运行
 
 # 将 X 替换为所需的 Python 版本
 sudo apt install python3.X python3.X-dev python3.X-distutils
@@ -446,10 +446,10 @@ sudo apt install python3.X python3.X-dev python3.X-distutils
 
 ```sh
 # 根据需要删除版本
-make PythonAPI ARGS="--python-version=3.8, 3.9, 3.10, 3.11"
+make PythonAPI ARGS="--python-version=3.8,3.9,3.10,3.11"
 ```
 
-* **对于 Python 3.12 和 3.13**, Ubuntu 中不存在 *distutils* 库，因此可能需要更新 *setuptools*，请运行以下命令来更新 *setuptools*： 
+* **Python 3.12：**Ubuntu 未提供该版本的 *distutils*。安装 Python 和开发文件后，使用 *ensurepip* 准备 pip，并更新 *setuptools*： 
 
 ```sh
 sudo apt install python3.12 python3.12-dev python3.12-venv
@@ -460,7 +460,7 @@ python3.12 -m pip install --upgrade pip setuptools
 make PythonAPI ARGS="--python-version=3.12"
 ```
 
-* 如果您使用的是非标准 Python 安装或 Python 虚拟环境管理器（例如 PyEnv、Rye 或 Conda），则最好使用 `--python-root` 参数（您可以使用 `which python3` 找到安装）：
+* 如果您使用的是非标准 Python 安装或 Python 虚拟环境管理器（例如 PyEnv、Rye 或 Conda），则最好使用 `--python-root` 参数（which python3 可帮助定位解释器；参数应填写对应 Python 安装的根目录）：
 
 ```sh
 make PythonAPI ARGS="--python-root=/path/to/python/installation"
