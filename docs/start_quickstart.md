@@ -221,4 +221,9 @@ python config.py -l --host 172.21.108.56
 下一步是详细了解 HUTB 的核心概念。阅读 __“第一步”__ 部分开始学习。您还可以在 Python API 参考中找到有关 Python API 类和方法的所有信息。
 
 
-[前往：第一步](tuto_first_steps.md)
+<div class="build-buttons">
+<p>
+<a href="../tuto_first_steps" target="_blank" class="btn btn-neutral" title="Go to first steps">
+前往：第一步</a>
+</p>
+</div>
