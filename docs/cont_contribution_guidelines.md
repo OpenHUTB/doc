@@ -62,17 +62,17 @@ __2. 阅读文档。__ 确保问题是一个错误，而不是对 Carla 应该�
 
 ### 提交 <span id="submission"></span>
 
-贡献和新功能不会直接合并到 `master` 分支，而是合并到名为 `dev` 的中间分支。这种 [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) 分支模型可以更轻松地维护稳定的主分支。该模型需要特定的贡献 [工作流程](./dev/workflow.md) 。
+本仓库以 `master` 作为源代码与文档的默认分支，贡献应从最新的 `master` 创建个人特性分支，并向 `master` 提交拉取请求。有关 Fork、同步、分支和拉取请求的通用步骤，请参阅 [开源孪创社区贡献指南](https://github.com/OpenHUTB/.github/blob/master/CONTRIBUTING.md)。
 
-* 始终让您的 `dev` 分支更新最新的更改。
-* 从名为 `username/name_of_the_contribution` 的 `dev` 子分支中开发贡献。
-* 贡献准备就绪后，从您的分支向 `dev` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
+* 开始修改前同步个人仓库，并更新本地 `master` 分支。
+* 从最新的 `master` 创建名为 `username/name_of_the_contribution` 的特性分支。
+* 贡献准备就绪后，从您的分支向 `master` 提交拉取请求（pull-request）。填写描述时尽量具有描述性。请注意，在合并之前，新代码需要通过一些检查。检查由持续集成系统自动运行。如果检查成功，将会出现绿色勾号。如果有红色标记，请相应更正代码。
 
-一旦贡献被合并到 `dev` 中，就可以与其余新功能一起进行测试。到下一个版本时，该 `dev` 分支将合并到 `master`，并且贡献将可用并公布。
+贡献合并到 `master` 后会按项目发布流程提供给用户；本仓库当前没有 `dev` 中间分支。
 
 ### 清单   <span id="checklist"></span>
 
-*   您的分支已与 `dev` 分支保持同步，并通过最新更改进行了测试。
+*   您的分支已与 `master` 分支保持同步，并通过最新更改进行了测试。
 *   如有必要，扩展 README/文档。
 *   代码编译正确。
 *   所有测试均通过 `make check`。
@@ -122,7 +122,7 @@ git push
 该文档是用 [Markdown](https://www.markdownguide.org/) 和 HTML 标签混合编写的，还有一些额外的 CSS 代码用于表格或 [town slider](https://carla.readthedocs.io/en/latest/core_map/#carla-maps) 等功能。按照以下步骤开始编写文档。
 
 !!! 重要
-    要提交文档贡献，请遵循上面 [代码贡献](#submission) 中解释的相同工作流程。总而言之，贡献是在来自 `dev` 分支的子分支中做出的，并合并到该分支。
+    本仓库的源代码与文档默认分支为 `master`。提交文档时，请从最新的 `master` 创建特性分支并向 `master` 提交拉取请求；Fork、同步和 PR 说明参见上方 [代码贡献](#submission) 流程及[社区统一贡献指南](https://github.com/OpenHUTB/.github/blob/master/CONTRIBUTING.md)。
 
 __1. 从源代码构建 Carla。__ 按照文档中的步骤在 [Linux](build_linux.md) 或 [Windows](build_windows.md) 上进行构建。
 
@@ -138,7 +138,7 @@ __3. 可视化文档。__ 在主 Carla 文件夹中，运行以下命令并单�
 ```sh
 mkdocs serve
 ```
-__4. 创建git分支。__ 创建新分支时，请确保位于`dev`分支中（更新到最新更改）。
+__4. 创建git分支。__ 创建新分支时，请先切换到最新的 `master` 分支并同步远程更新。
 
 ```sh
 git checkout -b <contributor_name>/<branch_name>
@@ -151,4 +151,4 @@ __6. 提交更改。__ 在 GitHub 存储库中创建拉取请求，并添加一�
 __7. 等待审核。__ 团队将检查合并或需要进行任何更改是否已准备好。
 
 !!! 笔记
-    本地存储库必须使用 `dev` 分支中的最新更新进行更新。
+    本地存储库必须使用 `master` 分支中的最新更新进行更新。
