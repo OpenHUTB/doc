@@ -124,6 +124,35 @@ sudo dpkg -i stellar_10.2.2_amd64.deb
 ![ImageDepth](img/build/internet.jpg)
 
 
+### Python 开发环境配置
+
+Python API 示例应使用与 wheel 兼容的 Python 解释器。先完成对应平台构建，并在仓库根目录创建独立虚拟环境：
+
+Windows（PowerShell）：
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+```
+
+Linux：
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+```
+
+从仓库根目录将构建生成的 `hutb` wheel 安装到当前虚拟环境，并验证 Python API 可导入：
+
+```shell
+python -m pip install --no-index --find-links PythonAPI/carla/dist hutb
+python -c "import carla; print(carla.__file__)"
+```
+
+`PythonAPI/carla/dist` 仅在 Python API 构建完成后包含 wheel。若安装时提示找不到 `hutb`，请先按上方 Linux 或 Windows 构建指南生成 wheel，并确认 wheel 的 Python 版本和平台与当前解释器匹配。Ubuntu 缺少 `venv` 模块时，运行 `sudo apt install python3-venv` 安装；若使用非默认 Python 版本，请选择对应版本的包。
+
 ### [VScode C++开发调式环境配置](https://zhuanlan.zhihu.com/p/679355387)
 
 1.下载`software/gcc/x86_64-8.1.0-release-win32-seh-rt_v6-rev0.7z`文件到本地并解压
