@@ -689,7 +689,7 @@ Toolset 'clang' does not appear to support C++11.`
 </p>
 
 <p>
-<a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about HUTB core concepts">
+<a href="../concept" target="_blank" class="btn btn-neutral" title="Learn about HUTB core concepts">
 第一步</a>
 </p>
 

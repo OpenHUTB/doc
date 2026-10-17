@@ -586,7 +586,7 @@ if %errorlevel% neq 0 goto error_py
 </p>
 
 <p>
-<a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
+<a href="../concept" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
 第一步</a>
 </p>
 
