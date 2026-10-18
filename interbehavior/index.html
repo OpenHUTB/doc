@@ -247,7 +247,16 @@
 <li>与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 <a href="https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor">LibCarla/Sensor</a> ）</li>
 <li>我们还测试并验证了对（<code>rospy</code>）ROS 集成传感器数据流的支持</li>
 </ul>
-<h3 id="_5">其他补充：</h3>
+<h3 id="_5">数据收集器 <span id="data_collector"></span></h3>
+<p>面向驾驶行为与眼动交互实验的<strong>一键实验启动器与数据收集器</strong>（参见 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DrivingRecorder.h">DrivingRecorder.h</a> 与 <a href="Tutorials/PimaxDriving/#data_collector">数据收集器使用说明</a>）：</p>
+<ul>
+<li>提供图形化启动器 <code>StartDrivingStudy.cmd</code> 与命令行脚本 <code>StartPimaxVR.ps1</code>，支持选择 <strong>Pimax 手柄</strong> 或 <strong>罗技方向盘</strong>（输入模式隔离、方向盘断连自动满刹并每 2 秒原地重连），自动检查环境并按被试分目录保存实验数据</li>
+<li>双表同步采集（默认目标 <strong>120 Hz</strong>，支持 <strong>20 Hz</strong> 课堂轻量模式）：</li>
+<li><strong>主表 <code>&lt;session&gt;.csv</code>（71 列）</strong>：同步记录仿真/真实/眼动设备时间戳、OpenDRIVE 道路/车道/路口、影响本车的信号灯状态与距离、自车位姿与车速、本帧驾驶输入与已生效控制量、眼动射线、注视命中对象、头显位姿及在线扫视指标</li>
+<li><strong>眼动高频流表 <code>&lt;session&gt;_gaze.csv</code>（18 列）</strong>：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 <code>fixation</code> / <code>saccade</code> / <code>rejected</code> / <code>saccade_open</code> 及扫视起点、幅度、峰值角速度、样本数）</li>
+<li>支持 <strong>异步驾驶员视角内屏截图</strong>（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关</li>
+</ul>
+<h3 id="_6">其他补充：</h3>
 <ul>
 <li>
 <p>用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 <a href="https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini">DReyeVRConfig.ini</a> </p>
@@ -291,7 +300,7 @@
 <p>（仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能</p>
 </li>
 </ul>
-<h2 id="_6">安装/构建</h2>
+<h2 id="_7">安装/构建</h2>
 <p>查看 <a href="Install/">安装文档</a> :</p>
 <ul>
 <li>
@@ -310,7 +319,7 @@
 <p>为 DReyeVR PythonAPI 设置 <code>conda</code> 环境</p>
 </li>
 </ul>
-<h2 id="_7">操作系统兼容性</h2>
+<h2 id="_8">操作系统兼容性</h2>
 <table>
 <thead>
 <tr>
@@ -362,14 +371,14 @@
 <li>此外，我们使用的 <a href="https://github.com/HARPLab/LogitechWheelPlugin">LogitechWheelPlugin</a> 目前仅支持 Windows。不过，根据 <a href="https://wiki.archlinux.org/title/Logitech_Racing_Wheel">Arch Wiki</a> ，应该可以在 Linux 上使用 G923。</li>
 <li>此外，尽管 Carla 并未正式支持 MacOS，但我们在 Apple Silicon 机器上进行了开发，并且拥有 Carla + UE4.26 的活跃分支，支持 MacOS 12+。请注意，这主要用于开发，因为它是迄今为止最受限制的系统。</li>
 </ul>
-<h2 id="_8">文档 &amp; 指南</h2>
+<h2 id="_9">文档 &amp; 指南</h2>
 <p>使用方法：
 直接启动：车辆控制（带声音）、带参数启动原始模式</p>
 <ul>
 <li>请参阅 <a href="Install/">安装步骤</a> 来安装和构建 VR 驾驶</li>
 <li>请参阅 <a href="Usage/">使用 VR 驾驶</a> 了解如何使用我们提供的 VR 驾驶功能</li>
 <li>请参阅 <a href="Development/">开发</a> 以开始 VR 驾驶开发并添加新功能</li>
-<li>请参阅多个 VR 驾驶教程，包括：<a href="Tutorials/PimaxDriving/">Pimax Dream Air 驾驶与眼动追踪</a>、<a href="Tutorials/CustomActor/">自定义参与者</a>、<a href="Tutorials/CustomEgo/">添加自己的 EgoVehicle</a> 、<a href="Tutorials/LODs/">细节级别模式</a> 、<a href="Tutorials/Model/">修改车辆模型</a> 、<a href="Tutorials/SetupVR/">设置VR模式</a> 、<a href="Tutorials/Signs/">添加定制的标志</a> 、<a href="Tutorials/Sounds/">添加和使用声音</a>。</li>
+<li>请参阅多个 VR 驾驶教程，包括：<a href="Tutorials/PimaxDriving/">Pimax Dream Air 驾驶与眼动追踪</a>（含 <a href="Tutorials/PimaxDriving/#data_collector">数据收集器与实验记录</a>）、<a href="Tutorials/CustomActor/">自定义参与者</a>、<a href="Tutorials/CustomEgo/">添加自己的 EgoVehicle</a> 、<a href="Tutorials/LODs/">细节级别模式</a> 、<a href="Tutorials/Model/">修改车辆模型</a> 、<a href="Tutorials/SetupVR/">设置VR模式</a> 、<a href="Tutorials/Signs/">添加定制的标志</a> 、<a href="Tutorials/Sounds/">添加和使用声音</a>。</li>
 <li><a href="Tutorials/CustomEgo/">自定义自主车辆</a></li>
 <li><a href="VRPlayer/">配置可驾驶的 VR 玩家</a></li>
 <li><a href="implementation/">问题分析</a> </li>
@@ -378,7 +387,7 @@
 </ul>
 <h3 id="carla">切换为 Carla 模式</h3>
 <p>将 <a href="https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Config/DefaultEngine.ini">Unreal\CarlaUE4\Config\DefaultEngine.ini</a> 中的 <code>VR mode</code> 注释掉，并打开 <code>Carla mode</code>。</p>
-<h2 id="_9">引用</h2>
+<h2 id="_10">引用</h2>
 <p>如果你想使用该工作，请参考对应的 <a href="https://arxiv.org/abs/2201.01931">论文</a>:</p>
 <ul>
 <li>此 repo 包含来自 Hewlett-Packard Development Company, LP 的一些代码。请参阅 <a href="Tools/Diagnostics/collectl/nvidia.ph">nvidia.ph</a> 。</li>
