@@ -12,6 +12,6 @@
 
 [__将 NVIDIA 神经重建与 HUTB 结合使用__](nvidia_nurec.md) — 支持无缝提取真实世界数据并将其转换为适合训练和测试物理 AI 代理（包括机器人和自动驾驶系统）的模拟环境
 
-[__Pimax Dream Air 头显__](interbehavior/Tutorials/PimaxDriving.md) — 提供 VR 驾驶与眼动追踪支持：头显 6 自由度跟踪、Crystal 手柄驾驶（识别为 SteamVR `oculus_touch`）、连续座椅调整，并通过 Pimax PVR 1.26 运行时接入 combined gaze 眼动追踪与注视线显示，已在 Windows + Pimax Play + SteamVR 环境完成实机验证
+[__Pimax Dream Air 头显__](interbehavior/Tutorials/PimaxDriving.md) — 提供 VR 驾驶与眼动追踪支持：头显 6 自由度跟踪、Crystal 手柄与罗技方向盘驾驶、连续座椅调整，通过 Pimax PVR 1.26 运行时接入 combined gaze 眼动追踪与注视线显示，并内置面向驾驶行为实验的一键启动器与[数据收集器](interbehavior/Tutorials/PimaxDriving.md#data_collector)（71 列主表、18 列 120 Hz 眼动流与在线 I-VT 扫视检测、异步内屏截图），已在 Windows + Pimax Play + SteamVR 环境完成实机验证
 
 [__Carla 模块说明__](file_specification.md) — 说明源代码中各个模块、文件的作用

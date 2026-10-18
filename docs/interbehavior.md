@@ -93,6 +93,15 @@
 - 与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 [LibCarla/Sensor](https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor) ）
   - 我们还测试并验证了对（`rospy`）ROS 集成传感器数据流的支持
 
+### 数据收集器 <span id="data_collector"></span>
+面向驾驶行为与眼动交互实验的**一键实验启动器与数据收集器**（参见 [DrivingRecorder.h](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DrivingRecorder.h) 与 [数据收集器使用说明](interbehavior/Tutorials/PimaxDriving.md#data_collector)）：
+
+- 提供图形化启动器 `StartDrivingStudy.cmd` 与命令行脚本 `StartPimaxVR.ps1`，支持选择 **Pimax 手柄** 或 **罗技方向盘**（输入模式隔离、方向盘断连自动满刹并每 2 秒原地重连），自动检查环境并按被试分目录保存实验数据
+- 双表同步采集（默认目标 **120 Hz**，支持 **20 Hz** 课堂轻量模式）：
+  - **主表 `<session>.csv`（71 列）**：同步记录仿真/真实/眼动设备时间戳、OpenDRIVE 道路/车道/路口、影响本车的信号灯状态与距离、自车位姿与车速、本帧驾驶输入与已生效控制量、眼动射线、注视命中对象、头显位姿及在线扫视指标
+  - **眼动高频流表 `<session>_gaze.csv`（18 列）**：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 `fixation` / `saccade` / `rejected` / `saccade_open` 及扫视起点、幅度、峰值角速度、样本数）
+- 支持 **异步驾驶员视角内屏截图**（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关
+
 ### 其他补充：
 - 用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 [DReyeVRConfig.ini](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini) 
 
@@ -159,7 +168,7 @@
 - 请参阅 [安装步骤](interbehavior/Install.md) 来安装和构建 VR 驾驶
 - 请参阅 [使用 VR 驾驶](interbehavior/Usage.md) 了解如何使用我们提供的 VR 驾驶功能
 - 请参阅 [开发](interbehavior/Development.md) 以开始 VR 驾驶开发并添加新功能
-- 请参阅多个 VR 驾驶教程，包括：[Pimax Dream Air 驾驶与眼动追踪](./interbehavior/Tutorials/PimaxDriving.md)、[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md)。
+- 请参阅多个 VR 驾驶教程，包括：[Pimax Dream Air 驾驶与眼动追踪](./interbehavior/Tutorials/PimaxDriving.md)（含 [数据收集器与实验记录](./interbehavior/Tutorials/PimaxDriving.md#data_collector)）、[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md)。
 - [自定义自主车辆](interbehavior/Tutorials/CustomEgo.md)
 - [配置可驾驶的 VR 玩家](./interbehavior/VRPlayer.md)
 - [问题分析](interbehavior/implementation.md) 
