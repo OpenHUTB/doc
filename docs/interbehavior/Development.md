@@ -9,10 +9,10 @@
 我们建议您采用一种开发环境，以便能够快速识别您对 DReyeVR 的更改与上游更改之间的差异。为此，我们提供了一个预装（并已提交）DReyeVR 的 CARLA 分支，这样您就可以使用一个干净的初始代码库：
 ```bash
 # 克隆我们的分支并替换你原有的 CARLA 仓库。
-git clone https://github.com/harplab/carla -b DReyeVR-0.9.13 --depth 1
+git clone https://github.com/harplab/carla -b DReyeVR-0.9.13
 cd carla
-# ./Update.sh # 在 Linux/Mac 系统中
-Update.bat # 在 Windows 系统中
+# ./Update.sh # Linux / macOS 执行：./Update.sh
+Update.bat # Windows 执行：Update.bat
 
 cd ../DReyeVR/ # 假设 DReyeVR 代码库与 carla 代码库相邻。
 
@@ -37,11 +37,11 @@ make r-install CARLA=../carla # 相当于 "make rev"
 make rev CARLA=../carla       # r-install 的别名
 
 Proceeding on /PATH/TO/CARLA (git branch)
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/ -- found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h -- found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h -> /Users/gustavo/carla/DReyeVR-Dev/DReyeVR/EgoVehicle.h
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp -- found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp -> /Users/gustavo/carla/DReyeVR-Dev/DReyeVR/FlatHUD.cpp
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/ -- found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/EgoVehicle.h -- found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/EgoVehicle.h -> /Users/gustavo/carla/DReyeVR-Dev/DReyeVR/EgoVehicle.h
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/FlatHUD.cpp -- found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/FlatHUD.cpp -> /Users/gustavo/carla/DReyeVR-Dev/DReyeVR/FlatHUD.cpp
 ...etc.
 ...
 Done Reverse Install!
@@ -258,7 +258,7 @@ void AggregateData::Write(std::ofstream &OutFile) const
 {
     /// CAUTION: 确保读写操作的顺序相同
     ... // 现有代码
-    WriteValue<int64_t>(OutFile, GetNewVariable());
+   WriteValue<float>(OutFile, GetNewVariable());
 }
 
 FString AggregateData::ToString() const // 此打印方式用于显示记录器信息
@@ -346,8 +346,8 @@ class_<csd::DReyeVREvent, bases<cs::SensorData>, boost::noncopyable, boost::shar
 ```
 修改 `PythonAPI` 或 `LibCarla` 中的文件后，需要重新构建 PythonAPI 才能使更改生效：
 ```bash
-conda activate carla13 # 如果使用 conda
-(carla13) make PythonAPI
+conda activate carla   # 环境名按实际环境调整
+(carla) make PythonAPI
 # 请务必修复可能出现的任何构建错误！
 ```
 
@@ -405,7 +405,7 @@ void example() {
 ---
 
 ## 3. 管理多个 Carla/DReyeVR 版本
-- 使用独立的 `python` 环境（例如 `conda`）对于在同一台机器上运行不同版本的 Carla Python 包（例如 `LibCarla`）非常有用。为此，您可以按照 [`Install.md`](Install.md) 中的说明，为每个 Carla 版本创建一个单独的 conda 环境。请记住，需要针对每个 shell 激活新的 `conda` 环境！
+- 使用独立的 `python` 环境（例如 `conda`）对于在同一台机器上运行不同版本的 Carla Python 包（例如 `LibCarla`）非常有用。为此，您可以按照[`Usage.md`](../Usage.md)（或对应安装指南）中的说明，为每个 Carla 版本创建一个单独的 conda 环境。请记住，需要针对每个 shell 激活新的 `conda` 环境！
 - 如果您计划安装多个 CARLA 版本，则需要使用相应的 `Content` 更新它们。与其每次都调用`Update`脚本来更新，不如保存 `Content.tar.gz` 文件，并在每次创建新仓库时将其复制到新的 `Unreal/CarlaUE4/Content/Carla` 目录中。
 
 ---
