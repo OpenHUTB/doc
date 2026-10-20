@@ -106,10 +106,10 @@
 <h1 id="_1">入门</h1>
 <p>我们建议您采用一种开发环境，以便能够快速识别您对 DReyeVR 的更改与上游更改之间的差异。为此，我们提供了一个预装（并已提交）DReyeVR 的 CARLA 分支，这样您就可以使用一个干净的初始代码库：
 </p><div class="highlight"><pre><span></span><code><span class="c1"># 克隆我们的分支并替换你原有的 CARLA 仓库。</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/harplab/carla<span class="w"> </span>-b<span class="w"> </span>DReyeVR-0.9.13<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/harplab/carla<span class="w"> </span>-b<span class="w"> </span>DReyeVR-0.9.13
 <span class="nb">cd</span><span class="w"> </span>carla
-<span class="c1"># ./Update.sh # 在 Linux/Mac 系统中</span>
-Update.bat<span class="w"> </span><span class="c1"># 在 Windows 系统中</span>
+<span class="c1"># ./Update.sh # Linux / macOS 执行：./Update.sh</span>
+Update.bat<span class="w"> </span><span class="c1"># Windows 执行：Update.bat</span>
 
 <span class="nb">cd</span><span class="w"> </span>../DReyeVR/<span class="w"> </span><span class="c1"># 假设 DReyeVR 代码库与 carla 代码库相邻。</span>
 
@@ -130,11 +130,11 @@ git<span class="w"> </span>status
 make<span class="w"> </span>rev<span class="w"> </span><span class="nv">CARLA</span><span class="o">=</span>../carla<span class="w">       </span><span class="c1"># r-install 的别名</span>
 
 Proceeding<span class="w"> </span>on<span class="w"> </span>/PATH/TO/CARLA<span class="w"> </span><span class="o">(</span>git<span class="w"> </span>branch<span class="o">)</span>
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/<span class="w"> </span>--<span class="w"> </span>found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h<span class="w"> </span>--<span class="w"> </span>found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoVehicle.h<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/EgoVehicle.h
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp<span class="w"> </span>--<span class="w"> </span>found
-/PATH/TO/CARLA/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/FlatHUD.cpp<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/FlatHUD.cpp
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/EgoVehicle.h<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/EgoVehicle.h<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/EgoVehicle.h
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/FlatHUD.cpp<span class="w"> </span>--<span class="w"> </span>found
+/PATH/TO/CARLA/Unreal/CarlaUE4/Source/DReyeVR/FlatHUD.cpp<span class="w"> </span>-&gt;<span class="w"> </span>/Users/gustavo/carla/DReyeVR-Dev/DReyeVR/FlatHUD.cpp
 ...etc.
 ...
 Done<span class="w"> </span>Reverse<span class="w"> </span>Install!
@@ -387,8 +387,8 @@ make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARL
 <span class="p">;</span>
 </code></pre></div>
 修改 <code>PythonAPI</code> 或 <code>LibCarla</code> 中的文件后，需要重新构建 PythonAPI 才能使更改生效：
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carla13<span class="w"> </span><span class="c1"># 如果使用 conda</span>
-<span class="o">(</span>carla13<span class="o">)</span><span class="w"> </span>make<span class="w"> </span>PythonAPI
+<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>carla<span class="w">   </span><span class="c1"># 环境名按实际环境调整</span>
+<span class="o">(</span>carla<span class="o">)</span><span class="w"> </span>make<span class="w"> </span>PythonAPI
 <span class="c1"># 请务必修复可能出现的任何构建错误！</span>
 </code></pre></div>
 <h1 id="todo">TODO: 添加更多开发笔记</h1>
@@ -430,7 +430,7 @@ make<span class="w"> </span>install<span class="w"> </span><span class="nv">CARL
 <hr>
 <h2 id="3-carladreyevr">3. 管理多个 Carla/DReyeVR 版本</h2>
 <ul>
-<li>使用独立的 <code>python</code> 环境（例如 <code>conda</code>）对于在同一台机器上运行不同版本的 Carla Python 包（例如 <code>LibCarla</code>）非常有用。为此，您可以按照 <a href="../Install/"><code>Install.md</code></a> 中的说明，为每个 Carla 版本创建一个单独的 conda 环境。请记住，需要针对每个 shell 激活新的 <code>conda</code> 环境！</li>
+<li>使用独立的 <code>python</code> 环境（例如 <code>conda</code>）对于在同一台机器上运行不同版本的 Carla Python 包（例如 <code>LibCarla</code>）非常有用。为此，您可以按照<a href="../Usage.md"><code>Usage.md</code></a>（或对应安装指南）中的说明，为每个 Carla 版本创建一个单独的 conda 环境。请记住，需要针对每个 shell 激活新的 <code>conda</code> 环境！</li>
 <li>如果您计划安装多个 CARLA 版本，则需要使用相应的 <code>Content</code> 更新它们。与其每次都调用<code>Update</code>脚本来更新，不如保存 <code>Content.tar.gz</code> 文件，并在每次创建新仓库时将其复制到新的 <code>Unreal/CarlaUE4/Content/Carla</code> 目录中。</li>
 </ul>
 <hr>
