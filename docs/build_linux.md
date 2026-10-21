@@ -316,7 +316,16 @@ find Engine/Binaries/DotNET -name "*.config" -exec cp clean.config {} \;
 __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 
 ```sh
+有屏渲染
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
+
+无屏渲染
+cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor -RenderOffScreen -unattended -nosplash -nop4
+```
+
+在./UE4Editor遇到以下错误的话就用无屏渲染
+```sh
+[2026.10.21-05.11.22:887][  0]LogInit: Error: FLinuxApplication::CreateLinuxApplication() : InitSDL() failed, cannot create application instance.
 ```
 
 电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：
@@ -640,10 +649,10 @@ make clean
 
 
 
-该软件包将在 Dist 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：
+该软件包将在 Build/UE4Carla 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：
 
 ```sh
-./Dist/CARLA_<package_id>/LinuxNoEditor/CarlaUE4.sh --ros2 -RenderOffScreen --carla-rpc-port=<port> --carla-streaming-port=0 -nosound
+./Build/UE4Carla/<package_id>/LinuxNoEditor/CarlaUE4.sh --ros2 -RenderOffScreen --carla-rpc-port=<port> --carla-streaming-port=0 -nosound
 ```
 
 模拟器运行后，运行冒烟测试：
