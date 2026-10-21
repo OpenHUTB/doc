@@ -264,11 +264,13 @@ Carla 生态系统中有八个城镇，每个城镇都有两种地图，非分�
 | **[Town12](map_town12.md)**                                           | 一张包含许多不同区域的大地图，包括高层建筑、住宅区和乡村环境。                                                                                                                                                                                           |
 | [__Town13__](map_town13.md)                                           | 一张与 12 号镇规模相似的大地图，但具有鲜明的特色。                                                                                                                                                                                               |
 | [__Town15__](map_town15.md)                                           | 基于巴塞罗那自治大学道路布局的地图。                                                                                                                                                                                                        |
-| [__湖南工商大学__]([链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb))  | 基于湖南工商大学道路布局的地图（可执行场景位于 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ）。 |
-| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园（Changsha CEC Software Park, CCSP）道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`，资产位于`D:\model1\model1\tileset.json`）。                                                                                               |
+| [__湖南工商大学__](./img/hutb/hutb_air.jpg)  | 基于湖南工商大学道路布局的地图（可执行场景位于 [链接](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 中的`software/car/湖南工商大学.zip`，其资产位于 [链接](https://bitbucket.org/hutbcity/openhutbcarla/src/main/) ，[导入方法](tutorial/import_HUTB.md) ，地图名为`HutbCity`）。 |
+| [__中电软件园__](https://pan.baidu.com/s/1q96tyOIMJjpCw5KwL0qnsQ?pwd=hutb) | 基于长沙市中电软件园（Changsha CEC Software Park, CCSP）道路布局的地图（位于`car/中电软件园/WindowsNoEditor.zip`，资产位于`D:\model1\model1\tileset.json`，地图名为`baidutest2test`）。                                                                                               |
+
+![](./img/hutb/hutb_air.jpg)
 
 !!! 注意
-	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。
+	Town06 和 Town07 是附加内容，不包含在标准 CARLA 包中。请参阅 [附加地图部分](#additional-maps) ，了解如何导入这些内容。[完整资产仓库链接](https://git.code.tencent.com/OpenHUTB/Content)，获取所有地图资产仓库修改权限请发送邮件到 open@hutb.edu.cn
 
 
 ### 分层地图 <span id="layered-maps"></span>
@@ -342,9 +344,8 @@ __2.__ 解压包：
     - 将包移动到 _Import_ 文件夹并运行以下脚本来提取内容： 
 
 ```sh
-        cd path/to/carla/root
-
-        ./ImportAssets.sh
+cd path/to/carla/root
+./ImportAssets.sh
 ```
 
 - __在 Windows 上__:

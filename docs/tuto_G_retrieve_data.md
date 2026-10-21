@@ -2,7 +2,7 @@
 
 在 Carla 中，学习一种有效的方法来检索模拟数据至关重要。这个整体教程适合新手和经验丰富的用户。它从头开始，逐渐深入探讨 Carla 中可用的许多选项。
 
-首先，使用自定义设置和流量初始化模拟。一辆自主车辆将在城市中漫游，可选地配备一些基本传感器。记录模拟，以便以后查询以找到亮点。之后，原始模拟被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 
+首先，使用自定义设置和流量初始化模拟。一辆自车将在城市中漫游，可选地配备一些基本传感器。记录模拟，以便以后查询以找到亮点。之后，原始模拟被回放，并被利用到极限。可以添加新的传感器来检索一致的数据。天气条件是可以改变的。记录器甚至可以用于测试具有不同输出的特定场景。 
 
 *   [__概述__](#overview)  
 *   [__设置模拟__](#set-the-simulation)  
@@ -11,8 +11,8 @@
 *   [__设置交通流量__](#set-traffic)  
 	*   [Carla 交通和行人](#carla-traffic-and-pedestrians)  
 	*   [SUMO 协同模拟交通](#sumo-co-simulation-traffic)  
-*   [__设置自主车辆__](#set-the-ego-vehicle)  
-	*   [生成自主车辆](#spawn-the-ego-vehicle)  
+*   [__设置自车__](#set-the-ego-vehicle)  
+	*   [生成自车](#spawn-the-ego-vehicle)  
 	*   [放置观察者](#place-the-spectator)  
 *   [__设置基本传感器__](#set-basic-sensors)  
 	*   [RGB 相机](#rgb-camera)  
@@ -54,12 +54,12 @@
 	* [`carla/PythonAPI/examples/dynamic_weather.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/dynamic_weather.py)
 * __spawn_npc.py__ 生成一些人工智能控制的车辆和行人。
 	* [`carla/PythonAPI/examples/spawn_npc.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/spawn_npc.py)
-* __manual_control.py__ 生成一个自主车辆，并提供对其的控制。
+* __manual_control.py__ 生成一个自车，并提供对其的控制。
 	* [`carla/PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py)
 
 但是，教程中提到的两个脚本在 Carla 中找不到。它们包含引用的代码片段。这有双重目的。首先，鼓励用户构建自己的脚本。充分理解代码的作用非常重要。除此之外，本教程只是一个大纲，可能而且应该根据用户的喜好而有很大的不同。这两个脚本只是一个示例。
 
-* [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 生成带有一些基本传感器的自主车辆，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
+* [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 生成带有一些基本传感器的自车，并启用自动驾驶仪。观察者被放置在生成位置。记录器从一开始就启动，并在脚本完成时停止。
 * [__tutorial_replay.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_replay.py) 重新执行 __tutorial_ego.py__ 记录的模拟。有不同的代码片段可以查询记录、生成一些高级传感器、改变天气条件以及重新执行记录片段。
 
 完整的代码可以在教程的最后部分找到。请记住，这些并不严格，而是可以定制的。在 Carla 中检索数据的功能正如用户所希望的那样强大。
@@ -253,19 +253,19 @@ python3 run_synchronization.py examples/Town01.sumocfg --sumo-gui
     目前，SUMO 联合模拟还是测试版功能。车辆没有物理特性，也不考虑 Carla 交通信号灯。
 
 ---
-## 设置自主车辆 <span id="et-the-ego-vehicle"></span>
+## 设置自车 <span id="set-the-ego-vehicle"></span>
 
-从现在到记录器停止的那一刻，将会有一些属于 [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 的代码片段。该脚本生成自主车辆，可选一些传感器，并记录模拟，直到用户完成脚本。
+从现在到记录器停止的那一刻，将会有一些属于 [__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 的代码片段。该脚本生成自车，可选一些传感器，并记录模拟，直到用户完成脚本。
 
-### 生成自主车辆 <span id="spawn-the-ego-vehicle"></span>
+### 生成自车 <span id="spawn-the-ego-vehicle"></span>
 
 用户控制的车辆在 Carla 中通常通过将属性 `role_name` 设置为 `ego` 来区分。可以设置其他属性，其中一些具有推荐值。
 
-下面，从 [蓝图库](bp_library.md) 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自主车辆。
+下面，从 [蓝图库](bp_library.md) 中检索特斯拉模型，并使用随机推荐的颜色生成。选择地图推荐的生成点之一来放置自车。
 
 ```py        
 # --------------
-# Spawn ego vehicle
+# 生成自车
 # --------------
 ego_bp = world.get_blueprint_library().find('vehicle.tesla.model3')
 ego_bp.set_attribute('role_name','ego')
@@ -288,11 +288,11 @@ else:
 
 ### 放置观察者 <span id="place-the-spectator"></span>
 
-观察者参与者控制模拟视图。通过脚本移动它是可选的，但它可能有助于找到自主车辆。 
+观察者参与者控制模拟视图。通过脚本移动它是可选的，但它可能有助于找到自车。 
 
 ```py
 # --------------
-# 自主车辆位置的观察者
+# 自车位置的观察者
 # --------------
 spectator = world.get_spectator()
 world_snapshot = world.wait_for_tick() 
@@ -308,11 +308,11 @@ __1.__ 使用库查找传感器蓝图。
 
 __2.__ 设置传感器的特定属性。这一点至关重要。属性将塑造检索到的数据。
 
-__3.__ 将传感器连接至自主车辆。该变换是相对于其父级的。[carla.AttachmentType](python_api.md#carlaattachmenttype) 将确定传感器位置的更新方式。
+__3.__ 将传感器连接至自车。该变换是相对于其父级的。[carla.AttachmentType](python_api.md#carlaattachmenttype) 将确定传感器位置的更新方式。
 
 __4.__ 添加`listen()`方法。这是关键要素。每次传感器监听数据时都会调用的 [__lambda__](https://www.w3schools.com/python/python_lambda.asp) 方法。参数是检索到的传感器数据。 
 
-牢记这一基本准则，让我们为自主车辆设置一些基本传感器。
+牢记这一基本准则，让我们为自车设置一些基本传感器。
 
 
 ### RGB 相机 <span id="rgb-camera"></span>
@@ -366,7 +366,7 @@ ego_cam.listen(lambda image: image.save_to_disk('tutorial/output/%.6d.jpg' % ima
 
 ```py
 # --------------
-# 向自主车辆添加碰撞传感器
+# 向自车添加碰撞传感器
 # --------------
 col_bp = world.get_blueprint_library().find('sensor.other.collision')
 col_location = carla.Location(0,0,0)
@@ -378,7 +378,7 @@ def col_callback(colli):
 ego_col.listen(lambda colli: col_callback(colli))
 
 # --------------
-# 向自主车辆添加压线传感器
+# 向自车添加压线传感器
 # --------------
 lane_bp = world.get_blueprint_library().find('sensor.other.lane_invasion')
 lane_location = carla.Location(0,0,0)
@@ -390,7 +390,7 @@ def lane_callback(lane):
 ego_lane.listen(lambda lane: lane_callback(lane))
 
 # --------------
-# 向自主车辆添加障碍物检测传感器
+# 向自车添加障碍物检测传感器
 # --------------
 obs_bp = world.get_blueprint_library().find('sensor.other.obstacle')
 obs_bp.set_attribute("only_dynamics",str(True))
@@ -420,7 +420,7 @@ ego_obs.listen(lambda obs: obs_callback(obs))
 
 ```py
 # --------------
-# 给自主车辆添加全球导航卫星系统传感器 
+# 给自车添加全球导航卫星系统传感器 
 # --------------
 gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')
 gnss_location = carla.Location(0,0,0)
@@ -433,7 +433,7 @@ def gnss_callback(gnss):
 ego_gnss.listen(lambda gnss: gnss_callback(gnss))
 
 # --------------
-# 给自主车辆添加 IMU 传感器 
+# 给自车添加 IMU 传感器 
 # --------------
 imu_bp = world.get_blueprint_library().find('sensor.other.imu')
 imu_location = carla.Location(0,0,0)
@@ -574,11 +574,11 @@ __3.__ 打开其中一个 _.ply_ 文件。 `File > Import mesh...`
 
 该脚本将传感器放置在汽车引擎盖上，并向上旋转一点。这样，输出将映射汽车的前视图。`horizontal_fov`是增加的，`vertical_fov`是减少的。感兴趣的区域特别是车辆和行人通常移动的高度。距离`range`也从 100m 更改为 10m，以便仅检索车辆正前方的数据。
 
-这次的回调有点复杂，显示了它的更多功能。它将实时绘制雷达捕获的点。这些点将根据它们相对于自主车辆的速度而着色。 
+这次的回调有点复杂，显示了它的更多功能。它将实时绘制雷达捕获的点。这些点将根据它们相对于自车的速度而着色。 
 
 * __Blue__ 表示接近车辆的点。
 * __Red__ 表示远离接近车辆的点。
-* __White__ 代表关于自主车辆的静态点。
+* __White__ 代表关于自车的静态点。
 
 ```py
 # --------------
@@ -648,7 +648,7 @@ python3 config.py --no-rendering --delta-seconds 0.05 # 绝不会大于 0.1 秒
 
 ### 无需渲染的手动控制 <span id="manual-control-without-rendering"></span>
 
-脚本 [`PythonAPI/examples/no_rendering_mode.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/no_rendering_mode.py) 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自主车辆。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
+脚本 [`PythonAPI/examples/no_rendering_mode.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/no_rendering_mode.py) 提供了模拟的概述。它使用 Pygame 创建了一个简约的鸟瞰图，它将跟随自车。这可以与 __manual_control.py__ 一起使用来生成一条几乎没有成本的路线，记录它，然后回放并利用它来收集数据。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -717,7 +717,7 @@ while True:
     world_snapshot = world.wait_for_tick()
 ```
 
-* __手动控制。__ 在客户端中运行脚本 [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py) ，在另一个客户端中运行记录器。驾驶自主车辆来创建所需的路线，并在完成后停止记录仪。[__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 脚本可用于管理记录器，但请确保注释其他代码片段。
+* __手动控制。__ 在客户端中运行脚本 [`PythonAPI/examples/manual_control.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control.py) ，在另一个客户端中运行记录器。驾驶自车来创建所需的路线，并在完成后停止记录仪。[__tutorial_ego.py__](https://github.com/OpenHUTB/doc/tree/master/src/tutorial/tutorial_ego.py) 脚本可用于管理记录器，但请确保注释其他代码片段。
 
 ```
 cd /opt/carla/PythonAPI/examples
@@ -776,13 +776,13 @@ print(client.show_recorder_collisions("~/tutorial/recorder/recording01.log",'v',
     记录器不需要打开即可进行查询。
 
 ![tuto_query_frames](img/tuto_query_frames.jpg)
-<div class="div" style="text-align: center"><i>显示重要事件的查询。这是自主车辆产生的框架。</i></div>
+<div class="div" style="text-align: center"><i>显示重要事件的查询。这是自车产生的框架。</i></div>
 
 ![tuto_query_blocked](img/tuto_query_blocked.jpg)
-<div class="div" style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自主车辆保持阻塞状态 100 秒。</i></div>
+<div class="div" style="text-align: center"><i>查询显示参与者被阻止。在此模拟中，自车保持阻塞状态 100 秒。</i></div>
 
 ![tuto_query_collisions](img/tuto_query_collisions.jpg)
-<div class="div" style="text-align: center"><i>显示自主车辆与“其他”类型对象之间的碰撞的查询</i></div>
+<div class="div" style="text-align: center"><i>显示自车与“其他”类型对象之间的碰撞的查询</i></div>
 
 !!! 笔记
     获取每一帧的详细文件信息可能会让人不知所措。在其他查询之后使用它来了解要查看的位置。 
@@ -1020,7 +1020,7 @@ def main():
         """
 
         # --------------
-        # 对自主车辆启用自动驾驶
+        # 对自车启用自动驾驶
         # --------------
         """
         ego_vehicle.set_autopilot(True)

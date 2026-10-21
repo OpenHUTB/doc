@@ -237,6 +237,53 @@ D:/work/workspace/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/Fishey
 ## Windows 构建
 <!-- ======================================================================= -->
 
+
+###### fatal error C1083: compiler/disable-ue4-macros.h: No such file or directory
+
+原因： LibCarla没有成功安装到：hutb\Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies
+
+###### 启动虚幻编辑器时候报boost里的变量找不到的错：
+```shell
+Unreal\CarlaUE4\Plugins\Carla\CarlaDependencies\include\boost/asio/detail/impl/winsock_init.ipp(36): error C2039: "InterlockedIncrement":
+大模型提示说是 UE4 把 InterlockedIncrement 等宏 define 成了自己封装的版本；第三方库（boost、rpclib 等）也用这些名字，两者冲突会导致编译错误。
+```
+[解决](https://github.com/louiszengCN/CarlaAir/issues/14#issuecomment-4260028832)：
+
+本质上确实是 **UE4** 的 Windows 宏环境和 **Boost.Asio 冲突**，具体表现为'InterlockedIncrement'这类名字在 UE4 编译环境里被宏处理后，导致boost/asio/detail/impl/winsock_init.ipp(36)找不到期望的符号
+
+可以尝试以下几种方法：
+
+* 把'MapPreviewUserWidget.h'改成和'OpenDriveToMap.h'一样的模式：
+```cpp
+#include <compiler/disable-ue4-macros.h>  // 禁用 UE4 的宏，然后才能不冲突的使用 boost/asio 里的宏
+THIRD_PARTY_INCLUDES_START
+#include <boost/asio.hpp>
+THIRD_PARTY_INCLUDES_END
+#include <compiler/enable-ue4-macros.h>
+```
+* 全仓再搜一遍 UE 模块里是否还有直接`#include <boost/asio...>`或其他Boost/Windows敏感头没有包桥接
+
+* 保持`CarlaTools.Build.cs`里的 `ASIO_NO_EXCEPTIONS` / `BOOST_NO_EXCEPTIONS` / 'LIBCARLA_NO_EXCEPTIONS'定义不变
+
+* 修改后清理一次 UE 构建缓存并重新生成工程文件，再重新编译，避免 UBT 继续吃旧中间产物
+建议至少清掉：
+    * 'Unreal/CarlaUE4/Intermediate'
+    * 'Unreal/CarlaUE4/Binaries'
+    * 'Unreal/CarlaUE4/Plugins/CarlaTools/Intermediate'
+    * 'Unreal/CarlaUE4/Plugins/CarlaTools/Binaries'
+
+###### 删除/新建虚拟环境报错：
+```shell
+# 删除报错
+WARNING conda.gateways.disk.delete:unlink_or_rename_to_trash(184): Could not remove or rename C:\software\anaconda3\envs\hutb_3.14\Library\bin\ffi.dll.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.conda_trash.  Please remove this file manually (you may need to reboot to free file handles)
+2026-04-29T12:30
+...
+# 新建报错
+[Errno 13] Permission denied: 'C:\\software\\anaconda3\\envs\\hutb_3.14\\Library\\bin\\libbz2.dll'
+```
+
+解决：彻底删除虚拟环境。
+
 ###### 打包报错：Missing packaged runtime DLLs
 ```
 [Package]: [ERROR] Missing packaged runtime DLLs: AgentInterface.dll dxil.dll embree.2.14.0.dll hdf5.dll libfbxsdk.dll tbb.dll tbbmalloc.dll

@@ -299,8 +299,17 @@ __2.__ __编译服务端__:
 以下命令编译并启动虚幻引擎。每次您想要启动服务器或使用虚幻引擎编辑器时运行此命令：
 
 ```sh
-make launch
+# make launch
+setup.bat -l
 ```
+
+**注意** ：
+
+* 如果需要生成 Unreal\CarlaUE4\CarlaUE4.sln，则运行 setup.bat -g，解决右键 CarlaUE4.uproject 生成工程文件报错：Missing D:/hutb/Build/engine/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe after build。
+
+* 直接从 VS 启动调试弹出命令行报错：No platforms specified for target，则需要重新生成
+
+
 
 ![](./img/build/make_launch.png)
 
@@ -347,9 +356,9 @@ python3 dynamic_weather.py
 
 您可能会发现还有更多有用的`make`命令。在下表中找到它们：
 
-| 命令                                        | 描述                                                                                                                                 |
-|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| `make help`                               | 打印所有可用的命令。                                                                                                                         |
+| 命令  | 描述 |
+|-------|--------|
+| `make help`     | 打印所有可用的命令。  |
 | `make launch`                             | 在编辑器窗口中启动 HUTB 服务器（会编译LibCarla和osm2odr）。                                                                                          |
 | `make launch-only`                        | 在编辑器窗口中启动 HUTB 服务器（不编译LibCarla和osm2odr）。                                                                                                          |
 | `make PythonAPI`                          | 构建 HUTB 客户端（需要重新安装HUTB的Python包`pip install --force-reinstall carla/PythonAPI/carla/dist/carla-0.9.15-cp37-cp37m-win_amd64.whl`）。 |
@@ -577,7 +586,7 @@ if %errorlevel% neq 0 goto error_py
 </p>
 
 <p>
-<a href="../core_concepts" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
+<a href="../concept" target="_blank" class="btn btn-neutral" title="Learn about CARLA core concepts">
 第一步</a>
 </p>
 

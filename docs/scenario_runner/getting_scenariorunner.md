@@ -64,23 +64,26 @@ git pull
 ## A. 下载 ScenarioRunner 发布版
 
 ScenarioRunner 的版本是包含以下内容的软件包： 
+
 *   与特定 CARLA 版本相关的 ScenarioRunner 版本。 
+
 *   用 Python 编写的一些示例场景。 
 
 运行 ScenarioRunner 版本的过程非常简单。  
 
 __1. 下载 CARLA 发布版。__ 请按照 [CARLA 快速入门](https://github.com/carla-simulator/carla/releases) 中的流程进行操作。
+
 __2. 下载匹配的 ScenarioRunner 版本。__ [此处](https://github.com/carla-simulator/scenario_runner/releases) 列出了所有版本。
 
 !!! 重要
-    两个版本必须匹配。如果 CARLA 版本是 *0.9.9*，则还可以使用 ScenarioRunner *0.9.9*。[以下](https://github.com/carla-simulator/scenario_runner) 是 CARLA 和 ScenarioRunner 之间的兼容性的简要列表。
+    两个版本必须匹配。如果 CARLA 版本是 0.9.9，则还可以使用 ScenarioRunner 0.9.9。[以下](https://github.com/carla-simulator/scenario_runner) 是 CARLA 和 ScenarioRunner 之间的兼容性的简要列表。
 
 __3. 提取内容。__ 目录并不重要。
 
 
 ### 更新发布版
 
-打包版本不需要更新。内容是捆绑的，因此与 CARLA 的特定版本相关联。每次有新的 CARLA 版本时，ScenarioRunner 都会有一个匹配的版本。此处列出了所有版本：
+打包版本不需要更新。内容是捆绑的，因此与 CARLA 的特定版本相关联。每次有新的 CARLA 版本时，ScenarioRunner 都会有一个匹配的版本。此处：
 
 *   [CARLA 发布版](https://github.com/carla-simulator/carla/releases)  
 *   [Scenario Runner 发布版](https://github.com/carla-simulator/scenario_runner/releases)  

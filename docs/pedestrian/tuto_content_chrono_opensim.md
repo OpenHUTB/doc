@@ -53,10 +53,10 @@ for i in range(200):
 
 详细信息请参考 [基于 Chrono 的肌肉骨骼解析和控制](https://openhutb.github.io/locomotion/) 。
 
-* [Carla 中 Chrono 的实现分析](../chrono/chrono_in_carla.md)
-* [Chrono OpenSim 解析器](../chrono/OpenSim_parser.md)
-* [Windows下Chrono源代码编译](../chrono/build_in_windows.md)
-* [Chrono 添加可视化组件 irrlicht](../chrono/irrlicht_support.md)
+* [Carla 中 Chrono 的实现分析](https://openhutb.github.io/chrono_doc/chrono/chrono_in_carla/)
+* [Chrono OpenSim 解析器](https://openhutb.github.io/chrono_doc/chrono/OpenSim_parser/)
+* [Windows下Chrono源代码编译](https://openhutb.github.io/chrono_doc/chrono/build_in_windows/)
+* [Chrono 添加可视化组件 irrlicht](https://openhutb.github.io/chrono_doc/chrono/irrlicht_support/)
 
 
 ## 自定义

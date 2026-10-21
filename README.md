@@ -28,7 +28,7 @@
 该项目是一款能让用户快速测试 [具身人](https://openhutb.github.io/doc/#_5) 、[无人车](https://openhutb.github.io/doc/#_4) 、[无人机](https://openhutb.github.io/air_doc/) 感知、规划、控制算法的影视级物理模拟器文档。
 
 <p width="100%" display="flex" align="center">
-<a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/cycle.gif" width="27%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="docs/img/chrono/vechile_turnover.gif" width="30%"/></a> <a href="https://openhutb.github.io/air_doc/"><img src="https://github.com/OpenHUTB/air_doc/blob/master/docs/images/dev/HUTB_simulation.gif?raw=true" width="30%"/></a>
+<a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="docs/img/pedestrian/cycle.gif" width="27%" margin-right="10%"/></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="https://github.com/OpenHUTB/chrono_doc/blob/master/docs/img/chrono/vechile_turnover.gif?raw=true" width="30%"/></a> <a href="https://openhutb.github.io/air_doc/"><img src="https://github.com/OpenHUTB/air_doc/blob/master/docs/images/dev/HUTB_simulation.gif?raw=true" width="30%"/></a>
 </p>
 
 ---
@@ -161,7 +161,100 @@ $$
 常见图的绘制请参考[绘图指南](docs/demo/figure.md) 。
 
 
-文档页面显示支持 [Latex 公式](https://gist.github.com/josemazo/36af7bb9c58b92c684bbd431f6c68ce9) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
+文档页面显示支持 [Latex 公式](https://squidfunk.github.io/mkdocs-material/reference/math/) 、[视频播放](https://pypi.org/project/mkdocs-video/)  。
+
+
+### Vscode 内支持 Markdown 自动补全
+
+首先按下`Ctrl+Shift+P`启动交互指令终端，输入：
+```shell
+> Preferences: Open User Settings (JSON)
+```
+打开设置。然后在末尾添加这么一行配置（注意前面一个配置的最后需要补一个逗号`,`）：
+```json
+    "[markdown]": {    // 作用是开启markdown下的snippet功能。vsc默认是禁用的
+        "editor.quickSuggestions": {
+            "other": true,     // 是否开启其他情况的snippet
+            "comments": true,  // 是否开启注释下的snippet
+            "strings": true    // 是否开启句子的snippet
+        },
+        "editor.acceptSuggestionOnEnter": "on"   // 允许使用回车键选中snippet，而不仅仅是tab
+    }
+```
+然后，再次按下ctrl+shift+P启动交互指令终端，输入
+```shell
+> snippets: Configure Snippets
+```
+输入markdown并点开这个语言模式，应该会自动打开一个叫 markdown.json 的文件
+```json
+	"cpp": {
+		"prefix": "cpp",  // 触发词
+		"body": [  // 补全内容
+			"```c++",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add C++ code block"  // 注释
+	},
+
+	"python": {
+		"prefix": "py",  // 触发词
+		"body": [  // 补全内容
+			"```python",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add Python code block"  // 注释
+	},
+
+	"shell": {
+		"prefix": "sh",  // 触发词
+		"body": [  // 补全内容
+			"```shell",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add shell code block"  // 注释
+	},
+
+	"json": {
+		"prefix": "json",  // 触发词
+		"body": [  // 补全内容
+			"```json",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add Json code block"  // 注释
+	},
+
+	"text": {
+		"prefix": "text",  // 触发词
+		"body": [  // 补全内容
+			"```text",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add text code block"  // 注释
+	},
+
+	"span": {
+		"prefix": "span",  // 触发词
+		"body": [  // 补全内容
+			"<span id='$1'></span>"
+		],
+		"description": "Add html span code block"  // 注释
+	},
+
+	"yml": {
+		"prefix": "yml",  // 触发词
+		"body": [  // 补全内容
+			"```yml",
+			"$1",  // 光标停留位置
+			"```"
+		],
+		"description": "Add yml block"  // 注释
+	}
+```
 
 
 ### 其他
@@ -175,16 +268,21 @@ $$
     python -m pip install .
     ```
     由于 **Github Action** 的 [OpenHUTB/actions-mkdocs](https://github.com/Tiryoh/actions-mkdocs/compare/main...OpenHUTB:actions-mkdocs:main) 需要使用 `pip install hutb-doc -i https://pypi.org/simple` 进行安装，所以需要先删除 [pypi 已发布的包](https://pypi.org/manage/project/hutb-doc/releases/) ，然后再参考 [发布自定义mkdocs](https://openhutb.github.io/doc/tuto_D_make_release/) 发布 hutb-doc。
-    
+
+* [将 deepwiki 页面下载为 markdown 格式](https://zhuanlan.zhihu.com/p/1903904027554604441)
+
+    [下载](https://github.com/philipz/deepwiki-md-chrome-extension/releases)并解压插件 -> 在 Chrome 浏览器中的地址栏中输入`chrome://extensions`打开开发模式 -> 点击`加载未打包的扩展程序`，选择刚才下载来的根目录 -> 点击增加的扩展程序的`详情`按钮启用`自动访问deepwiki`和`固定到工具栏` -> 打开对应的 deepwiki 页面，点击工具栏中的新出现的按钮，选择`Download Current Page`。
 
 
 ## 常见问题
 
 * 修改文件后不自动加载更新
 
-> 解决：将 click 的版本从 8.3.0 回退到 8.2.1
-> 
-> `pip install  --force-reinstall click==8.2.1`
+    > 解决：将 click 的版本从 8.3.0 回退到 8.2.1
+    > 
+    > `pip install  --force-reinstall click==8.2.1`
+    >
+    > 或者使用以下命令启动服务：`mkdocs serve --livereload`
 
 * 编译文档时报错：`ERROR - Config value: ‘plugins‘. Error: The “redirects“ plugin is not installed`
 
@@ -210,32 +308,12 @@ $$
   > ```
 
 * 安装完 hutb-doc 后，运行`mkdocs serve --livereload`报错：ModuleNotFoundError: No module named 'pymdownx'
-> 解决：
-  > ```shell
-  > pip install pymdown-extensions
-  > ```
+    > 解决：
+    > ```shell
+    > pip install pymdown-extensions
+    > ```
 
 ## 许可证
 
-```
-@inproceedings{airsim2017fsr,
-  author = {Shital Shah and Debadeepta Dey and Chris Lovett and Ashish Kapoor},
-  title = {AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles},
-  year = {2017},
-  booktitle = {Field and Service Robotics},
-  eprint = {arXiv:1705.05065},
-  url = {https://arxiv.org/abs/1705.05065}
-}
-```
-
-```
-@article{sture,
-	author={Haidong Wang and Zhiyong Li and Yaping Li and Ke Nai and Ming Wen},
-	title={STURE: Spatial-Temporal Mutual Representation Learning for Robust Data Association in Online Multi-Object Tracking},
-    journal={Computer Vision and Image Understanding},
-	volume=220,
-	year=2022,
-}
-```
 
 此项目依据 MIT 许可证发布。详情请查阅[许可证文件](./LICENSE)。

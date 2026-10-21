@@ -1,0 +1,37 @@
+{"UISettings":{
+  "Theme": "FollowingSystem",
+  "ThemeAccent": "#FF0078D7",
+  "UseSystemThemeAccent": true,
+  "Language": null,
+  "MessageBoxDontPrompts": null,
+  "IsShowAdvertisement": true,
+  "WindowSizePositions": {
+    "MainWindow": {
+      "X": 217,
+      "Y": 269,
+      "Height": 710,
+      "Width": 960
+    }
+  },
+  "FontName": null,
+  "GameListGridSize": 150,
+  "Fillet": false,
+  "WindowBackgroundOpacity": 0,
+  "WindowBackgroundMaterial": "Mica",
+  "WindowBackgroundDynamic": false,
+  "WindowBackgroundCustomImage": false,
+  "WindowBackgroundCustomImagePath": "avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png",
+  "WindowBackgroundCustomImageOpacity": 0.8,
+  "WindowBackgroundCustomImageStretch": "UniformToFill",
+  "SortMenuTabs": [
+    "Watt Toolkit-Welcome",
+    "Accelerator-CommunityFix",
+    "GameAccount-UserFastChange",
+    "GameList-GameList",
+    "Authenticator-LocalAuth",
+    "ArchiSteamFarmPlus-ArchiSteamFarmPlus",
+    "SteamIdleCard-SteamIdleCard",
+    "GameTools-GameRelated"
+  ],
+  "StartDefaultPageName": "Accelerator-CommunityFix"
+}}

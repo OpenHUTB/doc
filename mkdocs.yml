@@ -31,9 +31,14 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js
   - https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js
   - https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js
+  # - https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2777080357724781
   - js/umlconvert.js
 
 plugins:
+  - mkdocs-video:
+      is_video: True
+      video_autoplay: True
+      video_loop: True
   - search:
       lang: ja
       separator: '[\s\-\.]+'
@@ -49,10 +54,10 @@ copyright: OpenHUTB 版权所有 &copy; {year}
 
 
 nav:
-- 简介:
-  - 入门: 'introduction.md'
-  - 人: 'pedestrian.md'
-  - 车: 'vehicle.md'
+- 载具:
+  - 无人车: 'vehicle.md'
+  - 无人机: 'https://openhutb.github.io/air_doc/dev/Carla_Air/'
+  - 潜水器: 'https://openhutb.github.io/mujoco_plugin/underwater/'
 - 模拟:
   - 概念: 'concept.md'
   - 模块: 'modules.md'
@@ -68,6 +73,7 @@ nav:
 
 # - mdx_math 用于行内公式显示
 markdown_extensions:
+  - markdown_grid_tables
   - pymdownx.blocks.html
   - admonition
   - mdx_math

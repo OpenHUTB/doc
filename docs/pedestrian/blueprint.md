@@ -23,7 +23,7 @@ SharedPtr<Actor> World::TrySpawnActor(
     ...
 }
 ```
-然后调用 World.cpp 的 [SpwanActor()](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127) ：
+然后调用 World.cpp 的 [SpawnActor()](https://github.com/OpenHUTB/hutb/blob/3cc9770572f1b531f0eed69a5dc3e0e4f186a876/LibCarla/source/carla/client/World.cpp#L127) ：
 ```cpp
 SharedPtr<Actor> World::SpawnActor(
   ...

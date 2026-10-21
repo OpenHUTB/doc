@@ -19,7 +19,7 @@
 交通信号灯、停车标志和让行标志将即时生成。行人将在地图上显示的人行道和人行横道上导航。所有这些元素，以及道路上的每一个细节，都基于 OpenDRIVE 文件。由于独立模式直接使用 `.xodr`，因此其中的任何问题都会影响到模拟。这可能是一个问题，尤其是在许多车道混合的路口。
 
 !!! 重要的
-    仔细检查 OpenDRIVE 文件尤为重要。运行模拟时，其中的任何问题都会传播。
+    仔细检查 OpenDRIVE 文件尤为重要，可以先使用 [bimant](https://opendrive.bimant.com/) 或 [odrviewer](https://odrviewer.io/) 进行初步在线查看。运行模拟时，其中的任何问题都会传播。
 
 ![opendrive_standalone](img/opendrive_standalone.jpg)
 

@@ -1,29 +1,64 @@
 # [传感器参考](https://carla.readthedocs.io/en/latest/ref_sensors/) 
 
-- [__碰撞检测器__](#collision-detector)
-- [__深度相机__](#depth-camera)
-- [__全球导航卫星系统传感器__](#gnss-sensor)
-- [__惯性测量单元传感器__](#imu-sensor)
-- [__压线检测器__](#lane-invasion-detector)
-- [__激光雷达传感器__](#lidar-sensor)
-- [__障碍物检测器__](#obstacle-detector)
-- [__雷达传感器__](#radar-sensor)
-- [__RGB相机__](#rgb-camera)
-- [__广角相机__](#wide-angle-cameras)
-- [__鱼眼相机__](#fisheye-camera)
-- [__责任敏感安全传感器__](#rss-sensor)
-- [__语义激光雷达传感器__](#semantic-lidar-sensor)
-- [__语义分割相机__](#semantic-segmentation-camera)
-- [__实例分割相机__](#instance-segmentation-camera)
-- [__动态视觉传感器相机__](#dvs-camera)
-- [__光流相机__](#optical-flow-camera)
-- [__V2X 传感器__](#v2x-sensor)
-    - [协同感知](#cooperative-awareness-message)
-    - [自定义消息](#custom-v2x-message)
-- [__表面法线激光雷达传感器__](#surface-normal-lidar-sensor)
+- [__地面传感器__](./ref_sensors.md)
+    - [__碰撞检测器__](#collision-detector)
+    - [__深度相机__](#depth-camera)
+    - [__全球导航卫星系统传感器 (GNSS)__](#gnss-sensor)
+    - [__惯性测量单元传感器__](#imu-sensor)
+    - [__压线检测器__](#lane-invasion-detector)
+    - [__激光雷达传感器__](#lidar-sensor)
+    - [__障碍物检测器__](#obstacle-detector)
+    - [__雷达传感器__](#radar-sensor)
+    - [__RGB相机__](#rgb-camera)
+    - [__广角相机__](#wide-angle-cameras)
+    - [__鱼眼相机__](#fisheye-camera)
+    - [__责任敏感安全传感器__](#rss-sensor)
+    - [__语义激光雷达传感器__](#semantic-lidar-sensor)
+    - [__语义分割相机__](#semantic-segmentation-camera)
+    - [__实例分割相机__](#instance-segmentation-camera)
+    - [__动态视觉传感器相机__](#dvs-camera)
+    - [__光流相机__](#optical-flow-camera)
+    - [__V2X 传感器__](#v2x-sensor)
+    - [__带表面法线的激光雷达传感器__](#surface-normal-lidar-sensor)
+    - [__VR 驾驶的自我传感器__](#ego_sensor)
+- [__空域传感器__](https://openhutb.github.io/air_doc/sensors/)
+    - [__相机__](https://openhutb.github.io/air_doc/sensors/)
+    - [__气压计__](https://openhutb.github.io/air_doc/sensors/)
+    - [__IMU__](https://openhutb.github.io/air_doc/sensors/)
+    - [__全球定位系统 (GPS)__](https://openhutb.github.io/air_doc/sensors/)
+    - [__磁力计__](https://openhutb.github.io/air_doc/sensors/)
+    - [__距离传感器__](https://openhutb.github.io/air_doc/sensors/)
+    - [__激光雷达__](https://openhutb.github.io/air_doc/lidar/)
+    - [__热红外相机__](https://openhutb.github.io/air_doc/InfraredCamera/)
+- [__水域传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/sensors/)
+    - [__单波束声呐__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/singlebeam_sonar_sensor/)
+    - [__侧扫声呐__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/sidescan_sonar_sensor/)
+    - [__成像声呐__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/imaging_sonar_sensor/)
+    - [__剖面声呐__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/profiling_sonar_sensor/)
+    - [__多普勒测速仪 (DVL)__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/dvl_sensor/)
+    - [__深度传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/depth_sensor/)
+    - [__RGB 摄像机__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/rgb_camera_sensor/)
+    - [__摄像机__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/camera_sensor/)
+    - [__语义分割相机__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/semantic_segmentation_camera_sensor/)
+    - [__惯性测量单元 (IMU)__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/imu_sensor/)
+    - [__全球定位系统 (GPS)__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/gps_sensor/)
+    - [__磁力计__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/magnetometer_sensor/)
+    - [__测距传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/range_finder_sensor/)
+    - [__Raycast激光雷达__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/raycast_lidar_sensor/)
+    - [__Raycast语义激光雷达传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/raycast_semantic_lidar_sensor/)
+    - [__生物量、盐度和温度（BST）传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/bst_sensor/)
+    - [__声学信标__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/acoustic_beacon_sensor/)
+    - [__光调制解调器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/optical_modem_sensor/)
+    - [__视窗传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/viewport_capture_sensor/)
+    - [__位置传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/location_sensor/)
+    - [__旋转传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/rotation_sensor/)
+    - [__朝向传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/orientation_sensor/)
+    - [__姿态传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/pose_sensor/)
+    - [__速度传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/velocity_sensor/)
+    - [__动力学传感器__](https://openhutb.github.io/mujoco_plugin/underwater/sensors/dynamics_sensor/)
 
 !!! 重要
-    所有传感器都使用虚幻引擎坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考 [链接](sensor/sensor_imp.md) 。
+    所有传感器都使用虚幻引擎左手坐标系（__x__ - *向前*，__y__ - *向右*，__z__ - *向上*），并返回本地空间中的坐标。使用任何可视化软件时，请注意其坐标系。许多反转 Y 轴，因此直接可视化传感器数据可能会导致镜像输出。传感器的具体实现请参考[链接](sensor/sensor_imp.md) 。
 
 ---
 ## 碰撞检测器 <span id="collision-detector"></span>
@@ -32,6 +67,9 @@
 * __输出：__ 每次碰撞的 [carla.CollisionEvent](python_api.md#carla.CollisionEvent) 。
 
 每当其父参与者与世界上的某些物体发生碰撞时，该传感器都会记录一个事件。每个碰撞传感器每帧每次碰撞都会产生一个碰撞事件。通过与多个其他参与者的碰撞，可以在单个帧中产生多个碰撞事件。为了确保检测到与任何类型的对象的碰撞，服务器为建筑物或灌木丛等元素创建“假”参与者，以便可以检索语义标签来识别它。
+
+必要配置：在虚幻编辑器中打开[车辆的物理资产（*_PhysicsAsset）](https://git.code.tencent.com/OpenHUTB/Content/blob/master/Carla/Static/Car/4Wheeled/BYD_SONG/BYDSONG-1_BODY_PhysicsAsset.uasset) ，**选中中间的车辆**，在右侧的“详情”中的**碰撞**里的**模拟生成命中事件**(Simulation Generates Hit Events)。
+
 
 碰撞检测器没有任何可配置的属性。
 
@@ -553,7 +591,7 @@ points = np.reshape(points, (len(radar_data), 4))
 
 [鱼眼相机镜头](https://zhuanlan.zhihu.com/p/340751380) 是由十几个不同的透镜组合而成，在成像的过程中，入射光线经过不同程度的折射，投影到尺寸有限的成像平面上，使得鱼眼镜头拥有更大的视野范围。
 与针孔相机原理不同，鱼眼镜头采用非相似成像，在成像过程中引入畸变，通过对直径空间的压缩，突破成像视角的局限，从而达到广角成像。
-所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 `software/car/fisheye-camera` 下载包含鱼眼相机的可执行场景，其实现步骤和原理参考 [链接](./sensor/fisheye_camera.md) 。
+所以鱼眼镜头是一种极端的广角镜头，通常焦距小于等于16mm并且视角接近或等于180°（在工程上视角超过140°的镜头即统称为鱼眼镜头）。进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 software/car/fisheye-camera 下载包含鱼眼相机的可执行场景，其实现步骤和原理参考 [链接](./sensor/fisheye_camera.md) 。
 
 * __蓝图：__ sensor.camera.fisheye
 * __输出：__ 每一步一个 [carla.ImageCube](python_api.md#carla.ImageCube) (除非`sensor_tick`另有说明)。
@@ -1075,11 +1113,11 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 
 | 蓝图属性     | 类型   | 默认值      | 描述                                                                                                                               |
 |-------------------------|--------|----------|----------------------------------------------------------------------------------------------------------------------------------|
-| <td colspan=4> 	消息生成 | 
+| **消息生成** |  |  |  |
 | gen\_cam\_min           | float  | 0.1      | 两个连续 CAM 之间的最短时间间隔（秒）                                                                                                            |
 | gen\_cam\_max           | float  | 1.0      | 两个连续 CAM 之间的最大时间间隔（秒）                                                                                                            |
 | fixed\_rate             | bool   | false [true] | 在每个 Carla 节拍中生成一个 CAM（仅用于调试目的，会导致速度变慢）  |
-| <td colspan=4> 数据生成 | 
+| **数据生成** |  |  |  |
 | `noise_vel_stddev_x` | float  | 0\.0     | 噪声模型中速度的标准偏差参数（X 轴）。                                                           |
 | `noise_accel_stddev_x`          | float   | 0\.0     | 加速度（X 轴）噪声模型中的标准偏差参数。                                                      |
 | `noise_accel_stddev_y`          | float   | 0\.0     | 加速度噪声模型中的标准偏差参数（Y 轴）。                                                       |
@@ -1126,7 +1164,7 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 | frequency\_ghz          | float  | 5.9 | 传输频率（GHz）。5.9 GHz 是多个物理信道的标准。                                                                                                                     |
 | noise\_seed             | int    | 0 | 噪声初始化的随机参数                                                                                                                                        |
 | filter\_distance        | float  | 500 | 最大传输距离（以米为单位），上面的路径损耗计算因模拟速度而略过                                                                                                                   |
-| <td colspan=4> __路径损耗模型参数__ | | ||
+| **路径损耗模型参数** |  |  |  |
 | combined\_antenna\_gain | float  | 10.0 | 发射机和接收机天线的组合增益（以 dBi 为单位），辐射效率和方向性的参数                                                                                                             |
 | d\_ref                  | float  |  1.0  | 对数距离路径损耗模型的参考距离（单位：米）                                                                                                                             |
 | path\_loss\_exponent    | float  | 2.7 | 由于建筑物遮挡导致的非视距损耗参数                                                                                                                                 |
@@ -1139,12 +1177,23 @@ Carla 目前支持模拟简单的广播无线信道和两条应用消息。尚�
 <br>
 
 ---
-## 表面法线激光雷达传感器 <span id="surface-normal-lidar-sensor"></span>
+## 带表面法线的激光雷达传感器 <span id="surface-normal-lidar-sensor"></span>
 
 * __蓝图：__ sensor.lidar.ray_cast_surface_normals
 * __输出：__ 每步输出 [carla.SurfaceNormalLidarMeasurement](python_api.md#carla.SurfaceNormalLidarMeasurement) (除非 `sensor_tick` 另有说明)。
 
+[点云法线](https://zhuanlan.zhihu.com/p/673449224)可以提供该点所处平面的方向和朝向（密闭体的内部还是外部）信息，是利用泊松重建算法进行**点云曲面重建**的关键输入。
+
 该传感器与 [激光雷达传感器](#lidar-sensor) 共享相同的接口。除了提供 `x, y, z` 坐标和强度值 `i` 之外，表面法线激光雷达传感器还会返回一个全局方向的表面法向量 `nx, ny, nz`。该向量表示激光束与表面相交点处的全局方向。实现代码参考 [拉取请求](https://github.com/carla-simulator/carla/pull/8773) ，实现原理参考 [论文](https://arxiv.org/abs/2503.08601) 。
 
 ![SurfaceNormalLidarPointCloud](img/surface_normal_lidar_point_cloud.png)
+
+
+---
+## VR 驾驶的自我传感器 <span id="ego_sensor"></span>
+
+* __蓝图：__ harplab.dreyevr_vehicle.*
+* __输出：__ 每步输出眼动仪数据（时间、凝视光线、2D瞳孔位置、瞳孔直径、眼睛开度、世界中的焦点等）、用户输入（油门、转向、刹车、转向信号等）、摄像头的图像。详细信息请参考 [VR 驾驶自我传感器](./interbehavior.md#ego_sensor) 。
+
+![](./img/pedestrian/VR_demo.gif)
 

@@ -57,7 +57,7 @@ Chrono 物理是通过 [Actor](python_api.md#carlaactor) 类提供的 `enable_ch
 !!! 重要
     仔细检查您的路径。不正确或缺失的路径可能会导致虚幻引擎崩溃。
 
-`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的[文档](https://api.projectchrono.org/manual_vehicle.html) （或参考[中文文档](chrono/manual_vehicle.md)），了解有关其车辆示例以及如何创建模板的更多信息。
+`Build/chrono-install/share/chrono/data/vehicle` 中提供了适用于不同车辆的各种示例模板文件。阅读 Chrono 工程的[文档](https://api.projectchrono.org/manual_vehicle.html) （或参考[中文文档](https://openhutb.github.io/chrono_doc/chrono/manual_vehicle/)），了解有关其车辆示例以及如何创建模板的更多信息。
 
 请参阅下面的示例，了解如何启用 Chrono 物理：
 
@@ -79,7 +79,7 @@ vehicle.enable_chrono_physics(5000, 0.002, vehicle_json, powertrain_json, tire_j
 
 首先进入 [网盘](https://pan.baidu.com/s/1n2fJvWff4pbtMe97GOqtvQ?pwd=hutb) 的目录 `software/car/fisheye-camera` 下载支持chrono的可执行场景。然后可以使用 [`PythonAPI/examples`](https://github.com/OpenHUTB/doc/tree/master/src/examples) 中的示例脚本 [`manual_control_chrono.py`](https://github.com/OpenHUTB/doc/blob/master/src/examples/manual_control_chrono.py) 尝试 Chrono 物理集成。运行脚本后，按`Ctrl + o`启用 Chrono。下面显示高速转弯时，方向盘打死会翻车的情况：
 
-![](./img/chrono/vechile_turnover.gif)
+![](https://github.com/OpenHUTB/chrono_doc/blob/master/docs/img/chrono/vechile_turnover.gif?raw=true)
 
 ---
 

@@ -1,5 +1,7 @@
-# [Python API 参考](https://carla.readthedocs.io/en/latest/python_api/) 
-此参考包含 Python API 的所有详细信息。要查阅特定 HUTB 版本的先前参考，请使用右下角的面板更改文档版本。<br>这会将整个文档更改为之前的状态。请记住， <i>最新</i> 版本是 [hutb](https://github.com/OpenHUTB/hutb) 分支，可能会显示任何 HUTB 打包版本中不可用的功能。<hr>  
+
+此参考包含[无人车](#car)、[无人机](#air)、[潜水器](#water)的所有 Python API 详细信息。<hr>  
+
+# 无人车 [Python API](https://carla.readthedocs.io/en/latest/python_api/) <span id="car"></span>
 
 ## carla.AckermannControllerSettings<a name="carla.AckermannControllerSettings"></a>
 管理 Ackermann PID 控制器的设置。
@@ -4335,6 +4337,8 @@ _</font>
 
 ---
 
+# 无人机 PythonAPI  <span id="air"></span>
+
 ## airsim.client.MultirotorClient<a name="airsim.client.MultirotorClient"></a>
 多旋翼无人机的客户端类，其基类为 VehicleClient, object。
 
@@ -4582,7 +4586,2130 @@ _</font>
         - `vehicle_name` (_str, optional_) - 要向其发送此命令的多旋翼无人机的名称
     - **返回:** _msgpackrpc.future.Future_ - 使用 future.call.join() 等待方法执行完毕。例如：client.METHOD().join()
 
+
 ---
+
+# 潜水器  <span id="water"></span>
+
+## HoloOcean <span id="holoocean"></span>
+
+包含用于加载环境的高级接口的模块。
+
+### holoocean.holoocean.GL_VERSION 类<a name="holoocean.holoocean.GL_VERSION"></a>
+OpenGL 版本枚举。
+
+#### 实例变量
+- <a name="OPENGL3"></a>**<font color="#f8805a">OPENGL3</font>** (int)  
+OpenGL3 的值。
+- <a name="OPENGL3"></a>**<font color="#f8805a">OPENGL3</font>** (int)  
+OpenGL4 的值。
+
+#### 方法
+- <a name="holoocean.holoocean.make"></a>**<font color="#7fb800">holoocean.holoocean.make</font>**(<font color="#00a6ed">**scenario_name='', scenario_cfg=None, gl_version=4, window_res=None, verbose=False, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True**</font>)  
+创建 HoloOcean 环境。
+    - **参数：**
+        - `world_name`(_str_) - 要加载为环境的世界名称。必须与已安装软件包中的世界名称匹配。
+        - `scenario_cfg`(_dict_) - 字典包含场景配置信息，而不是从已安装的软件包中加载场景。字典的格式应与 JSON 配置文件格式一致。
+        - `gl_version`(_int_, optional) - 要使用的 OpenGL 版本（仅限 Linux）。默认为 GL_VERSION.OPENGL4。
+        - `window_res`((_int_, _int_), optional) - 引擎窗口加载时的高度和宽度。此设置会覆盖场景配置文件中的（可选）分辨率。
+        - `verbose`(_bool_, optional) - 是否以详细模式运行。默认为 False。
+        - `show_viewport`(_bool_, optional) - 是否在屏幕上显示视口窗口（仅限 Linux）。默认为 True
+        - `ticks_per_sec`(_int_, optional) - 每虚幻引擎秒数对应的节拍数。此值将覆盖配置文件 JSON 中的设置。默认值为 30。
+        - `frames_per_sec`(_int_ 或 _bool_, optional) - 每实际秒的最大帧数。此设置将覆盖配置文件 JSON 中的值。如果为 True，则与 ticks_per_sec 的值一致。如果为 False，则不启用此功能。如果为整数，则设置为该值。默认为 True。
+        - `copy_state`(_bool_, optional) - 返回状态时是否应复制或作为引用传递。默认为 True
+    - **返回:** _[HoloOceanEnvironment](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment)_ - 一个完整的海洋环境实例，包含指定世界所需的所有设置以及其他提供的参数。
+
+
+---
+
+## 代理 <span id="agents"></span>
+
+有关代理的更详细描述，请参阅 [HoloOcean 代理](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/agents.html#agents)。
+
+以下定义了可通过 HoloOcean 控制的不同代理。
+
+### holoocean.agents.AgentDefinition 类<a name="holoocean.agents.AgentDefinition"></a>
+
+表示初始化代理所需的信息。
+
+#### 方法
+- <a name="holoocean.agents.AgentDefinition"></a>**<font color="#7fb800">holoocean.holoocean.make</font>**(<font color="#00a6ed">**agent_name, agent_type, sensors=None, starting_loc=(0, 0, 0), starting_rot=(0, 0, 0), existing=False, is_main_agent=False**</font>)  
+表示初始化代理所需的信息。
+    - **参数：**
+        - `agent_name`(_str_) - 要控制的代理的名称。
+        - `agent_type`(_dict_ 或类型) - 要控制的 HoloOceanAgent 类型，字符串或类引用。
+        - `sensors`(传感器定义 [SensorDefinition](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition) 或类的类型) - 要从该代理读取的 HoloOceanSensors 列表。
+        - `starting_loc`(浮点的 _float_ 的列表 _list_) - 代理的起始 `[x, y, z]` 位置（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `starting_rot`(浮点的 _float_ 的列表 _list_) - 代理开始的`[roll、pitch、yaw]`旋转（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+        - `existing`(_bool_) - 代理是否存在于世界中（已弃用）
+
+---
+
+### holoocean.agents.AgentFactory 类<a name="holoocean.agents.AgentFactory"></a>
+创建代理对象。
+
+#### 方法
+- _static_ <a name="build_agent"></a>**<font color="#7fb800">build_agent</font>**(<font color="#00a6ed">**client, agent_def**</font>)  
+创建代理对象。
+    - **参数：**
+        - `client`([_holoocean.holooceanclient.HoloOceanClient_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient)) - 关联的 HoloOceanClient 代理
+        - `agent_def`([_AgentDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.AgentDefinition)) - 要实例化的代理的定义
+    - **返回:** 
+
+
+---
+
+### holoocean.agents.ControlSchemes 类<a name="holoocean.agents.ControlSchemes"></a>
+所有允许的控制方案。
+
+#### 实例变量
+- <a name="ANDROID_TORQUES"></a>**<font color="#f8805a">ANDROID_TORQUES</font>** (int)
+默认的 Android 控制方案。为每个关节指定扭矩。
+- <a name="CONTINUOUS_SPHERE_DEFAULT"></a>**<font color="#f8805a">CONTINUOUS_SPHERE_DEFAULT</font>** (int)  
+默认的 ContinuousSphere 控制方案。接受两个命令，[forward_delta, turn_delta]。
+- <a name="DISCRETE_SPHERE_DEFAULT"></a>**<font color="#f8805a">DISCRETE_SPHERE_DEFAULT</font>** (int)  
+默认的 DiscreteSphere 控制方案。取值范围为 0 到 4，分别对应前进、后退、右转和左转。
+- <a name="NAV_TARGET_LOCATION"></a>**<font color="#f8805a">NAV_TARGET_LOCATION</font>** (int)  
+默认的NavAgent控制方案。接受目标xyz坐标。
+- <a name="UAV_TORQUES"></a>**<font color="#f8805a">UAV_TORQUES</font>** (int)  
+默认无人机控制方案。接受横滚、俯仰和偏航扭矩以及推力。
+- <a name="UAV_ROLL_PITCH_YAW_RATE_ALT"></a>**<font color="#f8805a">UAV_ROLL_PITCH_YAW_RATE_ALT</font>** (int)  
+无人机控制方案。以横滚角、俯仰角、偏航角速率和高度为目标。
+- <a name="HAND_AGENT_MAX_TORQUES"></a>**<font color="#f8805a">HAND_AGENT_MAX_TORQUES</font>** (int)  
+默认的安卓控制方案。为每个关节指定扭矩。
+- <a name="AUV_THRUSTERS"></a>**<font color="#f8805a">AUV_THRUSTERS</font>** (int)  
+默认悬停式AUV控制方案。为每个推进器指定8维力矢量。
+- <a name="AUV_CONTROL"></a>**<font color="#f8805a">AUV_CONTROL</font>** (int)  
+已实现PD控制器。指定6维位置向量以及横滚、俯仰、偏航方向。
+- <a name="AUV_FORCES"></a>**<font color="#f8805a">AUV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+- <a name="TAUV_FINS"></a>**<font color="#f8805a">TAUV_FINS</font>** (int)  
+默认鱼雷式自主水下航行器（TorpedoAUV）控制方案。指定鳍片旋转角度的5维矢量（单位：度）和螺旋桨扭矩（单位：牛顿）。
+- <a name="TAUV_FORCES"></a>**<font color="#f8805a">TAUV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+- <a name="SV_THRUSTERS"></a>**<font color="#f8805a">SV_THRUSTERS</font>** (int)  
+默认水面航行器控制方案。指定左右推进器的二维力矢量。
+- <a name="SV_CONTROL"></a>**<font color="#f8805a">SV_CONTROL</font>** (int)  
+已实现PD控制器。指定要移动到的x和y坐标二维向量。
+- <a name="SV_FORCES"></a>**<font color="#f8805a">SV_FORCES</font>** (int)  
+用于自定义动力学。所有内部动力学（碰撞除外）均已关闭，包括浮力、重力和阻尼。指定全局坐标系中的 6 维线加速度和角加速度矢量。
+
+---
+
+
+### holoocean.agents.HoloOceanAgent 类<a name="holoocean.agents.HoloOceanAgent"></a>
+HoloOcean 中的学习型代理。
+
+代理可以执行动作、获得奖励，并接收来自传感器的观测数据。例如，Android 智能体、无人机和 SphereRobot 智能体。
+
+#### 实例变量
+- <a name="action_space"></a>**<font color="#f8805a">[action_space](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent.action_space)</font>** (int)  
+获取当前代理和控制方案的动作空间。
+- <a name="control_schemes"></a>**<font color="#f8805a">[control_schemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent.control_schemes)</font>** (int)  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回:** (_str_, [_ActionSpace_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace)) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="act"></a>**<font color="#7fb800">act</font>**(<font color="#00a6ed">**action**</font>)  
+设置代理的命令。操作取决于代理类型和当前控制方案。
+    - **参数：**
+        - `action`(_np.ndarray_) - 要采取的行动。
+- <a name="add_sensors"></a>**<font color="#7fb800">add_sensors</font>**(<font color="#00a6ed">**sensor_defs**</font>)  
+向特定代理对象添加传感器，并将传感器的实例附加到世界中的代理。
+    - **参数：**
+        - `sensor_defs`([_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)或[_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)的列表) - 要添加到代理中的传感器。
+- <a name="clear_action"></a>**<font color="#7fb800">clear_action</font>**(<font color="#00a6ed"></font>)  
+将操作值设为零，从而有效地删除之前的所有操作。
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+- <a name="has_camera"></a>**<font color="#7fb800">has_camera</font>**(<font color="#00a6ed"></font>)  
+指示该代理是否配备摄像头。
+    - **返回:** (_bool_) - 该代理是否配备传感器
+- <a name="remove_sensors"></a>**<font color="#7fb800">remove_sensors</font>**(<font color="#00a6ed">**sensor_defs**</font>)  
+从特定代理对象中移除传感器，并将其与世界中的代理分离。
+    - **参数：**
+        - `sensor_defs`([_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)或[_HoloOceanSensor_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor)列表) - 从代理处移除传感器。
+- <a name="set_control_scheme"></a>**<font color="#7fb800">set_control_scheme</font>**(<font color="#00a6ed">**index**</font>)  
+设置代理的控制方案。请参阅 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes)。
+    - **参数：**
+        - `index`(_int_) - 要使用的控件方案。应使用 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes) 中的枚举值进行设置。
+- <a name="set_physics_state"></a>**<font color="#7fb800">set_physics_state</font>**(<font color="#00a6ed">**index**</font>)  
+设置代理的位置、旋转、速度和角速度。
+    - **参数：**
+        - `location`(_np.ndarray_) - 新位置（`[x, y, z]`（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+        - `rotation`(_np.ndarray_) - 新位置（`[roll, pitch, yaw]`（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)））
+        - `velocity`(_np.ndarray_) - 新位置（`[x, y, z]`（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+        - `angular_velocity`(_np.ndarray_) - 新位置（`[x, y, z]`，单位为度（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)））
+- <a name="teleport"></a>**<font color="#7fb800">teleport</font>**(<font color="#00a6ed">**index**</font>)  
+将代理传送到特定位置，并按特定方向旋转。
+    - **参数：**
+        - `location`(_np.ndarray_，可选) - 一个包含三个元素的数组，用于指定目标世界坐标 `[x, y, z]`（单位为米）（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+        如果为 `None`（默认值），则保持当前位置。
+        - `rotation`(_np.ndarray_，可选) - 一个包含三个元素的数组，分别指定智能体的横滚角、俯仰角和偏航角（单位为度）。
+        如果为 `None`（默认值），则保持当前旋转角度。
+
+---
+
+
+### holoocean.agents.HoveringAUV 类<a name="holoocean.agents.HoveringAUV"></a>
+一个简单的自主水下航行器。所有变量实际上并未用于仿真，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+
+具有以下三种可能的控制方案：
+
+**1.**推进器力：[垂直前右舷、垂直前左舷、垂直后左舷、垂直后右舷、倾斜前右舷、倾斜前左舷、倾斜后左舷、倾斜后右舷]（`Vertical Front Starboard, Vertical Front Port, Vertical Back Port, Vertical Back Starboard, Angled Front Starboard, Angled Front Port, Angled Back Port, Angled Back Starboard`）
+
+**2.**PD控制器：`[des_pos_x、des_pos_y、des_pos_z、roll、pitch、yaw]`
+
+**3.**全局坐标系下的加速度：`[lin_accel_x、lin_accel_y、lin_accel_z、ang_accel_x、ang_accel_y、ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- <a name="mass"></a>**<font color="#f8805a">mass</font>** (float)  
+载具质量（千克）
+- <a name="water_density"></a>**<font color="#f8805a">water_density</font>** (float)  
+水的密度（kg/m\(^3\)）。
+- <a name="volume"></a>**<font color="#f8805a">volume</font>** (float)  
+载具的体积（单位：m\(^3\)）。
+- <a name="cob"></a>**<font color="#f8805a">cob</font>** (np.ndarray)  
+3 维浮心（Center of buoyancy）到质心矢量的距离（单位：米）。
+- <a name="I"></a>**<font color="#f8805a">I</font>** (np.ndarray)  
+3x3 惯性（Inertia）矩阵。
+- <a name="thruster_d"></a>**<font color="#f8805a">thruster_d</font>** (np.ndarray)  
+沿推进器推进方向的 8x3 单位向量矩阵。
+- <a name="thruster_p"></a>**<font color="#f8805a">thruster_p</font>** (np.ndarray)  
+8x3 矩阵，表示推进器在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#f8805a">control_schemes</font>**
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - _(str_, [_ActionSpace)_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**(joint_name)**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。
+
+---
+
+### holoocean.agents.SphereAgent 类<a name="holoocean.agents.SphereAgent"></a>
+
+一个基本的球形机器人。
+
+更多详情请参见 [SphereAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/sphere-agent.html#sphere-agent)。
+
+#### 动作空间
+有两种可能的控制方案，一种是离散的，一种是连续的：
+
++---------+----------+------+
+| 控制方案|    值    | 动作 |
++=========+==========+======+
+|         |   `[0]`  |向前走|
++         +----------+------+
+|  离散   |   `[1]`  |向后走|
++  (`0`)  +----------+------+
+|         |  `[2]`   | 右转 |
++         +----------+------+
+|         |   `[3]`  | 左转 |
++---------+----------+------+
+|   连续  | `forward_speed`,|
+|  (`1`)  |   `rot_speed`   |
++---------+----------+------+
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于智能体中，则返回 None。
+
+
+
+---
+
+
+### holoocean.agents.SurfaceVessel 类<a name="holoocean.agents.SurfaceVessel"></a>
+
+一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：`[left_fin, top_fin, right_fin, bottom_fin, thrust]`
+- 全局坐标系中的加速度：`[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- `mass`(_float_) - 车辆质量（千克）
+- `water_density`(_float_) - 水的密度（kg/m\(^3\)）。
+- `volume`(_float_) - 载具体积（单位：m\(^3\)）。
+- `cob`(_np.ndarray_) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。
+- `I`(_np.ndarray_) - 3x3 惯性（Inertia）矩阵。
+- `thruster_p`(_np.ndarray_) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。
+- `fin_p`(_np.ndarray_) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+
+---
+
+
+### holoocean.agents.TorpedoAUV 类<a name="holoocean.agents.TorpedoAUV"></a>
+
+一个简单的向前运动的自主水下航行器。所有变量实际上并未在仿真中使用，修改它们不会影响结果。这些变量的公开是为了方便实现自定义动力学。
+
+#### 动作空间
+具有两个可能的动作空间，如下所示：
+- 鳍片和螺旋桨：`[left_fin, top_fin, right_fin, bottom_fin, thrust]`
+- 全局坐标系中的加速度：`[lin_accel_x, lin_accel_y, lin_accel_z, ang_accel_x, ang_accel_y, ang_accel_x]`
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 变量
+- `mass`(_float_) - 车辆质量（千克）
+- `water_density`(_float_) - 水的密度（kg/m\(^3\)）。
+- `volume`(_float_) - 载具体积（单位：m\(^3\)）。
+- `cob`(_np.ndarray_) - 3维浮心（Center of buoyancy）到质心向量的距离（单位：米）。
+- `I`(_np.ndarray_) - 3x3 惯性（Inertia）矩阵。
+- `thruster_p`(_np.ndarray_) - 螺旋桨位置在局部坐标系中的 3 位置矩阵（单位：米）。
+- `fin_p`(_np.ndarray_) - 4x3 矩阵表示鳍片在局部坐标系中的位置（单位：米）。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
+
+### holoocean.agents.TurtleAgent 类<a name="holoocean.agents.TurtleAgent"></a>
+
+一个简单的海龟机器人。
+
+#### 动作空间
+
+- 向前推力（`forward_force`）在两个方向上的上限均为 160
+- `rot_force` 的上限为 35，方向不限。
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
+
+### holoocean.agents.UavAgent 类<a name="holoocean.agents.UavAgent"></a>
+
+无人机（四旋翼）代理
+
+#### 动作空间
+
+有两种可能的连续动作控制方案：
+
+1.`[pitch_torque, roll_torque, yaw_torque, thrust]`
+
+2.`[pitch_target, roll_target, yaw_rate_target, altitude_target]`
+
+更多详情请参阅 [UavAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/agents/uav-agent.html#uav-agent)。
+
+继承自 [HoloOceanAgent](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.HoloOceanAgent)。
+
+#### 属性
+
+- <a name="control_schemes"></a>**<font color="#7fb800">control_schemes</font>**  
+代理所有控制方案的列表。列表中的每个元素都是一个二元组，第一个元素包含控制方案的简短描述，第二个元素包含该控制方案的动作空间。
+    - **返回：**
+        - (_str_, _ActionSpace_) - 每个元组包含一个简短描述和 ActionSpace。
+
+#### 方法
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**joint_name**</font>)  
+返回指定关节对应的 swing1、swing2 和 twist 极限值。如果该关节不存在于代理中，则返回 None。
+
+---
+
+
+## 环境 <span id="environments"></span>
+
+此模块包含 HoloOcean 的环境接口。环境包含与世界二进制文件或 HoloOceanCore 编辑器通信所需的所有元素。
+
+它指定了一个环境（其中包含若干代理）以及与这些代理通信的接口。
+
+
+---
+
+
+### holoocean.environments.HoloOceanEnvironment 类<a name="holoocean.environments.HoloOceanEnvironment"></a>
+
+用于与 HoloOcean 世界通信的代理。
+
+使用 [holoocean.holoocean.make()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/index.html#holoocean.holoocean.make) 实例化此对象。
+
+#### 构造方法
+- <a name="holoocean.environments.HoloOceanEnvironment_Constructor"></a>**<font color="#7fb800">holoocean.environments.HoloOceanEnvironment</font>**(<font color="#00a6ed">**agent_definitions=None, binary_path=None, window_size=None, start_world=True, uuid='', gl_version=4, verbose=False, pre_start_steps=2, show_viewport=True, ticks_per_sec=None, frames_per_sec=None, copy_state=True, scenario=None**</font>)  
+    - **参数：**
+        - `agent_definitions`([AgentDefinition]()的列表_list_) - 环境中已经存在的代理
+        - `binary_path`(_str_, 可选) - 用于加载世界文件的二进制文件路径。默认为 None。
+        - `window_size`((_int_, _int_)) - 要打开的窗口的高度和宽度
+        - `start_world`(_bool_, 可选) - 是否加载二进制文件。默认为 True。
+        - `uuid`(_str_) - 用于运行多个 holoocean 实例的唯一标识符。默认为“”。
+        - `gl_version`(_int_, 可选) - 用于 Linux 的 OpenGL 版本。默认为 4。
+        - `verbose`(_bool_) - 如果引擎日志输出应打印到标准输出，则应将其打印到标准输出。
+        - `pre_start_steps`(_int_) - 调用之前需要的节拍数
+        - `show_viewport`(_bool_, 可选) - 如果应显示窗口（仅限 Linux），则默认为 True。
+        - `ticks_per_sec`(_bool_, 可选) - 每虚幻引擎秒数对应的节拍数。此值将覆盖配置文件 JSON 中的设置。默认值为 30。
+        - `frames_per_sec`(_int_ 或 _bool_, 可选) - 每实际秒的最大帧数。此设置将覆盖配置文件 JSON 中的值。如果为 True，则与 ticks_per_sec 的值一致。如果为 False，则不启用此功能。如果为整数，则设置为该值。默认为 True。
+        - `copy_state`(_bool_, 可选) - 是否应复制状态或将其作为引用返回。默认为 True。
+        - `scenario`(_dict_) - 要加载的场景。有关架构，请参阅[场景文件格式](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#scenario-files)。
+
+#### 方法
+- <a name="act"></a>**<font color="#7fb800">act</font>**(<font color="#00a6ed">**agent_name, action**</font>)  
+**向特定代理提供操作，但不影响环境。**
+这是多代理环境的主要交互模式。在提供所有代理命令后，可以通过调用 tick 函数来应用这些命令。
+    - **参数：**
+        - `agent_name`(_str_) - 负责提供动作的代理名称。
+        - `action`(_np.ndarray_ 或 _list_) - 要对代理执行的操作。此操作将在每次调用 _tick_ 时执行，直到通过另一次调用 _act_ 函数提供新的操作为止。
+- <a name="add_agent"></a>**<font color="#7fb800">add_agent</font>**(<font color="#00a6ed">**agent_def, is_main_agent=False**</font>)  
+在游戏世界中添加一个代理。它会在下次调用 _tick()_ 或 _step()_ 函数时生成。该代理要到下一帧才能使用。
+    - **参数：**
+        - `agent_def`([_AgentDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.AgentDefinition)) - 要生成的代理的定义。
+- <a name="draw_arrow"></a>**<font color="#7fb800">draw_arrow</font>**(<font color="#00a6ed">**start, end, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试箭头。 
+    - **参数：**
+        - `start`(_float_ 的列表 _list_) - 线段的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `end`(_float_ 的列表 _list_) - 箭头的末端位置 `[x, y, z]`（单位：米）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_box"></a>**<font color="#7fb800">draw_box</font>**(<font color="#00a6ed">**center, extent, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试框。 
+    - **参数：**
+        - `center`(_float_ 的列表 _list_) - 框的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `extent`(_float_ 的列表 _list_) - 框的 `[x, y, z]` 范围
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_line"></a>**<font color="#7fb800">draw_line</font>**(<font color="#00a6ed">**center, extent, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一条调试线。 
+    - **参数：**
+        - `start`(_float_ 的列表 _list_) - 线段的起始位置 `[x, y, z]`（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `end`(_float_ 的列表 _list_) - 线段的末端位置 `[x, y, z]`（单位：米）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="draw_point"></a>**<font color="#7fb800">draw_point</font>**(<font color="#00a6ed">**loc, color=None, thickness=10.0, lifetime=1.0**</font>)  
+在世界中绘制一个调试点。 
+    - **参数：**
+        - `loc`(_float_ 的列表 _list_) - 框的 [x, y, z] 起点。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `color`(列表 _list_) - `[r, g, b]` 颜色值（从 0 到 255）。默认值为 [255, 0, 0]（红色）。
+        - `thickness`(_float_ ) - 箭头粗细。默认值为 10。
+        - `lifetime`(_float_ ) - 对象应保持存在的模拟秒数。如果为 0，则设置为持久化。默认为 1。
+- <a name="get_joint_constraints"></a>**<font color="#7fb800">get_joint_constraints</font>**(<font color="#00a6ed">**loc, color=None, thickness=10.0, lifetime=1.0**</font>)  
+返回指定代理和关节对应的 swing1、swing2 和 twist 极限值。如果该关节不适用于该代理，则返回 None。
+    - **返回：**
+        - _np.ndarray_ 
+- <a name="get_reward_terminal"></a>**<font color="#7fb800">get_reward_terminal</font>**(<font color="#00a6ed"></font>)  
+返回奖励和终止状态。 
+    - **返回：**
+        一个二元组：
+        - `reward`(_float_) - 环境返回的**奖励**值。
+        - `terminal`(_bool_) - 环境返回的布尔值**终止**信号。
+- <a name="info"></a>**<font color="#7fb800">info</font>**(<font color="#00a6ed"></font>)  
+返回一个包含环境特定信息的字符串。这些信息包括环境中存在哪些代理以及它们配备了哪些传感器。 
+    - **返回：**
+        - _str_ - 字符串格式的信息。
+- <a name="move_viewport"></a>**<font color="#7fb800">move_viewport</font>**(<font color="#00a6ed">**location, rotation**</font>)  
+将摄像机传送至指定位置。下一帧时，摄像机的位置和旋转角度将会更新。 
+    - **参数：**
+        - `location`(_float_ 的列表 _list_) - 要提供给相机的 [x, y, z] 坐标。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `rotation`(_float_ 的列表 _list_) - 相机向下拍摄的 x 轴。另外两个轴由水平的 y 轴和对应的 z 轴构成。（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+- <a name="reset"></a>**<font color="#7fb800">reset</font>**(<font color="#00a6ed"></font>)  
+重置环境并返回状态。如果是单代理环境，则返回该代理的状态。否则，返回一个从代理名称到状态的字典。 
+    - **参数：**
+        - (元组 _tuple_ 或字典 _dict_) - 返回值与 tick 相同。
+- <a name="send_acoustic_message"></a>**<font color="#7fb800">send_acoustic_message</font>**(<font color="#00a6ed"></font>)  
+从一个信标向另一个信标发送消息。 
+    - **参数：**
+        - `id_from` (_int_) - 发送调制解调器的整数 ID。
+        - `id_to` (_int_) - 接收调制解调器的整数 ID。
+        - `msg_type` (_str_) - 消息类型。请参阅 [holoocean.sensors.AcousticBeaconSensor](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.AcousticBeaconSensor) 获取列表。
+        - `msg_data` - 要发送的消息。目前可以是任何 Python 对象。
+- <a name="send_optical_message"></a>**<font color="#7fb800">send_optical_message</font>**(<font color="#00a6ed">**id_from, id_to, msg_data**</font>)  
+在光调制解调器传感器的各个实例之间发送数据。 
+    - **参数：**
+        - `id_from` (_int_) - 发送调制解调器的整数 ID。
+        - `id_to` (_int_) - 接收调制解调器的整数 ID。
+        - `msg_data` - 要发送的消息。目前可以是任何 Python 对象。
+- <a name="send_world_command"></a>**<font color="#7fb800">send_world_command</font>**(<font color="#00a6ed">**id_from, id_to, msg_data**</font>)  
+发送世界命令。世界命令会发送一个任意命令，该命令可能仅存在于特定的世界或包中。它由一个名称以及任意数量的字符串和数字参数组成，这些参数允许它改变世界的状态。如果发送的命令在世界中不存在，则环境将退出。  
+    - **参数：**
+        - `name` (_str_) - 命令名称，例如“OpenDoor”
+        - `num_params` (_int_ 的 _list_) - 任意数参数列表
+        - `string_params`(_string_ 的 _list_) - 任意字符串参数列表
+- <a name="set_control_scheme"></a>**<font color="#7fb800">set_control_scheme</font>**(<font color="#00a6ed">**agent_name, control_scheme**</font>)  
+为特定代理设置控制方案。 
+    - **参数：**
+        - `agent_name` (_str_) - 要为其设置控制方案的代理的名称。
+        - `control_scheme` (_int_ ) - 控制方案值（参见 [ControlSchemes](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/agents.html#holoocean.agents.ControlSchemes)）
+- <a name="set_render_quality"></a>**<font color="#7fb800">set_render_quality</font>**(<font color="#00a6ed">**render_quality**</font>)  
+调整 HoloOcean 的渲染质量。 
+    - **参数：**
+        - `render_quality` (_int_) - 介于 0（低质量）和 3（极佳质量）之间的整数。
+- <a name="should_render_viewport"></a>**<font color="#7fb800">should_render_viewport</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+控制是否渲染视窗。 
+    - **参数：**
+        - `render_viewport` (_boolean_) - 是否应该渲染视口。
+- <a name="spawn_prop"></a>**<font color="#7fb800">spawn_prop</font>**(<font color="#00a6ed">**prop_type, location=None, rotation=None, scale=1, sim_physics=False, material='', tag=''**</font>)  
+在场景中生成一个基本道具对象，例如盒子或球体。环境重置后，该道具将消失。 
+    - **参数：**
+        - `prop_type` (_str_) - 要生成的道具类型。可以是立方体`box`、球体`sphere`、圆柱体`cylinder`或圆锥体`cone`。
+        - `location` (_float_ 的列表 _list_ ) - 道具的 `[x, y, z]` 位置。
+        - `rotation` (_float_ 的列表 _list_ ) - 道具的 `[roll, pitch, yaw]` 旋转。
+        - `scale` (_float_ 的列表 _list_ 或者 _float_) - `[x, y, z]` 三个标量用于指定道具尺寸，默认尺寸为 1 米。如果给定一个浮点值，则所有维度都将缩放到该值。
+        - `sim_physics` (_boolean_ ) - 物体是否可移动以及是否受重力影响。
+        - `material` (_str_ ) - 道具的材质（纹理）类型。可以是白色`white`、金色`gold`、鹅卵石`cobblestone`、砖块`brick`、木头`wood`、草地`grass`、铁`steel`或黑色`black`。如果留空，道具将使用简单的灰色方格纹理。
+        - `tag` (_str_ ) - 要应用于属性的标签。用于任务引用。
+- <a name="step"></a>**<font color="#7fb800">step</font>**(<font color="#00a6ed">**action, ticks=1, publish=True**</font>)  
+向主代理提供一个动作，并指示环境执行一次操作。这是单代理环境的主要交互方式。 
+    - **参数：**
+        - `action` (_np.ndarray_) - 使用此操作遍历环境的次数。如果 ticks > 1，则此函数返回最后生成的状态。
+        - `publish` (_bool_ ) - 是否按场景定义发布。默认为 True。
+    - **返回：**
+        - (_dict_) - 一个字典，内容从代理名称到其完整状态。完整状态是另一个字典，从 holoocean.sensors.Sensors 枚举到 np.ndarray，包含每个传感器的信息。传感器始终包含奖励传感器和终端传感器。奖励和终端也可以通过 [get_reward_terminal()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment.get_reward_terminal) 获取。返回上次执行 tick 后的状态。
+- <a name="tick"></a>**<font color="#7fb800">tick</font>**(<font color="#00a6ed">**num_ticks=1, publish=True**</font>)  
+对环境进行一次更新。通常用于多代理环境。 
+    - **参数：**
+        - `num_ticks` (_int_) - 要执行的节拍数。默认为 1。
+        - `publish` (_bool_ ) - 是否按场景定义发布。默认为 True。
+    - **返回：**
+        - (_dict_) - 一个字典，内容从代理名称到其完整状态。完整状态是另一个字典，从 holoocean.sensors.Sensors 枚举到 np.ndarray，包含每个传感器的信息。传感器始终包含奖励传感器和终端传感器。奖励和终端也可以通过 [get_reward_terminal()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/environments.html#holoocean.environments.HoloOceanEnvironment.get_reward_terminal) 获取。返回上次执行 tick 后的状态。
+
+
+#### 属性
+- <a name="action_space"></a>**<font color="#7fb800">action_space</font>**  
+**向特定代理提供操作，但不影响环境。**
+为主代理提供动作空间。
+    - **返回：**
+        - [_ActionSpace_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/spaces.html#holoocean.spaces.ActionSpace) - 主代理的动作空间
+- <a name="beacons"></a>**<font color="#7fb800">beacons</font>**  
+获取环境中所有 AcousticBeaconSensor 实例。 
+    - **返回：**
+        - _AcousticBeaconSensor_ 的列表 _list_ - 环境中所有声学信标传感器的列表
+- <a name="beacons_id"></a>**<font color="#7fb800">beacons_id</font>**  
+获取环境中所有 AcousticBeaconSensor 的 ID。
+    - **返回：**
+        - _int_ 类型的列表 _list_ - 环境中所有声学信标传感器 ID 的列表
+- <a name="beacons_status"></a>**<font color="#7fb800">beacons_status</font>**  
+获取环境中声学信标传感器的所有状态（v2.3.0）。
+    - **返回：**
+        - _str_ 类型的列表 _list_ - 环境中所有声学信标传感器 ID 的列表
+- <a name="modems"></a>**<font color="#7fb800">modems</font>**  
+获取环境中所有 OpticalModemSensor 实例。
+    - **返回：**
+        - _OpticalModemSensor_ 的列表 _list_ - 环境中所有光纤调制解调器传感器的列表
+- <a name="modems_id"></a>**<font color="#7fb800">modems_id</font>**  
+获取环境中所有 OpticalModemSensor 的 ID。
+    - **返回：**
+        - _int_ 的列表 _list_ - 环境中所有 OpticalModemSensor ID 的列表
+
+
+---
+
+
+## 空间 <span id="spaces"></span>
+
+包含动作空间定义。
+
+### holoocean.spaces.ActionSpace 类<a name="holoocean.spaces.ActionSpace"></a>
+抽象 ActionSpace 类。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="ActionSpace"></a>**<font color="#7fb800">ActionSpace</font>**(<font color="#00a6ed">**shape, buffer_shape=None**</font>)  
+抽象 ActionSpace 类。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `buffer_shape`(_int_ 的列表 _list_，可选) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+
+---
+
+
+### holoocean.spaces.ContinuousActionSpace 类<a name="holoocean.spaces.ContinuousActionSpace"></a>
+接受浮点输入的动作空间。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="holoocean.spaces.ContinuousActionSpace"></a>**<font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font>**(<font color="#00a6ed">**shape, low=None, high=None, sample_fn=None, buffer_shape=None**</font>)  
+接受浮点输入的动作空间。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `sample_fn`(_function_,_optional_) - 一个接受形状参数并输出采样命令的函数。
+        - `low`(_float_ 的列表 _list_ 或 _float_) - 动作空间的低值。可以是标量或数组。
+        - `high`(_float_ 的列表 _list_ 或 _float_) - 动作空间的高值。可以是标量或数组。如果未指定，则默认从单位高斯分布中采样。
+        - `buffer_shape`(_int_ 的列表 _list_,_optional_) - 写入共享内存的数据的形状。仅当它与默认形状`shape`不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+---
+
+
+### holoocean.spaces.DiscreteActionSpace 类<a name="holoocean.spaces.DiscreteActionSpace"></a>
+接受整数输入的动作空间。
+
+#### 属性
+- <a name="shape"></a>**<font color="#7fb800">shape</font>**  
+获取动作空间的形状。
+    - **返回：**
+        - (_int_ 的列表 _list_) - 动作空间的形状。
+
+#### 方法
+- <a name="holoocean.spaces.ContinuousActionSpace"></a>**<font color="#7fb800">holoocean.spaces.ContinuousActionSpace</font>**(<font color="#00a6ed">**shape, low, high, buffer_shape=None**</font>)  
+接受整数输入的动作空间。
+    - **参数：**
+        - `shape`(_int_ 的列表 _list_ ) - 输入到步进或节拍的数据格式。
+        - `low`(_float_ 的列表 _list_ 或 _float_) - 采样的最小值。
+        - `high`(_float_ 的列表 _list_ 或 _float_) - 采样的最大值。
+        - `buffer_shape`(_int_ 的列表 _list_,_optional_) - 写入共享内存的数据的形状。仅当它与默认形状不同时才使用此选项。
+- <a name="get_high"></a>**<font color="#7fb800">get_high</font>**(<font color="#00a6ed"></font>)  
+动作空间中的最大值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最大值
+- <a name="get_low"></a>**<font color="#7fb800">get_low</font>**(<font color="#00a6ed"></font>)  
+动作空间的最小值。
+    - **返回：**
+        - `shape`(_float_ 的列表 _list_ 或 _float_ ) - 动作空间的最小值
+- <a name="sample"></a>**<font color="#7fb800">sample</font>**(<font color="#00a6ed"></font>)  
+从动作空间中抽取样本。
+    - **返回：**
+        - `shape`(_np.ndarray_ ) - 可输入到步进或节拍操作的有效命令。
+
+---
+
+
+## 命令 <span id="commands"></span>
+
+此模块包含用于格式化命令并将其发送到 HoloOcean 后端的类。这些命令大多仅供 HoloOcean 内部使用，普通用户无需关心这些命令。
+
+### holoocean.command.AddSensorCommand 类<a name="holoocean.command.AddSensorCommand"></a>
+OpenGL 版本枚举。
+
+#### 构造方法
+- <a name="holoocean.command.AddSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.AddSensorCommand</font>**(<font color="#00a6ed">**sensor_definition**</font>)  
+向代理添加传感器。
+    - **参数：**
+        - `sensor_definition`([_SensorDefinition_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition)) - 添加的传感器
+
+
+### holoocean.command.Command 类<a name="holoocean.command.Command"></a>
+Command 对象的基类。Command 用于 holoocean Python 绑定和 holoocean 二进制文件之间的进程间通信 (IPC)。派生类必须设置 `_command_type`。[add_number_parameters()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command.add_number_parameters) 和 [add_number_parameters()](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command.add_number_parameters) 的调用顺序很重要，它们会被添加到有序列表中。请确保按照客户端期望的顺序添加参数。
+
+#### 方法
+- <a name="add_number_parameters"></a>**<font color="#7fb800">add_number_parameters</font>**(<font color="#00a6ed">**number**</font>)  
+将给定的数字参数添加到内部列表中。
+    - **参数：**
+        - `number`(_int_ / _float_ 的列表 _list_ 或单个_int_ / _float_) - 要添加到参数中的数字或数字列表。
+- <a name="add_string_parameters"></a>**<font color="#7fb800">add_string_parameters</font>**(<font color="#00a6ed">**number**</font>)  
+将给定的字符串参数添加到内部列表中。
+    - **参数：**
+        - `number`(_str_ 的列表 _list_ 或 _str_ ) - 要添加到参数中的字符串或字符串列表。
+- <a name="set_command_type"></a>**<font color="#7fb800">set_command_type</font>**(<font color="#00a6ed">**command_type**</font>)  
+设置命令类型。
+    - **参数：**
+        - `command_type`(_str_ ) - 这是它将被设置为的命令名称。
+- <a name="to_json"></a>**<font color="#7fb800">to_json</font>**(<font color="#00a6ed"></font>)  
+转换为JSON格式。
+    - **参数：**
+        - (_str_ ) - 该对象以 JSON 字符串的形式存在。
+
+
+---
+
+
+### holoocean.command.CommandCenter 类<a name="holoocean.command.CommandCenter"></a>
+
+管理待发送给客户端（引擎）的待处理命令。
+
+#### 方法
+- <a name="holoocean.command.CommandCenter"></a>**<font color="#7fb800">holoocean.command.CommandCenter</font>**(<font color="#00a6ed">**client**</font>)  
+管理待发送给客户端（引擎）的待处理命令。
+    - **参数：**
+        - `client`([_HoloOceanClient_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient) ) - 发送命令的客户端。
+- <a name="clear"></a>**<font color="#7fb800">clear</font>**(<font color="#00a6ed"></font>)  
+清除待处理的命令。
+- <a name="enqueue_command"></a>**<font color="#7fb800">enqueue_command</font>**(<font color="#00a6ed">**command_to_send**</font>)  
+将命令添加到传出队列。
+    - **参数：**
+        - `command_to_send`([_Command_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command) ) - 添加到队列的命令。
+- <a name="handle_buffer"></a>**<font color="#7fb800">handle_buffer</font>**(<font color="#00a6ed"></font>)  
+如果需要，将命令列表写入命令缓冲区。检查是否应该写入命令缓冲区，将所有已排队的命令写入缓冲区，然后清除 self._commands 列表的内容。
+
+#### 属性
+- <a name="queue_size"></a>**<font color="#f8805a">queue_size</font>** (int)  
+    - **返回:** (_int_) - 命令队列的大小。
+
+
+
+---
+
+
+### holoocean.command.CommandsGroup 类<a name="holoocean.command.CommandsGroup"></a>
+
+表示命令列表。可以将命令列表转换为 JSON 格式。
+
+#### 方法
+- <a name="add_command"></a>**<font color="#7fb800">add_command</font>**(<font color="#00a6ed">**command**</font>)  
+向列表中添加命令。
+    - **参数：**
+        - `command`([_Command_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/commands.html#holoocean.command.Command) ) - 要添加的命令。
+- <a name="clear"></a>**<font color="#7fb800">clear</font>**(<font color="#00a6ed"></font>)  
+清除命令列表。
+- <a name="to_json"></a>**<font color="#7fb800">to_json</font>**(<font color="#00a6ed"></font>)  
+将命令添加到传出队列。
+    - **返回：**
+        - (_str_ ) - 添加到队列的命令。
+
+#### 属性
+- <a name="size"></a>**<font color="#f8805a">size</font>** (int)  
+    - **返回:** (_int_) - 用于存储命令数组对象的 JSON 数据以及数组中的所有命令。
+
+
+
+---
+
+### holoocean.command.CustomCommand 类<a name="holoocean.command.CustomCommand"></a>
+向当前加载的世界发送自定义命令。
+
+#### 构造方法
+- <a name="holoocean.command.CustomCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.CustomCommand</font>**(<font color="#00a6ed">**name, num_params=None, string_params=None**</font>)  
+    - **参数：**
+        - `name`(_str_) - 命令名称，例如“OpenDoor”
+        - `num_params`(_int_ 的列表) - 任意数参数列表
+        - `string_params`(_int_ 的列表) - 任意字符串参数列表
+
+---
+
+### holoocean.command.DebugDrawCommand 类<a name="holoocean.command.DebugDrawCommand"></a>
+在世界中绘制调试几何图形。
+
+#### 构造方法
+- <a name="holoocean.command.DebugDrawCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.DebugDrawCommand</font>**(<font color="#00a6ed">**draw_type, start, end, color, thickness, lifetime**</font>)  
+    - **参数：**
+        - `draw_type`(_int_) - 要绘制的对象类型
+            - `0`: 线
+            - `1`：箭头
+            - `2`: 框
+            - `3`：点
+        - `start`(_float_ 的列表) - 物体起始位置的 `[x, y, z]` 坐标（单位：米）。（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `end`(_float_ 的列表) - 物体的末端 `[x, y, z]` 位置（以米为单位）（不用于点，也不用于框的范围）
+        - `color`(_float_) - `[r, g, b]` 颜色值（从 0 到 255）。
+        - `thickness`(_float_) - 线条/物体的粗细
+        - `lifetime`(_float_) - 对象应保持存在的模拟秒数。如果为 0，则保持存在。
+
+---
+
+
+### holoocean.command.RGBCameraRateCommand 类<a name="holoocean.command.RGBCameraRateCommand"></a>
+设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
+
+#### 构造方法
+- <a name="holoocean.command.RGBCameraRateCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RGBCameraRateCommand</font>**(<font color="#00a6ed">**agent_name, sensor_name, ticks_per_capture**</font>)  
+    - **参数：**
+        - `agent_name`(_str_) - 要修改的代理姓名
+        - `sensor_name`(_str_ ) - 要修改的传感器名称
+        - `ticks_per_capture`(_int_ ) - 两次捕获之间的节拍数
+
+---
+
+
+### holoocean.command.RemoveSensorCommand 类<a name="holoocean.command.RemoveSensorCommand"></a>
+从代理中移除传感器。
+
+#### 构造方法
+- <a name="holoocean.command.RemoveSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RemoveSensorCommand</font>**(<font color="#00a6ed">**agent, sensor**</font>)  
+    - **参数：**
+        - `agent`(_str_) - 要修改的代理姓名
+        - `sensor`(_str_ ) - 要移除的传感器名称
+
+---
+
+### holoocean.command.RenderQualityCommand 类<a name="holoocean.command.RenderQualityCommand"></a>
+调整 HoloOcean 的渲染质量。
+
+#### 构造方法
+- <a name="holoocean.command.RenderQualityCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RenderQualityCommand</font>**(<font color="#00a6ed">**render_quality**</font>)  
+    - **参数：**
+        - `render_quality`(_int_) - 0 = 低，1 = 中，3 = 高，3 = 史诗级
+
+---
+
+### holoocean.command.RenderViewportCommand 类<a name="holoocean.command.RenderViewportCommand"></a>
+启用或禁用窗口。请注意，这不会阻止窗口显示，只会阻止其更新。
+
+#### 构造方法
+- <a name="holoocean.command.RenderViewportCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RenderViewportCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+    - **参数：**
+        - `render_viewport`(_bool_) - 是否需要渲染视窗
+
+---
+
+
+### holoocean.command.RotateSensorCommand 类<a name="holoocean.holoocean.command.RotateSensorCommand"></a>
+调整 HoloOcean 的渲染质量。
+
+#### 构造方法
+- <a name="holoocean.command.RotateSensorCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.RotateSensorCommand</font>**(<font color="#00a6ed">**agent, sensor, rotation**</font>)  
+    - **参数：**
+        - `agent`(_str_) - 代理名称
+        - `sensor`(_str_) - 要旋转的传感器的名称
+        - `rotation`(_float_ 的列表) - 传感器`[roll, pitch, yaw]`的旋转。
+
+---
+
+### holoocean.command.SendAcousticMessageCommand 类<a name="holoocean.command.SendAcousticMessageCommand"></a>
+设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
+
+#### 构造方法
+- <a name="holoocean.command.SendAcousticMessageCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.SendAcousticMessageCommand</font>**(<font color="#00a6ed">**render_viewport**</font>)  
+    - **参数：**
+        - `agent_name`(_str_) - 要修改的代理名称
+        - `sensor_name`(_str_) - 要修改的传感器名称
+        - `num`(_int_ ) - 两次捕获之间的节拍数
+
+---
+
+### holoocean.command.SendOpticalMessageCommand 类<a name="holoocean.command.SendOpticalMessageCommand"></a>
+通过光纤调制解调器发送信息。
+
+---
+
+
+### holoocean.command.SpawnAgentCommand 类<a name="holoocean.command.SpawnAgentCommand"></a>
+在世界上生成一个代理。
+
+#### 方法
+- <a name="holoocean.command.SpawnAgentCommand"></a>**<font color="#7fb800">holoocean.command.SpawnAgentCommand</font>**(<font color="#00a6ed">**location, rotation, name, agent_type, is_main_agent=False**</font>)  
+    - **参数：**
+        - `location`(_float_ 的列表 _list_ ) - 生成代理的 `[x, y, z]` 位置（参见坐标系）
+        - `name`(_str_ ) - 代理的名称
+        - `agent_type`(_str_ 或类型) - 要生成的代理类型（UAVAgent、NavAgent 等）
+- <a name="set_location"></a>**<font color="#7fb800">set_location</font>**(<font color="#00a6ed">**location**</font>)  
+设置代理的生成位置。
+    - **参数：**
+        - `location`(_float_ 的列表 _list_ ) - 生成代理的 `[x, y, z]` 位置（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+- <a name="set_name"></a>**<font color="#7fb800">set_name</font>**(<font color="#00a6ed">**name**</font>)  
+设置代理的生成位置。
+    - **参数：**
+        - `name`(_str_ ) - 设置代理的名称。
+- <a name="set_rotation"></a>**<font color="#7fb800">set_rotation</font>**(<font color="#00a6ed">**name**</font>)  
+设置代理的生成旋转。
+    - **参数：**
+        - `rotation`(_float_ 的列表 _list_ ) - 代理的`[roll, pitch, yaw]`旋转。（参见“旋转”部分）
+- <a name="set_type"></a>**<font color="#7fb800">set_type</font>**(<font color="#00a6ed">**name**</font>)  
+设置代理类型。
+    - **参数：**
+        - `agent_type`(_str_ 或 _type_ ) - 要生成的代理类型。
+
+---
+
+### holoocean.command.TeleportCameraCommand 类<a name="holoocean.command.TeleportCameraCommand"></a>
+设置 RGB 相机两次拍摄之间的时间间隔（以节拍为单位）。
+
+#### 构造方法
+- <a name="holoocean.command.TeleportCameraCommand_Constructor"></a>**<font color="#7fb800">holoocean.command.TeleportCameraCommand</font>**(<font color="#00a6ed">**location, rotation**</font>)  
+移动窗口的相机（代理跟随器）
+    - **参数：**
+        - `agent_name`(_float_ 的列表 _list_ ) - 要赋予相机的 `[x, y, z]` 位置（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）
+        - `rotation`(_float_ 的列表 _list_ ) - 要赋予相机的 `[roll, pitch, yaw]` 位置（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+
+
+---
+
+### holoocean.command.TideCommand 类<a name="holoocean.command.TideCommand"></a>
+改变当前世界的水位（v2.3.0）。
+
+#### 构造方法
+- <a name="holoocean.command.TideCommand"></a>**<font color="#7fb800">holoocean.command.TideCommand</font>**(<font color="#00a6ed">**adjustment, absolute**</font>)  
+改变当前世界的水位。
+    - **参数：**
+        - `adjustment`(_float_ ) - 以米为单位，表示要调整的水位数值，或要设置的水位。
+        - `absolute`(_bool_ ) - 如果要设置新的水位，则为 True；如果要按偏移量调整潮汐，则为 False。
+
+
+---
+
+
+## HoloOcean 客户端 <span id="holooceanclient"></span>
+
+用于在 Python 和 C++ 之间订阅共享内存的客户端。
+
+### holoocean.holooceanclient.HoloOceanClient 类<a name="holoocean.holooceanclient.HoloOceanClient"></a>
+
+
+#### 方法
+- <a name="holoocean.holooceanclient.HoloOceanClient"></a>**<font color="#7fb800">holoocean.holooceanclient.HoloOceanClient</font>**(<font color="#00a6ed">**uuid=''**</font>)  
+HoloOceanClient 用于控制共享内存会话。
+    - **参数：**
+        - `uuid`(_str_, optional) - 用于指示此客户端关联的服务器的 UUID。此 UUID 应通过命令行标志传递给外部服务器。默认为空字符串。
+- <a name="acquire"></a>**<font color="#7fb800">acquire</font>**(<font color="#00a6ed">**timeout=60**</font>)  
+用于获取控制权。将等待 HolodeckServer 完成其工作。
+- <a name="malloc"></a>**<font color="#7fb800">malloc</font>**(<font color="#00a6ed">**key, shape, dtype**</font>)  
+分配一块共享内存，并返回一个 numpy 数组，其数据与该内存块相对应。
+    - **参数：**
+        - `key`(_str_) - 识别该模块的键。
+        - `shape`(_int_ 列表) - 要分配的 numpy 数组的形状。
+        - `dtype`(_type_) - numpy 数据类型（例如 np.float32）。
+    - **返回：**
+        - (_np.ndarray_) - 位于共享内存中的 numpy 数组。
+- <a name="release"></a>**<font color="#7fb800">release</font>**(<font color="#00a6ed">**timeout=60**</font>)  
+用于释放控制权。这将允许 HolodeckServer 执行下一步操作。
+
+
+---
+
+
+## 软件包管理器 <span id="packagemanager"></span>
+
+适用于 HoloOcean 的世界软件包管理器，可供下载和使用。
+
+#### 方法
+- <a name="holoocean.packagemanager.available_packages"></a>**<font color="#7fb800">holoocean.packagemanager.available_packages</font>**(<font color="#00a6ed"></font>)  
+返回适用于当前 HoloOcean 版本的软件包名称列表
+    - **返回：**
+        - (_str_ 列表) - 软件包名称列表。
+- <a name="holoocean.packagemanager.get_binary_path_for_package"></a>**<font color="#7fb800">holoocean.packagemanager.get_binary_path_for_package</font>**(<font color="#00a6ed">**package_name**</font>)  
+获取特定软件包的二进制文件路径。
+    - **参数：**
+        - `package_name`(_str_ 列表) - 要查找的软件包名称。
+    - **返回：**
+        - (_str_ ) - 返回配置目录的路径。
+    - **抛出异常：**
+        - `NotFoundException` - 当找不到所请求的软件包时。
+- <a name="holoocean.packagemanager.get_binary_path_for_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_binary_path_for_scenario</font>**(<font color="#00a6ed">**scenario_name**</font>)  
+获取给定场景名称的二进制文件的路径。
+    - **参数：**
+        - `scenario_name`(_str_) - 要加载的配置名称，例如“UrbanCity-Follow”。必须完全匹配。名称在所有已安装的软件包中必须是唯一的。
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典。
+- <a name="holoocean.packagemanager.get_package_config_for_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_package_config_for_scenario</font>**(<font color="#00a6ed">**scenario**</font>)  
+对于给定的场景，返回与其关联的包配置（config.json）。
+    - **参数：**
+        - `scenario`(_dict_) - 场景字典，用于查找软件包
+    - **返回：**
+        - (_dict_ ) - 软件包配置字典。
+- <a name="holoocean.packagemanager.get_scenario"></a>**<font color="#7fb800">holoocean.packagemanager.get_scenario</font>**(<font color="#00a6ed">**scenario_name**</font>)  
+获取与给定名称关联的场景配置。
+    - **参数：**
+        - `scenario_name`(_str_) - 要加载的配置名称，例如“UrbanCity-Follow”。必须完全匹配。名称在所有已安装的软件包中必须是唯一的。
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典。
+- <a name="holoocean.packagemanager.install"></a>**<font color="#7fb800">holoocean.packagemanager.install</font>**(<font color="#00a6ed">**package_name, url=None, branch=None, commit=None**</font>)  
+安装 holoocean 软件包。
+    - **参数：**
+        - `package_name`(_str_) - 要安装的软件包名称
+- <a name="holoocean.packagemanager.installed_packages"></a>**<font color="#7fb800">holoocean.packagemanager.installed_packages</font>**(<font color="#00a6ed"></font>)  
+返回所有已安装软件包的列表。
+    - **返回：**
+        - (_str_ 列表) - 当前已安装软件包列表
+- <a name="holoocean.packagemanager.load_scenario_file"></a>**<font color="#7fb800">holoocean.packagemanager.load_scenario_file</font>**(<font color="#00a6ed">**scenario_path**</font>)  
+加载场景配置文件并返回包含配置信息的字典。
+    - **参数：**
+        - `scenario_path`(_str_ 列表) - 配置文件路径
+    - **返回：**
+        - (_dict_ ) - 包含配置文件的字典
+- <a name="holoocean.packagemanager.package_info"></a>**<font color="#7fb800">holoocean.packagemanager.package_info</font>**(<font color="#00a6ed">**pkg_name**</font>)  
+打印软件包信息。
+    - **参数：**
+        - `pkg_name`(_str_ ) - 要获取信息的所需软件包名称
+- <a name="holoocean.packagemanager.prune"></a>**<font color="#7fb800">holoocean.packagemanager.prune</font>**(<font color="#00a6ed"></font>)  
+删除除当前运行版本之外的旧版本 holoocean。**请勿与 HOLODECKPATH 一起使用。** 如果您已覆盖路径，请勿使用此函数。
+- <a name="holoocean.packagemanager.remove"></a>**<font color="#7fb800">holoocean.packagemanager.remove</font>**(<font color="#00a6ed">**package_name**</font>)  
+移除一个 holoocean 包。
+    - **参数：**
+        - `package_name`(_str_ ) - 要移除的软件包名称
+- <a name="holoocean.packagemanager.remove_all_packages"></a>**<font color="#7fb800">holoocean.packagemanager.remove_all_packages</font>**(<font color="#00a6ed"></font>)  
+移除所有 holoocean 软件包。
+- <a name="holoocean.packagemanager.scenario_info"></a>**<font color="#7fb800">holoocean.packagemanager.scenario_info</font>**(<font color="#00a6ed">**scenario_name='', scenario=None, base_indent=0**</font>)  
+获取并打印特定场景文件的信息。文件格式必须符合以下要求：scenario_name.json
+    - **参数：**
+        - `scenario_name`(_str_ ) - 场景名称
+        - `scenario`(_dict_ ,optional ) - 已加载字典配置（覆盖 world_name 和 scenario_name）
+        - `base_indent`(_int_ ,optional ) - 输出需要缩进多少？
+- <a name="holoocean.packagemanager.world_info"></a>**<font color="#7fb800">holoocean.packagemanager.world_info</font>**(<font color="#00a6ed">**world_name, world_config=None, base_indent=0**</font>)  
+获取并打印世界信息。
+    - **参数：**
+        - `world_name`(_str_ ) - 要检索信息的世界名称
+        - `world_config`(_dict_ ,optional ) - 包含世界配置信息的字典。如果为 None，则会查找配置信息。默认为 None。
+        - `base_indent`(_int_ ,optional ) - 输出需要缩进多少？
+
+---
+
+## 传感器 <span id="sensors"></span>
+
+所有传感器信息的定义。UE 对传感器的设置使得运动检测先于传感器检测发生。
+
+
+### holoocean.sensors.AcousticBeaconSensor 类<a name="holoocean.sensors.AcousticBeaconSensor"></a>
+
+声学信标传感器。可通过 `send_acoustic_message()` 命令向其他信标发送消息。
+
+返回的数组取决于发送的消息类型。请注意，由于声波传播需要时间，接收到的消息会有延迟。可能的消息类型包括：ϕ 表示方位角，ϴ 表示仰角，r 表示距离，d 表示水深。
+
+* `OWAY`：单向消息，发送 `["OWAY", from_sensor, payload]`
+
+* `OWAYU`：单向消息，发送 `["OWAYU", from_sensor, payload, ϕ, ϴ]`
+
+* `MSG_REQ`：请求 MSG_RESP 返回消息，发送 `["MSG_REQ", from_sensor, payload]`
+
+* `MSG_RESP`：返回消息，发送 `["MSG_RESP", from_sensor, payload]`
+
+* `MSG_REQU`：请求 MSG_RESPU 返回消息，发送 `["MSG_REQU", from_sensor, payload, ϕ, ϴ]`
+
+* `MSG_RESPU`：返回消息，发送 `["MSG_RESPU", from_sensor, payload, ϕ, ϴ, r]`
+
+* `MSG_REQX`：请求 MSG_RESPX 返回消息，发送 `["MSG_REQX", from_sensor, payload, ϕ, ϴ] d]`
+
+* `MSG_RESPX`：返回包含以下参数的消息：`["MSG_RESPX", from_sensor, payload, ϕ, ϴ, r, d]`
+
+这些消息类型基于 [Blueprint Subsea SeaTrac X150](https://www.blueprintsubsea.com/pages/product.php?PN=BP00795) 。
+
+#### 配置
+
+配置（`configuration`）块（参见“[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)”）接受以下选项：
+
+* `id`：此传感器的 ID。如果未指定，则按顺序编号。
+
+* `CheckVisible`：接收验证消息时是否检查与车辆之间的直线视线。用于发送数据时。默认为 false。
+
+* `MaxDistance`：声学信标的最大距离（以米为单位）。用于发送数据时。默认为无最大距离。
+
+* `DistanceSigma`/`DistanceCov`：确定 MaxDistance 距离的噪声标准差/协方差。必须为标量值。（默认值为 0 => 无噪声）
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+- <a name="sensor_data"></a>**<font color="#f8805a">sensor_data</font>** (int)  
+获取传感器数据缓冲区。
+    - **返回：**
+        - (_np.ndarray`，大小为 _self.data_shape_ ) - 当前传感器数据
+
+
+#### 构造方法
+- <a name="holoocean.sensors.AcousticBeaconSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.AcousticBeaconSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='AcousticBeaconSensor', config=None**</font>)  
+
+
+
+### holoocean.sensors.DVLSensor 类<a name="holoocean.sensors.DVLSensor"></a>
+
+多普勒速度记录传感器。
+
+返回一个包含以下内容的 1D NumPy 数组：
+$$
+[velocity_x, velocity_y, velocity_z, range_x_forw, range_y_forw, range_x_back, range_y_back] 
+$$
+
+#### 配置
+
+配置（`configuration`）块（参见“[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)”）接受以下选项：
+
+* 仰角（`Elevation`）：每个声束相对于 z 轴向下的夹角。仅用于噪声/可视化。默认值为 22.5 度 => 45° 视场角。
+
+* 调试线`DebugLines`：是否显示每个声束的线条。默认值为 false。
+
+* 速度标准差（`VelSigma`）/速度协方差（`VelCov`）：应用于每个声束速度的协方差/标准差。可以是标量、4 维向量或 4x4 矩阵。只能设置其中一个。默认值为 0 => 无噪声。
+
+* 返回范围（`ReturnRange`）：是否返回声束范围的布尔值。默认值为 true。
+
+* 最大范围（`MaxRange`）：声束可以返回的最大范围。
+
+* 范围标准差（`RangeSigma`）/范围协方差（`RangeCov`）：应用于每个声束范围的协方差/标准差。可以是标量、4 维向量或 4x4 矩阵。只能设置其中一个。默认值为 0 => 无噪声。
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.DVLSensor__Constructor"></a>**<font color="#7fb800">holoocean.sensors.DVLSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DVLSensor', config=None**</font>)  
+
+
+
+### holoocean.sensors.DepthSensor 类<a name="holoocean.sensors.DepthSensor"></a>
+
+压力/深度传感器。
+
+返回一个包含以下元素的 1D NumPy 数组：`[position_z]`
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `Sigma`/`Cov`：要应用的协方差/标准差，标量值。默认为 0 => 无噪声。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+### holoocean.sensors.DynamicsSensor 类<a name="holoocean.sensors.DynamicsSensor"></a>
+
+提供实现自定义动力学所需的所有相关信息。返回值均位于全局坐标系中，如下所示：
+`[acceleration, velocity, position, angular accel., angular velocity, rpy]`
+
+其中所有值均为三维向量，rpy 包括横滚角、俯仰角和偏航角。这是唯一一个默认情况下不在自身接口中运行，而是在 COM 接口中运行的传感器。这主要是为了方便，因为在进行自定义动力学时，99% 的情况下都需要在 COM 接口中获取信息。
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `UseCOM`：是否返回相对于 COM 或指定套接字的数据。默认为 true。
+
+* `UseRPY`：是否以横滚角、俯仰角、偏航角或四元数的形式返回方向信息。默认为 true。如果为 true，传感器返回一个 18 维向量；如果为 false，传感器返回一个 19 维向量。四元数以标量形式指定，最后一个值即为 x、y、z、w。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.DynamicsSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.DynamicsSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='DynamicsSensor', config=None**</font>)  
+
+
+---
+
+
+
+### holoocean.sensors.GPSSensor 类<a name="holoocean.sensors.GPSSensor"></a>
+
+如果代理足够接近地面，则获取其在世界中的位置。
+
+返回 `[x, y, z]` 格式的坐标（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `Sigma`/`Cov`：测量协方差/标准差。可以是标量、三维向量或 3x3 矩阵。二选一。默认值为 0 => 无噪声。
+
+* `Depth`（深度）：在水中仍能接收 GPS 信号的深度（以米为单位）。默认值为 2 米。
+
+* `DepthSigma`/`DepthCov`：深度协方差/标准差。必须是标量。二选一。默认值为 0 => 无噪声。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+- <a name="sensor_data"></a>**<font color="#f8805a">sensor_data</font>** (int)  
+获取传感器数据缓冲区。
+    - **返回：**
+        - (_np.ndarray_ ，大小为 _self.data_shape_ ) - 当前传感器数据
+
+
+#### 构造方法
+- <a name="holoocean.sensors.GPSSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.GPSSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='GPSSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.HoloOceanSensor 类<a name="holoocean.sensors.HoloOceanSensor"></a>
+
+如果代理足够接近地面，则获取其在世界中的位置。
+
+返回 `[x, y, z]` 格式的坐标（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+- <a name="sensor_data"></a>**<font color="#f8805a">sensor_data</font>** (int)  
+获取传感器数据缓冲区。
+    - **返回：**
+        - (_np.ndarray_ ，大小为 _self.data_shape_ ) - 当前传感器数据
+
+
+#### 构造方法
+- <a name="holoocean.sensors.HoloOceanSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.HoloOceanSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+传感器的基类。 
+    - **参数：**
+        - `client`([_HoloOceanClient_](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/holooceanclient.html#holoocean.holooceanclient.HoloOceanClient) ) - 客户端连接到传感器
+        - `agent_name`(_str_ ) - 父代理的名称
+        - `agent_type`(_str_ ) - 父代理的类型
+        - `name`(_str_ ) - 传感器的名称
+        - `config`(_dict_ ) - 要传递给引擎的配置字典
+
+---
+
+
+### holoocean.sensors.IMUSensor 类<a name="holoocean.sensors.IMUSensor"></a>
+
+惯性测量单元传感器。
+
+返回一个二维 NumPy 数组，内容如下：
+
+```text
+[ [accel_x, accel_y, accel_z],
+  [ang_vel_roll,  ang_vel_pitch, ang_vel_yaw],
+  [accel_bias_x, accel_bias_y, accel_bias_z],
+  [ang_vel_bias_roll,  ang_vel_bias_pitch, ang_vel_bias_yaw]    ]
+```
+其中加速度分量的单位为米/秒，角速度的单位为弧度/秒。
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `AccelSigma`/`AccelCov`：加速度分量的协方差/标准差。可以是标量、三维矢量或 3x3 矩阵。只能选择其中一个。默认值为 0 => 无噪声。
+
+* `AngVelSigma`/`AngVelCov`：角速度分量的协方差/标准差。可以是标量、三维矢量或 3x3 矩阵。只能选择其中一个。默认值为 0 => 无噪声。
+
+* `AccelBiasSigma`/`AccelCBiasov`：加速度偏差分量的协方差/标准差。可以是标量、三维矢量或 3x3 矩阵。只能选择其中一个。默认值为 0 => 无噪声。
+
+* `AngVelBiasSigma`/`AngVelBiasCov`：加速度偏差分量的协方差/标准差。可以是标量、三维矢量或 3x3 矩阵。只能选择其中一个。默认值为 0 => 无噪声。
+
+* `ReturnBias`：传感器是否应随加速度/角速度一起返回偏差值。默认值为 false。
+
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.IMUSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.ImagingSonar 类<a name="holoocean.sensors.ImagingSonar"></a>
+
+模拟成像声呐。有关如何配置所使用的八叉树的更多信息，请参阅[配置八叉树](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree)。
+
+配置（`configuration`）块（请参阅[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下各节中的任何选项。
+
+#### 基本配置
+
+* 方位角（`Azimuth`）：方位角（左右方向），以度为单位，默认值为 120。
+
+* 仰角（`Elevation`）：仰角（上下方向），以度为单位，默认值为 20。
+
+* 最小距离（`RangeMin`）：最小可见距离，以米为单位，默认值为 0.1。
+
+* 最大距离（`RangeMax`）：最大可见距离，以米为单位，默认值为 10。
+
+* 距离分格数（`RangeBins`）/距离分辨率（`RangeRes`）：生成图像的距离分格数，或每个分格的分辨率（长度，以米为单位）。二选一。默认值为 512 个分格。
+
+* 方位角分格数（`AzimuthBins`）/方位分辨率（`AzimuthRes`）：生成图像的方位角分格数，或每个方位角的分辨率（长度，以度为单位）。二选一。默认值为 512 个分格。
+
+
+#### 噪声配置
+
+* `AddSigma`/`AddCov`：来自瑞利分布的加性噪声​​的标准差/协方差。必须为浮点数。只能设置其中一个。默认值为 0 或关闭。
+
+* `MultSigma`/`MultCov`：来自正态分布的乘性噪声的标准差/协方差。必须为浮点数。只能设置其中一个。默认值为 0 或关闭。
+
+* `MultiPath`：是否计算多径效应。默认值为 False。
+
+* `ClusterSize`：启用多径效应时簇的大小。默认值为 5。
+
+* `ScaleNoise`：是否缩放返回的强度值。默认值为 False。
+
+* `AzimuthStreaks`：要引入的方位角伪影类型。-1 表示去除伪影，0 表示不添加伪影，1 表示增加增益伪影。默认值为 0。
+
+* `RangeSigma`：将添加到距离测量值中的加性噪声​​标准差（服从指数分布），强度值将根据概率密度函数 (pdf) 进行缩放。必须为浮点数。默认值为 0，即关闭。
+
+
+#### 高级配置
+
+* `ShowWarning`：是否在屏幕上显示声呐计算警告。默认为 True。
+
+* `ElevationBins`/`ElevationRes`：阴影探测时使用的仰角区间数，或每个区间的分辨率（以度为单位）。只能设置其中之一。默认情况下，此值基于八叉树大小和最小/最大范围计算。仅当阴影探测不起作用时才应设置。
+
+* `InitOctreeRange`：启动时，将创建代理在此距离范围内的所有中层八叉树。
+
+* `ViewRegion`：启用绿色线条以查看可见区域。默认为 False。
+
+* `ViewOctree`：要显示的八叉树叶子节点。小于 -1 表示不显示任何叶子节点，-1 表示显示所有叶子节点，大于或等于 0 的值显示相应的波束索引。默认为 -10。
+
+* `ShadowEpsilon`：阴影探测时，集群之间的间隔值。默认为 4 * OctreeMin。
+
+* `WaterDensity`：水的密度，单位为千克/立方米 (kg/m³)。默认值为 997。
+
+* `WaterSpeedSound`：水中的声速，单位为米/秒 (m/s)。默认值为 1480。
+
+* `UseApprox`（使用近似值）：是否使用速度较快的 Atan2 近似值，还是速度较慢的精确值。默认值为 True。
+
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.IMUSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.IMUSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='IMUSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.LocationSensor 类<a name="holoocean.sensors.LocationSensor"></a>
+
+获取代理在世界中的位置。
+
+返回 `[x, y, z]` 格式的坐标（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `Sigma`/`Cov`：协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 => 无噪声。
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.LocationSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.LocationSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='LocationSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.MagnetometerSensor 类<a name="holoocean.sensors.MagnetometerSensor"></a>
+
+获取局部坐标系中的全局 x 轴（或给定向量）。
+
+#### 配置
+
+配置（`configuration`）模块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `Sigma`/`Cov`：测量协方差/标准差。可以是标量、三维向量或 3x3 矩阵。只能选择其中之一。默认值为 0 => 无噪声。
+
+* `MagneticVector`：要在全局坐标系中测量的给定三维向量。默认值为 [1,0,0]。
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.MagnetometerSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.MagnetometerSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='MagnetometerSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.OpticalModemSensor 类<a name="holoocean.sensors.OpticalModemSensor"></a>
+
+处理代理之间使用光纤调制解调器的通信。可以通过 `send_optical_message()` 命令向其他调制解调器发送消息。
+
+#### 配置
+
+配置模（`configuration`）块（参见[配置模块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `id`：此传感器的 ID。如果未指定，则按顺序编号。
+
+* `MaxDistance`：光纤调制解调器的最大距离（以米为单位）。用于发送数据。（默认值：50）
+
+* `DistanceSigma`/`DistanceCov`：确定 MaxDistance 噪声的标准差/协方差。必须为标量值。（默认值：0 => 无噪声）
+
+* `LaserAngle`：激光束与原点的夹角。以度为单位。用于发送数据。（默认值：60）
+
+* `AngleSigma`/`AngleCov`：确定 LaserAngle 噪声的标准差。必须为标量值。（默认值：0 => 无噪声）
+
+* `LaserDebug`：显示调试跟踪。（默认值：false）
+
+* `DebugNumSides`：调试锥的边数。（默认值：72）
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+- <a name="sensor_data"></a>**<font color="#f8805a">sensor_data</font>** (int)  
+获取传感器数据缓冲区。
+    - **返回：**
+        - (_np.ndarray_ ，大小为：_self.data_shape_ ) - 当前传感器数据
+
+
+#### 构造方法
+- <a name="holoocean.sensors.OpticalModemSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.OpticalModemSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='OpticalModemSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.OrientationSensor 类<a name="holoocean.sensors.OrientationSensor"></a>
+
+获取代理的前向、右向和上向向量。请注意，此向量基于传感器坐标系，而非代理坐标系。因此，在 IMU 插槽中，向量为 NED；在 COM 插槽中，向量为 NWU。我们提供的配置中，传感器位于 IMU 插槽中。
+
+返回一个二维 NumPy 数组：
+```text
+[ [forward_x, right_x, up_x],
+  [forward_y, right_y, up_y],
+  [forward_z, right_z, up_z] ]
+```
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.OrientationSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.OrientationSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.PoseSensor 类<a name="holoocean.sensors.PoseSensor"></a>
+
+获取代理的前向、右向和上向向量。请注意，此向量基于传感器坐标系，而非代理坐标系。因此，在 IMU 插槽中，向量为 NED；在 COM 插槽中，向量为 NWU。我们提供的配置中，传感器位于 IMU 插槽中。
+
+返回一个二维 NumPy 数组。
+```text
+[ [R, p],
+  [0, 1] ]
+```
+其中 R 是旋转矩阵（见 OrientationSensor），p 是机器人的世界位置（见 LocationSensor）
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 构造方法
+- <a name="holoocean.sensors.PoseSensor_Constructor"></a>**<font color="#7fb800">holoocean.sensors.PoseSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.ProfilingSonar 类<a name="holoocean.sensors.ProfilingSonar"></a>
+
+模拟一个多波束剖面声呐。这主要是基于成像声呐（[ImagingSonar](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.ImagingSonar)），只是默认设置不同。有关如何配置使用的八叉树，请参见配置八叉树。
+
+配置（`configuration`）块（参见[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）可以接受以下各节中的任何选项。
+
+#### 基本配置
+
+* 方位角（`Azimuth`）：可见的方位角（左右方向），以度为单位，默认值为120。
+
+* 俯仰角（`Elevation`）：可见的俯仰角（上下方向），以度为单位，默认值为1。
+
+* 最小范围（`RangeMin`）：可见的最小范围，以米为单位，默认值为0.5。
+
+* 最大范围（`RangeMax`）：可见的最大范围，以米为单位，默认值为75。
+
+* 距离箱（`RangeBins`）/距离分辨率（`RangeRes`）：生成图像的距离箱数量，或每个箱的分辨率（米）。设置其中之一即可。默认750个箱。
+
+* 方位箱（`AzimuthBins`）/方位分辨率（`AzimuthRes`）：生成图像的方位箱数量，或每个箱的分辨率（度）。设置其中之一即可。默认480个箱。
+
+#### 噪声配置
+
+* `AddSigma`/`AddCov`：来自瑞利分布的加性噪声标准差/协方差。需要是浮点数。两者只能设置一个。默认是0，或关闭。
+
+* `MultSigma`/`MultCov`：来自正态分布的乘法噪声标准差/协方差。需要是浮点数。两者只能设置一个。默认是0，或关闭。
+
+* `MultiPath`：是否计算多路径。默认是False。
+
+* `ClusterSize`：启用多路径时的簇大小。默认是5。
+
+* `ScaleNoise`：是否对返回的强度进行缩放。默认是False。
+
+* `AzimuthStreaks`：引入哪种方位伪影。-1是去除伪影，0是没有伪影，1是增益伪影。默认是0。
+
+#### 高级配置
+
+* `ShowWarning`：是否在屏幕上显示关于声纳计算的警告。默认值为 True。
+
+* `ElevationBins`/`ElevationRes`：在进行遮挡计算时使用的仰角层数，或者每个层的分辨率（以度为单位）。设置其中一个即可。默认情况下，这会根据八叉树大小以及最小/最大范围计算。如遮挡不起作用，才需设置。
+
+* `InitOctreeRange`：启动时，会创建距离代理一定范围内的所有中级八叉树。
+
+* `ViewRegion`：开启后显示绿色线条以查看可见区域。默认值为 False。
+
+* `ViewOctree`：显示哪些八叉树叶子节点。小于 -1 表示不显示，-1 表示显示全部，大于或等于 0 表示显示对应的光束索引。默认值为 -10。
+
+* `ShadowEpsilon`：在遮挡计算中，决定簇之间的分界。默认值为 4*OctreeMin。
+
+* `WaterDensity`：水的密度，单位 kg/m^3。默认值为 997。
+
+* `WaterSpeedSound`：水中声速，单位 m/s。默认值为 1480。
+
+* `UseApprox`：是否使用更快的 Atan2 近似值，还是使用较慢的精确实现。默认值为 True。
+
+
+#### 构造方法
+- <a name="holoocean.sensors.ProfilingSonar_Constructor"></a>**<font color="#7fb800">holoocean.sensors.ProfilingSonar</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='ProfilingSonar', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.RGBCamera 类<a name="holoocean.sensors.RGBCamera"></a>
+
+捕捉代理的视角。
+
+默认的捕捉分辨率是 256x256x256x4，对应 RGBA 通道。分辨率可以提高，但会显著影响性能。
+
+#### 配置
+配置块（参见[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `CaptureWidth`：捕获图像的宽度
+
+* `CaptureHeight`：捕获图像的高度
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.RGBCamera"></a>**<font color="#7fb800">holoocean.sensors.RGBCamera</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='RGBCamera', config=None**</font>)  
+- <a name="set_ticks_per_capture"></a>**<font color="#7fb800">set_ticks_per_capture</font>**(<font color="#00a6ed">**ticks_per_capture**</font>) 
+将此 RGBCamera 设置为每 ticks_per_capture 捕获一个新的帧。传感器的图像在捕获之间将保持不变。每次调用 env.reset 后必须调用此方法。 
+    - **参数：**
+        - `ticks_per_capture`(_int_ ) - 在拍摄之间等待的节拍数。
+
+---
+
+
+
+### holoocean.sensors.RangeFinderSensor 类<a name="holoocean.sensors.RangeFinderSensor"></a>
+
+返回指定参数方向上最近碰撞的距离。例如，如果一个代理在不同角度有两个测距传感器，每个传感器有24个激光器，LaserDebug 的轨迹大概会是这样的：
+
+![](./img/water/UAVRangeFinder.png)
+
+也就是说，对于1个激光，你会有1个激光朝前；对于3个激光，你会有一个向前，另外两个均匀分布在圆周上，相隔120度；对于24个激光，你会每隔15度放置一个激光。
+
+#### 配置
+配置块（参见[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `LaserMaxDistance`：测距仪的最大测量距离（米）。默认值为10。
+
+* `LaserCount`：传感器中激光的数量。激光沿着由激光角定义的锥形均匀分布。默认值为1。
+
+* `LaserAngle`：激光的仰角。单位为度。垂直向上为90度，向下为-90度。默认值为0。
+
+* `LaserDebug`：显示调试轨迹。默认值为false。
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.RangeFinderSensor"></a>**<font color="#7fb800">holoocean.sensors.RangeFinderSensor</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='RangeFinderSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.RotationSensor 类<a name="holoocean.sensors.RotationSensor"></a>
+
+获取代理在世界中的旋转，在固定坐标系下的 XYZ 旋转，单位为度。
+
+返回 `[roll, pitch, yaw]`（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.RotationSensor"></a>**<font color="#7fb800">holoocean.sensors.RotationSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.SensorDefinition 类<a name="holoocean.sensors.SensorDefinition"></a>
+
+获取代理在世界中的旋转，在固定坐标系下的 XYZ 旋转，单位为度。
+
+返回 `[roll, pitch, yaw]`（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.SensorDefinition"></a>**<font color="#7fb800">holoocean.sensors.SensorDefinition</font>**(<font color="#00a6ed">**agent_name, agent_type, sensor_name, sensor_type, socket='', location=(0, 0, 0), rotation=(0, 0, 0), config=None, existing=False, lcm_channel=None, tick_every=None**</font>)  
+一个用于新传感器及其参数的类，用于添加新传感器。 
+    - **参数：**
+        - `agent_name` (_str_ ) - 父代理的名称。
+        - `agent_type` (_str_ ) - 父代理的类型。
+        - `sensor_name` (_str_ ) - 传感器的名称。
+        - `sensor_type` (_str_ 或 [HoloOceanSensor](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.HoloOceanSensor) ) - 传感器的类型。
+        - `socket` (_str_ , optional) - 连接传感器的插槽名称。
+        - `location` (_float_ 的元组, optional ) - `[x, y, z]` 坐标，用于相对于代理（或插槽）放置传感器（参见[坐标系](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#coordinate-system)）。
+        - `rotation` (_float_ 的元组, optional ) - `[roll, pitch, yaw]` 用于相对于代理旋转传感器（参见[旋转](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/units-and-coordinates.html#rotations)）。
+        - `config` (_dict_ ) - 传给引擎的传感器配置字典。
+- <a name="get_config_json_string"></a>**<font color="#7fb800">get_config_json_string</font>**(<font color="#00a6ed"></font>)  
+获取配置字典并将其作为字符串准备传输。  
+    - **参数：**
+        - (_str_ ) - 作为转义 JSON 字符串的配置。
+
+---
+
+
+### holoocean.sensors.SensorFactory 类<a name="holoocean.sensors.SensorFactory"></a>
+
+给定一个传感器定义，创建相应的 HoloOceanSensor 对象。
+
+
+#### 方法
+- <a name="build_sensor"></a>**<font color="#7fb800">build_sensor</font>**(<font color="#00a6ed">**client, sensor_def**</font>)  
+构建与客户端关联的指定传感器。 
+    - **参数：**
+        - `client`(_str_ ) - 这个传感器连接的代理名称
+        - `sensor_def `([SensorDefinition](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/holoocean/sensors.html#holoocean.sensors.SensorDefinition) ) - 传感器定义构建
+
+---
+
+
+### holoocean.sensors.SidescanSonar 类<a name="holoocean.sensors.SidescanSonar"></a>
+
+模拟侧扫声纳。有关如何配置使用的八叉树的更多信息，请参阅[配置八叉树](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree)。
+
+配置（`configuration`）块（见[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）可接受以下各节中的任何选项。
+
+#### 基本配置
+* 方位角（`Azimuth`）：以度为单位可见的方位角（左右），默认为170。
+
+* 仰角（`Elevation`）：以度为单位可见的仰角（上下），默认为0.25。
+
+* 最小范围（`RangeMin`）：以米为单位可见的最小范围，默认为0.5。
+
+* 最大范围（`RangeMax`）：以米为单位可见的最大范围，默认为35。
+
+* 距离格（`RangeBins`）/距离分辨率（`RangeRes`）：生成图像的距离格数量，或者每个格子的分辨率（米）。设置其中之一即可。默认为0.05米。
+
+#### 噪声配置
+
+* `AddSigma`/`AddCov`：来自雷利分布的加性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。
+
+* `MultSigma`/`MultCov`：来自正态分布的乘性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。
+
+#### 高级配置
+
+* `ShowWarning`：是否在屏幕上显示关于声纳计算的警告。默认值为 True。
+
+* `AzimuthBins`/`AzimuthRes`：生成图像的方位角分箱数量，或每个分箱的分辨率（以度为单位的长度）。设置其中一个即可。默认情况下，这是基于 OctreeMin 计算的。
+
+* `ElevationBins`/`ElevationRes`：进行阴影处理时使用的高程分箱数量，或每个分箱的分辨率（以度为单位的长度）。两者设置其一。默认情况下，这根据八叉树大小和最小范围计算。只有在阴影处理不正常时才需要设置。
+
+* `InitOctreeRange`：启动时，会创建距离代理一定范围内的所有中级八叉树。
+
+* `ViewRegion`：开启后显示绿色线条以查看可见区域。默认值为 False。
+
+* `ViewOctree`：显示哪些八叉树叶子节点。小于 -1 表示不显示，-1 表示显示全部，大于或等于 0 表示显示对应的光束索引。默认值为 -10。
+
+* `ShadowEpsilon`：在遮挡计算中，决定簇之间的分界。默认值为 4*OctreeMin。
+
+* `WaterDensity`：水的密度，单位 kg/m^3。默认值为 997。
+
+* `WaterSpeedSound`：水中声速，单位 m/s。默认值为 1480。
+
+* `UseApprox`：是否使用更快的 Atan2 近似值，还是使用较慢的精确实现。默认值为 True。
+
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.SidescanSonar"></a>**<font color="#7fb800">holoocean.sensors.SidescanSonar</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='SidescanSonar', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.SinglebeamSonar 类<a name="holoocean.sensors.SinglebeamSonar"></a>
+
+模拟回声测深仪，它是一种拥有单个锥形波束的声纳传感器。有关如何配置使用的八叉树，请参阅[配置八叉树](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configure-octree)。
+
+返回一个一维 numpy 数组，包含传感器每个距离区间中的平均强度。数组的长度由为传感器选择的距离区间数量决定。
+
+#### 配置
+
+配置块（见配置块）可以接受以下各节中的任何选项。
+
+#### 基本配置
+
+* `OpeningAngle`：锥体的可见开口角度，以度为单位，默认为30。在本说明文档中，开口角度为锥体半顶角的2倍。
+
+* `RangeMin`：可见的最小距离，以米为单位，默认为0.5。
+
+* `RangeMax`：可见的最大距离，以米为单位，默认为10。
+
+* `RangeBins`/`RangeRes`：生成图像的距离划分数，或每个划分的分辨率（长度，单位为米）。设置其中一个即可。默认为200划分。
+
+#### 噪声配置
+
+* `AddSigma`/`AddCov`：来自雷利分布的加性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。
+
+* `MultSigma`/`MultCov`：来自正态分布的乘性噪声标准差/协方差。需要是浮点数。两者只需设置一个。默认是0，或关闭。
+
+* `RangeSigma`：将从指数分布中生成的加性噪声标准差添加到距离测量中。需要是浮点数。默认值为0/关闭。
+
+#### 高级配置
+
+* `ShowWarning`：是否在屏幕上显示关于声纳计算的警告。默认值为 True。
+
+* `OpeningAngleBins`/`OpeningAngleRes`：在进行阴影处理时使用的开角(bin)数量，或每个bin的分辨率（以度为单位）。设置其中一个即可。默认情况下，这会根据八叉树的大小以及最小/最大范围计算。只有在阴影处理不正常时才需要设置。
+
+* `CentralAngleBins`/`CentralAngleRes`：在进行阴影处理时使用的中心角(bin)数量，或每个bin的分辨率（以度为单位）。设置其中一个即可。默认情况下，这会根据八叉树的大小以及最小/最大范围计算。只有在阴影处理不正常时才需要设置。
+
+* `InitOctreeRange`：启动时，会创建距离代理在此范围内的所有中级八叉树。
+
+* `ViewRegion`：开启绿色线以查看可见区域。默认值为 False。
+
+* `ViewOctree`：要显示的八叉树叶子节点。小于 -1 表示不显示，-1 表示显示所有，任何大于或等于 0 的值显示对应的光束索引。默认值为 -10。
+
+* `ShadowEpsilon`：在投影阴影时，决定簇之间的断裂阈值。默认值为 4*OctreeMin。
+
+* `WaterDensity`：水的密度，单位 kg/m³。默认值为 997。
+
+* `WaterSpeedSound`：水中声速，单位 m/s。默认值为 1480。
+
+* `UseApprox`：是否使用 Atan2 的快速近似计算，或者使用较慢的精确实现。默认值为 True。
+
+
+
+
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.SinglebeamSonar"></a>**<font color="#7fb800">holoocean.sensors.SinglebeamSonar</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='SinglebeamSonar', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.VelocitySensor 类<a name="holoocean.sensors.VelocitySensor"></a>
+
+返回传感器在全局坐标系下的 x、y 和 z 速度。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.VelocitySensor"></a>**<font color="#7fb800">holoocean.sensors.VelocitySensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.ViewportCapture 类<a name="holoocean.sensors.ViewportCapture"></a>
+
+捕捉视窗正在看到的内容。
+
+ViewportCapture 比 RGB 摄像机更快，但只能有一台摄像机，并且它必须捕捉视口正在捕捉的内容。如果性能很关键，可以考虑使用这台摄像机而不是 RGBCamera。
+
+使用 teleport_camera() 定位摄像机可能会很有用。
+
+
+#### 配置
+
+配置（`configuration`）块（见[配置块](https://byu-holoocean.github.io/holoocean-docs/v1.0.0/usage/scenarios.html#configuration-block)）接受以下选项：
+
+* `CaptureWidth`：捕获图像的宽度
+
+* `CaptureHeight`：捕获图像的高度
+
+**这些尺寸必须与视口尺寸匹配**
+
+如果你已经配置了视口的大小（`window_height/width`），你必须确保这个配置块的 `CaptureWidth/Height` 设置为相同的尺寸。
+
+默认分辨率是 `1280x720`，与默认视口分辨率相匹配。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.ViewportCapture"></a>**<font color="#7fb800">holoocean.sensors.ViewportCapture</font>**(<font color="#00a6ed">**client, agent_name, agent_type, name='ViewportCapture', config=None**</font>)  
+
+---
+
+
+### holoocean.sensors.WorldNumSensor 类<a name="holoocean.sensors.WorldNumSensor"></a>
+
+返回与给定键对应的世界中的任意数值。这是特定于世界的。
+
+#### 属性
+- <a name="data_shape"></a>**<font color="#f8805a">data_shape</font>** (int)  
+传感器数据的形状。
+    - **返回：**
+        - (_tuple_ ) - 传感器数据的形状
+- <a name="dtype"></a>**<font color="#f8805a">dtype</font>** (int)  
+传感器中的数据类型。
+    - **返回：**
+        - (_numpy dtype_ ) - 传感器数据的类型
+
+
+#### 方法
+- <a name="holoocean.sensors.WorldNumSensor"></a>**<font color="#7fb800">holoocean.sensors.WorldNumSensor</font>**(<font color="#00a6ed">**client, agent_name=None, agent_type=None, name='DefaultSensor', config=None**</font>)  
+
+---
+
+
+## LCM  <span id="lcm"></span>
+
+轻量级通信与编组（Lightweight Communications and Marshalling, [LCM](https://github.com/lcm-proj/lcm)）包 `__init__.py` 文件。该文件由 lcm-gen 自动生成。请不要手动修改！！！
+
+
+### holoocean.lcm.SensorData 类<a name="holoocean.lcm.SensorData"></a>
+用于各种可发布传感器数据的封装类。 
+
+
+#### 方法
+- <a name="holoocean.lcm.SensorData"></a>**<font color="#7fb800">holoocean.lcm.SensorData</font>**(<font color="#00a6ed">**sensor_type, channel**</font>)  
+在相应的传感器类中设置值。
+    - **参数：**
+        - `sensor_type`(_str_ ) - 要导入的传感器类型
+        - `channel `(_str_ ) - 要发布到的通道名称
+- <a name="set_value"></a>**<font color="#7fb800">set_value</font>**(<font color="#00a6ed">**timestamp, value**</font>)  
+    - **参数：**
+        - `timestamp`(_int_ ) - 自上次发布数据以来的毫秒数
+        - `value`(_list_ ) - 要放入 LCM 传感器类的传感器数据列表
+
+---
+
+### holoocean.lcm.gen 类<a name="holoocean.lcm.gen"></a>
+用于各种可发布传感器数据的封装类。 
+
+
+#### 方法
+- <a name="holoocean.lcm.gen"></a>**<font color="#7fb800">holoocean.lcm.gen</font>**(<font color="#00a6ed">**lang, path='.', headers=None**</font>)  
+为传感器生成 LCM 文件，可使用任意请求的语言。 
+    - **参数：**
+        - `lang`(_str_ ) - 可选值包括 “cpp”, “c”, “java”, “python”, “lua”, “csharp”, “go”
+        - `path`(_str_ , optional) - 文件保存位置。默认是当前目录。
+        - `headers`(_str_ , optional) - 用于存放 C 的 .h 文件的位置。默认与 C 文件相同，由 path 参数指定。
+
+---
+
+
+## 共享内存 <span id="shmem"></span>
+
+带内存映射的共享内存。
+
+
+### holoocean.shmem.Shmem 类<a name="holoocean.shmem.Shmem"></a>
+共享内存的实现。 
+
+
+#### 方法
+- <a name="holoocean.shmem.Shmem"></a>**<font color="#7fb800">holoocean.shmem.Shmem</font>**(<font color="#00a6ed">**name, shape, dtype=<class 'numpy.float32'>, uuid=''**</font>)  
+在相应的传感器类中设置值。
+    - **参数：**
+        - `name`(_str_ ) - 指向共享内存块起始位置的名称
+        - `shape`(_str_ ) - 内存块的形状
+        - `dtype`(_type_ ,optional ) - 共享内存的数据类型，默认是 np.float32
+        - `uuid`(_str_ , optional) - 内存块的 UUID，默认是“”
+- <a name="unlink"></a>**<font color="#7fb800">unlink</font>**(<font color="#00a6ed"></font>)  
+取消共享内存的链接
+
+
+---
+
+
+## 实用工具 <span id="utils"></span>
+
+有用的小工具。
+
+#### 方法
+- <a name="holoocean.util.convert_unicode"></a>**<font color="#7fb800">holoocean.util.convert_unicode</font>**(<font color="#00a6ed">**value**</font>)  
+解决 Python 2 中将 JSON 加载为 Unicode 而不是字符串的问题。
+    - **参数：**
+        - `value`(_str_ ) - 需要转换的 Unicode 值
+    - **返回：**
+        - (_str_ ) - 转换后的字符串
+- <a name="holoocean.util.get_holoocean_path"></a>**<font color="#7fb800">holoocean.util.get_holoocean_path</font>**(<font color="#00a6ed"></font>)  
+获取 holoocean 环境的路径。
+    - **返回：**
+        - (_str_ ) - 当前 holoocean 环境的路径
+- <a name="holoocean.util.get_holoocean_version"></a>**<font color="#7fb800">holoocean.util.get_holoocean_version</font>**(<font color="#00a6ed"></font>)  
+获取 holoocean 的当前版本。
+    - **返回：**
+        - (_str_ ) - 当前版本
+- <a name="holoocean.util.get_os_key"></a>**<font color="#7fb800">holoocean.util.get_os_key</font>**(<font color="#00a6ed"></font>)  
+获取操作系统的密钥。
+    - **返回：**
+        - (_str_ ) - Linux 或 Windows。其他系统会抛出 NotImplementedError。
+- <a name="holoocean.util.human_readable_size"></a>**<font color="#7fb800">holoocean.util.human_readable_size</font>**(<font color="#00a6ed"></font>)  
+将字节数转换为可读的字符串。
+    - **参数：**
+        - `size_bytes`(_int_ ) - 要转换为可读形式的字节数。
+    - **返回：**
+        - (_str_ ) - 以可读形式表示的字节数。
+
+---
+
+
+## 异常 <span id="exceptions"></span>
+
+HoloOcean 异常。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.util.convert_unicode"></a>**<font color="#7fb800">holoocean.util.convert_unicode</font>**  
+用户为 HoloOcean 提供了无效的配置。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.HoloOceanException"></a>**<font color="#7fb800">holoocean.exceptions.HoloOceanException</font>**  
+HoloOcean 中通用异常的基类。
+
+    - **参数：**
+        - `message`(_str_) - 错误信息字符串。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.NotFoundException"></a>**<font color="#7fb800">holoocean.exceptions.NotFoundException</font>**  
+当找不到软件包时抛出异常。
+
+- <font color="#00a6ed">**exception**</font> <a name="holoocean.exceptions.TimeoutException"></a>**<font color="#7fb800">holoocean.exceptions.TimeoutException</font>**  
+与引擎通信超时时引发异常。
+
+---
+
+
+## 天气控制 <span id="weather"></span>
+
+环境天气/时间控制器。
+
+
+### holoocean.weather.WeatherController 类<a name="holoocean.weather.WeatherController"></a>
+
+声学信标传感器。可通过 `send_acoustic_message()` 命令向其他信标发送消息。
+
+#### 方法
+- <a name="holoocean.weather.WeatherController"></a>**<font color="#7fb800">holoocean.weather.WeatherController</font>**(<font color="#00a6ed">**send_world_command**</font>)  
+    - **参数：**
+        - (_function_ ) - 用于向世界发送命令的回调函数
+- <a name="set_day_time"></a>**<font color="#7fb800">set_day_time</font>**(<font color="#00a6ed">**hour**</font>)  
+更改时间。当下次调用 tick() 或 step() 时，时间将会改变。到下一个 tick 时，光照和天空球体将更新为新的小时数。如果场景中没有天空球体、天光或定向光源，此命令将退出环境。
+    - **参数：**
+        - `hour`(_int_ ) - 24 小时制的小时数为：[0, 23]。
+- <a name="set_fog_density"></a>**<font color="#7fb800">set_fog_density</font>**(<font color="#00a6ed">**density**</font>)  
+更改雾的密度。更改将在下次调用 tick() 或 step() 时生效。到下一个 tick 时，世界中的指数高度雾将具有新的密度。如果世界中没有雾，则会以给定的密度创建雾。
+    - **参数：**
+        - `density`(_float_ ) - 新的密度值，介于 0 和 1 之间。如果给定的密度无效，则不会发送该命令。
+- <a name="set_weather"></a>**<font color="#7fb800">set_weather</font>**(<font color="#00a6ed">**weather_type**</font>)  
+设置世界天气。新的天气将在下次调用 tick() 或 step() 时应用。到下一个 tick 时，光照、天空球、雾以及相关的粒子系统将根据给定的天气进行更新和/或生成。如果世界中不存在天空球、天光或定向光源，此命令将退出环境。在所有可下载的世界中，默认天气为晴天。如果指定的字符串类型不可用，则不会发送该命令。
+    - **参数：**
+        - `weather_type`(_str_ ) - 天气类型，可以是雨天（`rain`）、阴天（`cloudy`）或晴天（`sunny`）。
+
+!!! 注意
+    由于此命令会影响雾的浓度，因此在调用 `set_weather` 命令之前，通过 `change_fog_density` 命令所做的任何更改都将被撤销。如果您希望应用特定的更改，建议在调用 `set_weather` 命令之后再调用 `change_fog_density` 命令。
+
+- <a name="start_day_cycle"></a>**<font color="#7fb800">start_day_cycle</font>**(<font color="#00a6ed">**day_length**</font>)  
+启动昼夜循环。循环将在下次调用 `tick()` 或 `step()` 函数时开始。之后，天空球体将在每个游戏刻更新太阳角度，并随着其在天空中的移动而变化。一天的长度大致等于指定的分钟数。如果世界中不存在天空球体、天光或定向光源，则此命令将退出环境。
+    - **参数：**
+        - `day_length`(_int_ ) - 每天的分钟数将是。
+- <a name="stop_day_cycle"></a>**<font color="#7fb800">stop_day_cycle</font>**(<font color="#00a6ed"></font>)  
+停止昼夜循环。循环将在下次调用 tick() 或 step() 时停止。到下一个 tick 时，昼夜循环将停止在当前位置。如果场景中没有天空球、天光或定向光源，此命令将退出环境。
+
+        
+        
+
+
+
+
+
 [comment]: <> (=========================)
 [comment]: <> (PYTHON API SCRIPT SNIPETS)
 [comment]: <> (=========================)

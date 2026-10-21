@@ -14,7 +14,7 @@ Carla 论坛</a>
 
 ## 快速开始
 
-[**入门文档**](scenario_runner/getting_scenariorunner.md) - 有关如何下载和启动 ScenarioRunner 的教程。
+[**获取 ScenarioRunner**](scenario_runner/getting_scenariorunner.md) - 有关如何下载和启动 ScenarioRunner 的教程。
 
 [**第一步**](scenario_runner/getting_started.md) — 有关如何运行不同类型场景的简要教程。<br>
 

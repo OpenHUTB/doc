@@ -25,6 +25,10 @@ args = argparser.parse_args()
 client = carla.Client(args.host, args.port)
 client.set_timeout(10.0)  # 设置超时
 world = client.get_world()  # 获取世界对象
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = 0.1
+world.apply_settings(settings)
 ```
 
 
@@ -74,6 +78,10 @@ def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
             x = location.x
             y = location.y
             # 车辆经过路口
+            xmin = junction[1]
+            xmax = junction[0]
+            ymin = junction[3]
+            ymax = junction[2]
             if x <= junction[0] and x >= junction[1] and y <= junction[2] and y >= junction[3]:
                 # 车流量加1
                 traffic_flows[i] = traffic_flows[i] + 1
@@ -94,19 +102,21 @@ def get_traffic_flow(world, junction, traffic_flows, i, counted_vehicles):
 def saturation(world,junctions,counted_vehicles):
     saturation_degrees = [0, 0]
     ave_saturation = [0, 0]
-    # 流量
-    traffic_flows = [0, 0]
+   
 
     # 用于跟踪已经计算的车辆id以及进入的时间
 
     queue_length = [0, 0]
     time_tamp = 0
     while True:
+        traffic_flows = [0, 0] # 移到循环内，每时间步清零
         time_tamp += 1
         # i表示第i个路口
         for i in range(len(junctions)):
             get_traffic_flow(world, junctions[i], traffic_flows, i, counted_vehicles[i])
             saturation_degrees[i] = traffic_flows[i] / SATURATION + saturation_degrees[i]
+
+        world.tick()
         if time_tamp == 10000:
             for i in range(len(junctions)):
                 ave_saturation[i] = saturation_degrees[i] / 10000
@@ -126,14 +136,14 @@ def saturation(world,junctions,counted_vehicles):
 ```
 #计算排队长度
 def queue_lengths(world,junctions,counted_vehicles):
-    # 流量
-    traffic_flows = [0, 0]
+
 
     # 用于跟踪已经计算的车辆id以及进入的时间
 
     queue_length = [0, 0]
     time_tamp = 0
     while True:
+        traffic_flows = [0, 0] # 每时间步清零
         time_tamp += 1
         # i表示第i个路口
         for i in range(len(junctions)):
@@ -143,6 +153,7 @@ def queue_lengths(world,junctions,counted_vehicles):
         # print(saturation_degrees)
         # 1000个时间步拟作1天
         # print(time_tamp)
+        world.tick() # 🚨新增，推进仿真
         if time_tamp == 10000:
             for i in range(len(junctions)):
                 queue_length[i] = (traffic_flows[i] * 3) / 4
@@ -173,6 +184,7 @@ def get_traffic_light(world, light_id):
 
 
 #计算平均路口车均延误
+denominator = max(1 - ave_saturation[i], 1e-6)
 def ave_delay(world, light_id, ave_saturation, junctions):
     vehicle_ave_delays = []
     total_time, green_time = get_traffic_light(world, light_id)

@@ -9,7 +9,7 @@
 - [__3. 环境噪音__](#ambient_world_noise)
 - [__4. 致谢__](#acknowledgements)
 
-## 发动机转速 <span id="engine_revving"></span>
+## 车辆发动机转速 <span id="engine_revving"></span>
 对于用户使用油门来说，最好的反馈机制之一是发动机转速增加时发出的轰鸣声。
 
 - 是的，我们知道，我们为我们的自主车辆使用了特斯拉模型，但却给它配备了发动机/齿轮噪音......亵渎！
@@ -21,7 +21,7 @@
 （如果您已经有引擎所需的声音文件，请跳过此步骤）
 
 1. 下载所需软件：
-   - [LMMS](https://lmms.io/) （下载适用于 [Linux](https://lmms.io/download#linux) / [Windows](https://lmms.io/download#windows) / [Mac](https://lmms.io/download#mac) 用于创建音乐曲目
+   - [LMMS](https://lmms.io/) （下载适用于 [Linux](https://lmms.io/download#linux) / [Windows](https://lmms.io/download#windows) / [Mac](https://lmms.io/download#mac) 用于创建音乐曲目）
 
 2. 创建 4 种声音，分别对应发动机怠速 (1)、缓慢运转 (2)、正常运转 (3) 和以最大转速运转 (4)
 
@@ -77,7 +77,7 @@
    
          a. 这些连续调制器的参数定义了这些音轨的输入/输出范围（最小值/最大值）
       
-         b. ** **注意** 所有参数都有相同的名称 `"RPM"` ，保持一致非常重要，因为它将在 `C++` 代码中使用
+         b. **注意** 所有参数都有相同的名称 `"RPM"` ，保持一致非常重要，因为它将在 `C++` 代码中使用
       
       ![SoundCue](../Figures/Sounds/sound_cue.jpg)
 

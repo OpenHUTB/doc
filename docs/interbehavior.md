@@ -8,7 +8,6 @@
 
 如果您有任何疑问，希望我们的常见问题解答 [F.A.Q. 维基页面](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) 和 [问题页面](https://github.com/HARPLab/DReyeVR/issues?q=is%3Aissue+is%3Aclosed) 可以解答其中的一些问题。详细请查看 [视频演示(YouTube)](https://www.youtube.com/watch?v=yGIPSDOMGpY) 。
 
-**重要提示：** 目前 DReyeVR 仅支持基于 Unreal Engine 4.26 的 Carla 版本：[0.9.13](https://github.com/carla-simulator/carla/tree/0.9.13) 、[HUTB](https://github.com/OpenHUTB/hutb) 。
 
 ## 亮点
 ### 自主车辆
@@ -22,15 +21,17 @@
   |--------------------| -- | --- | --- |
   | [HTC Vive Pro Eye](https://business.vive.com/us/product/vive-pro-eye-office/) | ✓                  | ✓ | Windows, Linux |
   | [Quest 2](https://www.oculus.com/quest-2/) | ✓ | × | Windows |
+  | [Pimax Dream Air](https://store.pimax.com/pages/dream-air) | ✓ | ✓（combined gaze） | Windows |
   
-  - 虽然我们还没有测试其他耳机，但如果 SteamVR 支持，它们仍然可以用于基本的虚拟现实用途（非眼动追踪）。
-  - 由于我们使用 [SRanipal](https://forum.htc.com/topic/5641-sranipal-faq/) 作为眼动追踪器 SDK，因此眼动追踪目前**仅**支持 HTC Vive Pro Eye。我们很乐意通过贡献添加其他 SDK 来支持更多设备。
+  - 虽然我们还没有测试其他头显，但如果 SteamVR 支持，它们仍然可以用于基本的虚拟现实用途；眼动追踪需要对应的运行时和后端。
+  - HTC Vive Pro Eye 通过 [SRanipal](https://forum.htc.com/topic/5641-sranipal-faq/) 接入；Pimax Dream Air 通过 Pimax PVR 1.26 运行时接入，详见 [Pimax Dream Air 驾驶与眼动追踪](interbehavior/Tutorials/PimaxDriving.md)。
 - 车辆控制：
   - 通用键盘 WASD + 鼠标，按`Z`表示倒车
   - 使用此开源 [LogitechWheelPlugin](https://github.com/HARPLab/LogitechWheelPlugin) 支持 Logitech 方向盘
     - 包括方向盘的力反馈。
     - 我们使用了 [Logitech G923 赛车方向盘和踏板](https://www.logitechg.com/en-us/products/driving/driving-force-racing-wheel.html)
       - 虽然我们可以在没有经过测试的情况下保证开箱即用的功能，但是可以在 [此处](https://github.com/HARPLab/LogitechWheelPlugin/blob/master/README.md) 找到受支持设备的完整列表。
+  - Pimax Crystal 手柄：识别为 SteamVR `oculus_touch` 设备，支持摇杆/扳机比例驾驶和连续座椅调整，详见 [Pimax Dream Air 驾驶与眼动追踪](interbehavior/Tutorials/PimaxDriving.md)。
   - 编辑器模式下按`2`（非数字键）表示脱离第一视角车辆控制，按`1`表示进入第一视角车辆控制。
 
 - 逼真的（可参数化的）后视镜和侧视镜
@@ -63,7 +64,7 @@
 
 - 与现有的 [Carla PythonAPI](https://carla.readthedocs.io/en/0.9.13/python_api/) 和 [ScenarioRunner](https://github.com/carla-simulator/scenario_runner/tree/v0.9.13) 完全兼容
 
-    - 进行了微小修改。请参阅 [Usage.md](interbehavior/Usage.md) 文档。
+    - 进行了微小修改。请参阅 [使用](interbehavior/Usage.md) 文档。
 
 - 与 [Carla Recorder 和 Replayer](https://carla.readthedocs.io/en/0.9.13/adv_recorder/) 完全兼容
 
@@ -72,10 +73,10 @@
 - 基于 Carla 的语义分割相机（参见 [`着色器`](interbehavior/Shaders.md) ）
 
 
-### 自我传感器
+### 自我传感器 <span id="ego_sensor"></span>
 与 Carla 兼容的**自主车辆传感器**（参见 [EgoSensor.h](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/EgoSensor.h) ）是一种“隐形传感器”，可跟踪以下信息：
 
-- 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) VR 耳机进行实时**眼动跟踪** 
+- 使用 [HTC Vive Pro Eye](https://enterprise.vive.com/us/product/vive-pro-eye-office/) 或 [Pimax Dream Air](interbehavior/Tutorials/PimaxDriving.md) VR 头显进行实时**眼动跟踪**
   - 眼动仪数据包括：
     - 时间信息（基于耳机、世界和眼动仪）
     - 三维眼睛凝视光线（左、右及组合）
@@ -84,12 +85,22 @@
     - 眼睛睁开度（左和右）
     - 世界中的焦点及命中的参与者信息
     - 完整列表请参见 [DReyeVRData.h:EyeTracker](https://github.com/OpenHUTB/carla/blob/a67930eb9bc3ce2a7f1ffb15efc5fad5efaa3e75/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/DReyeVRData.h#L110)
-  - 实时眼标线可视化
+  - Pimax PVR 1.26 当前提供 combined gaze 和设备时间戳，不提供单眼原点、瞳孔直径或眼睛开合度
+  - 实时眼标线可视化；Pimax 模式下视线附着于 VR 相机，车辆行驶时保持稳定
 - 实时用户输入（油门、转向、刹车、转向信号等）
-- 基于摄像头的图像（截图）帧捕获 
+- 基于摄像头的图像（截图）帧捕获
   - 由于性能密集程度高，通常用于重播而不是实时。
 - 与 LibCarla 数据序列化完全兼容，可流式传输到 PythonAPI 客户端（参见 [LibCarla/Sensor](https://github.com/OpenHUTB/carla/tree/OpenHUTB/LibCarla/source/carla/sensor) ）
   - 我们还测试并验证了对（`rospy`）ROS 集成传感器数据流的支持
+
+### 数据收集器 <span id="data_collector"></span>
+面向驾驶行为与眼动交互实验的**一键实验启动器与数据收集器**（参见 [DrivingRecorder.h](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Source/CarlaUE4/DReyeVR/DrivingRecorder.h) 与 [数据收集器使用说明](interbehavior/Tutorials/PimaxDriving.md#data_collector)）：
+
+- 提供图形化启动器 `StartDrivingStudy.cmd` 与命令行脚本 `StartPimaxVR.ps1`，支持选择 **Pimax 手柄** 或 **罗技方向盘**（输入模式隔离、方向盘断连自动满刹并每 2 秒原地重连），自动检查环境并按被试分目录保存实验数据
+- 双表同步采集（默认目标 **120 Hz**，支持 **20 Hz** 课堂轻量模式）：
+  - **主表 `<session>.csv`（71 列）**：同步记录仿真/真实/眼动设备时间戳、OpenDRIVE 道路/车道/路口、影响本车的信号灯状态与距离、自车位姿与车速、本帧驾驶输入与已生效控制量、眼动射线、注视命中对象、头显位姿及在线扫视指标
+  - **眼动高频流表 `<session>_gaze.csv`（18 列）**：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 `fixation` / `saccade` / `rejected` / `saccade_open` 及扫视起点、幅度、峰值角速度、样本数）
+- 支持 **异步驾驶员视角内屏截图**（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关
 
 ### 其他补充：
 - 用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 [DReyeVRConfig.ini](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini) 
@@ -100,11 +111,11 @@
 
 - 世界环境音频
 
-    - 鸟鸣声、风声、烟雾声等（参见 [Sounds.md](interbehavior/Tutorials/Sounds.md) ）
+    - 鸟鸣声、风声、烟雾声等（参见 [声音文档](interbehavior/Tutorials/Sounds.md) ）
 
 - 非自我为中心的音频（非自主车辆的发动机转速）
 
-- 同步重放并逐帧捕获以进行事后分析（参见 [Usage.md](interbehavior/Usage.md) ）
+- 同步重放并逐帧捕获以进行事后分析（参见 [使用文档](interbehavior/Usage.md) ）
 
 - 记录器/重放器媒体功能
 
@@ -114,19 +125,19 @@
 
 - 将天气信息添加到 Carla 记录器/重放器/查询中（参见此 [Carla PR](https://github.com/carla-simulator/carla/pull/5235) ）
 
-- 自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 [CustomActor.md](interbehavior/Tutorials/CustomActor.md) 。 
+- 自定义动态 3D 参与者，具有全面录制支持（例如方向的头显指示器、AR 边界框、视觉目标等）。有关更多信息，请参阅 [VR 驾驶中自定义参与者](interbehavior/Tutorials/CustomActor.md) 。
 
 - （仅调试）注视点渲染可通过注视感知（或固定）可变速率着色来提高性能
 
 
 ## 安装/构建
-查看 [`Install.md`](interbehavior/Install.md) :
+查看 [安装文档](interbehavior/Install.md) :
 
 - 在可运行的 `Carla` 存储库上安装并构建 `DReyeVR` 。
 
 - 下载 `DReyeVR` 所需的插件，以实现以下精彩功能：
 
-  - 眼动跟踪 (SRanipal)
+  - 眼动跟踪 (Sense Robot Anipal, SRanipal)
 
   - 方向盘/踏板 (Logitech)
 
@@ -154,19 +165,19 @@
 使用方法：
 直接启动：车辆控制（带声音）、带参数启动原始模式
 
-- 请参阅 [`F.A.Q. wiki`](https://github.com/HARPLab/DReyeVR/wiki/Frequently-Asked-Questions) ，了解我们的常见问题 wiki 页面。
-- 请参阅 [`Install.md`](interbehavior/Install.md) 来安装和构建 DReyeVR
-- 请参阅 [`Usage.md`](interbehavior/Usage.md) 了解如何使用我们提供的 DReyeVR 功能
-- 请参阅 [`Development.md`](interbehavior/Development.md) 以开始 DReyeVR 开发并添加新功能
-- 请参阅多个 DReyeVR 教程，包括：[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md) 。
+- 请参阅 [安装步骤](interbehavior/Install.md) 来安装和构建 VR 驾驶
+- 请参阅 [使用 VR 驾驶](interbehavior/Usage.md) 了解如何使用我们提供的 VR 驾驶功能
+- 请参阅 [开发](interbehavior/Development.md) 以开始 VR 驾驶开发并添加新功能
+- 请参阅多个 VR 驾驶教程，包括：[Pimax Dream Air 驾驶与眼动追踪](./interbehavior/Tutorials/PimaxDriving.md)（含 [数据收集器与实验记录](./interbehavior/Tutorials/PimaxDriving.md#data_collector)）、[自定义参与者](./interbehavior/Tutorials/CustomActor.md)、[添加自己的 EgoVehicle](./interbehavior/Tutorials/CustomEgo.md) 、[细节级别模式](./interbehavior/Tutorials/LODs.md) 、[修改车辆模型](./interbehavior/Tutorials/Model.md) 、[设置VR模式](./interbehavior/Tutorials/SetupVR.md) 、[添加定制的标志](./interbehavior/Tutorials/Signs.md) 、[添加和使用声音](./interbehavior/Tutorials/Sounds.md)。
 - [自定义自主车辆](interbehavior/Tutorials/CustomEgo.md)
-- [问题分析](interbehavior/implementation.md) 。
+- [配置可驾驶的 VR 玩家](./interbehavior/VRPlayer.md)
+- [问题分析](interbehavior/implementation.md) 
 - [模块分析](modules/DReyeVR.md)
-- [FAQ](interbehavior/VR_faq.md)
+- [常见问题](./interbehavior/FAQ.md)
 
 ### 切换为 Carla 模式
 
-将`Unreal\CarlaUE4\Config\DefaultEngine.ini`中的 `VR mode` 注释掉，并打开 `Carla mode`。
+将 [Unreal\CarlaUE4\Config\DefaultEngine.ini](https://github.com/OpenHUTB/hutb/blob/hutb/Unreal/CarlaUE4/Config/DefaultEngine.ini) 中的 `VR mode` 注释掉，并打开 `Carla mode`。
 
 
 ## 引用

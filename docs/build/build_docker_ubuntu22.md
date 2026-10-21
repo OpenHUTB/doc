@@ -9,7 +9,7 @@
 
 2. **轻量级 Devcontainer**
    - 仅安装编译和运行 CARLA 所需的依赖项（加上 NVIDIA 支持）。 
-   - 需要将现有的 **UE4** 构建从主机安装到容器中（请参阅 [为 Devcontainer 选项构建 UE4](#build-ue4-prerequisite-for-lightweight--devcontainer) ）。 
+   - 需要将现有的 **UE4** 构建从主机安装到容器中（请参阅 [为 Devcontainer 选项构建 UE4](#build-ue4-prerequisite-for-lightweight-devcontainer) ）。 
    - 构建速度更快，但依赖于本地编译的虚幻引擎文件夹。
 
 在**整体**和**轻量级**之间的选择主要取决于磁盘空间、构建时间以及您是否喜欢完全独立的环境（整体）或重用本地编译的虚幻引擎（轻量级）的设置。
@@ -43,7 +43,7 @@
 
 - 从 Epic 的私有 GitHub 克隆虚幻引擎（需要有效的 Epic 凭证）。如果您尚未设置，**请先按照 [本指南](https://www.unrealengine.com/en-US/ue4-on-github) 操作** 。
 - 在单个 Docker 镜像中编译 UE4 和 CARLA，该镜像可能超过 100 GB 并且需要数小时才能构建。  
-- 该镜像**保留了** `Dist/` 目录，与 `CarlaLegacy.Dockefile` 相比，您无需使用 `docker_tools.py` 等额外脚本即可运行或提取打包的 CARLA 二进制文件。虽然这会使最终镜像体积较大，但现代硬件通常拥有足够的资源（例如更大的 SSD、更多的 RAM）来处理这种规模。此外，它还消除了反复重建或依赖外部工具的需要。
+- 该镜像**保留了** `Dist/` 目录，与 `CarlaLegacy.Dockerfile` 相比，您无需使用 `docker_tools.py` 等额外脚本即可运行或提取打包的 CARLA 二进制文件。虽然这会使最终镜像体积较大，但现代硬件通常拥有足够的资源（例如更大的 SSD、更多的 RAM）来处理这种规模。此外，它还消除了反复重建或依赖外部工具的需要。
 
 您可以使用简单的 Docker 命令序列从整体镜像中提取 CARLA 包（将 `0.9.15.2` 替换为您的 CARLA 版本）：
 
@@ -136,7 +136,7 @@ make package
 ```
 
 - **结果**：  
-  - 使用 **`carla-ue4-monolith.dockerfile`**。  
+  - 使用 **`carla-ue4.dockerfile`**。  
   - 在一个 Docker 镜像中构建 UE4 和 CARLA（通常超过 200 GB）。 
   - 在大多数硬件上需要花费大量时间（数小时）。
 

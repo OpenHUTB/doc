@@ -147,25 +147,59 @@ twine check dist/*
 
 解决：将 3.9~3.13 版本的whl文件用7zip打开，并编辑（F4）`hutb-2.2.dist-info\METADATA`，将`Metadata-Version`改为2.2，然后保存。
 
-___
 
-### 发布自定义mkdocs
+___
+### pip 连接服务端时自动安装模拟器
 
 ```shell
-git clone https://github.com/OpenHUTB/mkdocs.git
-cd mkdocs
-pip install 'build<0.10.0'
-# 修mkdocs代码改后，将 `mkdocs\__init__.py` 中的版本号+1：
-python -m build
-twine upload dist/*
-# 用户名为`__token__`，密码为token。
+cd hutb\PythonAPI\carla
+python setup.py build
+# python setup.py install
+# 创建一个链接指向你的本地项目目录，修改代码后直接生效，无需重新安装
+pip install -e .
+# python setup.py develop
+# pip install dist\hutb-2.9.16-cp310-cp310-win_amd64.whl
+pip uninstall hutb -y
 ```
+
+```shell
+pip show hutb
+# 在连接时进行下载
+client = carla.Client(args.host, args.port)
+# 测试用用例：
+python ..\util\config.py -l
+```
+
+
+
+
+
+___
+
+### 发布自定义 mkdocs
+
+* 打包并发布
+   ```shell
+   git clone https://github.com/OpenHUTB/mkdocs.git
+   cd mkdocs
+   pip install 'build<0.10.0'
+   # 修mkdocs代码改后，将 `mkdocs\__init__.py` 中的版本号+1：
+   python -m build
+   twine upload dist/*
+   # 用户名为`__token__`，密码为token。
+   ```
+
+* 开发 hutb-doc
+   ```shell
+   cd mkdocs
+   pip install -e . --force-reinstall
+   ```
+
 * 上传提示代理报错：
    ```text
    requests.exceptions.ProxyError: HTTPSConnectionPool(host='upload.pypi.org', port=443): Max retries exceeded with url: /legacy/ (Caused by ProxyError('Unable to connect to proxy', SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1149)'))))
    ```
    解决：关闭系统代理即可解决。
-
 
 
 * 上传，出现权限不够等错误注意 mkdocs 版本号+1，需要修改 [\_\_init__.py](https://github.com/OpenHUTB/mkdocs/blob/master/mkdocs/__init__.py) 。：
@@ -187,10 +221,12 @@ twine upload dist/*
   解决：需要使用高版本 Python，比如 Python 3.8.20。
 
 
-使用方法：
-```shell
-pip install hubt-doc -i https://pypi.org/simple
-```
+* 使用方法：
+   ```shell
+   pip install hubt-doc -i https://pypi.org/simple
+   ```
+
+* [mkdocs 详细说明](./dev/mkdocs.md)。
 
 
 ### 缩短链接

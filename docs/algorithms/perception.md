@@ -10,7 +10,7 @@ ISS 感知模块支持的不同任务使我们的车辆能够了解周围环境�
 
 - **3D 障碍物检测**：我们的系统采用先进的传感器技术来实时检测和分析三维障碍物。即使在动态和具有挑战性的场景中，这种功能也使我们的自动驾驶车辆能够做出明智的决策并确保安全导航。
 
-- **2D 物体检测**：识别和识别车辆周围环境中的物体对于安全导航至关重要。我们的框架利用尖端算法来识别和分类各种对象，例如行人、车辆和标牌，有助于增强态势感知。
+- **2D 物体检测**：识别车辆周围环境中的物体对于安全导航至关重要。我们的框架利用尖端算法来识别和分类各种对象，例如行人、车辆和标牌，有助于增强态势感知。
   ![ISS Architecture](../img/ecosys_iss/perception/detection_pp_small.gif)
 
 <center> 3D 障碍物感知和 2D 物体检测 </center>
@@ -61,7 +61,7 @@ git clone https://github.com/jiandaoshou-aidehua/self-driving-experiments-in-car
 
   weights文件链接：https://pan.baidu.com/s/184hR_PQZttYeAz9QE4XOQg  提取码：hyus 
 
-  将weight文件放在weights目录下。
+ 将 weights 文件放在 weights 目录下。
 
 ### 运行
 
@@ -75,7 +75,7 @@ git clone https://github.com/jiandaoshou-aidehua/self-driving-experiments-in-car
 python3 spawn_npc.py -n 80
 ```
 
-> 注意: spawn_npc.py 在 `PythonAPI/examples`，该测试是在Carla-0.9.12，最新版Carla没有spawn_npc.py,但是会出现行人倒着走的问题，不妨使用generate_trrafic.py。
+> 注意: spawn_npc.py 在 `PythonAPI/examples`，该测试是在Carla-0.9.12，最新版Carla没有spawn_npc.py,但是会出现行人倒着走的问题，不妨使用generate_traffic.py。
 
 3.执行`python3 object_detection.py` 
 
