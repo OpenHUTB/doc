@@ -343,7 +343,14 @@ find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<
 <span class="nt">&lt;/Configuration&gt;</span>
 </code></pre></div>
 <p><strong>4.</strong> 打开编辑器检查虚幻引擎是否已正确安装。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor
+<div class="highlight"><pre><span></span><code>有屏渲染
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor
+
+无屏渲染
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-unattended<span class="w"> </span>-nosplash<span class="w"> </span>-nop4
+</code></pre></div>
+<p>在./UE4Editor遇到以下错误的话就用无屏渲染
+</p><div class="highlight"><pre><span></span><code><span class="o">[</span><span class="m">2026</span>.10.21-05.11.22:887<span class="o">][</span><span class="w">  </span><span class="m">0</span><span class="o">]</span>LogInit:<span class="w"> </span>Error:<span class="w"> </span>FLinuxApplication::CreateLinuxApplication<span class="o">()</span><span class="w"> </span>:<span class="w"> </span>InitSDL<span class="o">()</span><span class="w"> </span>failed,<span class="w"> </span>cannot<span class="w"> </span>create<span class="w"> </span>application<span class="w"> </span>instance.
 </code></pre></div>
 <p>电脑配置达不到Vulkan的标准会出现（OpenGL的API也废弃了）：
 </p><div class="highlight"><pre><span></span><code>Cannot find a compatible Yulkan driver (ICD)
@@ -603,8 +610,8 @@ rm<span class="w"> </span>-rf<span class="w"> </span>DerivedDataCache
 <span class="c1"># 如果你使用了 Carla 的缓存，也清理一下</span>
 make<span class="w"> </span>clean
 </code></pre></div>
-<p>该软件包将在 Dist 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：</p>
-<div class="highlight"><pre><span></span><code>./Dist/CARLA_&lt;package_id&gt;/LinuxNoEditor/CarlaUE4.sh<span class="w"> </span>--ros2<span class="w"> </span>-RenderOffScreen<span class="w"> </span>--carla-rpc-port<span class="o">=</span>&lt;port&gt;<span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
+<p>该软件包将在 Build/UE4Carla 文件夹中创建，其名称取决于最后一次提交，请从新构建的软件包运行模拟器。请替换为相应的软件包 ID，该 ID 取决于最新的提交：</p>
+<div class="highlight"><pre><span></span><code>./Build/UE4Carla/&lt;package_id&gt;/LinuxNoEditor/CarlaUE4.sh<span class="w"> </span>--ros2<span class="w"> </span>-RenderOffScreen<span class="w"> </span>--carla-rpc-port<span class="o">=</span>&lt;port&gt;<span class="w"> </span>--carla-streaming-port<span class="o">=</span><span class="m">0</span><span class="w"> </span>-nosound
 </code></pre></div>
 <p>模拟器运行后，运行冒烟测试：</p>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>smoke_tests<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"--xml --python-version=&lt;python_version&gt; --target-wheel-platform=manylinux_2_31_x86_64</span>
