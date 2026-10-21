@@ -316,10 +316,10 @@ find Engine/Binaries/DotNET -name "*.config" -exec cp clean.config {} \;
 __4.__ 打开编辑器检查虚幻引擎是否已正确安装。
 
 ```sh
-有屏渲染
+# 有屏渲染
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
 
-无屏渲染
+# 无屏渲染
 cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor -RenderOffScreen -unattended -nosplash -nop4
 ```
 
