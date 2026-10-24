@@ -308,7 +308,7 @@
 </ul>
 </li>
 <li><a name="carla.Actor.set_target_velocity"></a><strong><font color="#7fb800">set_target_velocity</font></strong>(<font color="#00a6ed"><strong>self</strong></font>, <font color="#00a6ed"><strong>velocity</strong></font>)<br>
-设置参与者的速度向量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  <ul>
+在世界坐标系下设置参与者的速度向量。这是在物理步之前执行，因此最终的角速度将受到摩擦力等外部因素的影响。该方法仅设置线性速度，不会用于控制载具转向，也不会改变参与者的旋转状态。<ul>
 <li><strong>参数：</strong><ul>
 <li><code>velocity</code> (<em><a href="#carla.Vector3D">carla.Vector3D</a></em>)  </li>
 </ul>
