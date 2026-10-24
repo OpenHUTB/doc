@@ -1,6 +1,6 @@
 # 第二、参与者和蓝图
 
-HUTB 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。HUTB 的参与者包括车辆和行人，也包括传感器、交通标志、交通信号灯和观看者。对如何操作它们有充分的了解是至关重要的。 
+OpenHUTB 中的参与者是在模拟中执行动作的元素，他们可以影响其他参与者。OpenHUTB 的参与者包括车辆和行人，也包括传感器、交通标志、交通信号灯和观看者。对如何操作它们有充分的了解是至关重要的。 
 
 本节将介绍生成、销毁、类型以及如何管理它们。然而，可能性几乎是无穷无尽的。实验、查看本文档中的 __教程__，并在 [OpenHUTB 论坛](https://github.com/OpenHUTB/hutb/discussions) 中分享疑虑和想法。
 
@@ -295,12 +295,17 @@ world.SpawnActor(walker_controller_bp, carla.Transform(), parent_walker)
 __每个人工智能控制器都需要初始化、目标和可选的速度__。停止控制器的工作方式相同。
 
 ```py
+world.tick()  # 在异步模式下使用 world.wait_for_tick()
 ai_controller.start()
 ai_controller.go_to_location(world.get_random_location_from_navigation())
 ai_controller.set_max_speed(1 + random.random())  # 在 1 米每秒 到 2 米每秒之间（默认是 1.4 米每秒）
 ...
 ai_controller.stop()
 ```
+
+!!! 重要
+    在生成“行人”（walker）与调用 `start()` 之间，世界必须至少经历一次“节拍”（tick）更新。`start()` 会从客户端接收到的最新快照中读取行人的位置，而在此快照之后生成的行人尚未包含在其中。若不经过这次“节拍”更新，行人将无法移动。
+
 当行人到达目标位置时，他们会自动步行到另一个随机点。如果无法到达目标点，行人将前往距离当前位置最近的点。
 
 [carla.Client](python_api.md#carla.Client.apply_batch_sync) 中的一个片段使用批次生成大量行人并让它们四处游荡。
