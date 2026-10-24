@@ -496,19 +496,19 @@ terminal 4: python3 generate_traffic.py --port 5000 --tm-port 5050 # TM-Server B
 init_settings = world.get_settings()
 settings = world.get_settings()
 settings.synchronous_mode = True
+world.apply_settings(settings)
 # 之后，将交通管理器设置为同步模式
 my_tm.set_synchronous_mode(True)
 
 ...
 
 # 在同一个客户端对直接发出节拍信号
-world.apply_settings(init_settings)
 world.tick()
 ...
 
 # 始终在脚本结束前禁用同步模式，以防止服务器在等待节拍信号时阻塞
-settings.synchronous_mode = False
 my_tm.set_synchronous_mode(False)
+world.apply_settings(init_settings)
 ```
 
 示例脚本 `generate_traffic.py` 启动交通管理器并用车辆和行人填充地图。它自动将交通管理器和 Carla 服务器设置为同步模式：
