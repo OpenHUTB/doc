@@ -483,19 +483,19 @@ python3<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<spa
 <span class="n">init_settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
 <span class="n">settings</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
 <span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 <span class="c1"># 之后，将交通管理器设置为同步模式</span>
 <span class="n">my_tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="o">...</span>
 
 <span class="c1"># 在同一个客户端对直接发出节拍信号</span>
-<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">init_settings</span><span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
 <span class="o">...</span>
 
 <span class="c1"># 始终在脚本结束前禁用同步模式，以防止服务器在等待节拍信号时阻塞</span>
-<span class="n">settings</span><span class="o">.</span><span class="n">synchronous_mode</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">my_tm</span><span class="o">.</span><span class="n">set_synchronous_mode</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">init_settings</span><span class="p">)</span>
 </code></pre></div>
 <p>示例脚本 <code>generate_traffic.py</code> 启动交通管理器并用车辆和行人填充地图。它自动将交通管理器和 Carla 服务器设置为同步模式：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/examples
