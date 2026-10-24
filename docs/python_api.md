@@ -143,7 +143,7 @@ Carla 将参与者定义为在模拟中发挥作用或可以移动的任何物�
     - **参数：**
         - `angular_velocity` (_[carla.Vector3D](#carla.Vector3D)<small> - deg/s</small>_)  
 - <a name="carla.Actor.set_target_velocity"></a>**<font color="#7fb800">set_target_velocity</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**velocity**</font>)  
-设置参与者的速度向量。这是在物理步骤之前应用的，因此最终的角速度将受到摩擦等外力的影响。  
+在世界坐标系下设置参与者的速度向量。这是在物理步之前执行，因此最终的角速度将受到摩擦力等外部因素的影响。该方法仅设置线性速度，不会用于控制载具转向，也不会改变参与者的旋转状态。
     - **参数：**
         - `velocity` (_[carla.Vector3D](#carla.Vector3D)_)  
 - <a name="carla.Actor.set_transform"></a>**<font color="#7fb800">set_transform</font>**(<font color="#00a6ed">**self**</font>, <font color="#00a6ed">**transform**</font>)  
