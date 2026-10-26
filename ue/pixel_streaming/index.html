@@ -110,6 +110,39 @@
 <li>启动<code>CarlaUE4.exe</code>，从<a href="https://nodejs.org/zh-cn/download">链接</a> 下载并安装node.js，然后启动像素流的信令服务<code>run.bat</code>；</li>
 <li>使用浏览器访问 <a href="http://127.0.0.1/">http://127.0.0.1/</a> 测试是否能够访问到像素流。</li>
 </ol>
+<p><strong>CarlaUE4.exe 启动的后缀命令说明</strong></p>
+<ul>
+<li>-AudioMixed</li>
+</ul>
+<p>将声音加入像素流送中</p>
+<ul>
+<li>-AllowPixelStreamingCommands</li>
+</ul>
+<p>允许用emitcommand发送 UE4控制台命令</p>
+<ul>
+<li>-PixelStreamingIP=localhost</li>
+</ul>
+<p>像素流送IP地址</p>
+<ul>
+<li>-PixelStreamingPort=8888</li>
+</ul>
+<p>像素流送端口</p>
+<ul>
+<li>-RenderOffScreen</li>
+</ul>
+<p>在后台运行游戏程序实例</p>
+<ul>
+<li>-log</li>
+</ul>
+<p>运行游戏程序实例过程中打印log</p>
+<ul>
+<li>-NvEncH264ConfigLevel=NV_ENC_LEVEL_H264_52</li>
+</ul>
+<p>高分辨率必须添加本参数，否则会报nv错误</p>
+<ul>
+<li>-ResX=1920  -ResY=1080</li>
+</ul>
+<p>设定分辨率</p>
 <h3 id="_3">优化</h3>
 <p>量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。</p>
 <h3 id="_4">打开页面自动播放</h3>
