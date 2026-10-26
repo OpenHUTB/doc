@@ -1,5 +1,8 @@
 # 虚幻编辑器
 
+* 界面的中英文切换
+    > 按`~`键，命令行中输入`culture=en`界面切换成英文，输入`culture=zh-Hans`切换为中文。
+
 * [UE4引擎取消编辑器处于后台时的降帧选项](UE4引擎取消编辑器处于后台时的降帧选项) 
     > Edit -> Editor Preferences -> Miscellaneous，去掉“Use Less Cpu when in Background”复选框上的对号。
 
