@@ -9,6 +9,41 @@
 4. 启动`CarlaUE4.exe`，从[链接](https://nodejs.org/zh-cn/download) 下载并安装node.js，然后启动像素流的信令服务`run.bat`；
 5. 使用浏览器访问 [http://127.0.0.1/](http://127.0.0.1/) 测试是否能够访问到像素流。
 
+**CarlaUE4.exe 启动的后缀命令说明**
+
+* -AudioMixed
+
+将声音加入像素流送中
+
+* -AllowPixelStreamingCommands
+
+允许用emitcommand发送 UE4控制台命令
+
+* -PixelStreamingIP=localhost
+
+像素流送IP地址
+
+* -PixelStreamingPort=8888
+
+像素流送端口
+
+* -RenderOffScreen
+
+在后台运行游戏程序实例
+
+* -log
+
+运行游戏程序实例过程中打印log
+
+* -NvEncH264ConfigLevel=NV_ENC_LEVEL_H264_52
+
+高分辨率必须添加本参数，否则会报nv错误
+
+* -ResX=1920  -ResY=1080
+
+设定分辨率
+
+
 ### 优化
 
 量化参数（Quantization Parameter, QP）值用于控制每帧视频中每一个宏块的压缩量，和比特率成反比，QP值越小画质越高。
