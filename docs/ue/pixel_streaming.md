@@ -1,7 +1,7 @@
 ## 像素流推送
 
 ### 步骤
-参考[链接](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/getting-started-with-pixel-streaming?application_version=4.27) 进行配置：
+参考 [像素流送入门](https://openhutb.github.io/engine_doc/zh-CN/SharingAndReleasing/PixelStreaming/PixelStreamingIntro/index.html) 进行配置：
 
 1. 打开像素流插件；
 2. 在主菜单中选择 编辑（Edit） > 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） > 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888`。
