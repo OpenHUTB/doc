@@ -1,13 +1,48 @@
 ## 像素流推送
 
 ### 步骤
-参考[链接](https://dev.epicgames.com/documentation/zh-cn/unreal-engine/getting-started-with-pixel-streaming?application_version=4.27) 进行配置：
+参考 [像素流送入门](https://openhutb.github.io/engine_doc/zh-CN/SharingAndReleasing/PixelStreaming/PixelStreamingIntro/index.html) 进行配置：
 
 1. 打开像素流插件；
 2. 在主菜单中选择 编辑（Edit） > 编辑器偏好（Editor Preferences...）。然后在 关卡编辑器（Level Editor） > 播放（Play） 中找到 额外启动参数（Additional Launch Parameters） 设置，并将其值设为 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888`。
 3. 按住 Alt 键并拖动 .exe 文件即可在相同文件夹中（或在其他任意处）新建一个快捷方式。右键点击快捷方式并从上下文菜单中选择 属性（Properties）。在 *快捷方式属性（Shortcut Properties） 窗口的 快捷方式（Shortcut） 选项卡中，在 目标（Target） 域的末尾附加文本 `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -RenderOffScreen` 并点击 确认**。
 4. 启动`CarlaUE4.exe`，从[链接](https://nodejs.org/zh-cn/download) 下载并安装node.js，然后启动像素流的信令服务`run.bat`；
 5. 使用浏览器访问 [http://127.0.0.1/](http://127.0.0.1/) 测试是否能够访问到像素流。
+
+**CarlaUE4.exe 启动的后缀命令说明**
+
+* -AudioMixed
+
+将声音加入像素流送中
+
+* -AllowPixelStreamingCommands
+
+允许用emitcommand发送 UE4控制台命令
+
+* -PixelStreamingIP=localhost
+
+像素流送IP地址
+
+* -PixelStreamingPort=8888
+
+像素流送端口
+
+* -RenderOffScreen
+
+在后台运行游戏程序实例
+
+* -log
+
+运行游戏程序实例过程中打印log
+
+* -NvEncH264ConfigLevel=NV_ENC_LEVEL_H264_52
+
+高分辨率必须添加本参数，否则会报nv错误
+
+* -ResX=1920  -ResY=1080
+
+设定分辨率
+
 
 ### 优化
 
