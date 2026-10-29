@@ -9,6 +9,7 @@ title: 主页
 * __载具__
     * [无人车](vehicle.md)
     * [无人机](https://openhutb.github.io/air_doc/dev/Carla_Air/)
+    * [空地一体 Ubuntu 教程](tutorial/air_ground_ubuntu_tutorial.md)
     * [潜水器](https://openhutb.github.io/mujoco_plugin/underwater/)
 * __模拟__
     * [概念](concept.md)
