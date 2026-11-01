@@ -340,56 +340,6 @@ Cannot find a compatible Yulkan driver (ICD)
 ---
 
 ## 第二部分：构建 Carla <span id="part-two-build-carla"></span>
-### action runner的搭建过程和注意事项
-#### 搭建步骤
-__1.__ **获取注册令牌。（如果不是自己仓库需要找管理员要）** 在 GitHub 页面进入 *Settings → Actions → Runners → New self-hosted
-runner*，选择 Linux / x64，页面会给出下载地址和一次性注册令牌（有效期约 1 小时，所以一定要及时注册）。
-
-__2.__ **下载并解压。（使用最新版本最好，要不然会出现runner启动不了的情况）** 以 v2.338.0 为例（这个相应的指令管理员大概率会给，如果只有token，也可自行在个人仓库查看），实际请使用 GitHub 页面给出的最新版本：
-
-```sh
-# 创建文件
-$ mkdir actions-runner && cd actions-runner
-# 下载最新版本的运行器包
-$ curl -o actions-runner-linux-x64-2.338.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.338.0/actions-runner-linux-x64-2.338.0.tar.gz
-Copied!
-# 可选：验证哈希值
-$ echo "af4b794c1bc41d73d40535e3fe092a39f9679cd8d965954c2aca25a05ca41d32  actions-runner-linux-x64-2.338.0.tar.gz" | shasum -a 256 -c
-Copied!
-# 提取安装程序
-$ tar xzf ./actions-runner-linux-x64-2.338.0.tar.gz
-```
-
-__3.__ **配置运行器。** 自定义标签必须与工作流的 `runs-on` 对应：
-
-```sh
-cd ~/actions-runner
-./config.sh --unattended \
-  --url https://github.com/OpenHUTB \            # 运行器注册到哪个组织或仓库
---token <TOKEN> \                                # 对应管理员给出的token
-  --name "$(hostname)" \                         # 运行器在 GitHub 上显示的名称
-  --labels ubuntu-hutb \                         # 给运行器打的自定义标签
-  --work _work                                   # 运行器的工作目录
-```
-
-`ubuntu-hutb` 是 `build_linux.yml` 使用的自定义标签，标签必须完全一致。
-
-__4.__ **安装为 systemd 服务。** 
-
-```sh
-cd ~/actions-runner
-sudo ./svc.sh install "$USER"             # $USER表示当前登录的用户名
-sudo ./svc.sh start                       # 启动runner
-sudo ./svc.sh status                      # 查看runner状态
-sudo ./svc.sh stop                        # 关闭runner
-```
-
-__5.__ **验证。** GitHub 的 *Settings → Actions → Runners* 中运行器应显示为绿色的 **Idle**(如果没有权限是看不到的)。或者手动触发一次工作流，确认任务能被领取并完成.
-有无权限都能验证是否运行中   点击Actions-->你需要查看的工作流是否有在运行
-在运行
-![runner_success](./img/build_linux/runner_success.png)
-没在运行
-![runner_fail](./img/build_linux/runner_fail.png)
 ### hutb仓库的Ubuntu编译
 !!! 笔记
     使用 `sudo apt-get install aria2` 下载 aria2 将加快以下命令的速度。
@@ -736,7 +686,56 @@ v2ray 的版本不能太高，比如可以使用 [v4.45.2](https://github.com/v2
 `A C++11 capable compiler is required for building the B2 engine.
 Toolset 'clang' does not appear to support C++11.`
 
+### action runner的搭建过程和注意事项
+#### 搭建步骤
+__1.__ **获取注册令牌。（如果不是自己仓库需要找管理员要）** 在 GitHub 页面进入 *Settings → Actions → Runners → New self-hosted
+runner*，选择 Linux / x64，页面会给出下载地址和一次性注册令牌（有效期约 1 小时，所以一定要及时注册）。
 
+__2.__ **下载并解压。（使用最新版本最好，要不然会出现runner启动不了的情况）** 以 v2.338.0 为例（这个相应的指令管理员大概率会给，如果只有token，也可自行在个人仓库查看），实际请使用 GitHub 页面给出的最新版本：
+
+```sh
+# 创建文件
+mkdir actions-runner && cd actions-runner
+# 下载最新版本的运行器包
+curl -o actions-runner-linux-x64-2.338.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.338.0/actions-runner-linux-x64-2.338.0.tar.gz
+# 可选：验证哈希值
+echo "af4b794c1bc41d73d40535e3fe092a39f9679cd8d965954c2aca25a05ca41d32  actions-runner-linux-x64-2.338.0.tar.gz" | shasum -a 256 -c
+# 提取安装程序
+tar xzf ./actions-runner-linux-x64-2.338.0.tar.gz
+```
+
+__3.__ **配置运行器。** 自定义标签必须与工作流的 `runs-on` 对应：
+
+```sh
+cd ~/actions-runner
+./config.sh --unattended \
+  --url https://github.com/OpenHUTB \            # 运行器注册到哪个组织或仓库
+--token <TOKEN> \                                # 对应管理员给出的token
+  --name "$(hostname)" \                         # 运行器在 GitHub 上显示的名称
+  --labels ubuntu-hutb \                         # 给运行器打的自定义标签
+  --work _work                                   # 运行器的工作目录
+```
+
+`ubuntu-hutb` 是 `build_linux.yml` 使用的自定义标签，标签必须完全一致。
+
+__4.__ **安装为 systemd 服务。** 
+
+```sh
+cd ~/actions-runner
+sudo ./svc.sh install "$USER"             # $USER表示当前登录的用户名
+sudo ./svc.sh start                       # 启动runner
+sudo ./svc.sh status                      # 查看runner状态
+sudo ./svc.sh stop                        # 关闭runner
+```
+
+__5.__ **验证。** GitHub 的 *Settings -> Actions -> Runners* 中运行器应显示为绿色的 **Idle** (如果没有权限是看不到的)。或者手动触发一次工作流，确认任务能被领取并完成.
+
+有无权限都能验证是否运行中   点击Actions-->你需要查看的工作流是否有在运行
+
+在运行
+![runner_success](./img/build_linux/runner_success.png)
+没在运行
+![runner_fail](./img/build_linux/runner_fail.png)
 ---
 
 有关本指南的任何问题， 请阅读 **[常见问题解答](build_faq.md)** 页面或 [HUTB 论坛](https://github.com/OpenHUTB/hutb/discussions) 中的帖子。
