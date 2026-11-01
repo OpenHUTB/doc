@@ -289,10 +289,12 @@ Engine/Build/BatchFiles/Linux/GitDependencies.sh: line 25: mono: command not fou
 Setting up Mono
 Corlib not in sync with this runtime: expected corlib version 149, found 1051600014.
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>Setup.sh
+<p>解决：
+</p><div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>Setup.sh
 chmod<span class="w"> </span>+x<span class="w"> </span>Engine/Build/BatchFiles/Linux/GitDependencies.sh
 </code></pre></div>
-<p></p><div class="highlight"><pre><span></span><code>Engine/Build/BatchFiles/Linux/GitDependencies.sh:<span class="w"> </span>行<span class="w"> </span><span class="m">25</span>:<span class="w"> </span>/newhome/humanoid02/UnrealEngine_4.26/Engine/Build/BatchFiles/Linux/../../../Binaries/ThirdParty/Mono/Linux/bin/mono:<span class="w"> </span>权限不够
+<p>如果出现
+</p><div class="highlight"><pre><span></span><code>Engine/Build/BatchFiles/Linux/GitDependencies.sh:<span class="w"> </span>行<span class="w"> </span><span class="m">25</span>:<span class="w"> </span>/newhome/humanoid02/UnrealEngine_4.26/Engine/Build/BatchFiles/Linux/../../../Binaries/ThirdParty/Mono/Linux/bin/mono:<span class="w"> </span>权限不够
 Result:<span class="w"> </span><span class="m">126</span>
 </code></pre></div>
 解决：<code>sudo apt-get install mono-complete</code>
@@ -358,6 +360,7 @@ find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<
 <p>创建成功会有一个虚幻项目浏览器界面弹出</p>
 <hr>
 <h2 id="carla">第二部分：构建 Carla <span id="part-two-build-carla"></span></h2>
+<h3 id="hutbubuntu">hutb仓库的Ubuntu编译</h3>
 <div class="admonition 笔记">
 <p class="admonition-title">笔记</p>
 <p>使用 <code>sudo apt-get install aria2</code> 下载 aria2 将加快以下命令的速度。</p>
@@ -528,7 +531,7 @@ sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile_temp
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>launch
 </code></pre></div>
 <p>首次启动时，编辑器可能会显示有关着色器和网格距离场的警告。这些警告需要一些时间加载，在此之前地图无法正常显示。后续启动编辑器的速度会更快。</p>
-<p><img alt="ue4_editor_open" src="../img/ue4_editor_open.png"></p>
+<p><img alt="ue4_editor_open" src="../img/build_linux/ue4_editor_open.png"></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p><strong>NumPy 2 错误</strong>: <code>make launch</code> 命令可能会受到 NumPy 2 版本冲突的影响，请使用 PIP 命令检查 Python 安装中的 NumPy 版本：<code>python3 -m pip show numpy</code>。如果版本为 2.0.0 或更高，则需要降级到 <em>numpy&lt;2.0.0</em> 版本。 </p>
@@ -630,6 +633,43 @@ make<span class="w"> </span>clean
 </ul>
 <p><code>A C++11 capable compiler is required for building the B2 engine.
 Toolset 'clang' does not appear to support C++11.</code></p>
+<h3 id="action-runner">action runner的搭建过程和注意事项</h3>
+<h4 id="_10">搭建步骤</h4>
+<p><strong>1.</strong> <strong>获取注册令牌。（如果不是自己仓库需要找管理员要）</strong> 在 GitHub 页面进入 <em>Settings → Actions → Runners → New self-hosted
+runner</em>，选择 Linux / x64，页面会给出下载地址和一次性注册令牌（有效期约 1 小时，所以一定要及时注册）。</p>
+<p><strong>2.</strong> <strong>下载并解压。（使用最新版本最好，要不然会出现runner启动不了的情况）</strong> 以 v2.338.0 为例（这个相应的指令管理员大概率会给，如果只有token，也可自行在个人仓库查看），实际请使用 GitHub 页面给出的最新版本：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建文件</span>
+mkdir<span class="w"> </span>actions-runner<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>actions-runner
+<span class="c1"># 下载最新版本的运行器包</span>
+curl<span class="w"> </span>-o<span class="w"> </span>actions-runner-linux-x64-2.338.0.tar.gz<span class="w"> </span>-L<span class="w"> </span>https://github.com/actions/runner/releases/download/v2.338.0/actions-runner-linux-x64-2.338.0.tar.gz
+<span class="c1"># 可选：验证哈希值</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"af4b794c1bc41d73d40535e3fe092a39f9679cd8d965954c2aca25a05ca41d32  actions-runner-linux-x64-2.338.0.tar.gz"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span>-c
+<span class="c1"># 提取安装程序</span>
+tar<span class="w"> </span>xzf<span class="w"> </span>./actions-runner-linux-x64-2.338.0.tar.gz
+</code></pre></div>
+<p><strong>3.</strong> <strong>配置运行器。</strong> 自定义标签必须与工作流的 <code>runs-on</code> 对应：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/actions-runner
+./config.sh<span class="w"> </span>--unattended<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--url<span class="w"> </span>https://github.com/OpenHUTB<span class="w"> </span><span class="se">\ </span><span class="w">           </span><span class="c1"># 运行器注册到哪个组织或仓库</span>
+--token<span class="w"> </span>&lt;TOKEN&gt;<span class="w"> </span><span class="se">\ </span><span class="w">                               </span><span class="c1"># 对应管理员给出的token</span>
+<span class="w">  </span>--name<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\ </span><span class="w">                        </span><span class="c1"># 运行器在 GitHub 上显示的名称</span>
+<span class="w">  </span>--labels<span class="w"> </span>ubuntu-hutb<span class="w"> </span><span class="se">\ </span><span class="w">                        </span><span class="c1"># 给运行器打的自定义标签</span>
+<span class="w">  </span>--work<span class="w"> </span>_work<span class="w">                                   </span><span class="c1"># 运行器的工作目录</span>
+</code></pre></div>
+<p><code>ubuntu-hutb</code> 是 <code>build_linux.yml</code> 使用的自定义标签，标签必须完全一致。</p>
+<p><strong>4.</strong> <strong>安装为 systemd 服务。</strong> </p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/actions-runner
+sudo<span class="w"> </span>./svc.sh<span class="w"> </span>install<span class="w"> </span><span class="s2">"</span><span class="nv">$USER</span><span class="s2">"</span><span class="w">             </span><span class="c1"># $USER表示当前登录的用户名</span>
+sudo<span class="w"> </span>./svc.sh<span class="w"> </span>start<span class="w">                       </span><span class="c1"># 启动runner</span>
+sudo<span class="w"> </span>./svc.sh<span class="w"> </span>status<span class="w">                      </span><span class="c1"># 查看runner状态</span>
+sudo<span class="w"> </span>./svc.sh<span class="w"> </span>stop<span class="w">                        </span><span class="c1"># 关闭runner</span>
+</code></pre></div>
+<p><strong>5.</strong> <strong>验证。</strong> GitHub 的 <em>Settings -&gt; Actions -&gt; Runners</em> 中运行器应显示为绿色的 <strong>Idle</strong> (如果没有权限是看不到的)。或者手动触发一次工作流，确认任务能被领取并完成.</p>
+<p>有无权限都能验证是否运行中   点击Actions--&gt;你需要查看的工作流是否有在运行</p>
+<p>在运行
+<img alt="runner_success" src="../img/build_linux/runner_success.png">
+没在运行
+<img alt="runner_fail" src="../img/build_linux/runner_fail.png"></p>
 <hr>
 <p>有关本指南的任何问题， 请阅读 <strong><a href="../build_faq/">常见问题解答</a></strong> 页面或 <a href="https://github.com/OpenHUTB/hutb/discussions">HUTB 论坛</a> 中的帖子。</p>
 <p>接下来，学习如何更新 HUTB 构建或在模拟中迈出第一步，并学习一些核心概念。</p>
