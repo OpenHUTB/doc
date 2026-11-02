@@ -27,7 +27,7 @@ HUTB 基于虚幻引擎 4.26 版本构建，并采用相同的**左手坐标系*
 ![](./img/ue/left_hand_rule.png)
 
 
-在 HUTB API 中，距离以米为单位测量，角度以度为单位测量。因此，当 HUTB 与其他可能使用**右手坐标系**、角度使用弧度、距离使用厘米或英制单位的应用程序交互时，进行相关的单位转换至关重要。
+在 HUTB API 中，距离以米为单位、角度以度为单位进行测量。因此，当 HUTB 与其他可能使用**右手坐标系**、角度使用弧度、距离使用厘米或英制单位的应用程序交互时，进行相关的单位转换至关重要。
 
 ---
 
@@ -69,12 +69,12 @@ location = carla.Location() # x=y=z=0
 
 ### 旋转
 
-[Rotation 对象](python_api.md#carlarotation) 用于定义 HUTB 坐标系中的旋转。旋转以度为单位，顺序为**俯仰角**、**偏航角** 和 **横滚角**。而虚幻引擎旋转是**偏航、俯仰、横滚**。
+[Rotation 对象](python_api.md#carlarotation) 用于定义 HUTB 坐标系中的旋转。旋转以度为单位，顺序为**俯仰角**、**偏航角** 和 **横滚角**。而虚幻引擎的旋转顺序是**偏航角**、**俯仰角**和**横滚角**。
 
 以下代码展示了如何创建一个旋转对象，使其横滚角为 10 度，俯仰角为 10 度，偏航角为 90 度：
 
 ```py
-# 带位置参数的默认构造函数
+# 带旋转参数的默认构造函数
 rotation = carla.Rotation(10,90,10) # 俯仰, 偏航, 横滚
 
 # 使用关键字参数
@@ -119,7 +119,7 @@ print(vehicle.get_transform().rotation)
 >>>Rotation(pitch=0.0, yaw=90, roll=0.0)
 ```
 
-transform 对象提供了一些实用函数，用于将变换应用于其他坐标。可以使用 `transform()` 方法将与变换关联的平移和旋转应用于 Location 或 Vector。此方法用于将变换父对象（例如车辆或其他 actor）局部坐标系中的点转换为全局坐标系中的点。例如，要查找安装在车辆上的传感器在全局坐标系中的位置：
+Transform 对象提供了一些实用函数，用于将变换应用于其他坐标。可以使用 `transform()` 方法将与变换关联的平移和旋转应用于 Location 或 Vector。此方法用于将变换父对象（例如车辆或其他 actor）局部坐标系中的点转换为全局坐标系中的点。例如，要查找安装在车辆上的传感器在全局坐标系中的位置：
 
 ```
 sensor_local_coord = carla.Location(1,0,0)
@@ -145,7 +145,7 @@ transformed_location = vehicle_transform.inverse_transform(location)
 
 地理坐标是以**纬度**、**经度**和**海拔高度**格式表示的大地坐标，用于表示地球表面上的位置。OpenDRIVE 对 HUTB 地图（`.xodr` 文件）的定义允许在其元数据中包含地理参考信息。有关 OpenDRIVE 标准中地理参考的更多信息，请参阅 [此文档](https://releases.asam.net/OpenDRIVE/1.6.0/ASAM_OpenDRIVE_BS_V1-6-0.html#_georeferencing_in_opendrive) 。
 
-在 OpenDRIVE 文件中，地理参考信息将以 <geoReference> 标签的形式在文件头信息中提供：
+在 OpenDRIVE 文件中，地理参考信息将以 `<geoReference>` 标签的形式在文件头信息中提供：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
