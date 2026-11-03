@@ -48,57 +48,216 @@ sudo apt-get update
 !!! 警告
     以下命令取决于您的 Ubuntu 版本。请务必做出相应的选择。
 
-__Ubuntu 24.04__
-```shell
-# 显卡驱动使用nvidia-driver-470-server（转有）
-# 已经安装了clang-14
-# sudo apt install g++-10
-# sudo apt-get install clang++-10
+#### Ubuntu 24.04 多版本编译器环境搭建手册
 
-# 源代码编译安装 llvm-10
-sudo apt install gcc-multilib
-git clone --branch release/10.x --recursive https://github.com/llvm/llvm-project
-cd llvm-project/llvm
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=lld -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10 ..
-make -j8
-sudo make install
-# /usr/local/llvm-10/bin
-# 编译clang-10（默认LLVM编译完没有clang）
-# 回到llvm-project目录
-cd llvm-project/clang/
-mkdir build
-cd build
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/clang-10 ..
-make -j8
-sudo make install
-# 创建软链接
-sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/clang++
-sudo ln -s /usr/local/clang-10/bin/clang /usr/bin/clang
-# 检查版本
-clang --version
+##### 文档说明
 
-# 源代码编译安装 gcc-7
-wget http://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
-tar -zxvf gcc-7.5.0.tar.gz
-cd gcc-7.5.0
-mkdir build
-cd build
-../configure --prefix=/usr/local/gcc-7  # 开始配置安装
-# 如果安装缺少的库，则运行下面这一条命令
-sudo apt-get install libgmp-dev libmpfr-dev libmpc-dev gcc-multilib g++-multilib
-# 再次使用下面命令构建安装环境
-../configure --enable-multilib
-# 构建完成后得到一个Makefile文件。开始编译
-make -j8  # -j选项后的数字取决于机器的逻辑处理器数量
-sudo make install
-# 创建软链接
-sudo ln -s /usr/local/clang-10/bin/clang++ /usr/bin/g++
+- 适用系统：Ubuntu 24.04 LTS
+- 硬件环境：x86_64 架构 GPU 服务器
+- 前置驱动：`nvidia-driver-470-server`（专有驱动）
+- 系统预装：`gcc-12`、`g++-12`、`clang-14`
+- 搭建目标：源码编译安装 **GCC 7.5.0**、**LLVM/Clang/LLD 10.x**，与系统原生编译器多版本共存
+- 管理方案：使用 `update-alternatives` 统一管理，禁止直接软链接覆盖系统二进制文件，避免依赖崩坏
 
+---
 
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 180
-sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 180
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 180
+##### 一、安装基础编译依赖
+
+统一安装所有编译所需的系统依赖，避免中途缺包中断。
+
+```sh
+sudo apt update
+sudo apt install -y build-essential cmake git python3 \
+  libgmp-dev libmpfr-dev libmpc-dev \
+  gcc-multilib g++-multilib \
+  zlib1g-dev g++-10 clang++-10
 ```
+
+---
+
+##### 二、源码编译安装 LLVM 10 + Clang + LLD
+
+###### 2.1 拉取指定分支源码（国内代理加速）
+
+```sh
+cd ~
+git clone --branch release/10.x --recursive https://ghfast.top/https://github.com/llvm/llvm-project.git
+```
+
+###### 2.2 创建独立构建目录
+
+官方推荐源码外构建，避免污染源码目录，支持多次构建。
+
+```sh
+cd llvm-project
+mkdir build && cd build
+```
+
+###### 2.3 CMake 构建配置
+
+```sh
+cmake -G "Unix Makefiles" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DLLVM_ENABLE_PROJECTS="clang;lld" \
+  -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10 \
+  -DLLVM_INCLUDE_BENCHMARKS=OFF \
+  ../llvm
+```
+
+关键参数说明：
+
+- `-DLLVM_ENABLE_PROJECTS="clang;lld"`：同时编译 Clang 前端与 LLD 链接器，无需单独构建
+- `-DLLVM_INCLUDE_BENCHMARKS=OFF`：关闭基准测试模块，解决高版本 GCC 下 `std::numeric_limits` 头文件缺失报错
+- `-DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10`：统一安装路径，与系统环境完全隔离
+
+###### 2.4 编译与安装
+
+```sh
+# 自动调用全部 CPU 核心加速编译
+make -j$(nproc)
+sudo make install
+```
+
+###### 2.5 验证安装结果
+
+```sh
+/usr/local/llvm-10/bin/clang --version
+/usr/local/llvm-10/bin/lld --version
+/usr/local/llvm-10/bin/llvm-config --version
+```
+
+输出版本号均为 10.x 即为安装成功。
+
+---
+
+##### 三、源码编译安装 GCC 7.5.0
+
+###### 3.1 下载源码包（华中科大国内镜像）
+
+```sh
+cd ~
+# 清理可能存在的不完整下载文件
+rm -f gcc-7.5.0.tar.gz
+wget http://mirrors.hust.edu.cn/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
+```
+
+###### 3.2 解压源码
+
+```sh
+tar -zxvf gcc-7.5.0.tar.gz
+```
+
+###### 3.3 创建独立构建目录
+
+```sh
+cd gcc-7.5.0
+mkdir build && cd build
+```
+
+###### 3.4 编译配置（适配 Ubuntu 24.04）
+
+```sh
+../configure \
+  --prefix=/usr/local/gcc-7 \
+  --enable-languages=c,c++ \
+  --disable-multilib \
+  --disable-werror \
+  --disable-libsanitizer \
+  --with-system-zlib
+```
+
+关键兼容参数说明：
+
+- `--enable-languages=c,c++`：仅编译 C/C++ 编译器，大幅缩减编译时长与踩坑概率
+- `--disable-werror`：**核心修复项**，不将编译警告视为错误，解决 90% 以上的高版本系统兼容报错
+- `--disable-multilib`：关闭 32 位交叉编译支持，规避 32 位库兼容问题
+- `--disable-libsanitizer`：关闭地址消毒模块，避免高版本 glibc 下编译失败
+
+###### 3.5 编译与安装
+
+```sh
+make -j$(nproc)
+sudo make install
+```
+
+###### 3.6 验证安装结果
+
+```sh
+/usr/local/gcc-7/bin/gcc --version
+/usr/local/gcc-7/bin/g++ --version
+```
+
+输出版本号为 7.5.0 即为安装成功。
+
+---
+
+##### 四、多版本编译器统一管理
+
+使用 Ubuntu 官方标准工具 `update-alternatives` 管理多版本编译器，支持一键切换、随时回退，完全不破坏系统原生环境。
+
+###### 4.1 注册 GCC / G++ 多版本
+
+```sh
+# 注册系统原生 GCC 12，优先级 120（默认优先）
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 120
+
+# 注册源码编译 GCC 7，优先级 70
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/local/gcc-7/bin/gcc 70
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/local/gcc-7/bin/g++ 70
+```
+
+###### 4.2 注册 Clang / Clang++ 多版本
+
+```sh
+# 注册系统原生 Clang 14，优先级 140
+sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 140
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 140
+
+# 注册源码编译 Clang 10，优先级 100
+sudo update-alternatives --install /usr/bin/clang clang /usr/local/llvm-10/bin/clang 100
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/local/llvm-10/bin/clang++ 100
+```
+
+---
+
+##### 五、版本切换与验证
+
+###### 5.1 手动切换全局默认版本
+
+```sh
+# 切换 gcc 版本
+sudo update-alternatives --config gcc
+
+# 切换 g++ 版本
+sudo update-alternatives --config g++
+
+# 切换 clang 版本
+sudo update-alternatives --config clang
+
+# 切换 clang++ 版本
+sudo update-alternatives --config clang++
+```
+
+执行后输入对应编号并回车，即可切换全局默认编译器版本。
+
+###### 5.2 验证当前生效版本
+
+```sh
+gcc --version
+g++ --version
+clang --version
+clang++ --version
+```
+
+---
+
+##### 六、补充说明
+
+1. **断点续编**：编译过程中若 SSH 断开，重新连接后进入对应 `build` 目录，重新执行 `make -j$(nproc)` 即可从断点继续，无需重头开始。
+2. **优先级规则**：优先级数字越大，自动模式下的默认优先级越高；手动选择版本后优先级规则失效。
+3. **使用建议**：日常系统操作保持 GCC 12 为默认版本，编译旧版本项目时临时切换到 GCC 7，避免系统依赖出现异常。
+4. **卸载方式**：若需移除源码编译的版本，直接删除 `/usr/local/llvm-10`、`/usr/local/gcc-7` 目录，再执行 `update-alternatives --remove` 移除对应注册项即可。
 
 !!! 警告
     构建时对`Util/BuildTools/Setup.sh`所做的修改：1. 构建boost时，执行`./bootstrap.sh`的命令中去除了`--with-toolset=clang`选项。2. 对rcplib执行cmake时，去除了`-stdlib=libc++`选项。
