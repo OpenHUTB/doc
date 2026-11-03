@@ -124,7 +124,7 @@
 </ul>
 <p><img alt="carla_lh_coordinates" src="../img/carla_left_handed_coordinates.png"></p>
 <p><img alt="" src="./img/ue/left_hand_rule.png"></p>
-<p>在 HUTB API 中，距离以米为单位测量，角度以度为单位测量。因此，当 HUTB 与其他可能使用<strong>右手坐标系</strong>、角度使用弧度、距离使用厘米或英制单位的应用程序交互时，进行相关的单位转换至关重要。</p>
+<p>在 HUTB API 中，距离以米为单位、角度以度为单位进行测量。因此，当 HUTB 与其他可能使用<strong>右手坐标系</strong>、角度使用弧度、距离使用厘米或英制单位的应用程序交互时，进行相关的单位转换至关重要。</p>
 <hr>
 <h2 id="actor">Actor 坐标</h2>
 <p>车辆和其他 actors（如行人）都有自己的局部坐标系，以帮助保持局部一致的坐标关系，例如传感器位置。</p>
@@ -148,9 +148,9 @@
 <p>可以省略任何或所有关键字参数，相关轴的值将设置为零。</p>
 <hr>
 <h3 id="_3">旋转</h3>
-<p><a href="../python_api/#carlarotation">Rotation 对象</a> 用于定义 HUTB 坐标系中的旋转。旋转以度为单位，顺序为<strong>俯仰角</strong>、<strong>偏航角</strong> 和 <strong>横滚角</strong>。而虚幻引擎旋转是<strong>偏航、俯仰、横滚</strong>。</p>
+<p><a href="../python_api/#carlarotation">Rotation 对象</a> 用于定义 HUTB 坐标系中的旋转。旋转以度为单位，顺序为<strong>俯仰角</strong>、<strong>偏航角</strong> 和 <strong>横滚角</strong>。而虚幻引擎的旋转顺序是<strong>偏航角</strong>、<strong>俯仰角</strong>和<strong>横滚角</strong>。</p>
 <p>以下代码展示了如何创建一个旋转对象，使其横滚角为 10 度，俯仰角为 10 度，偏航角为 90 度：</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 带位置参数的默认构造函数</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 带旋转参数的默认构造函数</span>
 <span class="n">rotation</span> <span class="o">=</span> <span class="n">carla</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 俯仰, 偏航, 横滚</span>
 
 <span class="c1"># 使用关键字参数</span>
@@ -182,7 +182,7 @@
 <span class="o">&gt;&gt;&gt;</span><span class="n">Location</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span><span class="n">Rotation</span><span class="p">(</span><span class="n">pitch</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">roll</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 </code></pre></div>
-<p>transform 对象提供了一些实用函数，用于将变换应用于其他坐标。可以使用 <code>transform()</code> 方法将与变换关联的平移和旋转应用于 Location 或 Vector。此方法用于将变换父对象（例如车辆或其他 actor）局部坐标系中的点转换为全局坐标系中的点。例如，要查找安装在车辆上的传感器在全局坐标系中的位置：</p>
+<p>Transform 对象提供了一些实用函数，用于将变换应用于其他坐标。可以使用 <code>transform()</code> 方法将与变换关联的平移和旋转应用于 Location 或 Vector。此方法用于将变换父对象（例如车辆或其他 actor）局部坐标系中的点转换为全局坐标系中的点。例如，要查找安装在车辆上的传感器在全局坐标系中的位置：</p>
 <div class="highlight"><pre><span></span><code>sensor_local_coord = carla.Location(1,0,0)
 vehicle_transform = vehicle.get_transform()
 sensor_global_coord = vehicle_transform.transform(sensor_local_coord)
@@ -198,7 +198,7 @@ transformed_location = vehicle_transform.inverse_transform(location)
 <hr>
 <h2 id="geocoordinates">地理坐标 Geocoordinates</h2>
 <p>地理坐标是以<strong>纬度</strong>、<strong>经度</strong>和<strong>海拔高度</strong>格式表示的大地坐标，用于表示地球表面上的位置。OpenDRIVE 对 HUTB 地图（<code>.xodr</code> 文件）的定义允许在其元数据中包含地理参考信息。有关 OpenDRIVE 标准中地理参考的更多信息，请参阅 <a href="https://releases.asam.net/OpenDRIVE/1.6.0/ASAM_OpenDRIVE_BS_V1-6-0.html#_georeferencing_in_opendrive">此文档</a> 。</p>
-<p>在 OpenDRIVE 文件中，地理参考信息将以 <georeference> 标签的形式在文件头信息中提供：</georeference></p>
+<p>在 OpenDRIVE 文件中，地理参考信息将以 <code>&lt;geoReference&gt;</code> 标签的形式在文件头信息中提供：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;OpenDRIVE&gt;</span>
 <span class="w">    </span><span class="nt">&lt;header</span><span class="w"> </span><span class="na">revMajor=</span><span class="s">"1"</span><span class="w"> </span><span class="na">revMinor=</span><span class="s">"4"</span><span class="w"> </span><span class="na">name=</span><span class="s">""</span><span class="w"> </span><span class="na">version=</span><span class="s">"1"</span><span class="w"> </span><span class="na">date=</span><span class="s">"2020-07-28T22:34:58"</span><span class="w"> </span><span class="na">north=</span><span class="s">"9.9112975471922624e+1"</span><span class="w"> </span><span class="na">south=</span><span class="s">"-1.7159821787367417e+2"</span><span class="w"> </span><span class="na">east=</span><span class="s">"1.4036590163241959e+2"</span><span class="w"> </span><span class="na">west=</span><span class="s">"-1.4497769211633769e+2"</span><span class="w"> </span><span class="na">vendor=</span><span class="s">"VectorZero"</span><span class="nt">&gt;</span>
