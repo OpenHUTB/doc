@@ -148,7 +148,7 @@
 这也可以使用 <a href="https://github.com/OpenHUTB/doc/blob/master/src/util/config.py"><code>PythonAPI/util/config.py</code></a> 提供的脚本进行设置。 
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--delta-seconds<span class="w"> </span><span class="m">0</span>.05
 </code></pre></div>
-<p>另一种方式是指定模拟的FPS（即时间步长的倒数），例如，要以0.2秒的固定时间步长运行模拟，则执行：
+<p>另一种方式是指定模拟的 FPS（即时间步长的倒数），例如，要以 0.2 秒的固定时间步长运行模拟，则执行：
 </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>-fps<span class="o">=</span><span class="m">5</span>
 </code></pre></div>
 <div class="admonition 重要">
@@ -242,7 +242,7 @@
 <p>要禁用同步模式，只需将变量设置为 false 或使用 <a href="https://github.com/OpenHUTB/doc/blob/master/src/util/config.py"><code>PythonAPI/util/config.py</code></a> 脚本。</p>
 <p></p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>PythonAPI/util<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python3<span class="w"> </span>config.py<span class="w"> </span>--no-sync<span class="w"> </span><span class="c1"># Disables synchronous mode</span>
 </code></pre></div>
-同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户机的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。
+同步模式不能通过脚本启用，只能禁用。启用同步模式将使服务器等待客户端的响应。使用这个脚本，用户不能在需要的时候发送节拍信号。
 <h3 id="_8">使用同步模式 <span id="using-synchronous-mode"></span></h3>
 <p>同步模式在客户端应用程序较慢以及需要不同元素之间的同步，如传感器等情况下尤为重要。如果客户端速度太慢而服务器不等待，信息将会溢出。客户端将无法管理所有内容，信息会丢失或混淆。类似的情况是，如果有很多传感器和异步操作，将无法确定所有传感器是否在模拟中使用来自同一时刻的数据。</p>
 <p>以下代码片段扩展了前一段代码。客户端创建一个相机传感器，将当前步骤的图像数据存储在队列中，并在从队列中检索后勾选服务器。可以<a href="https://github.com/carla-simulator/carla/blob/master/PythonAPI/examples/synchronous_mode.py">在此处</a>找到有关多个传感器的更复杂示例。</p>
@@ -298,7 +298,7 @@
 <li><strong>同步模式+可变时间步长。</strong>这几乎可以肯定是一种不可取的状态。当时间步长大于 0.1 秒时，物理无法正常运行。如果服务器必须等待客户端计算步骤，则很可能会发生这种情况。模拟时间和物理特性不会同步。模拟将不可靠。</li>
 <li><strong>异步模式+可变时间步长。</strong>这是默认的 Carla 状态。客户端和服务器是异步的。模拟时间根据实时流动。重新执行模拟需要考虑浮点数算术误差，以及服务器之间时间步长的可能差异。</li>
 <li><strong>异步模式+固定时间步长。</strong>服务器将尽可能快地运行。检索到的信息将很容易与模拟中的确切时刻相关联。如果服务器速度足够快，这种配置可以以更低的实时度模拟长时间。</li>
-<li><strong>同步模式+固定时间步长。</strong>客户端将统治模拟。时间步长将是固定的。在客户端发送即时报价之前，服务器不会计算以下步骤。当同步和精度相关时，这是最佳模式。尤其是在处理缓慢的客户端或检索信息的不同元素时。</li>
+<li><strong>同步模式+固定时间步长。</strong>客户端将主导模拟。时间步长将是固定的。在客户端发送节拍信号（tick）之前，服务器不会计算接下来的步骤。当关注同步与精度时，这是最佳模式。尤其是在处理缓慢的客户端或需要获取不同元素的信息时。</li>
 </ul>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
