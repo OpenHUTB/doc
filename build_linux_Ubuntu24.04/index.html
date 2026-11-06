@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ubuntu 24.04 上的 HUTB 构建与验证 - 开源孪创</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ubuntu 24.04 \u4e0a\u7684 HUTB \u6784\u5efa\u4e0e\u9a8c\u8bc1";
+        var mkdocs_page_input_path = "build_linux_Ubuntu24.04.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">载具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../vehicle/">无人车</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/air_doc/dev/Carla_Air/">无人机</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/mujoco_plugin/underwater/">潜水器</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Ubuntu 24.04 上的 HUTB 构建与验证</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/build_linux_Ubuntu24.04.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="ubuntu-2404-hutb">Ubuntu 24.04 上的 HUTB 构建与验证</h1>
+<p>本文记录在 <strong>Ubuntu 24.04 LTS</strong> 上从源码构建并运行 HUTB 的完整过程。文中的硬件信息、版本号、文件大小与校验值均取自实际执行的服务器（<code>yxkj-4U-GPU-Server</code>），关键步骤均以实际日志核对过。</p>
+<ul>
+<li><a href="#environment"><strong>一、环境说明</strong></a></li>
+<li><a href="#prerequisites"><strong>二、先决条件</strong></a><ul>
+<li><a href="#base-deps">基础依赖</a></li>
+<li><a href="#multi-compiler">Ubuntu 24.04 多版本编译器环境搭建</a></li>
+<li><a href="#python-env">Python 3.12 与虚拟环境</a></li>
+</ul>
+</li>
+<li><a href="#get-source"><strong>三、获取源码与资产</strong></a></li>
+<li><a href="#build-engine"><strong>四、编译虚幻引擎</strong></a></li>
+<li><a href="#build-hutb"><strong>五、编译 HUTB</strong></a><ul>
+<li><a href="#boost">boost 1.90.0 依赖包（重点）</a></li>
+<li><a href="#patch-setup">修改 Setup.sh</a></li>
+<li><a href="#build-pythonapi">编译 Python API</a></li>
+<li><a href="#build-server">编译服务端</a></li>
+</ul>
+</li>
+<li><a href="#run-verify"><strong>六、运行与验证</strong></a><ul>
+<li><a href="#run-gui">图形界面启动（OpenGL）</a></li>
+<li><a href="#run-headless">无头启动</a></li>
+<li><a href="#fix-libpgm">修复 URLab 插件依赖</a></li>
+<li><a href="#fix-distancefield">修复距离场崩溃</a></li>
+<li><a href="#verify-pythonapi">Python API 联调</a></li>
+</ul>
+</li>
+<li><a href="#package"><strong>七、打包</strong></a></li>
+<li><a href="#faq"><strong>八、问题速查表</strong></a></li>
+</ul>
+<hr>
+<h2 id="_1">一、环境说明 <span id="environment"></span></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主机名</td>
+<td><code>yxkj-4U-GPU-Server</code></td>
+</tr>
+<tr>
+<td>机型</td>
+<td>4U GPU Server（主板型号 <code>60WB32</code>）</td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>Ubuntu 24.04 LTS（x86_64），内核 <code>7.0.0-38-generic</code></td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>Intel Xeon Gold 6330 @ 2.00 GHz，28 核 / 56 线程（单路）</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>62 GiB</td>
+</tr>
+<tr>
+<td>磁盘</td>
+<td>3.5 TB NVMe（根分区剩余约 2.8 TB）</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>NVIDIA RTX A6000，49140 MiB 显存</td>
+</tr>
+<tr>
+<td>显卡驱动</td>
+<td><code>595.99.02</code>（专有驱动）</td>
+</tr>
+<tr>
+<td>当前生效编译器</td>
+<td><code>gcc/g++ 7.5.0</code>（手动切换）、<code>clang/clang++ 10.0.1</code></td>
+</tr>
+<tr>
+<td>系统预装编译器</td>
+<td><code>gcc-12</code>、<code>g++-12</code>、<code>clang-14</code></td>
+</tr>
+<tr>
+<td>补充编译器</td>
+<td>源码编译 <code>GCC 7.5.0</code>、<code>LLVM/Clang/LLD 10.0.1</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.12.3（虚拟环境 <code>~/hutb_venv</code>）</td>
+</tr>
+<tr>
+<td>目标版本</td>
+<td>HUTB 2.10.1（Carla 分支，虚幻引擎 4.26）</td>
+</tr>
+<tr>
+<td>源码路径</td>
+<td><code>~/hutb</code>、<code>~/UnrealEngine_4.26</code></td>
+</tr>
+</tbody>
+</table>
+<p>已验证通过的关键节点：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>命令</th>
+<th>验证结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编译器</td>
+<td><code>gcc --version</code>、<code>clang --version</code></td>
+<td><code>GCC 7.5.0</code>、<code>clang 10.0.1</code>，<code>/usr/local/gcc-7</code>、<code>/usr/local/llvm-10</code> 均存在</td>
+</tr>
+<tr>
+<td>引擎编译</td>
+<td><code>make</code>（<code>~/UnrealEngine_4.26</code>）</td>
+<td>编译完成，<code>UE4Editor</code> 可执行</td>
+</tr>
+<tr>
+<td>依赖包</td>
+<td>boost 1.90.0</td>
+<td><code>boost_1_90_0.tar.gz</code> 201 MB，SHA256 校验通过，<code>Build/boost-1.90.0-c10-install</code> 190 MB</td>
+</tr>
+<tr>
+<td>Python API</td>
+<td><code>make PythonAPI</code></td>
+<td>生成 36.3 MB（36348333 字节）的 <code>hutb-2.10.1-cp312-cp312-linux_x86_64.whl</code>，<code>import carla</code> 正常</td>
+</tr>
+<tr>
+<td>服务端编译</td>
+<td><code>make launch</code></td>
+<td>编译错误数为 0，9/9 目标（<code>CarlaUE4Editor.target</code>）编译完成，18 个插件</td>
+</tr>
+<tr>
+<td>服务端运行</td>
+<td><code>UE4Editor ... -game -opengl -RenderOffScreen</code></td>
+<td><code>Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)</code>，加载 <code>Town10HD</code>，端口 2000/2001 处于监听</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>关闭距离场后持续运行</td>
+<td>连续运行近 30 分钟无崩溃，URLab 插件加载成功，端口保持监听</td>
+</tr>
+<tr>
+<td>打包</td>
+<td><code>make package</code></td>
+<td><code>BUILD SUCCESSFUL</code>、<code>EXIT_CODE=0</code>，产物 <code>Build/UE4Carla/43516c3-dirty</code> 共 26 GB</td>
+</tr>
+<tr>
+<td>打包产物运行</td>
+<td><code>LinuxNoEditor/CarlaUE4.sh</code></td>
+<td>监听 2000/2001/2002，PythonAPI 连接成功（<code>Town10HD</code>），生成 10 辆车流正常</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_2">二、先决条件 <span id="prerequisites"></span></h2>
+<h3 id="_3">基础依赖 <span id="base-deps"></span></h3>
+<p>统一安装所有编译所需依赖，避免中途缺包中断：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>python3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>libgmp-dev<span class="w"> </span>libmpfr-dev<span class="w"> </span>libmpc-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>gcc-multilib<span class="w"> </span>g++-multilib<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>zlib1g-dev<span class="w"> </span>g++-10<span class="w"> </span>clang++-10
+</code></pre></div>
+<p>运行与调试还需要以下软件（本文后续步骤会用到）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 无头运行所需的虚拟显示（有真实桌面时可跳过）</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>xvfb
+
+<span class="c1"># 引擎依赖下载脚本需要 mono</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>mono-complete
+</code></pre></div>
+<h3 id="ubuntu-2404">Ubuntu 24.04 多版本编译器环境搭建 <span id="multi-compiler"></span></h3>
+<ul>
+<li>搭建目标：源码编译安装 <strong>GCC 7.5.0</strong>、<strong>LLVM/Clang/LLD 10.x</strong>，与系统原生编译器多版本共存</li>
+<li>管理方案：使用 <code>update-alternatives</code> 统一管理，禁止直接软链接覆盖系统二进制文件，避免依赖崩坏</li>
+</ul>
+<h4 id="1-llvm-10-clang-lld">1. 源码编译安装 LLVM 10 + Clang + LLD</h4>
+<p>拉取指定分支源码（国内代理加速）：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>release/10.x<span class="w"> </span>--recursive<span class="w"> </span>https://ghfast.top/https://github.com/llvm/llvm-project.git
+</code></pre></div>
+<p>官方推荐源码外构建，避免污染源码目录，支持多次构建：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>llvm-project
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</code></pre></div>
+<p>CMake 构建配置：</p>
+<div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">"Unix Makefiles"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DLLVM_ENABLE_PROJECTS<span class="o">=</span><span class="s2">"clang;lld"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/llvm-10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DLLVM_INCLUDE_BENCHMARKS<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>../llvm
+</code></pre></div>
+<p>关键参数说明：</p>
+<ul>
+<li><code>-DLLVM_ENABLE_PROJECTS="clang;lld"</code>：同时编译 Clang 前端与 LLD 链接器，无需单独构建</li>
+<li><code>-DLLVM_INCLUDE_BENCHMARKS=OFF</code>：关闭基准测试模块，解决高版本 GCC 下 <code>std::numeric_limits</code> 头文件缺失报错</li>
+<li><code>-DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10</code>：统一安装路径，与系统环境完全隔离</li>
+</ul>
+<p>编译与安装：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 自动调用全部 CPU 核心加速编译</span>
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div>
+<p>验证安装结果：</p>
+<div class="highlight"><pre><span></span><code>/usr/local/llvm-10/bin/clang<span class="w"> </span>--version
+/usr/local/llvm-10/bin/lld<span class="w"> </span>--version
+/usr/local/llvm-10/bin/llvm-config<span class="w"> </span>--version
+</code></pre></div>
+<p>输出版本号均为 10.x 即为安装成功。</p>
+<h4 id="2-gcc-750">2. 源码编译安装 GCC 7.5.0</h4>
+<p>下载源码包（华中科大国内镜像）：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
+<span class="c1"># 清理可能存在的不完整下载文件</span>
+rm<span class="w"> </span>-f<span class="w"> </span>gcc-7.5.0.tar.gz
+wget<span class="w"> </span>http://mirrors.hust.edu.cn/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
+</code></pre></div>
+<p>解压源码并创建独立构建目录：</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-zxvf<span class="w"> </span>gcc-7.5.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>gcc-7.5.0
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</code></pre></div>
+<p>编译配置（适配 Ubuntu 24.04）：</p>
+<div class="highlight"><pre><span></span><code>../configure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--prefix<span class="o">=</span>/usr/local/gcc-7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--enable-languages<span class="o">=</span>c,c++<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--disable-multilib<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--disable-werror<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--disable-libsanitizer<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--with-system-zlib
+</code></pre></div>
+<p>关键兼容参数说明：</p>
+<ul>
+<li><code>--enable-languages=c,c++</code>：仅编译 C/C++ 编译器，大幅缩减编译时长与踩坑概率</li>
+<li><code>--disable-werror</code>：<strong>核心修复项</strong>，不将编译警告视为错误，解决 90% 以上的高版本系统兼容报错</li>
+<li><code>--disable-multilib</code>：关闭 32 位交叉编译支持，规避 32 位库兼容问题</li>
+<li><code>--disable-libsanitizer</code>：关闭地址消毒模块，避免高版本 glibc 下编译失败</li>
+</ul>
+<p>编译与安装：</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div>
+<p>验证安装结果：</p>
+<div class="highlight"><pre><span></span><code>/usr/local/gcc-7/bin/gcc<span class="w"> </span>--version
+/usr/local/gcc-7/bin/g++<span class="w"> </span>--version
+</code></pre></div>
+<p>输出版本号为 7.5.0 即为安装成功。</p>
+<h4 id="3">3. 多版本编译器统一管理</h4>
+<p>使用 Ubuntu 官方标准工具 <code>update-alternatives</code> 管理多版本编译器，支持一键切换、随时回退，完全不破坏系统原生环境。</p>
+<p>注册 GCC / G++ 多版本：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 注册系统原生 GCC 12，优先级 120（默认优先）</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/gcc<span class="w"> </span>gcc<span class="w"> </span>/usr/bin/gcc-12<span class="w"> </span><span class="m">120</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/bin/g++-12<span class="w"> </span><span class="m">120</span>
+
+<span class="c1"># 注册源码编译 GCC 7，优先级 70</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/gcc<span class="w"> </span>gcc<span class="w"> </span>/usr/local/gcc-7/bin/gcc<span class="w"> </span><span class="m">70</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/local/gcc-7/bin/g++<span class="w"> </span><span class="m">70</span>
+</code></pre></div>
+<p>注册 Clang / Clang++ 多版本：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 注册系统原生 Clang 14，优先级 180</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/bin/clang-14<span class="w"> </span><span class="m">180</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/bin/clang++-14<span class="w"> </span><span class="m">180</span>
+
+<span class="c1"># 注册源码编译 Clang 10，优先级 200（自动模式下默认选中）</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/local/llvm-10/bin/clang<span class="w"> </span><span class="m">200</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/local/llvm-10/bin/clang++<span class="w"> </span><span class="m">200</span>
+</code></pre></div>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p>本机最终状态：<code>gcc</code>/<code>g++</code> 为<strong>手动模式</strong>，指向 <code>/usr/local/gcc-7/bin/gcc</code>（7.5.0）；<code>clang</code>/<code>clang++</code> 为<strong>自动模式</strong>，因优先级 200 高于 180，指向 <code>/usr/local/llvm-10/bin/clang-10</code>（10.0.1）。可用以下命令核对：</p>
+<div class="highlight"><pre><span></span><code>update-alternatives<span class="w"> </span>--display<span class="w"> </span>gcc
+update-alternatives<span class="w"> </span>--display<span class="w"> </span>clang
+</code></pre></div>
+</div>
+<p>版本切换与验证：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 切换全局默认版本</span>
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>gcc
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>g++
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>clang
+sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>clang++
+
+<span class="c1"># 验证当前生效版本</span>
+gcc<span class="w"> </span>--version
+g++<span class="w"> </span>--version
+clang<span class="w"> </span>--version
+clang++<span class="w"> </span>--version
+</code></pre></div>
+<p>补充说明：</p>
+<ol>
+<li><strong>断点续编</strong>：编译过程中若 SSH 断开，重新连接后进入对应 <code>build</code> 目录，重新执行 <code>make -j$(nproc)</code> 即可从断点继续，无需重头开始。</li>
+<li><strong>优先级规则</strong>：优先级数字越大，自动模式下的默认优先级越高；手动选择版本后优先级规则失效。</li>
+<li><strong>使用建议</strong>：日常系统操作保持 GCC 12 为默认版本，编译旧版本项目时临时切换到 GCC 7，避免系统依赖出现异常。</li>
+<li><strong>卸载方式</strong>：若需移除源码编译的版本，直接删除 <code>/usr/local/llvm-10</code>、<code>/usr/local/gcc-7</code> 目录，再执行 <code>update-alternatives --remove</code> 移除对应注册项即可。</li>
+</ol>
+<h3 id="python-312">Python 3.12 与虚拟环境 <span id="python-env"></span></h3>
+<p>Ubuntu 24.04 的系统 Python 为 3.12.3，并启用了 PEP 668 保护，直接 <code>pip install</code> 会被拒绝，因此统一使用虚拟环境：</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>~/hutb_venv
+<span class="nb">source</span><span class="w"> </span>~/hutb_venv/bin/activate
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+</code></pre></div>
+<p>本机实测：虚拟环境中为 <strong>numpy 2.5.4</strong>，wheel 构建与 <code>import carla</code> 均正常。若编译 Boost.Python 阶段报 numpy 相关错误，再检查并降级到 <code>pip install "numpy&lt;2"</code>。</p>
+<hr>
+<h2 id="_4">三、获取源码与资产 <span id="get-source"></span></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># HUTB 主仓库</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/hutb.git<span class="w"> </span>~/hutb
+
+<span class="c1"># Carla 分支的虚幻引擎 4.26</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/engine.git<span class="w"> </span>~/UnrealEngine_4.26
+</code></pre></div>
+<p>下载并解压资产（本机解压后 <code>Unreal/CarlaUE4/Content/Carla</code> 约 24 GB，请预留足够磁盘空间）：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+./Update.sh
+</code></pre></div>
+<p>设置虚幻引擎环境变量：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
+</code></pre></div>
+<p>如需持久生效，将上面一行追加到 <code>~/.bashrc</code> 后执行 <code>source ~/.bashrc</code>。</p>
+<hr>
+<h2 id="_5">四、编译虚幻引擎 <span id="build-engine"></span></h2>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26
+./Setup.sh
+./GenerateProjectFiles.sh
+make
+</code></pre></div>
+<p>该步骤耗时较长，建议在 <code>tmux</code> 会话中执行，防止 SSH 断线中断：</p>
+<div class="highlight"><pre><span></span><code>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span>engine
+<span class="c1"># 在会话内执行上面的编译命令；断线后 tmux attach -t engine 可继续查看</span>
+</code></pre></div>
+<h3 id="_6">常见问题</h3>
+<p><strong>1. 脚本没有执行权限</strong></p>
+<div class="highlight"><pre><span></span><code>bash: ./Setup.sh: Permission denied
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>Setup.sh
+chmod<span class="w"> </span>+x<span class="w"> </span>Engine/Build/BatchFiles/Linux/GitDependencies.sh
+</code></pre></div>
+<p><strong>2. Mono 版本不兼容</strong></p>
+<div class="highlight"><pre><span></span><code>Corlib not in sync with this runtime: expected corlib string (ABB721D6-...) but not found or not string
+</code></pre></div>
+<p>第一步：把引擎自带的旧 Mono 改名隐藏，强制使用系统 Mono：</p>
+<div class="highlight"><pre><span></span><code>mv<span class="w"> </span>Engine/Binaries/ThirdParty/Mono/Linux<span class="w"> </span>Engine/Binaries/ThirdParty/Mono/Linux_broken
+</code></pre></div>
+<p>第二步：用系统 <code>mono</code> 运行依赖下载程序（支持断点续传）：</p>
+<div class="highlight"><pre><span></span><code>mono<span class="w"> </span>Engine/Binaries/DotNET/GitDependencies.exe<span class="w"> </span>--prompt
+</code></pre></div>
+<p>第三步：为下载得到的脚本补上可执行权限：</p>
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.sh"</span><span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</code></pre></div>
+<p>第四步：用空白配置覆盖旧版工具生成的 <code>.config</code>，避免 <code>UnrealBuildTool</code> 崩溃：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 制作一个干净的配置文件空壳</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'&lt;?xml version="1.0" encoding="utf-8" ?&gt;&lt;configuration&gt;&lt;/configuration&gt;'</span><span class="w"> </span>&gt;<span class="w"> </span>clean.config
+<span class="c1"># 2. 先查看系统到底找出了哪些文件，确认无误后再覆盖源码模板</span>
+find<span class="w"> </span>Engine/Source/Programs<span class="w"> </span>-name<span class="w"> </span><span class="s2">"App.config"</span>
+find<span class="w"> </span>Engine/Source/Programs<span class="w"> </span>-name<span class="w"> </span><span class="s2">"App.config"</span><span class="w"> </span>-exec<span class="w"> </span>cp<span class="w"> </span>clean.config<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+<span class="c1"># 3. 再覆盖已经生成的配置</span>
+find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.config"</span>
+find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.config"</span><span class="w"> </span>-exec<span class="w"> </span>cp<span class="w"> </span>clean.config<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</code></pre></div>
+<p><strong>3. <code>make</code> 时内存不足</strong></p>
+<p>引擎默认使用全部 CPU 核心并行编译，内存不足时会被系统杀死。可编辑
+<code>~/UnrealEngine_4.26/Engine/Saved/UnrealBuildTool/BuildConfiguration.xml</code>，限制并行核数：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span>
+<span class="nt">&lt;Configuration</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"https://www.unrealengine.com/BuildConfiguration"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;BuildConfiguration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxParallelActions&gt;</span>7<span class="nt">&lt;/MaxParallelActions&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bAllowParallelExecutor&gt;</span>true<span class="nt">&lt;/bAllowParallelExecutor&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/BuildConfiguration&gt;</span>
+<span class="w">  </span><span class="nt">&lt;SNDBS&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>4<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>4<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/SNDBS&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ParallelExecutor&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ProcessorCountMultiplier&gt;</span>7<span class="nt">&lt;/ProcessorCountMultiplier&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxProcessorCount&gt;</span>7<span class="nt">&lt;/MaxProcessorCount&gt;</span>
+<span class="w">    </span><span class="nt">&lt;bStopCompilationAfterErrors&gt;</span>true<span class="nt">&lt;/bStopCompilationAfterErrors&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/ParallelExecutor&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre></div>
+<p>核数请根据自己的硬件配置调整。编译完成后可用以下命令验证引擎是否正常：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 有屏渲染</span>
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor
+
+<span class="c1"># 无屏渲染</span>
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/Linux<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./UE4Editor<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-unattended<span class="w"> </span>-nosplash<span class="w"> </span>-nop4
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>若出现 <code>InitSDL() failed, cannot create application instance</code>，说明当前会话没有可用的图形显示，请改用上面的无屏渲染命令，或在 SSH 会话中先执行 <code>export DISPLAY=:1</code>（服务器已登录桌面时）。</p>
+</div>
+<hr>
+<h2 id="hutb">五、编译 HUTB <span id="build-hutb"></span></h2>
+<p>以下命令均在 HUTB 根目录（<code>~/hutb</code>）执行。</p>
+<h3 id="boost-1900">boost 1.90.0 依赖包（重点）<span id="boost"></span></h3>
+<p><code>make PythonAPI</code> 会先编译 Boost.Python。<code>Setup.sh</code> 中固定了版本：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">BOOST_VERSION</span><span class="o">=</span><span class="m">1</span>.90.0
+<span class="nv">BOOST_PACKAGE_BASENAME</span><span class="o">=</span>boost_1_90_0
+</code></pre></div>
+<p>也就是需要下载 <strong><code>boost_1_90_0.tar.gz</code></strong>（约 201 MB）。在本机整个构建过程中，这一步耗时最多、反复最多，必须单独说明。</p>
+<p>最终可用的源包（已核对）：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>实测值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件路径</td>
+<td><code>~/hutb/Build/dependencies/src/boost_1_90_0.tar.gz</code></td>
+</tr>
+<tr>
+<td>文件大小</td>
+<td><code>210975925</code> 字节（约 201 MiB）</td>
+</tr>
+<tr>
+<td>SHA256</td>
+<td><code>5e93d582aff26868d581a52ae78c7d8edf3f3064742c6e77901a1f18a437eea9</code></td>
+</tr>
+<tr>
+<td>校验结果</td>
+<td>与 <code>Setup.sh</code> 中的 <code>BOOST_SHA256SUM</code> 完全一致</td>
+</tr>
+<tr>
+<td>编译产物</td>
+<td><code>~/hutb/Build/boost-1.90.0-c10-install</code>（190 MB，含 <code>libboost_python</code> 等）</td>
+</tr>
+</tbody>
+</table>
+<p>校验方法：</p>
+<div class="highlight"><pre><span></span><code>sha256sum<span class="w"> </span>~/hutb/Build/dependencies/src/boost_1_90_0.tar.gz
+</code></pre></div>
+<p>下载过程中实际踩过的坑：</p>
+<ol>
+<li><strong>代理返回 404</strong>：用 <code>ghfast.top</code> 代理下载 GitHub Release 资产时，因 release 资产命名与 URL 不匹配直接 404。</li>
+<li><strong>单线程下载极慢</strong>：改用官方 <code>archives.boost.io</code> 源、单线程 <code>wget</code>，速率只有约 <strong>44 KB/s</strong>，201 MB 耗时 <strong>1 小时 19 分 44 秒</strong>；另一次 116 MB 的包耗时 <strong>6 分 41 秒</strong>（约 297 KB/s）。</li>
+<li><strong>文件“下载完却找不到”</strong>：<code>wget</code> 残留的半成品文件、<code>aria2c</code> 对同名文件自动重命名（追加 <code>.1</code>/<code>.2</code>），导致误以为下载失败而重复下载，进一步拉长了时间。</li>
+<li><strong>最终成功的方式</strong>：用 <code>aria2c</code> 16 线程断点续传，同样从 <code>archives.boost.io</code> 下载，<strong>13 秒完成</strong>（约 <strong>27 MB/s</strong>）。</li>
+</ol>
+<p>推荐下载命令：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>dependencies/src
+aria2c<span class="w"> </span>-x<span class="w"> </span><span class="m">16</span><span class="w"> </span>-s<span class="w"> </span><span class="m">16</span><span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>boost_1_90_0.tar.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://archives.boost.io/release/1.90.0/source/boost_1_90_0.tar.gz
+sha256sum<span class="w"> </span>boost_1_90_0.tar.gz
+mv<span class="w"> </span>boost_1_90_0.tar.gz<span class="w"> </span>dependencies/src/
+</code></pre></div>
+<div class="admonition 重要">
+<p class="admonition-title">重要</p>
+<p>本项目对 <code>Setup.sh</code> 做了改造：优先使用 <code>dependencies/src/boost_1_90_0.tar.gz</code> 本地包（校验通过则完全不联网）；本地包缺失或校验失败时才依次回退到 boost 官网、CARLA 的 backblaze 备份。这样换机器或重编时不必再次经历上面的下载过程。</p>
+</div>
+<p>对应逻辑（<code>Util/BuildTools/Setup.sh</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="o">=</span>boost_<span class="si">${</span><span class="nv">BOOST_VERSION</span><span class="p">//./_</span><span class="si">}</span>
+
+<span class="c1"># 优先使用本地包</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"dependencies/src/</span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span><span class="s2">.tar.gz"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>cp<span class="w"> </span><span class="s2">"dependencies/src/</span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span><span class="s2">.tar.gz"</span><span class="w"> </span>.
+<span class="k">fi</span>
+
+<span class="c1"># 本地包缺失或校验不通过时，从 boost 官网下载</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span><span class="s2">.tar.gz"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>sha256sum<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span><span class="s2">.tar.gz"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s2">" "</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BOOST_SHA256SUM</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>wget<span class="w"> </span><span class="s2">"https://archives.boost.io/release/</span><span class="si">${</span><span class="nv">BOOST_VERSION</span><span class="si">}</span><span class="s2">/source/</span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span><span class="s2">.tar.gz"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-O<span class="w"> </span><span class="si">${</span><span class="nv">BOOST_PACKAGE_BASENAME</span><span class="si">}</span>.tar.gz<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="k">fi</span>
+</code></pre></div>
+<h3 id="setupsh">修改 Setup.sh <span id="patch-setup"></span></h3>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p>本机对 <code>Util/BuildTools/Setup.sh</code> 的实际修改共两处，否则依赖编译失败：
+1. 构建 boost 时，执行 <code>./bootstrap.sh</code> 的命令中去掉了 <code>--with-toolset=clang</code> 选项；
+2. 对 rpclib 执行 cmake 时，去掉了 <code>-stdlib=libc++</code> 选项。</p>
+</div>
+<h3 id="python-api">编译 Python API <span id="build-pythonapi"></span></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+<span class="nb">source</span><span class="w"> </span>~/hutb_venv/bin/activate
+make<span class="w"> </span>PythonAPI<span class="w"> </span><span class="nv">ARGS</span><span class="o">=</span><span class="s2">"--python-version=3.12"</span>
+</code></pre></div>
+<p>编译完成后在 <code>PythonAPI/carla/dist</code> 下生成 wheel，本机实际产物为：</p>
+<div class="highlight"><pre><span></span><code>hutb-2.10.1-cp312-cp312-linux_x86_64.whl
+</code></pre></div>
+<p>安装并验证：</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>PythonAPI/carla/dist/hutb-2.10.1-cp312-cp312-linux_x86_64.whl
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import carla; print('carla ok')"</span>
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>本机使用 Python 3.12.3 虚拟环境，numpy 为 2.5.4，wheel 构建与导入均正常。若编译 Boost.Python 时报 NumPy 相关错误，先执行 <code>python3 -m pip show numpy</code> 确认版本，必要时降级到 <code>numpy&lt;2</code> 再编译。</p>
+</div>
+<h3 id="_7">编译服务端 <span id="build-server"></span></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
+make<span class="w"> </span>launch
+</code></pre></div>
+<p>本机验证结果：<strong>编译错误数为 0，9/9 目标（<code>CarlaUE4Editor.target</code>）编译完成</strong>，产物为 <code>Unreal/CarlaUE4/Binaries/Linux/libUE4Editor-CarlaUE4.so</code>，<code>Unreal/CarlaUE4/Plugins</code> 下共 <strong>18 个插件</strong>。</p>
+<div class="admonition 笔记">
+<p class="admonition-title">笔记</p>
+<p><code>make launch</code> 只完成编译并不代表编辑器一定能启动。本机在无图形会话中执行时，编译全部通过，但编辑器报 <code>InitSDL() failed, cannot create application instance</code> 后退出（<code>make</code> 返回错误 1）。此时需先 <code>export DISPLAY=:1</code>（服务器已登录桌面），或在 SSH 中使用 <code>xvfb-run</code>，或改用下文的 <code>-RenderOffScreen</code> 无头启动。</p>
+</div>
+<p>如遇大面积报错 <code>error opening .../wd4103: Not a directory</code>（AirSim 脚本携带 Windows 专属的 <code>/wd4103</code> 参数），按以下步骤处理：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 抹除 Carla 与 UE4 源码中的该参数</span>
+find<span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.cs"</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/-wd4103//g'</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/UnrealBuildTool<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.cs"</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/\/wd4103//g'</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/hutb<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.cs"</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/-wd4103//g'</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span>~/hutb<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.cs"</span><span class="w"> </span>-exec<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/\/wd4103//g'</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+
+<span class="c1"># 2. 删除旧的构建工具与受污染的中间文件，重新生成</span>
+rm<span class="w"> </span>-f<span class="w"> </span>~/UnrealEngine_4.26/Engine/Binaries/DotNET/UnrealBuildTool.exe
+<span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./GenerateProjectFiles.sh
+rm<span class="w"> </span>-rf<span class="w"> </span>~/UnrealEngine_4.26/Engine/Intermediate/Build/Linux/B4D820EA
+rm<span class="w"> </span>-rf<span class="w"> </span>~/hutb/Unreal/CarlaUE4/Intermediate
+</code></pre></div>
+<p>若编译成功但启动时进程被杀死（Error 137），说明内存不足，可临时增加交换空间并限制着色器编译线程：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>fallocate<span class="w"> </span>-l<span class="w"> </span>4G<span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile_temp
+sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile_temp
+</code></pre></div>
+<p>并在 <code>~/UnrealEngine_4.26/Engine/Config/BaseEngine.ini</code> 中设置 <code>NumUnusedShaderCompilingThreads=12</code>（保留 12 个核心不参与着色器编译，按硬件调整）。</p>
+<hr>
+<h2 id="_8">六、运行与验证 <span id="run-verify"></span></h2>
+<h3 id="opengl">图形界面启动（OpenGL）<span id="run-gui"></span></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+./BuildCarlaUE4.sh<span class="w"> </span>--launch<span class="w"> </span>--opengl
+</code></pre></div>
+<div class="admonition 警告">
+<p class="admonition-title">警告</p>
+<p><strong>不要使用默认的 Vulkan 后端</strong>。本机驱动 <code>595.99.02</code> 与 UE4 4.26 的 Vulkan 后端不兼容，启动约 7 分钟后会在渲染线程崩溃：</p>
+<div class="highlight"><pre><span></span><code>Unhandled Exception: SIGSEGV
+libUE4Editor-VulkanRHI.so!FVulkanMemoryManager::...
+</code></pre></div>
+<p>此时显存占用仅 673 MB，并非显存不足。改用 <code>--opengl</code>（<code>BuildCarlaUE4.sh</code> 默认 <code>RHI="-vulkan"</code>，第 62 行的 <code>--opengl</code> 会切换为 <code>-opengl</code>）即可正常启动。</p>
+</div>
+<p>首次启动需要编译 1 万多个着色器并构建网格距离场，耗时较长，期间日志会持续输出 <code>shaders left to compile</code>，属于正常现象。后续启动因有 DDC 缓存会快很多。若也在启动若干帧后遇到距离场崩溃，按<a href="#fix-distancefield">第六节</a>关闭距离场即可。</p>
+<h3 id="_9">无头启动 <span id="run-headless"></span></h3>
+<p>没有图形界面或不想打开编辑器时，可直接以游戏模式启动专用服务器：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Unreal/CarlaUE4
+
+<span class="nv">DISPLAY</span><span class="o">=</span>:1<span class="w"> </span><span class="se">\</span>
+<span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux<span class="w"> </span><span class="se">\</span>
+~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor<span class="w"> </span>CarlaUE4.uproject<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-game<span class="w"> </span>-opengl<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
+</code></pre></div>
+<p>建议同样放在 <code>tmux</code> 中运行，并把输出重定向到日志：</p>
+<div class="highlight"><pre><span></span><code>tmux<span class="w"> </span>new<span class="w"> </span>-d<span class="w"> </span>-s<span class="w"> </span>sim<span class="w"> </span><span class="s2">"cd ~/hutb/Unreal/CarlaUE4 &amp;&amp; DISPLAY=:1 \</span>
+<span class="s2">LD_LIBRARY_PATH=~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux \</span>
+<span class="s2">~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor CarlaUE4.uproject \</span>
+<span class="s2">  -game -opengl -RenderOffScreen -nosound -carla-rpc-port=2000 &gt; /tmp/hutb_sim.log 2&gt;&amp;1"</span>
+
+tail<span class="w"> </span>-f<span class="w"> </span>/tmp/hutb_sim.log
+</code></pre></div>
+<p>启动成功的标志：</p>
+<div class="highlight"><pre><span></span><code>LogCarlaServer: Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)
+LogCarlaServer: New episode 'Town10HD' started
+LogTemp: SimWorldGameMode: AirSim bootstrap complete. API server started.
+</code></pre></div>
+<p>检查端口监听：</p>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-tln<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">":2000|:2001"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>LISTEN 0 4096 0.0.0.0:2000 0.0.0.0:*
+LISTEN 0 4096 0.0.0.0:2001 0.0.0.0:*
+</code></pre></div>
+<h3 id="urlab">修复 URLab 插件依赖 <span id="fix-libpgm"></span></h3>
+<p>首次启动时若出现：</p>
+<div class="highlight"><pre><span></span><code>LogCore: Warning: dlopen failed: libpgm-5.2.so.0: cannot open shared object file: No such file or directory
+ModuleManager: Unable to load module '.../Plugins/UnrealRoboticsLab/Binaries/Linux/libUE4Editor-URLab.so'
+</code></pre></div>
+<p>说明 <code>URLab</code> 插件依赖 <code>libpgm-5.2</code>，而 Ubuntu 24.04 只提供 <code>libpgm-5.3</code>。二者 ABI 兼容，可做兼容软链并把库放到插件目录：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>/lib/x86_64-linux-gnu/libpgm-5.3.so.0<span class="w"> </span>/usr/lib/x86_64-linux-gnu/libpgm-5.2.so.0
+sudo<span class="w"> </span>ldconfig
+
+cp<span class="w"> </span>/lib/x86_64-linux-gnu/libpgm-5.3.so.0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux/libpgm-5.2.so.0
+</code></pre></div>
+<p>修改后需要重启服务端才能生效。修复后日志中会出现：</p>
+<div class="highlight"><pre><span></span><code>LogURLab: Registered MuJoCo Asset Category with bitmask: 8192
+</code></pre></div>
+<h3 id="_10">修复距离场崩溃 <span id="fix-distancefield"></span></h3>
+<p>服务端启动后、渲染若干帧（约 400~700 帧）时，可能出现如下崩溃：</p>
+<div class="highlight"><pre><span></span><code>Unhandled Exception: SIGSEGV: invalid attempt to read memory at address 0x...
+libUE4Editor-Engine.so!FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume() const
+libUE4Editor-Engine.so!FPrimitiveSceneShaderData::FPrimitiveSceneShaderData(...)
+libUE4Editor-Renderer.so!UpdateGPUSceneInternal&lt;FRWBufferStructured&gt;(...)
+</code></pre></div>
+<p>原因是首次运行时现场生成网格距离场（distance field），部分网格的距离场数据无效，导致 GPU Scene 更新时崩溃。距离场仅用于阴影与环境光遮蔽等视觉效果，关闭后不影响仿真与 Python API。编辑 <code>~/hutb/Unreal/CarlaUE4/Config/DefaultEngine.ini</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">[/Script/Engine.RendererSettings]</span>
+<span class="na">r.GenerateMeshDistanceFields</span><span class="o">=</span><span class="s">False</span>
+<span class="na">r.DistanceFieldShadowing</span><span class="o">=</span><span class="s">0</span>
+<span class="na">r.DistanceFieldAO</span><span class="o">=</span><span class="s">0</span>
+</code></pre></div>
+<p>修改前建议先备份：</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/hutb/Unreal/CarlaUE4/Config/DefaultEngine.ini<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>~/hutb/Unreal/CarlaUE4/Config/DefaultEngine.ini.bak
+</code></pre></div>
+<p>修改后重新启动服务端。本机实测：关闭距离场后服务端已连续运行近 30 分钟，<strong>0 次崩溃</strong>，<code>rpc=2000</code>/<code>streaming=2001</code> 端口持续监听，<code>Town10HD</code> 地图正常加载。</p>
+<h3 id="python-api_1">Python API 联调 <span id="verify-pythonapi"></span></h3>
+<p>服务端保持运行，另开终端：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/hutb_venv/bin/activate
+<span class="nb">cd</span><span class="w"> </span>~/hutb/PythonAPI/examples
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># 生成车流</span>
+python<span class="w"> </span>generate_traffic.py
+
+<span class="c1"># 切换天气</span>
+python<span class="w"> </span>dynamic_weather.py
+</code></pre></div>
+<p>能够连接 <code>localhost:2000</code> 并生成车辆、天气随时间变化，即表示客户端与服务端联通正常。</p>
+<hr>
+<h2 id="_11">七、打包 <span id="package"></span></h2>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
+<span class="nb">export</span><span class="w"> </span><span class="nv">UE_USE_SYSTEM_MONO</span><span class="o">=</span><span class="m">1</span>
+make<span class="w"> </span>package
+</code></pre></div>
+<p>产物位于 <code>Build/UE4Carla/&lt;package_id&gt;/</code>（本机目标路径为 <code>Build/UE4Carla/43516c3-dirty</code>）。</p>
+<p>实测结果：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UAT 结束状态</td>
+<td><code>BUILD SUCCESSFUL</code>，<code>EXIT_CODE=0</code></td>
+</tr>
+<tr>
+<td>产物大小</td>
+<td>26 GB（<code>LinuxNoEditor</code> 占 26 GB）</td>
+</tr>
+<tr>
+<td>Cook 中间产物</td>
+<td><code>Saved/Cooked</code> 约 24 GB</td>
+</tr>
+<tr>
+<td>可执行入口</td>
+<td><code>LinuxNoEditor/CarlaUE4.sh</code></td>
+</tr>
+<tr>
+<td>启动后监听端口</td>
+<td>2000（RPC）、2001（streaming）、2002（secondary）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><code>make package</code> 在非交互式 shell（如 <code>tmux</code>）中执行时必须显式 <code>export UE4_ROOT</code>，否则会提示 <code>UE4_ROOT is not defined</code>。</p>
+</div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p><code>UE_USE_SYSTEM_MONO=1</code> 不能省略：引擎自带 mono 4.5 的 libs 与系统 mono 6.8 混用会抛 <code>System.Native</code> 的 <code>DllNotFoundException</code>，UAT 在编译 AutomationTool 阶段就会退出。</p>
+</div>
+<h3 id="automationtool-failed-to-compile">报错：AutomationTool failed to compile</h3>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt;&gt; xbuild tool is deprecated and will be removed in future updates, use msbuild instead &lt;&lt;&lt;&lt;
+RunUAT ERROR: AutomationTool failed to compile.
+</code></pre></div>
+<p>根因是 <code>RunUAT.sh</code> 使用 <code>/p:TargetPlatformProfile=</code> 等完整参数调用 <code>xbuild</code>，而 mono 6.8 的 <code>xbuild</code> 会报 <code>MSBUILD0004: Too many project files specified</code>。可用最小参数手动编译一次 AutomationTool：</p>
+<div class="highlight"><pre><span></span><code>xbuild<span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/AutomationTool/AutomationTool.csproj<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/p:Configuration<span class="o">=</span>Development
+</code></pre></div>
+<p>产物为 <code>~/UnrealEngine_4.26/Engine/Binaries/DotNET/AutomationTool.exe</code>。</p>
+<p>随后在 <code>Util/BuildTools/Package.sh</code> 的 BuildCookRun 参数中加入 <code>-nocompile</code> 与 <code>-nocompileeditor</code>，跳过重复编译：</p>
+<div class="highlight"><pre><span></span><code><span class="w">      </span>-nocompileeditor<span class="w"> </span>-nocompile<span class="w"> </span>-nop4<span class="w"> </span>-cook<span class="w"> </span>-stage<span class="w"> </span>-archive<span class="w"> </span>-package<span class="w"> </span>-iterate<span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+<p>再重新执行 <code>make package</code>。</p>
+<h3 id="dll">报错：加载平台脚本 DLL 失败</h3>
+<div class="highlight"><pre><span></span><code>Failed to load script DLL: .../Engine/Binaries/DotNET/AutomationScripts/AllDesktop.Automation.dll
+</code></pre></div>
+<p>同样的报错会依次出现在 <code>Android</code>、<code>BuildGraph</code>、<code>TVOS</code> 等平台脚本上。原因是源码分发中 <code>Engine/Source/Programs/AutomationScripts</code> 下的平台工程从未被编译。逐个编译 16 个工程：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/UnrealEngine_4.26/Engine/Source/Programs/AutomationScripts
+<span class="k">for</span><span class="w"> </span>p<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.Automation.csproj<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>xbuild<span class="w"> </span><span class="s2">"</span><span class="nv">$p</span><span class="s2">"</span><span class="w"> </span>/p:Configuration<span class="o">=</span>Development<span class="w"> </span>/p:Platform<span class="o">=</span>AnyCPU<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/p:LangVersion<span class="o">=</span><span class="m">7</span>.2<span class="w"> </span>/p:WarningLevel<span class="o">=</span><span class="m">0</span><span class="w"> </span>/p:NoWarn<span class="o">=</span><span class="m">1591</span>
+<span class="k">done</span>
+</code></pre></div>
+<ul>
+<li><code>/p:LangVersion=7.2</code>：规避 mono 默认语言版本下的 <code>CS1519</code>/<code>CS1525</code> 语法错误。</li>
+<li><code>/p:WarningLevel=0</code>：<code>CS0219</code> 等警告被当作错误（warnings as errors）时直接降级。</li>
+<li>若 <code>AutomationScripts.Automation.csproj</code> 编译 <code>SyncBinariesFromUGS.Automation.cs</code> 报语法错误（第 271 行多写了一个 <code>};</code>），把该行改为 <code>}</code>，或从工程文件的 <code>&lt;Compile Include=...&gt;</code> 中排除该项。</li>
+</ul>
+<p>产物在 <code>Engine/Binaries/DotNET/AutomationScripts/</code>，上述报错随之消失。</p>
+<h3 id="shipping-__isoc23_strtol">报错：Shipping 链接重复定义 <code>__isoc23_strtol</code></h3>
+<div class="highlight"><pre><span></span><code>ld: duplicate symbol '__isoc23_strtol' in ...
+</code></pre></div>
+<p>Ubuntu 24.04 的 glibc 2.38 起提供了 <code>__isoc23_*</code> 系列符号，而 HUTB 自带的 glibc 兼容 shim 又定义了一遍。给 shim 中的定义加弱符号即可：</p>
+<div class="highlight"><pre><span></span><code><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__isoc23_strtol</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">nptr</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">endptr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">base</span><span class="p">)</span>
+</code></pre></div>
+<p>本机共修改 3 个文件、8 个符号：</p>
+<ul>
+<li><code>Unreal/CarlaUE4/Source/CarlaUE4/GlibcCompat.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/GlibcCompat.cpp</code></li>
+<li><code>Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.cpp</code>（6 个 <code>__isoc23_*</code>）</li>
+</ul>
+<h3 id="cook-exitcode1">报错：Cook 结束 <code>ExitCode=1</code></h3>
+<p>Cook 结束后 UAT 报 <code>ExitCode=1</code> 并中止后续 <code>stage</code>/<code>archive</code>/<code>package</code>。本机日志中的判定来源是 DReyeVR 插件资源“too old / unversioned”，但 <code>Saved/Cooked</code> 已完整产出（约 24 GB）。确认 Cooked 内容完整后，可先跳过 Cook，只跑后三个阶段：把 <code>Util/BuildTools/Package.sh</code> 中的</p>
+<div class="highlight"><pre><span></span><code><span class="w">      </span>-nocompileeditor<span class="w"> </span>-nocompile<span class="w"> </span>-nop4<span class="w"> </span>-cook<span class="w"> </span>-stage<span class="w"> </span>-archive<span class="w"> </span>-package<span class="w"> </span>-iterate<span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+<p>临时改为</p>
+<div class="highlight"><pre><span></span><code><span class="w">      </span>-nocompileeditor<span class="w"> </span>-nocompile<span class="w"> </span>-nop4<span class="w"> </span>-skipcook<span class="w"> </span>-stage<span class="w"> </span>-archive<span class="w"> </span>-package<span class="w"> </span>-iterate<span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+<p>验证通过后再恢复 <code>-cook</code>。</p>
+<h3 id="stage-directorynotfoundexception">报错：Stage 阶段 <code>DirectoryNotFoundException</code></h3>
+<div class="highlight"><pre><span></span><code>System.IO.DirectoryNotFoundException: Couldn't find .../Content/Carla/RoadRunner/Maps/OpenDrive
+</code></pre></div>
+<p><code>DefaultGame.ini</code> 的 <code>DirectoriesToAlwaysStageAsUFS</code> 中声明了以下目录，但源码树里并不存在，UAT 复制时直接失败：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Unreal/CarlaUE4
+mkdir<span class="w"> </span>-p<span class="w"> </span>Content/Carla/RoadRunner/Maps/OpenDrive
+mkdir<span class="w"> </span>-p<span class="w"> </span>Content/roadrunner/map/OpenDrive
+mkdir<span class="w"> </span>-p<span class="w"> </span>Content/roadrunner/ccsp
+</code></pre></div>
+<p>补齐空目录后重新执行 stage/package 即可。</p>
+<h3 id="libmujocoso370">报错：产物启动缺 <code>libmujoco.so.3.7.0</code></h3>
+<div class="highlight"><pre><span></span><code>error while loading shared libraries: libmujoco.so.3.7.0: cannot open shared object file
+</code></pre></div>
+<p>打包产物里的 MuJoCo 目录只带了 <code>libmujoco.so</code> 软链，缺少实际目标文件。从源码树复制：</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/libmujoco.so.3.7.0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/
+</code></pre></div>
+<h3 id="_12">使用打包产物运行</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor
+<span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+./CarlaUE4.sh<span class="w"> </span>-opengl<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
+</code></pre></div>
+<p>实测启动日志末尾：</p>
+<div class="highlight"><pre><span></span><code>Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)
+...
+SimpleFlight
+Resizing viewport due to setres change, 1024 x 768
+</code></pre></div>
+<p><code>ss -tln</code> 中 2000/2001/2002 均在监听，进程 <code>CarlaUE4-Linux-Shipping</code> 持续运行。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>启动打包产物前先退出编辑器（<code>pkill -f "UE4Editor /home/yxkj/hutb"</code>），否则 2000 端口被占用会报 <code>bind: Address already in use</code>。</p>
+</div>
+<h4 id="_13">打包产物联调</h4>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/hutb_venv/bin/activate
+python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">import carla</span>
+<span class="s">c = carla.Client('localhost', 2000)</span>
+<span class="s">c.set_timeout(30)</span>
+<span class="s">w = c.get_world()</span>
+<span class="s">print(c.get_server_version(), w.get_map().name, len(w.get_actors()))</span>
+<span class="s">print(w.get_weather())</span>
+<span class="s">PY</span>
+</code></pre></div>
+<p>实测输出：</p>
+<div class="highlight"><pre><span></span><code>43516c3-dirty Carla/Maps/Town10HD 24
+WeatherParameters(cloudiness=20.000000, precipitation=0.000000, ...)
+</code></pre></div>
+<p>在打包产物上生成、销毁车辆均成功，官方车流示例同样可用：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/PythonAPI/examples
+python<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="w"> </span>--port<span class="w"> </span><span class="m">2000</span>
+</code></pre></div>
+<p>输出 <code>spawned 10 vehicles and 0 walkers</code>，车流在打包版中正常运行。</p>
+<hr>
+<h2 id="_14">八、问题速查表 <span id="faq"></span></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libpgm-5.2.so.0: cannot open shared object file</code></td>
+<td>Ubuntu 24.04 仅有 <code>libpgm-5.3</code></td>
+<td>软链 5.2 到 5.3，并复制到插件 <code>Binaries/Linux</code></td>
+</tr>
+<tr>
+<td>启动约 7 分钟后 <code>SIGSEGV</code>，栈在 <code>VulkanMemory</code></td>
+<td>驱动 595.99.02 与 UE4 4.26 Vulkan 后端不兼容</td>
+<td>改用 <code>-opengl</code> / <code>--opengl</code></td>
+</tr>
+<tr>
+<td><code>FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume</code> 崩溃</td>
+<td>运行时生成的距离场数据无效</td>
+<td>关闭 <code>r.GenerateMeshDistanceFields</code> 等距离场特性</td>
+</tr>
+<tr>
+<td><code>UE4_ROOT is not defined</code></td>
+<td>非交互式 shell 未加载 <code>.bashrc</code></td>
+<td>显式 <code>export UE4_ROOT</code></td>
+</tr>
+<tr>
+<td><code>RunUAT ERROR: AutomationTool failed to compile</code></td>
+<td>mono 6.8 的 <code>xbuild</code> 参数不兼容</td>
+<td>手动 <code>xbuild</code> 编译 AutomationTool，并在 Package.sh 加 <code>-nocompile</code></td>
+</tr>
+<tr>
+<td>UAT 报 <code>System.Native</code> 的 <code>DllNotFoundException</code></td>
+<td>引擎自带 mono 4.5 与系统 mono 6.8 混用</td>
+<td><code>export UE_USE_SYSTEM_MONO=1</code> 后重跑</td>
+</tr>
+<tr>
+<td><code>Failed to load script DLL ... AutomationScripts/*.Automation.dll</code></td>
+<td>平台脚本工程从未编译</td>
+<td>逐个 <code>xbuild</code> 编译 <code>Engine/Source/Programs/AutomationScripts</code> 下的工程</td>
+</tr>
+<tr>
+<td><code>ld: duplicate symbol '__isoc23_strtol'</code></td>
+<td>glibc 2.38+ 与自带兼容 shim 重复定义</td>
+<td>给 shim 中的 <code>__isoc23_*</code> 加 <code>__attribute__((weak))</code></td>
+</tr>
+<tr>
+<td>Cook 结束 <code>ExitCode=1</code>，<code>stage</code> 未执行</td>
+<td>DReyeVR 资源版本过旧</td>
+<td>Cooked 完整时用 <code>-skipcook -stage -archive -package</code> 续跑</td>
+</tr>
+<tr>
+<td>Stage 报 <code>DirectoryNotFoundException: .../OpenDrive</code></td>
+<td><code>DirectoriesToAlwaysStageAsUFS</code> 目录在源码树缺失</td>
+<td><code>mkdir -p</code> 补齐 3 个 OpenDrive/ccsp 目录</td>
+</tr>
+<tr>
+<td>产物启动报 <code>libmujoco.so.3.7.0: cannot open shared object file</code></td>
+<td>产物中只有软链，缺目标文件</td>
+<td>从源树复制 <code>libmujoco.so.3.7.0</code> 并设置 <code>LD_LIBRARY_PATH</code></td>
+</tr>
+<tr>
+<td>启动打包产物报 <code>bind: Address already in use</code></td>
+<td>编辑器仍占用 2000 端口</td>
+<td>先 <code>pkill -f "UE4Editor /home/yxkj/hutb"</code></td>
+</tr>
+<tr>
+<td><code>import carla</code> 报 NumPy 相关错误</td>
+<td>环境中的 numpy 版本不兼容</td>
+<td>在虚拟环境中降级到 <code>numpy&lt;2</code></td>
+</tr>
+<tr>
+<td><code>InitSDL() failed</code></td>
+<td>当前会话无图形显示</td>
+<td>设置 <code>DISPLAY</code>、使用 xvfb 或 <code>-RenderOffScreen</code></td>
+</tr>
+</tbody>
+</table></div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

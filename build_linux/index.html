@@ -103,10 +103,15 @@
                 <div><h1 id="linux">Linux 系统上的构建</h1>
 <p>本指南详细介绍了如何在 Linux 上从源代码构建 Carla。有两个部分。第一部分详细介绍系统要求和所需软件的安装，第二部分详细介绍如何实际构建和运行 Carla。</p>
 <p>构建过程很长（4小时或更长时间）并且涉及多种软件。强烈建议在开始之前完整阅读该指南。</p>
+<div class="admonition 提示">
+<p class="admonition-title">提示</p>
+<p><strong>Ubuntu 24.04 用户</strong>请优先阅读 <a href="../build_linux_Ubuntu24.04/"><strong>Ubuntu 24.04 构建与验证</strong></a>。该文档包含在 24.04 上实测通过的编译器环境搭建（GCC 7.5.0 / LLVM 10）、boost 1.90.0 依赖包、编译运行、OpenGL 启动与常见问题处理；本文保留通用 Linux 构建流程和旧版本 Ubuntu 的依赖说明。</p>
+</div>
 <ul>
 <li><a href="#part-one-prerequisites"><strong>第一部分：先决条件</strong></a><ul>
 <li><a href="#system-requirements">系统要求</a></li>
 <li><a href="#software-requirements">软件要求</a><ul>
+<li><a href="#ubuntu-2404">Ubuntu 24.04</a></li>
 <li><a href="#unreal-engine">虚幻引擎</a></li>
 </ul>
 </li>
@@ -149,152 +154,14 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 <p class="admonition-title">警告</p>
 <p>以下命令取决于您的 Ubuntu 版本。请务必做出相应的选择。</p>
 </div>
-<h4 id="ubuntu-2404">Ubuntu 24.04 多版本编译器环境搭建手册</h4>
-<h5 id="_4">文档说明</h5>
+<h4 id="ubuntu-2404">Ubuntu 24.04 <span id="ubuntu-2404"></span></h4>
+<p>Ubuntu 24.04（系统预装 GCC 12 / Clang 14）下的多版本编译器环境搭建（源码编译 GCC 7.5.0、LLVM/Clang/LLD 10）、boost 1.90.0 依赖、编译与运行验证，已整理为独立文档：</p>
 <ul>
-<li>适用系统：Ubuntu 24.04 LTS</li>
-<li>硬件环境：x86_64 架构 GPU 服务器</li>
-<li>前置驱动：<code>nvidia-driver-470-server</code>（专有驱动）</li>
-<li>系统预装：<code>gcc-12</code>、<code>g++-12</code>、<code>clang-14</code></li>
-<li>搭建目标：源码编译安装 <strong>GCC 7.5.0</strong>、<strong>LLVM/Clang/LLD 10.x</strong>，与系统原生编译器多版本共存</li>
-<li>管理方案：使用 <code>update-alternatives</code> 统一管理，禁止直接软链接覆盖系统二进制文件，避免依赖崩坏</li>
+<li><a href="../build_linux_Ubuntu24.04/"><strong>Ubuntu 24.04 构建与验证</strong></a></li>
 </ul>
-<hr>
-<h5 id="_5">一、安装基础编译依赖</h5>
-<p>统一安装所有编译所需的系统依赖，避免中途缺包中断。</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>python3<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>libgmp-dev<span class="w"> </span>libmpfr-dev<span class="w"> </span>libmpc-dev<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>gcc-multilib<span class="w"> </span>g++-multilib<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>zlib1g-dev<span class="w"> </span>g++-10<span class="w"> </span>clang++-10
-</code></pre></div>
-<hr>
-<h5 id="llvm-10-clang-lld">二、源码编译安装 LLVM 10 + Clang + LLD</h5>
-<h6 id="21">2.1 拉取指定分支源码（国内代理加速）</h6>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
-git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>release/10.x<span class="w"> </span>--recursive<span class="w"> </span>https://ghfast.top/https://github.com/llvm/llvm-project.git
-</code></pre></div>
-<h6 id="22">2.2 创建独立构建目录</h6>
-<p>官方推荐源码外构建，避免污染源码目录，支持多次构建。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>llvm-project
-mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-</code></pre></div>
-<h6 id="23-cmake">2.3 CMake 构建配置</h6>
-<div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">"Unix Makefiles"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DLLVM_ENABLE_PROJECTS<span class="o">=</span><span class="s2">"clang;lld"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/llvm-10<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DLLVM_INCLUDE_BENCHMARKS<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>../llvm
-</code></pre></div>
-<p>关键参数说明：</p>
-<ul>
-<li><code>-DLLVM_ENABLE_PROJECTS="clang;lld"</code>：同时编译 Clang 前端与 LLD 链接器，无需单独构建</li>
-<li><code>-DLLVM_INCLUDE_BENCHMARKS=OFF</code>：关闭基准测试模块，解决高版本 GCC 下 <code>std::numeric_limits</code> 头文件缺失报错</li>
-<li><code>-DCMAKE_INSTALL_PREFIX=/usr/local/llvm-10</code>：统一安装路径，与系统环境完全隔离</li>
-</ul>
-<h6 id="24">2.4 编译与安装</h6>
-<div class="highlight"><pre><span></span><code><span class="c1"># 自动调用全部 CPU 核心加速编译</span>
-make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
-sudo<span class="w"> </span>make<span class="w"> </span>install
-</code></pre></div>
-<h6 id="25">2.5 验证安装结果</h6>
-<div class="highlight"><pre><span></span><code>/usr/local/llvm-10/bin/clang<span class="w"> </span>--version
-/usr/local/llvm-10/bin/lld<span class="w"> </span>--version
-/usr/local/llvm-10/bin/llvm-config<span class="w"> </span>--version
-</code></pre></div>
-<p>输出版本号均为 10.x 即为安装成功。</p>
-<hr>
-<h5 id="gcc-750">三、源码编译安装 GCC 7.5.0</h5>
-<h6 id="31">3.1 下载源码包（华中科大国内镜像）</h6>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~
-<span class="c1"># 清理可能存在的不完整下载文件</span>
-rm<span class="w"> </span>-f<span class="w"> </span>gcc-7.5.0.tar.gz
-wget<span class="w"> </span>http://mirrors.hust.edu.cn/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.gz
-</code></pre></div>
-<h6 id="32">3.2 解压源码</h6>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-zxvf<span class="w"> </span>gcc-7.5.0.tar.gz
-</code></pre></div>
-<h6 id="33">3.3 创建独立构建目录</h6>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>gcc-7.5.0
-mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-</code></pre></div>
-<h6 id="34-ubuntu-2404">3.4 编译配置（适配 Ubuntu 24.04）</h6>
-<div class="highlight"><pre><span></span><code>../configure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--prefix<span class="o">=</span>/usr/local/gcc-7<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--enable-languages<span class="o">=</span>c,c++<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--disable-multilib<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--disable-werror<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--disable-libsanitizer<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--with-system-zlib
-</code></pre></div>
-<p>关键兼容参数说明：</p>
-<ul>
-<li><code>--enable-languages=c,c++</code>：仅编译 C/C++ 编译器，大幅缩减编译时长与踩坑概率</li>
-<li><code>--disable-werror</code>：<strong>核心修复项</strong>，不将编译警告视为错误，解决 90% 以上的高版本系统兼容报错</li>
-<li><code>--disable-multilib</code>：关闭 32 位交叉编译支持，规避 32 位库兼容问题</li>
-<li><code>--disable-libsanitizer</code>：关闭地址消毒模块，避免高版本 glibc 下编译失败</li>
-</ul>
-<h6 id="35">3.5 编译与安装</h6>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
-sudo<span class="w"> </span>make<span class="w"> </span>install
-</code></pre></div>
-<h6 id="36">3.6 验证安装结果</h6>
-<div class="highlight"><pre><span></span><code>/usr/local/gcc-7/bin/gcc<span class="w"> </span>--version
-/usr/local/gcc-7/bin/g++<span class="w"> </span>--version
-</code></pre></div>
-<p>输出版本号为 7.5.0 即为安装成功。</p>
-<hr>
-<h5 id="_6">四、多版本编译器统一管理</h5>
-<p>使用 Ubuntu 官方标准工具 <code>update-alternatives</code> 管理多版本编译器，支持一键切换、随时回退，完全不破坏系统原生环境。</p>
-<h6 id="41-gcc-g">4.1 注册 GCC / G++ 多版本</h6>
-<div class="highlight"><pre><span></span><code><span class="c1"># 注册系统原生 GCC 12，优先级 120（默认优先）</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/gcc<span class="w"> </span>gcc<span class="w"> </span>/usr/bin/gcc-12<span class="w"> </span><span class="m">120</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/bin/g++-12<span class="w"> </span><span class="m">120</span>
-
-<span class="c1"># 注册源码编译 GCC 7，优先级 70</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/gcc<span class="w"> </span>gcc<span class="w"> </span>/usr/local/gcc-7/bin/gcc<span class="w"> </span><span class="m">70</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/g++<span class="w"> </span>g++<span class="w"> </span>/usr/local/gcc-7/bin/g++<span class="w"> </span><span class="m">70</span>
-</code></pre></div>
-<h6 id="42-clang-clang">4.2 注册 Clang / Clang++ 多版本</h6>
-<div class="highlight"><pre><span></span><code><span class="c1"># 注册系统原生 Clang 14，优先级 140</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/bin/clang-14<span class="w"> </span><span class="m">140</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/bin/clang++-14<span class="w"> </span><span class="m">140</span>
-
-<span class="c1"># 注册源码编译 Clang 10，优先级 100</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang<span class="w"> </span>clang<span class="w"> </span>/usr/local/llvm-10/bin/clang<span class="w"> </span><span class="m">100</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/clang++<span class="w"> </span>clang++<span class="w"> </span>/usr/local/llvm-10/bin/clang++<span class="w"> </span><span class="m">100</span>
-</code></pre></div>
-<hr>
-<h5 id="_7">五、版本切换与验证</h5>
-<h6 id="51">5.1 手动切换全局默认版本</h6>
-<div class="highlight"><pre><span></span><code><span class="c1"># 切换 gcc 版本</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>gcc
-
-<span class="c1"># 切换 g++ 版本</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>g++
-
-<span class="c1"># 切换 clang 版本</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>clang
-
-<span class="c1"># 切换 clang++ 版本</span>
-sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--config<span class="w"> </span>clang++
-</code></pre></div>
-<p>执行后输入对应编号并回车，即可切换全局默认编译器版本。</p>
-<h6 id="52">5.2 验证当前生效版本</h6>
-<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>--version
-g++<span class="w"> </span>--version
-clang<span class="w"> </span>--version
-clang++<span class="w"> </span>--version
-</code></pre></div>
-<hr>
-<h5 id="_8">六、补充说明</h5>
-<ol>
-<li><strong>断点续编</strong>：编译过程中若 SSH 断开，重新连接后进入对应 <code>build</code> 目录，重新执行 <code>make -j$(nproc)</code> 即可从断点继续，无需重头开始。</li>
-<li><strong>优先级规则</strong>：优先级数字越大，自动模式下的默认优先级越高；手动选择版本后优先级规则失效。</li>
-<li><strong>使用建议</strong>：日常系统操作保持 GCC 12 为默认版本，编译旧版本项目时临时切换到 GCC 7，避免系统依赖出现异常。</li>
-<li><strong>卸载方式</strong>：若需移除源码编译的版本，直接删除 <code>/usr/local/llvm-10</code>、<code>/usr/local/gcc-7</code> 目录，再执行 <code>update-alternatives --remove</code> 移除对应注册项即可。</li>
-</ol>
+<blockquote>
+<p>以下为 Ubuntu 22.04 及更早版本的依赖安装说明。</p>
+</blockquote>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
 <p>构建时对<code>Util/BuildTools/Setup.sh</code>所做的修改：1. 构建boost时，执行<code>./bootstrap.sh</code>的命令中去除了<code>--with-toolset=clang</code>选项。2. 对rcplib执行cmake时，去除了<code>-stdlib=libc++</code>选项。</p>
@@ -364,7 +231,7 @@ pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w">
 pip3<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>wheel<span class="w"> </span>auditwheel
 </code></pre></div>
 <hr>
-<h4 id="_9">虚幻引擎 <span id="unreal-engine"></span></h4>
+<h4 id="_4">虚幻引擎 <span id="unreal-engine"></span></h4>
 <p>从版本 0.9.12 开始，Carla 使用虚幻引擎 4.26 的修改版。该分支包含 Carla 特有的补丁。</p>
 <p><strong>1.</strong> 将 Carla 的虚幻引擎 4.26 分支的内容克隆到本地计算机：</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/engine.git<span class="w"> </span>~/UnrealEngine_4.26
@@ -475,7 +342,7 @@ find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<
 <p class="admonition-title">笔记</p>
 <p>The <code>master</code> 分支包含 Carla 的当前版本以及最新的修复和功能。以前的 Carla 版本标有版本名称。永远记住使用命令<code>git branch</code>检查 git 中的当前分支。 </p>
 </div>
-<h3 id="_10">获取资产 <span id="get-assets"></span></h3>
+<h3 id="_5">获取资产 <span id="get-assets"></span></h3>
 <p>您需要下载 <strong>最新的</strong> 资源才能使用当前版本的 Carla。我们提供了一个脚本来自动执行此过程。要使用该脚本，请在 Carla 根文件夹中运行以下命令：</p>
 <div class="highlight"><pre><span></span><code>./Update.sh
 </code></pre></div>
@@ -492,7 +359,7 @@ find<span class="w"> </span>Engine/Binaries/DotNET<span class="w"> </span>-name<
 </ol>
 <div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvzf<span class="w"> </span>&lt;assets_file_name&gt;.tar.gz.tar<span class="w"> </span>-C<span class="w"> </span>C:<span class="se">\p</span>ath<span class="se">\t</span>o<span class="se">\c</span>arla<span class="se">\U</span>nreal<span class="se">\C</span>arlaUE4<span class="se">\C</span>ontent<span class="se">\C</span>arla
 </code></pre></div>
-<h3 id="_11">设置虚幻引擎环境变量 <span id="set-unreal-engine-environment-variable"></span></h3>
+<h3 id="_6">设置虚幻引擎环境变量 <span id="set-unreal-engine-environment-variable"></span></h3>
 <p>为了让 Carla 找到虚幻引擎的正确安装，我们需要设置 Carla 环境变量。</p>
 <p>仅为此会话设置变量：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
@@ -693,7 +560,7 @@ python3<span class="w"> </span>dynamic_weather.py<span class="w"> </span>
 </tbody>
 </table>
 <hr>
-<h3 id="_12">运行测试</h3>
+<h3 id="_7">运行测试</h3>
 <p>CARLA 的代码自带一套测试用例，旨在检测新代码变更可能引入的基本功能回归问题。CARLA 的 CI/CD 系统会在每次每日构建和发布前运行这些测试，然后再上传新软件包。如果您自行管理构建，我们建议您至少定期运行测试套件，以便检测破坏性变更。</p>
 <p>首先，根据您最新的更改创建一个 CARLA 包：</p>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>package
@@ -721,16 +588,16 @@ make<span class="w"> </span>clean
 <p>如果任何测试失败，您将在命令行收到警报。您可以在 <code>${CARLA_ROOT}/PythonAPI/test/smoke</code> 中找到冒烟测试。</p>
 <p>You will be alerted on the command line if any tests fail. You can find the smoke tests in <code>${CARLA_ROOT}/PythonAPI/test/smoke</code>. </p>
 <hr>
-<h3 id="_13">其他 <span id="other"></span></h3>
+<h3 id="_8">其他 <span id="other"></span></h3>
 <p>v2ray 的版本不能太高，比如可以使用 <a href="https://github.com/v2fly/v2ray-core/releases/tag/v4.45.2">v4.45.2</a> ，图形界面使用<a href="https://github.com/Qv2ray/Qv2ray/releases">Qv2ray 2.7.0</a> 。</p>
-<h2 id="_14">问题</h2>
+<h2 id="_9">问题</h2>
 <ul>
 <li>执行<code>make Python</code>时报错：</li>
 </ul>
 <p><code>A C++11 capable compiler is required for building the B2 engine.
 Toolset 'clang' does not appear to support C++11.</code></p>
 <h3 id="action-runner">action runner的搭建过程和注意事项</h3>
-<h4 id="_15">搭建步骤</h4>
+<h4 id="_10">搭建步骤</h4>
 <p><strong>1.</strong> <strong>获取注册令牌。（如果不是自己仓库需要找管理员要）</strong> 在 GitHub 页面进入 <em>Settings → Actions → Runners → New self-hosted
 runner</em>，选择 Linux / x64，页面会给出下载地址和一次性注册令牌（有效期约 1 小时，所以一定要及时注册）。</p>
 <p><strong>2.</strong> <strong>下载并解压。（使用最新版本最好，要不然会出现runner启动不了的情况）</strong> 以 v2.338.0 为例（这个相应的指令管理员大概率会给，如果只有token，也可自行在个人仓库查看），实际请使用 GitHub 页面给出的最新版本：</p>
