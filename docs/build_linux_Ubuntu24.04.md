@@ -55,7 +55,8 @@
 | 服务端编译 | `make launch` | 编译错误数为 0，9/9 目标（`CarlaUE4Editor.target`）编译完成，18 个插件 |
 | 服务端运行 | `UE4Editor ... -game -opengl -RenderOffScreen` | `Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)`，加载 `Town10HD`，端口 2000/2001 处于监听 |
 | 稳定性 | 关闭距离场后持续运行 | 连续运行近 30 分钟无崩溃，URLab 插件加载成功，端口保持监听 |
-| 打包 | `make package` | RunUAT 编译报错已修复，尚未重跑完成（见[第七节](#package)） |
+| 打包 | `make package` | `BUILD SUCCESSFUL`、`EXIT_CODE=0`，产物 `Build/UE4Carla/43516c3-dirty` 共 26 GB |
+| 打包产物运行 | `LinuxNoEditor/CarlaUE4.sh` | 监听 2000/2001/2002，PythonAPI 连接成功（`Town10HD`），生成 10 辆车流正常 |
 
 ---
 
@@ -684,16 +685,27 @@ python dynamic_weather.py
 ```sh
 cd ~/hutb
 export UE4_ROOT=~/UnrealEngine_4.26
+export UE_USE_SYSTEM_MONO=1
 make package
 ```
 
 产物位于 `Build/UE4Carla/<package_id>/`（本机目标路径为 `Build/UE4Carla/43516c3-dirty`）。
 
-!!! 警告
-    本次实际执行时，`make package` **尚未成功完成**：目标目录仍为空。已完成的两项修复见下文（手动编译 AutomationTool、`Package.sh` 加 `-nocompile`），修复后还需重新执行一次 `make package`。
+实测结果：
+
+| 项目 | 结果 |
+| --- | --- |
+| UAT 结束状态 | `BUILD SUCCESSFUL`，`EXIT_CODE=0` |
+| 产物大小 | 26 GB（`LinuxNoEditor` 占 26 GB） |
+| Cook 中间产物 | `Saved/Cooked` 约 24 GB |
+| 可执行入口 | `LinuxNoEditor/CarlaUE4.sh` |
+| 启动后监听端口 | 2000（RPC）、2001（streaming）、2002（secondary） |
 
 !!! 注意
     `make package` 在非交互式 shell（如 `tmux`）中执行时必须显式 `export UE4_ROOT`，否则会提示 `UE4_ROOT is not defined`。
+
+!!! 注意
+    `UE_USE_SYSTEM_MONO=1` 不能省略：引擎自带 mono 4.5 的 libs 与系统 mono 6.8 混用会抛 `System.Native` 的 `DllNotFoundException`，UAT 在编译 AutomationTool 阶段就会退出。
 
 ### 报错：AutomationTool failed to compile
 
@@ -719,12 +731,143 @@ xbuild ~/UnrealEngine_4.26/Engine/Source/Programs/AutomationTool/AutomationTool.
 
 再重新执行 `make package`。
 
+### 报错：加载平台脚本 DLL 失败
+
+```text
+Failed to load script DLL: .../Engine/Binaries/DotNET/AutomationScripts/AllDesktop.Automation.dll
+```
+
+同样的报错会依次出现在 `Android`、`BuildGraph`、`TVOS` 等平台脚本上。原因是源码分发中 `Engine/Source/Programs/AutomationScripts` 下的平台工程从未被编译。逐个编译 16 个工程：
+
+```sh
+cd ~/UnrealEngine_4.26/Engine/Source/Programs/AutomationScripts
+for p in *.Automation.csproj; do
+  xbuild "$p" /p:Configuration=Development /p:Platform=AnyCPU \
+    /p:LangVersion=7.2 /p:WarningLevel=0 /p:NoWarn=1591
+done
+```
+
+- `/p:LangVersion=7.2`：规避 mono 默认语言版本下的 `CS1519`/`CS1525` 语法错误。
+- `/p:WarningLevel=0`：`CS0219` 等警告被当作错误（warnings as errors）时直接降级。
+- 若 `AutomationScripts.Automation.csproj` 编译 `SyncBinariesFromUGS.Automation.cs` 报语法错误（第 271 行多写了一个 `};`），把该行改为 `}`，或从工程文件的 `<Compile Include=...>` 中排除该项。
+
+产物在 `Engine/Binaries/DotNET/AutomationScripts/`，上述报错随之消失。
+
+### 报错：Shipping 链接重复定义 `__isoc23_strtol`
+
+```text
+ld: duplicate symbol '__isoc23_strtol' in ...
+```
+
+Ubuntu 24.04 的 glibc 2.38 起提供了 `__isoc23_*` 系列符号，而 HUTB 自带的 glibc 兼容 shim 又定义了一遍。给 shim 中的定义加弱符号即可：
+
+```cpp
+__attribute__((weak)) long int __isoc23_strtol(const char *nptr, char **endptr, int base)
+```
+
+本机共修改 3 个文件、8 个符号：
+
+- `Unreal/CarlaUE4/Source/CarlaUE4/GlibcCompat.cpp`
+- `Unreal/CarlaUE4/Plugins/CarlaTools/Source/CarlaTools/GlibcCompat.cpp`
+- `Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.cpp`（6 个 `__isoc23_*`）
+
+### 报错：Cook 结束 `ExitCode=1`
+
+Cook 结束后 UAT 报 `ExitCode=1` 并中止后续 `stage`/`archive`/`package`。本机日志中的判定来源是 DReyeVR 插件资源“too old / unversioned”，但 `Saved/Cooked` 已完整产出（约 24 GB）。确认 Cooked 内容完整后，可先跳过 Cook，只跑后三个阶段：把 `Util/BuildTools/Package.sh` 中的
+
+```sh
+      -nocompileeditor -nocompile -nop4 -cook -stage -archive -package -iterate \
+```
+
+临时改为
+
+```sh
+      -nocompileeditor -nocompile -nop4 -skipcook -stage -archive -package -iterate \
+```
+
+验证通过后再恢复 `-cook`。
+
+### 报错：Stage 阶段 `DirectoryNotFoundException`
+
+```text
+System.IO.DirectoryNotFoundException: Couldn't find .../Content/Carla/RoadRunner/Maps/OpenDrive
+```
+
+`DefaultGame.ini` 的 `DirectoriesToAlwaysStageAsUFS` 中声明了以下目录，但源码树里并不存在，UAT 复制时直接失败：
+
+```sh
+cd ~/hutb/Unreal/CarlaUE4
+mkdir -p Content/Carla/RoadRunner/Maps/OpenDrive
+mkdir -p Content/roadrunner/map/OpenDrive
+mkdir -p Content/roadrunner/ccsp
+```
+
+补齐空目录后重新执行 stage/package 即可。
+
+### 报错：产物启动缺 `libmujoco.so.3.7.0`
+
+```text
+error while loading shared libraries: libmujoco.so.3.7.0: cannot open shared object file
+```
+
+打包产物里的 MuJoCo 目录只带了 `libmujoco.so` 软链，缺少实际目标文件。从源码树复制：
+
+```sh
+cp ~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/libmujoco.so.3.7.0 \
+   ~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/
+```
+
 ### 使用打包产物运行
 
 ```sh
-./Build/UE4Carla/<package_id>/LinuxNoEditor/CarlaUE4.sh \
-  --carla-rpc-port=2000 --carla-streaming-port=0 -nosound -RenderOffScreen
+cd ~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor
+export LD_LIBRARY_PATH=$PWD/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib:$LD_LIBRARY_PATH
+./CarlaUE4.sh -opengl -RenderOffScreen -nosound -carla-rpc-port=2000
 ```
+
+实测启动日志末尾：
+
+```text
+Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)
+...
+SimpleFlight
+Resizing viewport due to setres change, 1024 x 768
+```
+
+`ss -tln` 中 2000/2001/2002 均在监听，进程 `CarlaUE4-Linux-Shipping` 持续运行。
+
+!!! 注意
+    启动打包产物前先退出编辑器（`pkill -f "UE4Editor /home/yxkj/hutb"`），否则 2000 端口被占用会报 `bind: Address already in use`。
+
+#### 打包产物联调
+
+```sh
+source ~/hutb_venv/bin/activate
+python - <<'PY'
+import carla
+c = carla.Client('localhost', 2000)
+c.set_timeout(30)
+w = c.get_world()
+print(c.get_server_version(), w.get_map().name, len(w.get_actors()))
+print(w.get_weather())
+PY
+```
+
+实测输出：
+
+```text
+43516c3-dirty Carla/Maps/Town10HD 24
+WeatherParameters(cloudiness=20.000000, precipitation=0.000000, ...)
+```
+
+在打包产物上生成、销毁车辆均成功，官方车流示例同样可用：
+
+```sh
+cd ~/hutb/PythonAPI/examples
+python generate_traffic.py -n 10 -w 0 --port 2000
+```
+
+输出 `spawned 10 vehicles and 0 walkers`，车流在打包版中正常运行。
 
 ---
 
@@ -737,5 +880,12 @@ xbuild ~/UnrealEngine_4.26/Engine/Source/Programs/AutomationTool/AutomationTool.
 | `FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume` 崩溃 | 运行时生成的距离场数据无效 | 关闭 `r.GenerateMeshDistanceFields` 等距离场特性 |
 | `UE4_ROOT is not defined` | 非交互式 shell 未加载 `.bashrc` | 显式 `export UE4_ROOT` |
 | `RunUAT ERROR: AutomationTool failed to compile` | mono 6.8 的 `xbuild` 参数不兼容 | 手动 `xbuild` 编译 AutomationTool，并在 Package.sh 加 `-nocompile` |
+| UAT 报 `System.Native` 的 `DllNotFoundException` | 引擎自带 mono 4.5 与系统 mono 6.8 混用 | `export UE_USE_SYSTEM_MONO=1` 后重跑 |
+| `Failed to load script DLL ... AutomationScripts/*.Automation.dll` | 平台脚本工程从未编译 | 逐个 `xbuild` 编译 `Engine/Source/Programs/AutomationScripts` 下的工程 |
+| `ld: duplicate symbol '__isoc23_strtol'` | glibc 2.38+ 与自带兼容 shim 重复定义 | 给 shim 中的 `__isoc23_*` 加 `__attribute__((weak))` |
+| Cook 结束 `ExitCode=1`，`stage` 未执行 | DReyeVR 资源版本过旧 | Cooked 完整时用 `-skipcook -stage -archive -package` 续跑 |
+| Stage 报 `DirectoryNotFoundException: .../OpenDrive` | `DirectoriesToAlwaysStageAsUFS` 目录在源码树缺失 | `mkdir -p` 补齐 3 个 OpenDrive/ccsp 目录 |
+| 产物启动报 `libmujoco.so.3.7.0: cannot open shared object file` | 产物中只有软链，缺目标文件 | 从源树复制 `libmujoco.so.3.7.0` 并设置 `LD_LIBRARY_PATH` |
+| 启动打包产物报 `bind: Address already in use` | 编辑器仍占用 2000 端口 | 先 `pkill -f "UE4Editor /home/yxkj/hutb"` |
 | `import carla` 报 NumPy 相关错误 | 环境中的 numpy 版本不兼容 | 在虚拟环境中降级到 `numpy<2` |
 | `InitSDL() failed` | 当前会话无图形显示 | 设置 `DISPLAY`、使用 xvfb 或 `-RenderOffScreen` |
