@@ -70,8 +70,7 @@ nav:
   - 参考目录: 'ref.md'
   - 生态系统: 'ecology.md'
   - 贡献指南: 'contribution.md'
-  - MCP 实mcp.md'
-  - MCP 瀹炵幇: 'mcp.md'
+  - MCP 实现: 'mcp.md'
 
 # - mdx_math 用于行内公式显示
 markdown_extensions:
