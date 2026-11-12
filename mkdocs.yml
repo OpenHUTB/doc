@@ -57,7 +57,9 @@ nav:
 - 载具:
   - 无人车: 'vehicle.md'
   - 无人机: 'https://openhutb.github.io/air_doc/dev/Carla_Air/'
-  - 潜水器: 'https://openhutb.github.io/mujoco_plugin/underwater/'
+  - 潜水器:
+    - 使用说明: 'rov.md'
+    - MuJoCo 插件: 'https://openhutb.github.io/mujoco_plugin/underwater/'
 - 模拟:
   - 概念: 'concept.md'
   - 模块: 'modules.md'
