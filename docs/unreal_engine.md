@@ -10,6 +10,8 @@
 
 [__物理引擎__](./ue/physical_engine.md) - PhyX 和 Chaos
 
+[__命令行操作__](ue/command.md) - 控制台命令、性能统计、画质与分辨率调整
+
 [__第三方插件和资产__](ue/scene_related.md) - 虚幻引擎相关的场景和资产，包括下雪、侠盗飞车5等
 
 [__文档解读__](ue/doc.md) - 对虚幻引擎官方文档的细化
