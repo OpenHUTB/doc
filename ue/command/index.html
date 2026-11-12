@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>命令行操作 - 开源孪创</title>
+    <title># 命令行操作 - 开源孪创</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u547d\u4ee4\u884c\u64cd\u4f5c";
+        var mkdocs_page_name = "# \u547d\u4ee4\u884c\u64cd\u4f5c";
         var mkdocs_page_input_path = "ue/command.md";
         var mkdocs_page_url = null;
       </script>
@@ -96,7 +96,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">命令行操作</li>
+      <li class="breadcrumb-item active"># 命令行操作</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ue/command.md"> 编辑页面</a>
     </li>
@@ -106,8 +106,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="_1">命令行操作</h1>
-<p>在运行场景时按重音键 ` （键盘右上角，Esc下的那个键），调出命令行窗口</p>
+                <div><h1 id="_1"># 命令行操作</h1>
+<p>在运行场景时按重音键 ` （键盘右上角，Esc 下的那个键），调出命令行窗口，再次按下关闭。
+输入命令时会有自动补全提示，按 Tab 补全，按 ↑ 调出历史命令。</p>
+<p>模拟器基于 Unreal Engine 4.26，引擎自带一套控制台命令，可在运行时调整画质、查看性能、控制时间，
+无需重启模拟器。本文列出仿真中常用的命令，完整列表见文末参考链接。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>部分命令在打包发布版（Shipping/Test）中可能被裁剪，以实际运行时的补全提示为准。</p>
+</div>
+<h2 id="_2">编辑器常用操作</h2>
 <table>
 <thead>
 <tr>
@@ -117,20 +125,8 @@
 </thead>
 <tbody>
 <tr>
-<td>显示当前运行帧率</td>
-<td><code>stat fps</code>（相当于快捷键 Ctrl+Shift+H）</td>
-</tr>
-<tr>
 <td>让引擎右上角一直显示帧率 和 内存使用情况</td>
 <td>勾选“编辑器偏好设置 Editor Preferences”&gt; 通用-性能（Performance）&gt; 显示帧率和内存（Show Frame Rate and Memory）</td>
-</tr>
-<tr>
-<td>查看Draw Call 消耗或者 CPU 消耗等</td>
-<td><code>stat unit</code></td>
-</tr>
-<tr>
-<td>查看Draw Call 消耗或者 CPU 消耗等</td>
-<td><code>stat rhi</code></td>
 </tr>
 <tr>
 <td>显示各种GPU上的消耗细则</td>
@@ -153,7 +149,204 @@
 <td><code>bugitgo 0 0 0 0 0 0</code> 会将摄像机移动到世界坐标 (0, 0, 0)，旋转角度为 (0, 0, 0)</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<h2 id="_3">性能统计</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>stat fps</code></td>
+<td style="text-align: left;">显示当前帧率（相当于快捷键 Ctrl+Shift+H）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat unit</code></td>
+<td style="text-align: left;">显示帧耗时分解（Game / Draw / GPU）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat rhi</code></td>
+<td style="text-align: left;">显示 RHI 层的 Draw Call / CPU 消耗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat unitgraph</code></td>
+<td style="text-align: left;">以曲线图显示帧耗时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat game</code></td>
+<td style="text-align: left;">显示游戏线程耗时明细</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat scenerendering</code></td>
+<td style="text-align: left;">显示渲染线程耗时明细</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat memory</code></td>
+<td style="text-align: left;">显示内存占用</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat physics</code></td>
+<td style="text-align: left;">显示物理计算耗时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>stat none</code></td>
+<td style="text-align: left;">关闭所有统计信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">帧率与分辨率</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>t.MaxFPS 30</code></td>
+<td style="text-align: left;">限制最大帧率为 30（<code>0</code> 表示不限制）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>r.VSync 1</code></td>
+<td style="text-align: left;">开启垂直同步（<code>0</code> 关闭）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>r.ScreenPercentage 50</code></td>
+<td style="text-align: left;">按屏幕百分比渲染，用于降低 GPU 负载</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>r.SetRes 1280x720</code></td>
+<td style="text-align: left;">设置渲染分辨率（加 <code>w</code> 后缀为窗口模式，<code>f</code> 为全屏）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">画质等级</h2>
+<p><code>sg</code> 系列命令按 0–3 调整画质，0 为最低、3 为最高（Epic）：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>sg.ViewDistanceQuality 1</code></td>
+<td style="text-align: left;">视距</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.AntiAliasingQuality 1</code></td>
+<td style="text-align: left;">抗锯齿</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.ShadowQuality 1</code></td>
+<td style="text-align: left;">阴影</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.PostProcessQuality 1</code></td>
+<td style="text-align: left;">后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.TextureQuality 1</code></td>
+<td style="text-align: left;">贴图</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.EffectsQuality 1</code></td>
+<td style="text-align: left;">特效</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sg.FoliageQuality 1</code></td>
+<td style="text-align: left;">植被</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">显示开关</h2>
+<p><code>showflag</code> 系列命令按 0/1 关闭或开启某类渲染内容，常用于排查渲染问题或提升性能：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>showflag.PostProcessing 0</code></td>
+<td style="text-align: left;">关闭后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>showflag.Shadows 0</code></td>
+<td style="text-align: left;">关闭阴影</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>showflag.Decals 0</code></td>
+<td style="text-align: left;">关闭贴花</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>showflag.Particles 0</code></td>
+<td style="text-align: left;">关闭粒子</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>showflag.Fog 0</code></td>
+<td style="text-align: left;">关闭雾效</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>showflag.SkyLighting 0</code></td>
+<td style="text-align: left;">关闭天光</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">时间与场景</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>slomo 0.5</code></td>
+<td style="text-align: left;">时间缩放，<code>0.5</code> 为半速，<code>2</code> 为两倍速</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>slomo 1</code></td>
+<td style="text-align: left;">恢复正常速度</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pause</code></td>
+<td style="text-align: left;">暂停/继续</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>open Town10HD</code></td>
+<td style="text-align: left;">在编辑器中切换到指定地图</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>quit</code></td>
+<td style="text-align: left;">退出模拟器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">启动参数</h2>
+<p>以下参数在启动可执行文件时传入，效果同控制台命令，适合写进脚本：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 窗口模式，分辨率 1280x720</span>
+CarlaUE4.exe<span class="w"> </span>-windowed<span class="w"> </span>-ResX<span class="o">=</span><span class="m">1280</span><span class="w"> </span>-ResY<span class="o">=</span><span class="m">720</span>
+
+<span class="c1"># 画质等级</span>
+CarlaUE4.exe<span class="w"> </span>-quality-level<span class="o">=</span>Low
+
+<span class="c1"># 固定帧率基准测试</span>
+CarlaUE4.exe<span class="w"> </span>-benchmark<span class="w"> </span>-fps<span class="o">=</span><span class="m">20</span>
+</code></pre></div>
+<h2 id="_9">参考</h2>
+<ul>
+<li>Unreal Engine 4 控制台命令完整列表：<a href="https://framedsc.com/GeneralGuides/ue4_commands.htm">https://framedsc.com/GeneralGuides/ue4_commands.htm</a></li>
+<li>Unreal Engine 官方文档 - Console Commands：<a href="https://docs.unrealengine.com/4.26/en-US/ProductionPipelines/ConsoleCommands/">https://docs.unrealengine.com/4.26/en-US/ProductionPipelines/ConsoleCommands/</a></li>
+</ul></div>
               
             </div>
           </div><footer>
