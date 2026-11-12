@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>使用说明 - 开源孪创</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u4f7f\u7528\u8bf4\u660e";
+        var mkdocs_page_input_path = "rov.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">载具</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../vehicle/">无人车</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/air_doc/dev/Carla_Air/">无人机</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >潜水器</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">使用说明</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">组成</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">准备</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rov_1">显式配置 ROV</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">启动</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">操作</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">确认是否生效</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#python">Python 控制</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">常见问题</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">相关文档</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://openhutb.github.io/mujoco_plugin/underwater/">MuJoCo 插件</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">载具</li>
+          <li class="breadcrumb-item">潜水器</li>
+      <li class="breadcrumb-item active">使用说明</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/rov.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="rov">水下机器人（ROV）仿真</h1>
+<p>HUTB 的水下机器人（ROV）仿真由三部分组成：MuJoCo 负责动力学与流体计算，虚幻引擎负责场景渲染，AirSim 负责位姿跟随与 RPC 接口。三者运行在同一个进程中，MuJoCo 是位姿真值源，虚幻引擎中的 ROV 只是它的跟随者，不做二次物理积分。</p>
+<p>水下内容（水面、雾、后处理、海床、ROV 模型）已经合并进地图 <code>Town10HD</code>，不需要额外加载水下关卡。</p>
+<h2 id="_1">组成</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">部分</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MuJoCo</td>
+<td style="text-align: left;">动力学、流体阻力、浮力、接触（500 Hz）</td>
+</tr>
+<tr>
+<td style="text-align: left;">虚幻引擎</td>
+<td style="text-align: left;">场景渲染、相机、HUD</td>
+</tr>
+<tr>
+<td style="text-align: left;">AirSim</td>
+<td style="text-align: left;">位姿跟随与 RPC 接口（默认端口 41451）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">准备</h2>
+<h3 id="_3">使用安装包</h3>
+<ol>
+<li>安装 <code>OpenHUTBUnderwaterStudio_&lt;版本&gt;_Setup.exe</code></li>
+<li>安装程序会把 ROV 配置写入 <code>文档\AirSim\settings.json</code></li>
+<li>双击安装目录下的 <code>CarlaUE4.exe</code> 启动</li>
+</ol>
+<h3 id="_4">从源码运行</h3>
+<p>需要两个仓库：<code>hutb</code> 提供代码，<code>Content</code> 提供资产（地图、模型、材质）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">仓库</th>
+<th style="text-align: left;">地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">hutb</td>
+<td style="text-align: left;"><code>https://github.com/OpenHUTB/hutb</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Content</td>
+<td style="text-align: left;"><code>https://git.code.tencent.com/OpenHUTB/Content</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 代码</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenHUTB/hutb.git
+<span class="nb">cd</span><span class="w"> </span>hutb
+
+<span class="c1"># 2. 资产，放到工程的 Content 目录</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://git.code.tencent.com/OpenHUTB/Content.git<span class="w"> </span>Unreal/CarlaUE4/Content
+
+<span class="c1"># 3. 初始化、编译、启动</span>
+setup.bat<span class="w"> </span>-l
+</code></pre></div>
+<p>资产仓库使用 Git LFS，克隆后如果出现 0 字节文件，在 Content 目录执行 <code>git lfs pull</code>。</p>
+<h2 id="rov_1">显式配置 ROV</h2>
+<p>ROV 模式由 AirSim 配置文件中的 <code>SimMode</code> 决定。配置文件有两处，<strong>优先读取工程目录</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">位置</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Unreal/CarlaUE4/settings.json</code></td>
+<td style="text-align: left;">工程内，优先级最高</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>文档\AirSim\settings.json</code></td>
+<td style="text-align: left;">用户目录，安装包写入的就是这里</td>
+</tr>
+</tbody>
+</table>
+<p>仓库自带一份 ROV 配置 <code>settings_rov.json</code>，直接覆盖即可：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">copy </span><span class="n">Unreal</span><span class="p">\</span><span class="n">CarlaUE4</span><span class="p">\</span><span class="n">settings_rov</span><span class="p">.</span><span class="n">json</span> <span class="n">Unreal</span><span class="p">\</span><span class="n">CarlaUE4</span><span class="p">\</span><span class="n">settings</span><span class="p">.</span><span class="n">json</span>
+</code></pre></div>
+<p>关键字段如下：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"SettingsVersion"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"SimMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rov"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"Vehicles"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"RovSimple"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"VehicleType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RovSimple"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"PawnPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DefaultRov"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"EnableCollisions"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"AllowAPIAlways"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>SimMode</code></td>
+<td style="text-align: left;">必须是 <code>"Rov"</code>，否则启动的是无人机</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Vehicles.RovSimple.VehicleType</code></td>
+<td style="text-align: left;"><code>RovSimple</code>，ROV 的固件类型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PawnPath</code></td>
+<td style="text-align: left;"><code>DefaultRov</code>，对应 <code>RovPawn</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AllowAPIAlways</code></td>
+<td style="text-align: left;">允许外部 API 控制</td>
+</tr>
+</tbody>
+</table>
+<p>配置只在启动时读取一次，修改后需要重启。</p>
+<h2 id="_5">启动</h2>
+<h3 id="_6">编辑器</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="p">&lt;</span><span class="n">hutb</span> <span class="n">仓库根目录</span><span class="p">&gt;</span>
+<span class="p">.\</span><span class="n">run_underwater_scene</span><span class="p">.</span><span class="n">bat</span>
+</code></pre></div>
+<p>脚本会自动备份 <code>settings.json</code>、换成 ROV 配置、启动编辑器，退出后再还原。手动启动等价于：</p>
+<div class="highlight"><pre><span></span><code><span class="n">UE4Editor</span><span class="p">.</span><span class="n">exe</span> <span class="n">Unreal</span><span class="p">\</span><span class="n">CarlaUE4</span><span class="p">\</span><span class="n">CarlaUE4</span><span class="p">.</span><span class="n">uproject</span> <span class="p">/</span><span class="n">Game</span><span class="p">/</span><span class="n">Carla</span><span class="p">/</span><span class="n">Maps</span><span class="p">/</span><span class="n">Town10HD</span> <span class="p">`</span>
+  <span class="n">-game</span> <span class="n">-windowed</span> <span class="n">-resx</span><span class="p">=</span><span class="n">1600</span> <span class="n">-resy</span><span class="p">=</span><span class="n">900</span>
+</code></pre></div>
+<h3 id="_7">打包版</h3>
+<p>双击安装目录下的 <code>CarlaUE4.exe</code>。首次启动约需 1–2 分钟（着色器缓存），属正常现象。</p>
+<h2 id="_8">操作</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">按键</th>
+<th style="text-align: left;">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>W</code> / <code>S</code></td>
+<td style="text-align: left;">前进 / 后退</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>A</code> / <code>D</code></td>
+<td style="text-align: left;">左移 / 右移</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Q</code> / <code>E</code></td>
+<td style="text-align: left;">上浮 / 下潜</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>←</code> / <code>→</code></td>
+<td style="text-align: left;">左转 / 右转</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Z</code></td>
+<td style="text-align: left;">锁定当前深度（再按解除）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>R</code></td>
+<td style="text-align: left;">显示 / 隐藏状态面板</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>V</code></td>
+<td style="text-align: left;">显示 / 隐藏力与速度向量</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>B</code> / <code>F</code> / <code>M</code></td>
+<td style="text-align: left;">追尾视角 / 第一人称 / 手动</td>
+</tr>
+</tbody>
+</table>
+<p>状态面板位于屏幕右上角，显示姿态、深度、推力、接触力、洋流和速度。</p>
+<p><img alt="" src="../img/rov/status_panel.jpg"></p>
+<h2 id="_9">确认是否生效</h2>
+<p>编辑器日志在 <code>Saved/Logs/CarlaUE4.log</code>，打包版在 <code>CarlaUE4/Saved/Logs/</code>。启动后应出现以下四行：</p>
+<div class="highlight"><pre><span></span><code>[RovMuJoCoBridge] ✅ 桥接已启用，跟随 body 'rov'
+[RovScene] 障碍物 9 个（管道/框架/礁石）
+[RovScene] 实时状态面板已启用
+[RovBridge][姿态] 物理线程级联控制启用（500 Hz），锁定航向 90.0°
+</code></pre></div>
+<p>画面上应能看到右上角的状态面板、水面色调与水下雾效；按 <code>W</code> 时 ROV 前进。</p>
+<h2 id="python">Python 控制</h2>
+<p>ROV 使用 <code>airsim.RovClient</code>，状态用 <code>getRovState()</code> 获取：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">RovClient</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getRovState</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"位置:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">kinematics_estimated</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+</code></pre></div>
+<p>需要注意：<code>getMultirotorState()</code> 属于多旋翼模式，ROV 模式下没有该方法，调用会报 <code>AttributeError: 'VehicleClient' object has no attribute 'getMultirotorState'</code>。</p>
+<p>完整示例如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">airsim</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">airsim</span><span class="o">.</span><span class="n">RovClient</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">confirmConnection</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"初始位置:"</span><span class="p">,</span> <span class="n">client</span><span class="o">.</span><span class="n">getRovState</span><span class="p">()</span><span class="o">.</span><span class="n">kinematics_estimated</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+<span class="c1"># 机体系速度：前进 0.5 m/s、下潜 0.2 m/s，持续 3 秒</span>
+<span class="n">client</span><span class="o">.</span><span class="n">moveByVelocityBodyFrameAsync</span><span class="p">(</span><span class="n">vx</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vy</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">vz</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"运动后位置:"</span><span class="p">,</span> <span class="n">client</span><span class="o">.</span><span class="n">getRovState</span><span class="p">()</span><span class="o">.</span><span class="n">kinematics_estimated</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">hoverAsync</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">armDisarm</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">enableApiControl</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>常用接口：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>getRovState()</code></td>
+<td style="text-align: left;">位姿、速度、着陆状态</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>moveByVelocityBodyFrameAsync(vx, vy, vz, duration)</code></td>
+<td style="text-align: left;">机体系速度控制</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>moveByVelocityZBodyFrameAsync(vx, vy, z, duration)</code></td>
+<td style="text-align: left;">机体系速度 + 定深</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>moveToPositionAsync(x, y, z, velocity)</code></td>
+<td style="text-align: left;">位置控制</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>moveByMotorPWMsAsync(pwm_values, duration)</code></td>
+<td style="text-align: left;">直接给推进器 PWM</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hoverAsync()</code></td>
+<td style="text-align: left;">悬停</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>getImuData()</code> / <code>getBarometerData()</code> / <code>getMagnetometerData()</code></td>
+<td style="text-align: left;">传感器</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>getImages()</code></td>
+<td style="text-align: left;">相机图像</td>
+</tr>
+</tbody>
+</table>
+<p><code>RovClient</code> 来自本仓库的 <code>PythonClient</code>，不是 PyPI 上的 airsim 包：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="p">&lt;</span><span class="n">air</span> <span class="n">仓库</span><span class="p">&gt;\</span><span class="n">PythonClient</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="p">.</span>
+</code></pre></div>
+<p>安装后可用 <code>hasattr(airsim, "RovClient")</code> 确认是否为 <code>True</code>。</p>
+<h2 id="_10">常见问题</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">现象</th>
+<th style="text-align: left;">原因</th>
+<th style="text-align: left;">处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">启动后是无人机</td>
+<td style="text-align: left;"><code>settings.json</code> 中 <code>SimMode</code> 不是 <code>Rov</code></td>
+<td style="text-align: left;">用 <code>settings_rov.json</code> 覆盖，或运行 <code>run_underwater_scene.bat</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">地图里没有水，看不到水下效果</td>
+<td style="text-align: left;">Content 资产未更新</td>
+<td style="text-align: left;">在 <code>Unreal/CarlaUE4/Content</code> 下执行 <code>git pull</code> 与 <code>git lfs pull</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">看不到 ROV</td>
+<td style="text-align: left;">ROV 出生在水下，相机在水面以上</td>
+<td style="text-align: left;">按 <code>B</code> 切换追尾视角，或用 <code>E</code> 下潜</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>getMultirotorState</code> 报 AttributeError</td>
+<td style="text-align: left;">使用了多旋翼客户端</td>
+<td style="text-align: left;">改用 <code>airsim.RovClient()</code> 与 <code>getRovState()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>confirmConnection</code> 超时</td>
+<td style="text-align: left;">仿真未启动或端口被占用</td>
+<td style="text-align: left;">确认已进入场景；默认端口 41451</td>
+</tr>
+<tr>
+<td style="text-align: left;">姿态缓慢翻转</td>
+<td style="text-align: left;">旧版本姿态环运行在游戏线程</td>
+<td style="text-align: left;">升级到 1.2.9 及以上</td>
+</tr>
+<tr>
+<td style="text-align: left;">状态面板不显示</td>
+<td style="text-align: left;">按 <code>R</code> 隐藏了面板</td>
+<td style="text-align: left;">再按一次 <code>R</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">相关文档</h2>
+<ul>
+<li><a href="../build_windows/">Windows 下的构建</a></li>
+<li><a href="../map_twin/">地图孪生</a></li>
+<li><a href="https://openhutb.github.io/mujoco_plugin/underwater/">MuJoCo 插件（水下）</a></li>
+</ul></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vehicle/" class="btn btn-neutral float-left" title="无人车"><span class="icon icon-circle-arrow-left"></span> 前一页</a>
+        <a href="../concept/" class="btn btn-neutral float-right" title="概念">后一页 <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+      <span><a href="../vehicle/" style="color: #fcfcfc">&laquo; 前一页</a></span>
+    
+    
+      <span><a href="../concept/" style="color: #fcfcfc">后一页 &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../js/umlconvert.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
