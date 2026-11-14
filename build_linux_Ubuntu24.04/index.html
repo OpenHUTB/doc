@@ -126,7 +126,7 @@
 </ul>
 </li>
 <li><a href="#run-verify"><strong>六、运行与验证</strong></a><ul>
-<li><a href="#run-gui">图形界面启动（OpenGL）</a></li>
+<li><a href="#run-gui">图形界面启动</a></li>
 <li><a href="#run-headless">无头启动</a></li>
 <li><a href="#fix-libpgm">修复 URLab 插件依赖</a></li>
 <li><a href="#fix-distancefield">修复距离场崩溃</a></li>
@@ -241,7 +241,7 @@
 </tr>
 <tr>
 <td>服务端运行</td>
-<td><code>UE4Editor ... -game -opengl -RenderOffScreen</code></td>
+<td><code>UE4Editor ... -game -RenderOffScreen</code></td>
 <td><code>Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)</code>，加载 <code>Town10HD</code>，端口 2000/2001 处于监听</td>
 </tr>
 <tr>
@@ -627,33 +627,42 @@ sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile_temp
 <p>并在 <code>~/UnrealEngine_4.26/Engine/Config/BaseEngine.ini</code> 中设置 <code>NumUnusedShaderCompilingThreads=12</code>（保留 12 个核心不参与着色器编译，按硬件调整）。</p>
 <hr>
 <h2 id="_8">六、运行与验证 <span id="run-verify"></span></h2>
-<h3 id="opengl">图形界面启动（OpenGL）<span id="run-gui"></span></h3>
+<h3 id="_9">图形界面启动 <span id="run-gui"></span></h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
-./BuildCarlaUE4.sh<span class="w"> </span>--launch<span class="w"> </span>--opengl
+./BuildCarlaUE4.sh<span class="w"> </span>--launch
 </code></pre></div>
 <div class="admonition 警告">
 <p class="admonition-title">警告</p>
-<p><strong>不要使用默认的 Vulkan 后端</strong>。本机驱动 <code>595.99.02</code> 与 UE4 4.26 的 Vulkan 后端不兼容，启动约 7 分钟后会在渲染线程崩溃：</p>
+<p><strong>UE4.26 桌面端已移除 OpenGL，<code>--opengl</code> / <code>-opengl</code> 不会生效。</strong>
+<code>Util/BuildTools/BuildCarlaUE4.sh</code> 仍然接受 <code>--opengl</code>（第 62 行会转成 <code>-opengl</code>），
+但引擎在 <code>Engine/Source/Runtime/RHI/Private/Linux/LinuxDynamicRHI.cpp</code> 中只把 OpenGL 留给移动端预览。
+桌面模式收到该参数会弹出
+<code>Warning: OpenGL is no longer supported for desktop platforms. Vulkan will be used instead.</code>，
+随后清除标志并继续使用 Vulkan，图形界面只能用 Vulkan 后端。</p>
+<p>本机驱动 <code>595.99.02</code> 下该后端不稳定：启动约 7 分钟后渲染线程崩溃，
+此时显存占用仅 673 MB，并非显存不足：</p>
 <div class="highlight"><pre><span></span><code>Unhandled Exception: SIGSEGV
 libUE4Editor-VulkanRHI.so!FVulkanMemoryManager::...
 </code></pre></div>
-<p>此时显存占用仅 673 MB，并非显存不足。改用 <code>--opengl</code>（<code>BuildCarlaUE4.sh</code> 默认 <code>RHI="-vulkan"</code>，第 62 行的 <code>--opengl</code> 会切换为 <code>-opengl</code>）即可正常启动。</p>
+<p>已验证稳定的运行方式是无头启动（<code>-game -RenderOffScreen</code>，见下一节）并关闭距离场；
+图形界面的长时间稳定性尚未验证。</p>
 </div>
 <p>首次启动需要编译 1 万多个着色器并构建网格距离场，耗时较长，期间日志会持续输出 <code>shaders left to compile</code>，属于正常现象。后续启动因有 DDC 缓存会快很多。若也在启动若干帧后遇到距离场崩溃，按<a href="#fix-distancefield">第六节</a>关闭距离场即可。</p>
-<h3 id="_9">无头启动 <span id="run-headless"></span></h3>
+<h3 id="_10">无头启动 <span id="run-headless"></span></h3>
 <p>没有图形界面或不想打开编辑器时，可直接以游戏模式启动专用服务器：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Unreal/CarlaUE4
 
 <span class="nv">DISPLAY</span><span class="o">=</span>:1<span class="w"> </span><span class="se">\</span>
 <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux<span class="w"> </span><span class="se">\</span>
 ~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor<span class="w"> </span>CarlaUE4.uproject<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-game<span class="w"> </span>-opengl<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
+<span class="w">  </span>-game<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
 </code></pre></div>
+<p>当初实际执行的命令里还带了 <code>-opengl</code>；该参数在 UE4.26 桌面端会被忽略并继续使用 Vulkan（见上一节），因此这里等价于不传。</p>
 <p>建议同样放在 <code>tmux</code> 中运行，并把输出重定向到日志：</p>
 <div class="highlight"><pre><span></span><code>tmux<span class="w"> </span>new<span class="w"> </span>-d<span class="w"> </span>-s<span class="w"> </span>sim<span class="w"> </span><span class="s2">"cd ~/hutb/Unreal/CarlaUE4 &amp;&amp; DISPLAY=:1 \</span>
 <span class="s2">LD_LIBRARY_PATH=~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux \</span>
 <span class="s2">~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor CarlaUE4.uproject \</span>
-<span class="s2">  -game -opengl -RenderOffScreen -nosound -carla-rpc-port=2000 &gt; /tmp/hutb_sim.log 2&gt;&amp;1"</span>
+<span class="s2">  -game -RenderOffScreen -nosound -carla-rpc-port=2000 &gt; /tmp/hutb_sim.log 2&gt;&amp;1"</span>
 
 tail<span class="w"> </span>-f<span class="w"> </span>/tmp/hutb_sim.log
 </code></pre></div>
@@ -683,7 +692,7 @@ cp<span class="w"> </span>/lib/x86_64-linux-gnu/libpgm-5.3.so.0<span class="w"> 
 <p>修改后需要重启服务端才能生效。修复后日志中会出现：</p>
 <div class="highlight"><pre><span></span><code>LogURLab: Registered MuJoCo Asset Category with bitmask: 8192
 </code></pre></div>
-<h3 id="_10">修复距离场崩溃 <span id="fix-distancefield"></span></h3>
+<h3 id="_11">修复距离场崩溃 <span id="fix-distancefield"></span></h3>
 <p>服务端启动后、渲染若干帧（约 400~700 帧）时，可能出现如下崩溃：</p>
 <div class="highlight"><pre><span></span><code>Unhandled Exception: SIGSEGV: invalid attempt to read memory at address 0x...
 libUE4Editor-Engine.so!FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume() const
@@ -715,7 +724,7 @@ python<span class="w"> </span>dynamic_weather.py
 </code></pre></div>
 <p>能够连接 <code>localhost:2000</code> 并生成车辆、天气随时间变化，即表示客户端与服务端联通正常。</p>
 <hr>
-<h2 id="_11">七、打包 <span id="package"></span></h2>
+<h2 id="_12">七、打包 <span id="package"></span></h2>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb
 <span class="nb">export</span><span class="w"> </span><span class="nv">UE4_ROOT</span><span class="o">=</span>~/UnrealEngine_4.26
 <span class="nb">export</span><span class="w"> </span><span class="nv">UE_USE_SYSTEM_MONO</span><span class="o">=</span><span class="m">1</span>
@@ -827,10 +836,10 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>Content/roadrunner/ccsp
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/libmujoco.so.3.7.0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib/
 </code></pre></div>
-<h3 id="_12">使用打包产物运行</h3>
+<h3 id="_13">使用打包产物运行</h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor
 <span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib:<span class="nv">$LD_LIBRARY_PATH</span>
-./CarlaUE4.sh<span class="w"> </span>-opengl<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
+./CarlaUE4.sh<span class="w"> </span>-RenderOffScreen<span class="w"> </span>-nosound<span class="w"> </span>-carla-rpc-port<span class="o">=</span><span class="m">2000</span>
 </code></pre></div>
 <p>实测启动日志末尾：</p>
 <div class="highlight"><pre><span></span><code>Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)
@@ -843,7 +852,7 @@ Resizing viewport due to setres change, 1024 x 768
 <p class="admonition-title">注意</p>
 <p>启动打包产物前先退出编辑器（<code>pkill -f "UE4Editor /home/yxkj/hutb"</code>），否则 2000 端口被占用会报 <code>bind: Address already in use</code>。</p>
 </div>
-<h4 id="_13">打包产物联调</h4>
+<h4 id="_14">打包产物联调</h4>
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/hutb_venv/bin/activate
 python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
 <span class="s">import carla</span>
@@ -864,7 +873,7 @@ python<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span
 </code></pre></div>
 <p>输出 <code>spawned 10 vehicles and 0 walkers</code>，车流在打包版中正常运行。</p>
 <hr>
-<h2 id="_14">八、问题速查表 <span id="faq"></span></h2>
+<h2 id="_15">八、问题速查表 <span id="faq"></span></h2>
 <table>
 <thead>
 <tr>
@@ -880,9 +889,9 @@ python<span class="w"> </span>generate_traffic.py<span class="w"> </span>-n<span
 <td>软链 5.2 到 5.3，并复制到插件 <code>Binaries/Linux</code></td>
 </tr>
 <tr>
-<td>启动约 7 分钟后 <code>SIGSEGV</code>，栈在 <code>VulkanMemory</code></td>
-<td>驱动 595.99.02 与 UE4 4.26 Vulkan 后端不兼容</td>
-<td>改用 <code>-opengl</code> / <code>--opengl</code></td>
+<td>启动约 7 分钟后 <code>SIGSEGV</code>，栈在 <code>FVulkanMemoryManager</code></td>
+<td>UE4.26 桌面端已移除 OpenGL，<code>-opengl</code> 会被引擎忽略并继续使用 Vulkan；驱动 <code>595.99.02</code> 下 Vulkan 后端不稳定</td>
+<td>用 <code>-game -RenderOffScreen</code> 无头运行并关闭距离场（已验证稳定近 30 分钟）；<code>--opengl</code> / <code>-opengl</code> 无效</td>
 </tr>
 <tr>
 <td><code>FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume</code> 崩溃</td>
