@@ -102,6 +102,8 @@
   - **眼动高频流表 `<session>_gaze.csv`（18 列）**：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 `fixation` / `saccade` / `rejected` / `saccade_open` 及扫视起点、幅度、峰值角速度、样本数）
 - 支持 **异步驾驶员视角内屏截图**（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关
 
+具体参考[VR数据收集文档](./interbehavior/driving_study.md)。
+
 ### 其他补充：
 - 用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 [DReyeVRConfig.ini](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini) 
 
