@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>驾驶学习启动器和数据记录 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u9a7e\u9a76\u5b66\u4e60\u542f\u52a8\u5668\u548c\u6570\u636e\u8bb0\u5f55";
+        var mkdocs_page_input_path = "interbehavior/driving_study.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">载具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">无人车</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/air_doc/dev/Carla_Air/">无人机</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >潜水器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../rov/">使用说明</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://openhutb.github.io/mujoco_plugin/underwater/">MuJoCo 插件</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">驾驶学习启动器和数据记录</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/interbehavior/driving_study.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="_1">驾驶学习启动器和数据记录</h1>
+<h2 id="_2">快速开始</h2>
+<ol>
+<li>连接头显，在 Pimax Play 中启用眼动追踪，并完成校准。使用 Logitech G29 / G920 / G923 赛车方向盘时，确认 Logitech G HUB 已检测到方向盘，并且在 Windows 的 <code>joy.cpl</code> 中方向盘和踏板轴有响应，然后关闭测试对话框。</li>
+<li>在仓库或包的根目录中双击 <code>StartDrivingStudy.cmd</code>。</li>
+<li>
+<p>选择 <strong>Pimax Controller</strong> 或<strong>Logitech Racing Wheel</strong>（Logitech 赛车方向盘）。在源代码签出状态下，输入 UE4 引擎根目录；已安装的地图和自车配置会自动从项目中发现。</p>
+</li>
+<li>
+<p>要记录一次试验，请勾选<strong>Record driving data</strong>（记录驾驶数据）。默认的目标频率是 <strong>120 Hz</strong>（轻量级课堂课程设置为 <strong>20 Hz</strong>），并输入或选择参与者ID和输出目录。可选开关：</p>
+<ul>
+<li><strong>记录视口截图</strong>（默认 <strong>20 Hz</strong>，640x480 JPEG；可选勾选 <strong>Async screenshots</strong>（异步截图），这样 GPU 读取和 JPEG 编码就不会阻塞游戏线程）。</li>
+<li><strong>120 Hz 眼动追踪线程</strong>（在专用后台线程上轮询眼动追踪器，并以 120 Hz 运行在线 I-VT 眼跳检测器）。</li>
+<li><strong>记录控制器姿势</strong>（可选择加入；为两个控制器附加 18 个手部姿势列，供下面的上肢肌肉骨骼回放使用）。</li>
+<li><strong>渲染质量降级</strong>（明确设置 <code>sg.ShadowQuality 0</code>，<code>sg.EffectsQuality 0</code>，<code>sg.PostProcessQuality 0</code>；默认关闭，所以正常启动会保留现有的可扩展性设置）。 </li>
+</ul>
+</li>
+<li>
+<p>点击<strong>Check Settings</strong>（检查设置），然后在预检成功后点击<strong>Start VR</strong>（启动 VR）。启动程序将依次启动 Pimax Play、SteamVR 和模拟器。 </p>
+</li>
+<li>使用赛车方向盘驾驶时，在开始试验之前，先按下并松开油门和刹车踏板一次，以校准踏板行程。退出模拟器后，点击<strong>Open Data Directory</strong>（打开数据目录）以查看生成的 CSV 文件。</li>
+</ol>
+<p>默认情况下录制是关闭的。每次录制运行都会生成一个新的 <code>&lt;session&gt;.csv</code>（71 列，启用手部姿势时为 89 列）和 <code>&lt;session&gt;_gaze.csv</code>（18 列），且不会覆盖之前的会话。默认输出根目录为源代码构建中的 <code>Unreal/CarlaUE4/Saved/DrivingStudy/</code>，或打包构建中的 <code>CarlaUE4/Saved/DrivingStudy/</code>；当提供有效的参与者名称并启用录制或截图时，文件将放置在 <code>&lt;OutputDir&gt;/&lt;Participant&gt;/</code> 下。重新加载地图或重新生成自车会启动一个新的会话文件。</p>
+<p>当选择赛车方向盘输入模式时，VR 控制器和键盘将不再控制方向、油门、刹车、换挡或转向信号（控制器仍可调整摄像头/座椅姿态）。当选择控制器输入模式时，赛车方向盘的驾驶轴将被忽略，标准键盘快捷键仍可使用。如果在方向盘模式下方向盘断开或读取失败，将施加全刹车，并每两秒尝试重新连接一次。</p>
+<p>如果方向盘没有反应，请检查 <code>Unreal/CarlaUE4/Saved/Logs/CarlaUE4.log</code>：
+- <code>Logitech SDK initialize: success</code> 表示 DirectInput/Logitech SDK 已初始化。
+- <code>Found Logitech wheel</code> 表示已打开受支持的轮设备。
+- <code>Logitech wheel sample</code> 每两秒记录一次原始的转向和踏板数值。</p>
+<p>也支持命令行启动：</p>
+<div class="highlight"><pre><span></span><code><span class="n">powershell</span> <span class="n">-NoProfile</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">StartPimaxVR</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-UE4Root</span> <span class="s1">'&lt;UE4 source engine root&gt;'</span> <span class="n">-Map</span> <span class="p">/</span><span class="n">Game</span><span class="p">/</span><span class="n">Carla</span><span class="p">/</span><span class="n">Maps</span><span class="p">/</span><span class="n">Town10HD_Opt</span> <span class="n">-InputDevice</span> <span class="n">wheel</span> <span class="n">-RecordDriving</span> <span class="n">-RecordHz</span> <span class="n">120</span> <span class="n">-EyeThreadHz</span> <span class="n">120</span>
+</code></pre></div>
+<ul>
+<li>在 VR 控制器模式下使用 <code>-InputDevice controller</code>；当不需要录制时，省略 <code>-RecordDriving</code>。 </li>
+<li>使用 <code>-RecordHz 20</code> 可进行轻量级 20 Hz 记录，或使用 <code>-RecordDirectory &lt;local absolute path&gt;</code> 自定义输出目录。</li>
+<li>可选标志：<code>-ScreenshotDriving -ScreenshotHz 20</code> (单独使用时也会遵循 <code>-RecordDirectory</code>), <code>-AsyncScreenshot</code>, <code>-EyeThreadHz 120</code>, <code>-HandPose</code>, 以及 <code>-PerfDowngrade</code>。</li>
+</ul>
+<p>从源代码构建需要在 <code>CarlaUE4.uproject</code> 中启用 <code>LogitechWheelPlugin</code> 和 <code>SteamVR</code>。</p>
+<h2 id="csv">CSV 概述</h2>
+<h3 id="1-sessioncsv-71-89">1. 主驾驶表 <code>&lt;session&gt;.csv</code> (71 列，手部姿势有 89 列)</h3>
+<p>每一行代表一个游戏线程样本，结合了当前的眼动跟踪状态、焦点射线命中、头部姿态、实时扫视指标、车辆运动学、控制输入、OpenDRIVE 道路位置以及影响交通灯状态。</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schema_version</code></td>
+<td>CSV 概述版本（<code>3</code>；在手势列存在之前是 <code>2</code>）</td>
+</tr>
+<tr>
+<td><code>ue_frame</code>, <code>sim_time_s</code>, <code>host_elapsed_s</code></td>
+<td>虚幻帧数，模拟时间戳（秒），从录制开始到现在的实时时间（秒）</td>
+</tr>
+<tr>
+<td><code>eye_device_timestamp_ms</code></td>
+<td>眼动追踪设备时间戳（毫秒）；使用的是设备时钟而不是模拟时间</td>
+</tr>
+<tr>
+<td><code>input_mode</code>, <code>wheel_connected</code>, <code>autopilot</code></td>
+<td>所选输入模式（<code>controller</code> 控制器 / <code>wheel</code> 方向盘）、方向盘连接状态、自动驾驶状态</td>
+</tr>
+<tr>
+<td><code>map</code>, <code>vehicle_id</code></td>
+<td>地图名称及自车 CARLA Actor ID</td>
+</tr>
+<tr>
+<td><code>road_id</code>, <code>lane_id</code>, <code>road_s_m</code></td>
+<td>OpenDRIVE 道路 ID、车道 ID 及纵向 <code>s</code> 坐标（米）</td>
+</tr>
+<tr>
+<td><code>junction_id</code>, <code>in_junction</code></td>
+<td>OpenDRIVE 路口 ID 及路口标志（<code>1</code>/<code>0</code>）；若位于道路外，则为空</td>
+</tr>
+<tr>
+<td><code>motion</code>, <code>yaw_rate_deg_s</code></td>
+<td>运动标签（停止<code>stopped</code>、直行<code>straight</code>、左转<code>left</code>、右转<code>right</code>；第一行未知<code>unknown</code>）及横摆角速度（度/秒）</td>
+</tr>
+<tr>
+<td><code>red_light_stop_candidate</code></td>
+<td>当相关的交通信号灯为红灯且车辆速度低于 1 km/h 时（仅作筛选辅助，而非因果证明）为 <code>1</code></td>
+</tr>
+<tr>
+<td><code>traffic_light_id</code>, <code>traffic_light_state</code>, <code>traffic_light_distance_m</code></td>
+<td>涉及交通信号灯的 ID、状态及与灯杆的距离（米）；在信号灯触发区域外，其状态可能未知 <code>unknown</code>。</td>
+</tr>
+<tr>
+<td><code>vehicle_x_m</code>, <code>vehicle_y_m</code>, <code>vehicle_z_m</code>, <code>vehicle_yaw_deg</code>, <code>speed_kmh</code></td>
+<td>自车世界坐标位置 (m)、航向角 (deg) 及速度 (km/h)</td>
+</tr>
+<tr>
+<td><code>steer_input</code>, <code>throttle_input</code>, <code>brake_input</code></td>
+<td>当前帧的控制输入（转向<code>steer</code>在 <code>[-1, 1]</code> 范围内，油门<code>throttle</code>/制动<code>brake</code>在 <code>[0, 1]</code> 范围内；已进行输入缩放处理）</td>
+</tr>
+<tr>
+<td><code>previous_applied_steer</code>, <code>previous_applied_throttle</code>, <code>previous_applied_brake</code>, <code>previous_reverse</code></td>
+<td>在当前帧的输入被清空之前，控制数值及倒档状态已应用于车辆。</td>
+</tr>
+<tr>
+<td><code>eye_source</code>, <code>gaze_valid</code></td>
+<td>眼动追踪后端（<code>pimax_pvr</code>、<code>sranipal</code>、<code>dummy</code> 等）及有效性标志（<code>1</code>/<code>0</code>；<code>dummy</code> 始终被标记为无效）</td>
+</tr>
+<tr>
+<td><code>gaze_origin_x_m</code>, <code>gaze_origin_y_m</code>, <code>gaze_origin_z_m</code>, <code>gaze_dir_x</code>, <code>gaze_dir_y</code>, <code>gaze_dir_z</code></td>
+<td>世界空间视线射线起点（米）及单位方向向量</td>
+</tr>
+<tr>
+<td><code>gaze_local_x</code>, <code>gaze_local_y</code>, <code>gaze_local_z</code></td>
+<td>相机坐标系下的注视方向向量（将眼球转动与头部转动区分开来）</td>
+</tr>
+<tr>
+<td><code>focus_hit</code>, <code>focus_actor_id</code>, <code>focus_actor_name</code>, <code>focus_kind</code></td>
+<td>视线射线是否击中某个对象（<code>1</code>/<code>0</code>），以及该对象的 ID、名称和语义类型</td>
+</tr>
+<tr>
+<td><code>focus_x_m</code>, <code>focus_y_m</code>, <code>focus_z_m</code>, <code>focus_distance_m</code></td>
+<td>世界坐标系下的命中位置与距离（米）；当 <code>focus_hit=0</code> 时为空</td>
+</tr>
+<tr>
+<td><code>focus_traffic_light_state</code>, <code>looking_at_affecting_light</code></td>
+<td>所关注交通灯的状态，以及该交通灯是否为施加影响的交通灯（<code>1</code>/<code>0</code>）</td>
+</tr>
+<tr>
+<td><code>head_x_m</code>, <code>head_y_m</code>, <code>head_z_m</code>, <code>head_pitch_deg</code>, <code>head_yaw_deg</code>, <code>head_roll_deg</code></td>
+<td>世界空间中头显摄像机的位置（米）与朝向（度）</td>
+</tr>
+<tr>
+<td><code>gaze_h_deg</code>, <code>gaze_v_deg</code></td>
+<td>水平（<code>atan2(Y, X)</code>）与垂直（<code>atan2(Z, sqrt(X^2+Y^2))</code>）视线角度（度）的组合</td>
+</tr>
+<tr>
+<td><code>focus_actor_yaw_deg</code>, <code>focus_actor_pitch_deg</code>, <code>focus_actor_roll_deg</code></td>
+<td>所聚焦主体的世界朝向（度）；当 <code>focus_hit=0</code> 时为空</td>
+</tr>
+<tr>
+<td><code>gaze_velocity_deg_s</code>, <code>saccade_state</code>, <code>saccade_onset_s</code>, <code>saccade_amplitude_deg</code>, <code>saccade_peak_velocity_deg_s</code></td>
+<td>角视线速度（度/秒）、实时 I-VT 扫视状态（注视<code>fixation</code>/扫视<code>saccade</code>）、起始模拟时间（秒）、幅度（度）以及峰值速度（度/秒）</td>
+</tr>
+<tr>
+<td><code>sample_dt_ms</code></td>
+<td>与上一条记录行相比的仿真时间增量（毫秒）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="18-handpose">可选的手部姿态列（18 列，对应 <code>-HandPose</code> 参数 / <strong>记录控制器姿态</strong>）</h4>
+<p>该部分插入在 <code>sample_dt_ms</code> 之前，仅当 <code>-DReyeVRHandPose</code> 参数传入引擎时（启动器参数：<code>-HandPose</code>；图形界面选项：<strong>记录手柄位姿</strong>）才会填充数据。若未启用该选项，这 18 列依然存在但保持为空，因此在读取数据时，总列数始终不变，但其中<em>已填充</em>数据的列数会发生变化。</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hand_l_valid</code>, <code>hand_r_valid</code></td>
+<td>若运行时在本帧为该控制器报告了有效的追踪姿态则为<code>1</code>；否则为 <code>0</code>。</td>
+</tr>
+<tr>
+<td><code>hand_l_x_m</code>, <code>hand_l_y_m</code>, <code>hand_l_z_m</code>, <code>hand_r_x_m</code>, <code>hand_r_y_m</code>, <code>hand_r_z_m</code></td>
+<td>控制器（握柄）框架原点，<strong>OpenVR 站立式追踪空间，米</strong></td>
+</tr>
+<tr>
+<td><code>hand_l_pitch_deg</code>, <code>hand_l_yaw_deg</code>, <code>hand_l_roll_deg</code>, <code>hand_r_pitch_deg</code>, <code>hand_r_yaw_deg</code>, <code>hand_r_roll_deg</code></td>
+<td>直接从右手系 OpenVR 列基矩阵分解出的控制器朝向，以固有 <code>Y(yaw)-X(pitch)-Z(roll)</code> 欧拉角（单位：度）表示。</td>
+</tr>
+<tr>
+<td><code>hand_l_trigger</code>, <code>hand_r_trigger</code></td>
+<td>来自旧版 OpenVR 的扳机轴（<code>rAxis[0]</code>），标称范围为 <code>0..1</code>。</td>
+</tr>
+<tr>
+<td><code>hand_l_grip</code>, <code>hand_r_grip</code></td>
+<td>来自 <code>rAxis[1]</code> 的握持/挤压轴，标称范围为 <code>0..1</code></td>
+</tr>
+</tbody>
+</table>
+<p>诚实说明（局限性），请在分析前阅读：</p>
+<ul>
+<li>文中的位姿数据基于 <strong>OpenVR 的“站立追踪空间”（单位：米）</strong>，而非 UE 或 CARLA 的世界坐标系。若无明确的坐标变换，这些数据无法直接与 <code>head_*_m</code>、<code>vehicle_*_m</code> 或任何 <code>focus_*_m</code> 列中的数据进行比较；即便执行相同的动作，若在 SteamVR 中重新设定了中心点（或处于不同的游玩空间），所记录的位姿数值也会有所不同。 </li>
+<li>扳机键（<code>trigger</code>）和握柄键（<code>grip</code>）的数据源自传统的 OpenVR 轴数组（<code>rAxis[0]</code>、<code>rAxis[1]</code>）。在 SteamVR 环境下的 Pimax Dream Air 设备上，这些轴当前返回的值为 <code>0.000</code>；而未分配的轴（值 &lt; <code>-0.5</code>）则会被标记为空。因此，在将 <code>0.000</code> 视为“未按下”状态之前，请务必先确认该轴的数值是否确实发生了变化。</li>
+<li><strong>未记录手指关节信息</strong>。控制器仅提供刚体 6 自由度（6-DoF）位姿以及两个标量轴数据；不包含各手指的弯曲状态。手指姿态需根据推断得出（请参阅下方的回放说明）。</li>
+<li>当 <code>hand_*_valid=0</code>、相关选项处于关闭状态，或处于 VR 环境之外时，这些列将保持为空。 </li>
+</ul>
+<h3 id="2-session_gazecsv18">2. 高频注视数据流 <code>&lt;session&gt;_gaze.csv</code>（18 列）</h3>
+<p>在眼动仪的原生采样网格上记录，并包含扫视（saccade）判定结果（含闭合事件）：</p>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_time_ms</code>, <code>host_recv_s</code>, <code>sim_time_s</code>, <code>ue_frame</code></td>
+<td>追踪器时间戳（毫秒）、主机接收时间（秒）、仿真时间（秒）以及 UE 帧编号</td>
+</tr>
+<tr>
+<td><code>comb_h_deg</code>, <code>comb_v_deg</code>, <code>l_h_deg</code>, <code>l_v_deg</code>, <code>r_h_deg</code>, <code>r_v_deg</code></td>
+<td>由运行时系统（Pimax PVR 1.33.1）报告的综合“独眼”（cyclopean）视角（水平/垂直，单位：度）以及各单眼的原始视野数据（其中 <code>l_*</code> 和 <code>r_*</code> 是基于融合后的“独眼”射线合成的，并带有 <code>4.0000 度</code>的固定水平偏移；分析时请使用 <code>comb_h_deg</code> 和 <code>comb_v_deg</code>）</td>
+</tr>
+<tr>
+<td><code>vergence_deg</code>, <code>valid</code></td>
+<td>两条运行时射线之间的夹角（度；在 Pimax PVR 上合成，请勿用于辐辏分析）以及采样有效性（<code>1</code>/<code>0</code>）</td>
+</tr>
+<tr>
+<td><code>gaze_vel_deg_s</code>, <code>saccade_state</code></td>
+<td>瞬时注视角速度（度/秒）及事件判定结果（注视<code>fixation</code>、扫视<code>saccade</code>、已剔除<code>rejected</code>，或扫视_未闭合<code>saccade_open</code>）</td>
+</tr>
+<tr>
+<td><code>saccade_onset_s</code>, <code>saccade_amp_deg</code>, <code>saccade_peak_deg_s</code>, <code>saccade_samples</code></td>
+<td>闭合扫视事件的起始时间（秒）、幅度（度）、峰值速度（度/秒）以及采样点数（同一闭合事件的所有行中该数值均相同）</td>
+</tr>
+</tbody>
+</table>
+<p>坐标采用 UE/CARLA 左手坐标系（X 轴向前，Y 轴向右，Z 轴向上），并支持大地图原点偏移。唯一的例外是可选的 <code>hand_*</code> 数据块，其采用的是 OpenVR 原始追踪空间（单位：米）。当 <code>gaze_valid=0</code> 时，车辆（vehicle）和道路（road）相关列仍会写入数据，而视线（gaze）和焦点（focus）坐标则保持为空。</p>
+<h2 id="_3">肌肉骨骼运动回放</h2>
+<p>已录制的“手部”<code>hand_*</code>数据块可用于驱动离线状态下的上肢数字人：<code>Util/HandPose/record_hands.py</code> 可直接捕获控制器与头显（HMD）的位姿（无需模拟器）；<code>Util/HandPose/replay_arms.py</code> 则通过 MuJoCo 的 MS-Human-700 模型回放 CSV 数据。该过程集成了基于解剖学的逆运动学（IK）、方向盘几何结构与旋转（<code>steer_input</code>）、控制器外壳边缘的偏移补偿，以及基于逆动力学的肌肉激活状态可视化（通过颜色呈现），并最终输出 MP4 视频文件及起始、中间、结束时刻的静态截图。实时 VR 虚拟角色（<code>ADReyeVRPawn</code>）与 <code>replay_arms.py</code> 均采用同一套“一次性自动校准”机制（<code>FDReyeVRAutoCalibrator</code>）：当头部保持静止（<code>5 秒内</code>位移 <code>&lt; 5 厘米</code>且旋转 <code>&lt; 6 度</code>），随后方向盘转动幅度达到一定阈值（<code>&gt;= 0.015</code>，即在 <code>900 度</code>转向盘上转动<code>约 6.8 度</code>）时，系统即完成校准。因此，驾驶员无需手动执行 VR 视点重置或手部校准操作。关于环境配置、具体指令（如 <code>--start</code>、<code>--fit</code>、<code>--raw-hands</code>、<code>--no-muscle</code>）以及系统局限性（包括手指预弯曲状态固定、腿部保持坐姿固定、肌肉激活状态由模型推断而非基于肌电信号（EMG）、控制器外壳偏移补偿与 <code>--raw-hands</code> 模式的区别，以及触及范围球体限制等），请参阅 <a href="../Util/HandPose/README.md"><code>Util/HandPose/README.md</code></a>。</p>
+<h2 id="_4">筛选查询示例</h2>
+<ul>
+<li><strong>转弯过程中的注视分配:</strong> 筛选 <code>in_junction=1</code>、运动方向<code>motion</code>为左<code>left</code>/右<code>right</code>且 <code>gaze_valid=1</code> 的数据，随后对比 <code>steer_input</code>、<code>gaze_local_*</code>、<code>head_yaw_deg</code> 以及 <code>focus_*</code> 等指标。 </li>
+<li><strong>红灯处的制动行为:</strong> 筛选出 <code>red_light_stop_candidate=1</code> 的数据，并按 <code>traffic_light_id</code> 进行分组，考察 <code>throttle_input</code>、<code>brake_input</code> 以及 <code>focus_*</code> 随 <code>sim_time_s</code> 的变化情况。</li>
+</ul>
+<h2 id="_5">性能与验证</h2>
+<ul>
+<li><code>&lt;session&gt;.csv</code> 默认采用 <strong>120 Hz</strong> 的目标采样频率（每个渲染帧最多采样一次；对于低帧率场景，不进行人为插值；采样频率最低可配置为 <strong>20 Hz</strong>）。当启用 <code>-EyeThreadHz 120</code> 参数时，<code>&lt;session&gt;_gaze.csv</code> 会通过一个独立的 120 Hz 后台线程轮询眼动追踪设备，并运行经过校准的 I-VT 检测算法（起始阈值 120°/s，结束阈值 60°/s，最短持续时间 20 ms）。当仿真处于暂停状态时，不会写入任何采样数据。 </li>
+<li>CSV 写入程序采用缓冲 I/O 机制，数据会每秒刷新一次，并在会话结束时进行最终刷新。若磁盘写入失败，记录过程将停止，并记录日志：<code>Driving study: write failed</code>。 </li>
+</ul>
+<p>开发者测试命令（在代码仓库根目录下运行）：</p>
+<div class="highlight"><pre><span></span><code><span class="n">powershell</span> <span class="n">-NoProfile</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">Util</span><span class="p">\</span><span class="n">Tests</span><span class="p">\</span><span class="n">RunPimaxTests</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-UE4Root</span> <span class="s1">'&lt;UE4 source engine root&gt;'</span>
+<span class="n">powershell</span> <span class="n">-NoProfile</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">Util</span><span class="p">\</span><span class="n">Tests</span><span class="p">\</span><span class="n">TestPimaxLauncher</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">powershell</span> <span class="n">-NoProfile</span> <span class="n">-STA</span> <span class="n">-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-File</span> <span class="p">.\</span><span class="n">StartDrivingStudy</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-ValidateOnly</span>
+</code></pre></div></div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
