@@ -15,7 +15,7 @@
     - [编译 Python API](#build-pythonapi)
     - [编译服务端](#build-server)
 - [__六、运行与验证__](#run-verify)
-    - [图形界面启动（OpenGL）](#run-gui)
+    - [图形界面启动](#run-gui)
     - [无头启动](#run-headless)
     - [修复 URLab 插件依赖](#fix-libpgm)
     - [修复距离场崩溃](#fix-distancefield)
@@ -53,7 +53,7 @@
 | 依赖包 | boost 1.90.0 | `boost_1_90_0.tar.gz` 201 MB，SHA256 校验通过，`Build/boost-1.90.0-c10-install` 190 MB |
 | Python API | `make PythonAPI` | 生成 36.3 MB（36348333 字节）的 `hutb-2.10.1-cp312-cp312-linux_x86_64.whl`，`import carla` 正常 |
 | 服务端编译 | `make launch` | 编译错误数为 0，9/9 目标（`CarlaUE4Editor.target`）编译完成，18 个插件 |
-| 服务端运行 | `UE4Editor ... -game -opengl -RenderOffScreen` | `Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)`，加载 `Town10HD`，端口 2000/2001 处于监听 |
+| 服务端运行 | `UE4Editor ... -game -RenderOffScreen` | `Initialized CarlaServer: Ports(rpc=2000, streaming=2001, secondary=2002)`，加载 `Town10HD`，端口 2000/2001 处于监听 |
 | 稳定性 | 关闭距离场后持续运行 | 连续运行近 30 分钟无崩溃，URLab 插件加载成功，端口保持监听 |
 | 打包 | `make package` | `BUILD SUCCESSFUL`、`EXIT_CODE=0`，产物 `Build/UE4Carla/43516c3-dirty` 共 26 GB |
 | 打包产物运行 | `LinuxNoEditor/CarlaUE4.sh` | 监听 2000/2001/2002，PythonAPI 连接成功（`Town10HD`），生成 10 辆车流正常 |
@@ -544,22 +544,31 @@ sudo swapon /swapfile_temp
 
 ## 六、运行与验证 <span id="run-verify"></span>
 
-### 图形界面启动（OpenGL）<span id="run-gui"></span>
+### 图形界面启动 <span id="run-gui"></span>
 
 ```sh
 cd ~/hutb
-./BuildCarlaUE4.sh --launch --opengl
+./BuildCarlaUE4.sh --launch
 ```
 
 !!! 警告
-    **不要使用默认的 Vulkan 后端**。本机驱动 `595.99.02` 与 UE4 4.26 的 Vulkan 后端不兼容，启动约 7 分钟后会在渲染线程崩溃：
+    **UE4.26 桌面端已移除 OpenGL，`--opengl` / `-opengl` 不会生效。**
+    `Util/BuildTools/BuildCarlaUE4.sh` 仍然接受 `--opengl`（第 62 行会转成 `-opengl`），
+    但引擎在 `Engine/Source/Runtime/RHI/Private/Linux/LinuxDynamicRHI.cpp` 中只把 OpenGL 留给移动端预览。
+    桌面模式收到该参数会弹出
+    `Warning: OpenGL is no longer supported for desktop platforms. Vulkan will be used instead.`，
+    随后清除标志并继续使用 Vulkan，图形界面只能用 Vulkan 后端。
+
+    本机驱动 `595.99.02` 下该后端不稳定：启动约 7 分钟后渲染线程崩溃，
+    此时显存占用仅 673 MB，并非显存不足：
 
     ```text
     Unhandled Exception: SIGSEGV
     libUE4Editor-VulkanRHI.so!FVulkanMemoryManager::...
     ```
 
-    此时显存占用仅 673 MB，并非显存不足。改用 `--opengl`（`BuildCarlaUE4.sh` 默认 `RHI="-vulkan"`，第 62 行的 `--opengl` 会切换为 `-opengl`）即可正常启动。
+    已验证稳定的运行方式是无头启动（`-game -RenderOffScreen`，见下一节）并关闭距离场；
+    图形界面的长时间稳定性尚未验证。
 
 首次启动需要编译 1 万多个着色器并构建网格距离场，耗时较长，期间日志会持续输出 `shaders left to compile`，属于正常现象。后续启动因有 DDC 缓存会快很多。若也在启动若干帧后遇到距离场崩溃，按[第六节](#fix-distancefield)关闭距离场即可。
 
@@ -573,8 +582,10 @@ cd ~/hutb/Unreal/CarlaUE4
 DISPLAY=:1 \
 LD_LIBRARY_PATH=~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux \
 ~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor CarlaUE4.uproject \
-  -game -opengl -RenderOffScreen -nosound -carla-rpc-port=2000
+  -game -RenderOffScreen -nosound -carla-rpc-port=2000
 ```
+
+当初实际执行的命令里还带了 `-opengl`；该参数在 UE4.26 桌面端会被忽略并继续使用 Vulkan（见上一节），因此这里等价于不传。
 
 建议同样放在 `tmux` 中运行，并把输出重定向到日志：
 
@@ -582,7 +593,7 @@ LD_LIBRARY_PATH=~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4
 tmux new -d -s sim "cd ~/hutb/Unreal/CarlaUE4 && DISPLAY=:1 \
 LD_LIBRARY_PATH=~/UnrealEngine_4.26/Engine/Binaries/Linux:~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/Binaries/Linux \
 ~/UnrealEngine_4.26/Engine/Binaries/Linux/UE4Editor CarlaUE4.uproject \
-  -game -opengl -RenderOffScreen -nosound -carla-rpc-port=2000 > /tmp/hutb_sim.log 2>&1"
+  -game -RenderOffScreen -nosound -carla-rpc-port=2000 > /tmp/hutb_sim.log 2>&1"
 
 tail -f /tmp/hutb_sim.log
 ```
@@ -822,7 +833,7 @@ cp ~/hutb/Unreal/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/l
 ```sh
 cd ~/hutb/Build/UE4Carla/43516c3-dirty/LinuxNoEditor
 export LD_LIBRARY_PATH=$PWD/CarlaUE4/Plugins/UnrealRoboticsLab/third_party/install/MuJoCo/lib:$LD_LIBRARY_PATH
-./CarlaUE4.sh -opengl -RenderOffScreen -nosound -carla-rpc-port=2000
+./CarlaUE4.sh -RenderOffScreen -nosound -carla-rpc-port=2000
 ```
 
 实测启动日志末尾：
@@ -876,7 +887,7 @@ python generate_traffic.py -n 10 -w 0 --port 2000
 | 现象 | 原因 | 处理 |
 | --- | --- | --- |
 | `libpgm-5.2.so.0: cannot open shared object file` | Ubuntu 24.04 仅有 `libpgm-5.3` | 软链 5.2 到 5.3，并复制到插件 `Binaries/Linux` |
-| 启动约 7 分钟后 `SIGSEGV`，栈在 `VulkanMemory` | 驱动 595.99.02 与 UE4 4.26 Vulkan 后端不兼容 | 改用 `-opengl` / `--opengl` |
+| 启动约 7 分钟后 `SIGSEGV`，栈在 `FVulkanMemoryManager` | UE4.26 桌面端已移除 OpenGL，`-opengl` 会被引擎忽略并继续使用 Vulkan；驱动 `595.99.02` 下 Vulkan 后端不稳定 | 用 `-game -RenderOffScreen` 无头运行并关闭距离场（已验证稳定近 30 分钟）；`--opengl` / `-opengl` 无效 |
 | `FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume` 崩溃 | 运行时生成的距离场数据无效 | 关闭 `r.GenerateMeshDistanceFields` 等距离场特性 |
 | `UE4_ROOT is not defined` | 非交互式 shell 未加载 `.bashrc` | 显式 `export UE4_ROOT` |
 | `RunUAT ERROR: AutomationTool failed to compile` | mono 6.8 的 `xbuild` 参数不兼容 | 手动 `xbuild` 编译 AutomationTool，并在 Package.sh 加 `-nocompile` |
