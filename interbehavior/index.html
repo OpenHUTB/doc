@@ -261,8 +261,9 @@
 <li><strong>主表 <code>&lt;session&gt;.csv</code>（71 列）</strong>：同步记录仿真/真实/眼动设备时间戳、OpenDRIVE 道路/车道/路口、影响本车的信号灯状态与距离、自车位姿与车速、本帧驾驶输入与已生效控制量、眼动射线、注视命中对象、头显位姿及在线扫视指标</li>
 <li><strong>眼动高频流表 <code>&lt;session&gt;_gaze.csv</code>（18 列）</strong>：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 <code>fixation</code> / <code>saccade</code> / <code>rejected</code> / <code>saccade_open</code> 及扫视起点、幅度、峰值角速度、样本数）</li>
 <li>支持 <strong>异步驾驶员视角内屏截图</strong>（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关</li>
+<li>支持可选的 <strong>双手手柄 6DoF 位姿采集</strong>（<code>-HandPose</code> / 89 列）与基于 <strong>MuJoCo MS-Human-700</strong> 的离线肌肉骨骼上肢回放（<code>Util/HandPose/record_hands.py</code>、<code>replay_arms.py</code>），并兼容 <code>setup.bat -l</code> / <code>setup.bat -p</code> 启动与打包路径</li>
 </ul>
-<p>具体参考<a href="driving_study/">VR数据收集文档</a>。</p>
+<p>具体字段说明、肌肉骨骼上肢回放效果与验证命令参考<a href="driving_study/">驾驶实验启动器与数据采集</a>。</p>
 <h3 id="_6">其他补充：</h3>
 <ul>
 <li>
