@@ -101,8 +101,9 @@
   - **主表 `<session>.csv`（71 列）**：同步记录仿真/真实/眼动设备时间戳、OpenDRIVE 道路/车道/路口、影响本车的信号灯状态与距离、自车位姿与车速、本帧驾驶输入与已生效控制量、眼动射线、注视命中对象、头显位姿及在线扫视指标
   - **眼动高频流表 `<session>_gaze.csv`（18 列）**：由独立后台线程按硬件原生 120 Hz 时间网格采样，执行 0.25 s 值冻结门限过滤与在线 I-VT 扫视事件检测（输出 `fixation` / `saccade` / `rejected` / `saccade_open` 及扫视起点、幅度、峰值角速度、样本数）
 - 支持 **异步驾驶员视角内屏截图**（默认 20 Hz JPEG，独立线程 GPU 回读与编码，避免阻塞游戏主线程）及按需渲染降档开关
+- 支持可选的 **双手手柄 6DoF 位姿采集**（`-HandPose` / 89 列）与基于 **MuJoCo MS-Human-700** 的离线肌肉骨骼上肢回放（`Util/HandPose/record_hands.py`、`replay_arms.py`），并兼容 `setup.bat -l` / `setup.bat -p` 启动与打包路径
 
-具体参考[VR数据收集文档](./interbehavior/driving_study.md)。
+具体字段说明、肌肉骨骼上肢回放效果与验证命令参考[驾驶实验启动器与数据采集](./interbehavior/driving_study.md)。
 
 ### 其他补充：
 - 用于一次性运行时参数的自定义 DReyeVR 配置文件。请参阅 [DReyeVRConfig.ini](https://github.com/OpenHUTB/carla/blob/OpenHUTB/Unreal/CarlaUE4/Config/DReyeVRConfig.ini) 
