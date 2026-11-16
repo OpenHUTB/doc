@@ -9,14 +9,14 @@
     * [导出地图](#exporting-a-map)
     * [导出车辆或行人](#exporting-a-vehicle-or-a-pedestrian)
 * __[SimReady 导出选项](#simready-export-options)__
-* __[语义标签和 Q-codes](#semantic-labels-and-q-codes)__
+* __[语义标签和 Q 码](#semantic-labels-and-q-codes)__
 
 ## SimReady 转换器
 
-NVIDIA SimReady 转换器使 Carla 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （USD） 格式，从而有助于从 OmniVerse 生态系统导入到其他应用程序中，例如 Sensor RTX 或 RTX 渲染器以进行协同模拟。
+NVIDIA SimReady 转换器使 Carla 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （Universal Scene Description, USD） 格式，从而便于将其导入到 OmniVerse 生态系统中的其他应用程序（如 Sensor RTX 或 RTX 渲染器）内，以进行联合仿真。
 
 
-SimReady转换器在可能的情况下将虚幻对象、属性和参数映射到符合 USD/SimReady 的等效项，并应用适当的元数据（例如语义标签）用于模拟目的。
+SimReady 转换器在可能的情况下将虚幻对象、属性和参数映射到符合 USD/SimReady 的等效项，并应用适当的元数据（例如语义标签）用于模拟目的。
 
 
 ### 使用 SimReady 转换器导出 SimReady 资产
@@ -96,7 +96,7 @@ SimReady 标准使用 [Q 代码](https://en.wikipedia.org/wiki/Q_code) 进行语
 下表显示了 Carla 语义类到 Q 码的映射：
 
 
-| 标签 | Q-code |
+| 标签 | Q 码 |
 |-------|--------|
 | 道路（Road） | Q34442 |
 | 人行道（SideWalk） | Q177749 |
