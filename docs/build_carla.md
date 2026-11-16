@@ -89,7 +89,6 @@ explorer "%LOCALAPPDATA%\Steam++\Plugins\Accelerator\Settings"
 
 Linux 科学上网配置[教程](https://clash-verge-rev.github.io/guide/quickstart.html) 。下载[clash](https://github.com/zhongfly/Clash-premium-backup/releases/download/2023-09-05-gdcc8d87/clash-linux-amd64-n2023-09-05-gdcc8d87.gz) 。
 
-
 首次启动`clash`，会新建文件`~/.config/clash/config.yaml`：
 ```shell
 cd $HOME/.config/clash/
