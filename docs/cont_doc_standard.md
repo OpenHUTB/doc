@@ -5,6 +5,7 @@
 
 *   [__文档结构__](#docs_structure)  
 *   [__规则__](#rules)  
+*   [__全局变量__](#variables)  
 *   [__例外情况__](#exceptions)  
 
 ---
@@ -26,6 +27,28 @@
 *   使用 `<br>` 进行内联跳转，而不是在行尾留下两个空格。
 *   在新页面的开头使用 `<h1>Title</h1>` ，以制作标题或 `<hx>Heading<hx>` 制作**不会显示**在导航栏上的标题。
 *   使用 `------` 强调标题或 `#` 层次结构下划线来制作标题并将其显示在导航栏中。
+
+---
+## 全局变量 <span id="variables"></span>
+
+同一个链接或文案需要在多个页面出现时，不要逐页复制，统一在 `mkdocs.yml` 的
+`extra.variables` 中定义，页面里用 `{{ 变量名 }}` 引用：
+
+```yaml
+extra:
+  variables:
+    wx_gzh_url: 'https://mp.weixin.qq.com/s/Fxfh98b-UEpJhbINDjroJQ'
+```
+
+```markdown
+[公众号]({{ wx_gzh_url }})
+```
+
+`hooks.py` 在渲染页面之前完成替换；上例的 `[公众号](...)` 最终会指向配置中的地址。
+
+*   变量名只能包含字母、数字和下划线。
+*   未定义的变量保持原样，不会导致构建失败。
+*   围栏代码块（三个反引号或 `~~~` 包围的内容）中的文本不会被替换。
 
 ---
 ## 例外情况 <span id="exceptions"></span>
