@@ -1,4 +1,4 @@
-# NVIDIA SimReady
+# [NVIDIA SimReady](https://openhutb.github.io/hutb/nvidia_simready/)
 
 **SimReady** 是一项标准规范，针对的是旨在用于仿真环境的 3D 资产所关联的信息及元数据。SimReady 标准确保 3D 资产不仅是数字孪生中的高保真视觉资源，而且还具有组织良好的元数据定义，包括语义标记、密集字幕、非视觉传感器信息和物理属性。
 
@@ -128,6 +128,10 @@ SimReady 标准使用 [Q 代码](https://en.wikipedia.org/wiki/Q_code) 进行语
 | 护栏（GuardRail） | Q1188866 |
 
 
+你好
+## 总结
+
+从地图到车辆行人，从导出选项到 Q 码语义映射，SimReady 转换器为虚幻引擎资产打开了一条通往标准化仿真的高效通道。合理利用 MDL 材质、USD 预览表面、Payload 导出等选项，并准确应用 Q 码标签，你的数字孪生场景就能在 Sensor RTX、RTX 渲染器等协作模拟环境中发挥更大价值。不妨打开 Carla 内容浏览器，从导出第一张 SimReady 地图开始，让资产真正“可仿真、可理解、可复用”。
 
 
 
