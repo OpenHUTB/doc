@@ -107,7 +107,7 @@
             <div class="section" itemprop="articleBody">
               
                 <div><h1 id="nvidia-simready">NVIDIA SimReady</h1>
-<p><strong>SimReady</strong> 是与用于模拟的 3D 资产相关的信息和元数据的标准规范。SimReady 标准确保 3D 资产不仅是数字孪生中的高保真视觉资源，而且还具有组织良好的元数据定义，包括语义标记、密集字幕、非视觉传感器信息和物理属性。</p>
+<p><strong>SimReady</strong> 是一项标准规范，针对的是旨在用于仿真环境的 3D 资产所关联的信息及元数据。SimReady 标准确保 3D 资产不仅是数字孪生中的高保真视觉资源，而且还具有组织良好的元数据定义，包括语义标记、密集字幕、非视觉传感器信息和物理属性。</p>
 <ul>
 <li><strong><a href="#simready-converter">SimReady 转换器</a></strong>  </li>
 <li><strong><a href="#exporting-an-asset-with-the-simready-converter">使用 SimReady 转换器导出 SimReady 资产</a></strong><ul>
@@ -119,11 +119,11 @@
 <li><strong><a href="#semantic-labels-and-q-codes">语义标签和 Q-codes</a></strong></li>
 </ul>
 <h2 id="simready">SimReady 转换器</h2>
-<p>NVIDIA SimReady 转换器使 CARLA 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （USD） 格式，从而有助于从 OmniVerse 生态系统导入到其他应用程序中，例如 Sensor RTX 或 RTX 渲染器以进行协同模拟。</p>
+<p>NVIDIA SimReady 转换器使 Carla 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （USD） 格式，从而有助于从 OmniVerse 生态系统导入到其他应用程序中，例如 Sensor RTX 或 RTX 渲染器以进行协同模拟。</p>
 <p>SimReady转换器在可能的情况下将虚幻对象、属性和参数映射到符合 USD/SimReady 的等效项，并应用适当的元数据（例如语义标签）用于模拟目的。</p>
 <h3 id="simready-simready">使用 SimReady 转换器导出 SimReady 资产</h3>
 <h4 id="_1">导出地图</h4>
-<p>要导出地图，请在 CARLA 内容浏览器(content browser) 中找到相应的地图文件。例如，<code>Content &gt; Carla &gt; Maps</code>中的 <em>Town10HD_Opt</em>。</p>
+<p>要导出地图，请在 Carla 内容浏览器(content browser) 中找到相应的地图文件。例如，<code>Content &gt; Carla &gt; Maps</code>中的 <em>Town10HD_Opt</em>。</p>
 <p><img alt="map_asset" src="../img/nvidia/map_file.png"></p>
 <p>在内容浏览器中双击地图资产以加载它。选择<code>File &gt; Export All</code>。将<code>Save as type</code>设置为 <em>AV Sim 的通用场景描述二进制 SimReady 资产 (*.usd)</em>。</p>
 <p><img alt="export_simready_map" src="../img/nvidia/export_simready_map.png"></p>
@@ -164,199 +164,199 @@
 </tr>
 <tr>
 <td>MDL Dependency Option</td>
-<td>Include Dependencies - Duplicates the MDL dependencies (templates) in Destination Folder<br> Use Core Library Dependencies - Core MDL Library templates are referenced</td>
+<td>包含依赖项 - 在目标文件夹中复制 MDL 依赖项（模板）。使用核心库依赖项 - 引用核心 MDL 库模板。</td>
 </tr>
 <tr>
 <td>Destination Unreal Template Path</td>
-<td>Destination Folder on Omniverse Nucleus for the MDL dependencies (templates)<br> Note: A file must be selected, but only the folder is used</td>
+<td>Omniverse Nucleus 上用于存放 MDL 依赖项（模板）的目标文件夹<br> 注意：必须选中一个文件，但实际仅使用该文件所在的文件夹</td>
 </tr>
 <tr>
 <td>Texture Size</td>
-<td>Use Texture Setting or Source as Exported Texture Size</td>
+<td>使用纹理设置或源文件作为导出纹理尺寸</td>
 </tr>
 <tr>
 <td>Export Texture as DDS</td>
-<td>Save DDS Files to Destination Path and reference them from materials</td>
+<td>将 DDS 文件保存至目标路径，并在材质中进行引用</td>
 </tr>
 <tr>
 <td>Include USD Preview Surface</td>
-<td>Export Preview Surfaces</td>
+<td>导出预览曲面</td>
 </tr>
 <tr>
 <td>Include Unreal Materials</td>
-<td>Export a reference to an Unreal material (note, when importing/opening<br> the material must be available in the within the Unreal project)</td>
+<td>导出对 Unreal 材质的引用（注意：在导入或打开时，该材质必须已存在于 Unreal 项目中）</td>
 </tr>
 <tr>
 <td>Create a material overrides layer</td>
-<td>Export a sublayer that contains all of the material reference overs for the stage. <br> Also create USD files for each material rather than including them in the prop stages.</td>
+<td>导出一个包含场景中所有材质引用覆盖（material reference overrides）的子层。 <br> 此外，为每种材质分别创建 USD 文件，而不是将其包含在道具场景（prop stages）中。</td>
 </tr>
 <tr>
 <td>Export physics data</td>
-<td>Include collision data with static meshes (not available with Unreal Engine 5.0 due to USD Schema updates)</td>
+<td>在静态网格体中包含碰撞数据（由于 USD 架构更新，此功能在 Unreal Engine 5.0 中不可用）</td>
 </tr>
 <tr>
 <td>Export source geometry for<br> Nanite high-poly detailed mesh</td>
-<td>Brute-force export the Nanite geometry as USD geometry data.<br> (only available with Unreal Engine 5.0, this generates a LOT of triangles)</td>
+<td>以“暴力”方式将 Nanite 几何体导出为 USD 几何数据。 <br> （仅适用于 Unreal Engine 5.0；此操作会生成海量的三角形）</td>
 </tr>
 <tr>
 <td>USD Scenegraph Instancing</td>
-<td>Make every referenced mesh in a stage an instance. If the stage has<br> duplicate meshes this can greatly reduce geometric GPU memory in<br> another renderer, but the editing workflow may be hampered.</td>
+<td>将场景（Stage）中所有被引用的网格（Mesh）设为实例（Instance）。如果场景中存在重复的网格，此操作可在其他渲染器中大幅减少几何数据占用的 GPU 显存，但可能会对编辑工作流程造成阻碍。</td>
 </tr>
 <tr>
 <td>Export as Payloads</td>
-<td>Use Payloads instead of References in the stage</td>
+<td>在 stage 中使用载荷（payloads）而非引用（references）</td>
 </tr>
 <tr>
 <td>Export as Y-up axis</td>
-<td>If checked, USD and MDL are exported with a Y-up<br> stage up-axis rather than the default Z-up</td>
+<td>若勾选此项，在导出 USD 和 MDL 文件时，场景向上轴（stage up-axis）将设为 Y 轴向上，而非默认的 Z 轴向上。</td>
 </tr>
 <tr>
 <td>Export Sublevels as Sublayers</td>
-<td>If checked, levels are exported as USD sublayers<br> and referenced in the root stage</td>
+<td>如果勾选此项，层级将作为 USD 子层导出，<br> 并在根阶段（root stage）中进行引用。</td>
 </tr>
 <tr>
 <td>Convert Skeleton root to identity transform</td>
-<td>This option will convert a Skeleton’s root node to an identity transform to assist<br> downstream tools that require this. All animations exported during this<br> export will be transformed properly so they’ll work in downstream tools.</td>
+<td>此选项会将骨架的根节点转换为单位变换（identity transform），以支持有此要求的后续工具。在此次导出过程中，所有导出的动画都将经过相应变换，确保其能够在后续工具中正常使用。</td>
 </tr>
 <tr>
 <td>Include invisible levels</td>
-<td>If checked, levels that are hidden will be included<br> in the export and marked as invisible</td>
+<td>如果勾选此项，处于隐藏状态的层级将包含在导出内容中，并被标记为不可见。</td>
 </tr>
 <tr>
 <td>Export Decal Actors as planes</td>
-<td>If checked, decal actors are exported as “floating”<br> plane meshes offset from their base mesh</td>
+<td>若勾选此项，贴花 Actor 将被导出为“悬浮（floating）”的平面网格体，并与各自的基准网格体保持一定偏移。</td>
 </tr>
 <tr>
 <td>Add extra extension to exports</td>
-<td>Stage files will be named <code>.stage.usd</code>, props will be named <code>.prop.usd</code></td>
+<td>Stage 文件将命名为 <code>.stage.usd</code>，道具（props）将命名为 <code>.prop.usd</code>。</td>
 </tr>
 <tr>
 <td>Checkpoint Comment (Optional)</td>
-<td>Set the checkpoint comment on the Nucleus server for each exported file</td>
+<td>为每个导出的文件在 Nucleus 服务器上设置检查点注释</td>
 </tr>
 </tbody>
 </table>
 <h2 id="q">语义标签和 Q代码</h2>
-<p>SimReady 标准使用 <a href="https://en.wikipedia.org/wiki/Q_code">Q 代码</a> 进行语义标记。Q 代码是三个字母代码的标准化集合，这些代码都以字母 Q 开头。SimReady 导出器为从 CARLA 导出的每个语义标记项应用适当的 Q 代码，作为 USD 文件中对象元数据的一部分。您可以在 <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page">维基数据网站</a> 上查找 Q 代码定义。</p>
-<p>下表显示了 CARLA 语义类到 Q 代码的映射：</p>
+<p>SimReady 标准使用 <a href="https://en.wikipedia.org/wiki/Q_code">Q 代码</a> 进行语义标记。Q 代码是三个字母代码的标准化集合，这些代码都以字母 Q 开头。SimReady 导出器为从 Carla 导出的每个语义标记项应用适当的 Q 代码，作为 USD 文件中对象元数据的一部分。您可以在 <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page">维基数据网站</a> 上查找 Q 代码定义。</p>
+<p>下表显示了 Carla 语义类到 Q 码的映射：</p>
 <table>
 <thead>
 <tr>
-<th>Label</th>
+<th>标签</th>
 <th>Q-code</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Road</td>
+<td>道路（Road）</td>
 <td>Q34442</td>
 </tr>
 <tr>
-<td>SideWalk</td>
+<td>人行道（SideWalk）</td>
 <td>Q177749</td>
 </tr>
 <tr>
-<td>Building</td>
+<td>建筑物（Building）</td>
 <td>Q41176</td>
 </tr>
 <tr>
-<td>Wall</td>
+<td>墙（Wall）</td>
 <td>Q42948</td>
 </tr>
 <tr>
-<td>Fence</td>
+<td>围栏（Fence）</td>
 <td>Q148571</td>
 </tr>
 <tr>
-<td>Pole</td>
+<td>杆状物（Pole）</td>
 <td>Q2180428</td>
 </tr>
 <tr>
-<td>TrafficLight</td>
+<td>交通信号灯（TrafficLight）</td>
 <td>Q8004</td>
 </tr>
 <tr>
-<td>TrafficSign</td>
+<td>交通标志（TrafficSign）</td>
 <td>Q170285</td>
 </tr>
 <tr>
-<td>Vegetation</td>
+<td>植被（Vegetation）</td>
 <td>Q187997</td>
 </tr>
 <tr>
-<td>Terrain</td>
+<td>地形（Terrain）</td>
 <td>Q186131</td>
 </tr>
 <tr>
-<td>Sky</td>
+<td>天空（Sky）</td>
 <td>Q527</td>
 </tr>
 <tr>
-<td>Pedestrian</td>
+<td>行人（Pedestrian）</td>
 <td>Q221488</td>
 </tr>
 <tr>
-<td>Rider</td>
+<td>骑行者（Rider）</td>
 <td>Q11998775</td>
 </tr>
 <tr>
-<td>Car</td>
+<td>小客车（Car）</td>
 <td>Q1420</td>
 </tr>
 <tr>
-<td>Truck</td>
+<td>卡车（Truck）</td>
 <td>Q43193</td>
 </tr>
 <tr>
-<td>Bus</td>
+<td>公交车（Bus）</td>
 <td>Q5638</td>
 </tr>
 <tr>
-<td>Train</td>
+<td>火车（Train）</td>
 <td>Q870</td>
 </tr>
 <tr>
-<td>Motorcycle</td>
+<td>摩托车（Motorcycle）</td>
 <td>Q34493</td>
 </tr>
 <tr>
-<td>Bicycle</td>
+<td>自行车（Bicycle）</td>
 <td>Q11442</td>
 </tr>
 <tr>
-<td>Static</td>
+<td>静态（Static）</td>
 <td>Q2302426</td>
 </tr>
 <tr>
-<td>Dynamic</td>
+<td>动态（Dynamic）</td>
 <td>Q2302426</td>
 </tr>
 <tr>
-<td>Other</td>
+<td>其他（Other）</td>
 <td>Q55107540</td>
 </tr>
 <tr>
-<td>Water</td>
+<td>水体（Water）</td>
 <td>Q283</td>
 </tr>
 <tr>
-<td>RoadLine</td>
+<td>道路标线（RoadLine）</td>
 <td>Q1392287</td>
 </tr>
 <tr>
-<td>Ground</td>
+<td>地面（Ground）</td>
 <td>Q36133</td>
 </tr>
 <tr>
-<td>Bridge</td>
+<td>桥梁（Bridge）</td>
 <td>Q12280</td>
 </tr>
 <tr>
-<td>RailTrack</td>
+<td>铁轨（RailTrack）</td>
 <td>Q57498564</td>
 </tr>
 <tr>
-<td>GuardRail</td>
+<td>护栏（GuardRail）</td>
 <td>Q1188866</td>
 </tr>
 </tbody>
