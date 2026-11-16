@@ -1,6 +1,6 @@
 # NVIDIA SimReady
 
-**SimReady** 是与用于模拟的 3D 资产相关的信息和元数据的标准规范。SimReady 标准确保 3D 资产不仅是数字孪生中的高保真视觉资源，而且还具有组织良好的元数据定义，包括语义标记、密集字幕、非视觉传感器信息和物理属性。
+**SimReady** 是一项标准规范，针对的是旨在用于仿真环境的 3D 资产所关联的信息及元数据。SimReady 标准确保 3D 资产不仅是数字孪生中的高保真视觉资源，而且还具有组织良好的元数据定义，包括语义标记、密集字幕、非视觉传感器信息和物理属性。
 
 
 
@@ -13,7 +13,7 @@
 
 ## SimReady 转换器
 
-NVIDIA SimReady 转换器使 CARLA 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （USD） 格式，从而有助于从 OmniVerse 生态系统导入到其他应用程序中，例如 Sensor RTX 或 RTX 渲染器以进行协同模拟。
+NVIDIA SimReady 转换器使 Carla 资产能够以符合 SimReady 标准的方式导出为通用场景描述 （USD） 格式，从而有助于从 OmniVerse 生态系统导入到其他应用程序中，例如 Sensor RTX 或 RTX 渲染器以进行协同模拟。
 
 
 SimReady转换器在可能的情况下将虚幻对象、属性和参数映射到符合 USD/SimReady 的等效项，并应用适当的元数据（例如语义标签）用于模拟目的。
@@ -23,7 +23,7 @@ SimReady转换器在可能的情况下将虚幻对象、属性和参数映射到
 
 #### 导出地图
 
-要导出地图，请在 CARLA 内容浏览器(content browser) 中找到相应的地图文件。例如，`Content > Carla > Maps`中的 *Town10HD_Opt*。
+要导出地图，请在 Carla 内容浏览器(content browser) 中找到相应的地图文件。例如，`Content > Carla > Maps`中的 *Town10HD_Opt*。
 
 
 ![map_asset](img/nvidia/map_file.png)
@@ -68,64 +68,64 @@ SimReady转换器在可能的情况下将虚幻对象、属性和参数映射到
 |---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Export Method                                                 | 共享（Shared） 组织材质，以便它们可以由许多资源共享\n模块化（Modular） 为<br>每个资源导出一个材质，以便资源及其材质都是独立的 | 
 | Include MDL                                                   | 导出 MDL 材料 
-| MDL Dependency Option                                         | Include Dependencies - Duplicates the MDL dependencies (templates) in Destination Folder<br> Use Core Library Dependencies - Core MDL Library templates are referenced                                                                              | 
-| Destination Unreal Template Path                              | Destination Folder on Omniverse Nucleus for the MDL dependencies (templates)<br> Note: A file must be selected, but only the folder is used                                                                                                         |
-| Texture Size                                                  | Use Texture Setting or Source as Exported Texture Size                                                                                                                                                                                              |
-| Export Texture as DDS                                         | Save DDS Files to Destination Path and reference them from materials                                                                                                                                                                                |
-| Include USD Preview Surface                                   | Export Preview Surfaces                                                                                                                                                                                                                             |
-| Include Unreal Materials                                      | Export a reference to an Unreal material (note, when importing/opening<br> the material must be available in the within the Unreal project)                                                                                                         |
-| Create a material overrides layer                             | Export a sublayer that contains all of the material reference overs for the stage. <br> Also create USD files for each material rather than including them in the prop stages.                                                                      |
-| Export physics data                                           | Include collision data with static meshes (not available with Unreal Engine 5.0 due to USD Schema updates)                                                                                                                                          |
-| Export source geometry for<br> Nanite high-poly detailed mesh | Brute-force export the Nanite geometry as USD geometry data.<br> (only available with Unreal Engine 5.0, this generates a LOT of triangles)                                                                                                         |
-| USD Scenegraph Instancing                                     | Make every referenced mesh in a stage an instance. If the stage has<br> duplicate meshes this can greatly reduce geometric GPU memory in<br> another renderer, but the editing workflow may be hampered.                                            |
-| Export as Payloads                                            | Use Payloads instead of References in the stage                                                                                                                                                                                                     |
-| Export as Y-up axis                                           | If checked, USD and MDL are exported with a Y-up<br> stage up-axis rather than the default Z-up                                                                                                                                                     |
-| Export Sublevels as Sublayers                                 | If checked, levels are exported as USD sublayers<br> and referenced in the root stage                                                                                                                                                               |
-| Convert Skeleton root to identity transform                   | This option will convert a Skeleton’s root node to an identity transform to assist<br> downstream tools that require this. All animations exported during this<br> export will be transformed properly so they’ll work in downstream tools.         |
-| Include invisible levels                                      | If checked, levels that are hidden will be included<br> in the export and marked as invisible                                                                                                                                                       |
-| Export Decal Actors as planes                                 | If checked, decal actors are exported as “floating”<br> plane meshes offset from their base mesh                                                                                                                                                    |
-| Add extra extension to exports                                | Stage files will be named `.stage.usd`, props will be named `.prop.usd`                                                                                                                                                                             |
-| Checkpoint Comment (Optional)                                 | Set the checkpoint comment on the Nucleus server for each exported file                                                                                                                                                                             |
+| MDL Dependency Option                                         | 包含依赖项 - 在目标文件夹中复制 MDL 依赖项（模板）。使用核心库依赖项 - 引用核心 MDL 库模板。                                                                               | 
+| Destination Unreal Template Path                              | Omniverse Nucleus 上用于存放 MDL 依赖项（模板）的目标文件夹<br> 注意：必须选中一个文件，但实际仅使用该文件所在的文件夹                                                                                                         |
+| Texture Size                                                  | 使用纹理设置或源文件作为导出纹理尺寸                                                                                                                                                                                              |
+| Export Texture as DDS                                         | 将 DDS 文件保存至目标路径，并在材质中进行引用                                                                                                                                                                                |
+| Include USD Preview Surface                                   | 导出预览曲面                                                                                                                                                                                                                             |
+| Include Unreal Materials                                      | 导出对 Unreal 材质的引用（注意：在导入或打开时，该材质必须已存在于 Unreal 项目中）                                                                                                         |
+| Create a material overrides layer                             | 导出一个包含场景中所有材质引用覆盖（material reference overrides）的子层。 <br> 此外，为每种材质分别创建 USD 文件，而不是将其包含在道具场景（prop stages）中。                                                                      |
+| Export physics data                                           | 在静态网格体中包含碰撞数据（由于 USD 架构更新，此功能在 Unreal Engine 5.0 中不可用）                                                                                                                                          |
+| Export source geometry for<br> Nanite high-poly detailed mesh | 以“暴力”方式将 Nanite 几何体导出为 USD 几何数据。 <br> （仅适用于 Unreal Engine 5.0；此操作会生成海量的三角形）                                                                                                         |
+| USD Scenegraph Instancing                                     | 将场景（Stage）中所有被引用的网格（Mesh）设为实例（Instance）。如果场景中存在重复的网格，此操作可在其他渲染器中大幅减少几何数据占用的 GPU 显存，但可能会对编辑工作流程造成阻碍。                                            |
+| Export as Payloads                                            | 在 stage 中使用载荷（payloads）而非引用（references）                                                                                                                                                                                                     |
+| Export as Y-up axis                                           | 若勾选此项，在导出 USD 和 MDL 文件时，场景向上轴（stage up-axis）将设为 Y 轴向上，而非默认的 Z 轴向上。                                                                                                                                                     |
+| Export Sublevels as Sublayers                                 | 如果勾选此项，层级将作为 USD 子层导出，<br> 并在根阶段（root stage）中进行引用。                                                                                                                                                               |
+| Convert Skeleton root to identity transform                   | 此选项会将骨架的根节点转换为单位变换（identity transform），以支持有此要求的后续工具。在此次导出过程中，所有导出的动画都将经过相应变换，确保其能够在后续工具中正常使用。         |
+| Include invisible levels                                      | 如果勾选此项，处于隐藏状态的层级将包含在导出内容中，并被标记为不可见。                                                                                                                                                       |
+| Export Decal Actors as planes                                 | 若勾选此项，贴花 Actor 将被导出为“悬浮（floating）”的平面网格体，并与各自的基准网格体保持一定偏移。                                                                                                                                                    |
+| Add extra extension to exports                                | Stage 文件将命名为 `.stage.usd`，道具（props）将命名为 `.prop.usd`。                                                                                                                                                                              |
+| Checkpoint Comment (Optional)                                 | 为每个导出的文件在 Nucleus 服务器上设置检查点注释                                                                                                                                                                             |
 
 ## 语义标签和 Q代码
 
-SimReady 标准使用 [Q 代码](https://en.wikipedia.org/wiki/Q_code) 进行语义标记。Q 代码是三个字母代码的标准化集合，这些代码都以字母 Q 开头。SimReady 导出器为从 CARLA 导出的每个语义标记项应用适当的 Q 代码，作为 USD 文件中对象元数据的一部分。您可以在 [维基数据网站](https://www.wikidata.org/wiki/Wikidata:Main_Page) 上查找 Q 代码定义。
+SimReady 标准使用 [Q 代码](https://en.wikipedia.org/wiki/Q_code) 进行语义标记。Q 代码是三个字母代码的标准化集合，这些代码都以字母 Q 开头。SimReady 导出器为从 Carla 导出的每个语义标记项应用适当的 Q 代码，作为 USD 文件中对象元数据的一部分。您可以在 [维基数据网站](https://www.wikidata.org/wiki/Wikidata:Main_Page) 上查找 Q 代码定义。
 
 
 
-下表显示了 CARLA 语义类到 Q 代码的映射：
+下表显示了 Carla 语义类到 Q 码的映射：
 
 
-| Label | Q-code |
+| 标签 | Q-code |
 |-------|--------|
-| Road | Q34442 |
-| SideWalk | Q177749 |
-| Building | Q41176 |
-| Wall | Q42948 |
-| Fence | Q148571 |
-| Pole | Q2180428 |
-| TrafficLight | Q8004 |
-| TrafficSign | Q170285 |
-| Vegetation | Q187997 |
-| Terrain | Q186131 |
-| Sky | Q527 |
-| Pedestrian | Q221488 |
-| Rider | Q11998775 |
-| Car | Q1420 |
-| Truck | Q43193 |
-| Bus | Q5638 |
-| Train | Q870 |
-| Motorcycle | Q34493 |
-| Bicycle | Q11442 |
-| Static | Q2302426 |
-| Dynamic | Q2302426 |
-| Other | Q55107540 |
-| Water | Q283 |
-| RoadLine | Q1392287 |
-| Ground | Q36133 |
-| Bridge | Q12280 |
-| RailTrack | Q57498564 |
-| GuardRail | Q1188866 |
+| 道路（Road） | Q34442 |
+| 人行道（SideWalk） | Q177749 |
+| 建筑物（Building） | Q41176 |
+| 墙（Wall） | Q42948 |
+| 围栏（Fence） | Q148571 |
+| 杆状物（Pole） | Q2180428 |
+| 交通信号灯（TrafficLight） | Q8004 |
+| 交通标志（TrafficSign） | Q170285 |
+| 植被（Vegetation） | Q187997 |
+| 地形（Terrain） | Q186131 |
+| 天空（Sky） | Q527 |
+| 行人（Pedestrian） | Q221488 |
+| 骑行者（Rider） | Q11998775 |
+| 小客车（Car） | Q1420 |
+| 卡车（Truck） | Q43193 |
+| 公交车（Bus） | Q5638 |
+| 火车（Train） | Q870 |
+| 摩托车（Motorcycle） | Q34493 |
+| 自行车（Bicycle） | Q11442 |
+| 静态（Static） | Q2302426 |
+| 动态（Dynamic） | Q2302426 |
+| 其他（Other） | Q55107540 |
+| 水体（Water） | Q283 |
+| 道路标线（RoadLine） | Q1392287 |
+| 地面（Ground） | Q36133 |
+| 桥梁（Bridge） | Q12280 |
+| 铁轨（RailTrack） | Q57498564 |
+| 护栏（GuardRail） | Q1188866 |
 
 
 
