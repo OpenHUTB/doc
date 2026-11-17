@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>简介 - 开源孪创</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u7b80\u4ecb";
+        var mkdocs_page_input_path = "ue5/ver_1.0.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 开源孪创
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="搜索文档" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">载具</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../vehicle/">无人车</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://openhutb.github.io/air_doc/dev/Carla_Air/">无人机</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >潜水器</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../rov/">使用说明</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="https://openhutb.github.io/mujoco_plugin/underwater/">MuJoCo 插件</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">模拟</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../concept/">概念</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../modules/">模块</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../development/">开发</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">场景</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../map_twin/">地图孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../assert_twin/">资产孪生</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../unreal_engine/">模拟引擎</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">其他</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ref/">参考目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ecology/">生态系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribution/">贡献指南</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">开源孪创</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">简介</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/OpenHUTB/doc/edit/master/docs/ue5/ver_1.0.md"> 编辑页面</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="_1">简介</h1>
+<p>CARLA 旨在支持自动驾驶系统的开发、训练与验证，当前 CARLA 1.0 版本基于 Unreal Engine 5.8 运行。</p>
+<p><img alt="" src="../../img/ue5/ver_1.0.png"></p>
+<h2 id="_2">视频</h2>
+<h3 id="_3">核心功能亮点</h3>
+<ul>
+<li><strong>Carla 中的智能体</strong>：只需描述您的需求，AI 编程智能体即可自动执行相应操作。CARLA 团队精心打造并验证了 64 个操作流程，涵盖环境配置、构建、打包、资源导入、传感器设置、场景构建、排行榜（Leaderboard）以及 ROS 2 集成等；通过 CARLA MCP（模型上下文协议）服务器，任何支持该协议的智能体均可调用这些功能。</li>
+</ul>
+<p><img alt="Carla 中的智能体" src="../../img/ue5/mcp.png"></p>
+<ul>
+<li><strong>顶尖的传感器仿真</strong>：支持多种传感器，包括各类摄像头（RGB、深度、分割、光流、鱼眼）、激光雷达（LIDAR）、雷达、GNSS、IMU 及 V2X 系统。其中，基于光线追踪的镜头模拟采用真实镜头模型进行路径追踪（path tracing），且摄像头配置文件均基于真实汽车数据集进行了校准。系统可为每一帧提供语义分割、实例分割、深度信息及边界框（bounding box）等“真值”（ground truth）数据。</li>
+</ul>
+<p><img alt="新的 RT 传感器：升级的光学和透镜模型" src="../../img/ue5/RT_sensors.png"></p>
+<p><img alt="新相机配置文件：根据真实世界的相机数据校准" src="../../img/ue5/camera_profiles.png"></p>
+<ul>
+<li><strong>NVIDIA 生态系统集成</strong>：NuRec 可将真实的驾驶记录转化为 CARLA 可仿真的场景；Cosmos 世界模型能将 CARLA 中的驾驶场景转化为具有照片级真实感的变体；Alpamayo 2 支持闭环仿真；DLSS 4.5 则可显著提升摄像头渲染性能。</li>
+</ul>
+<p><img alt="NuRec" src="../../img/ue5/nurec.png"></p>
+<p><img alt="Cosmos 世界模型" src="../../img/ue5/cosmos.png"></p>
+<p><img alt="原生支持 Alpamayo 2" src="../../img/ue5/Alpamayo_2.png"></p>
+<p><img alt="DLSS 4.5" src="../../img/ue5/DLSS.png"></p>
+<ul>
+<li><strong>Unreal Engine 5.8</strong>：利用“世界分区”（World Partition）和“大世界坐标”（Large World Coordinates）技术，支持构建长达数公里的地图；集成 Lumen 全局光照、硬件光线追踪及路径追踪功能。
+丰富的开放内容：包含 15 张地图（从经典城镇到 Town12、Town13 和 Town15 等大型地图）、26 种车辆、37 个行人模型、82 种道具以及动态天气系统。查看完整目录。</li>
+</ul>
+<p><img alt="大地图" src="../../img/ue5/large_map.png"></p>
+<p><img alt="基于中国环境构建的新地图" src="../../img/ue5/townC.png"></p>
+<ul>
+<li>
+<p><strong>基于“服务器-多客户端”架构的可扩展性</strong>：多个客户端（可在同一节点或不同节点上运行）能够分别控制不同的仿真主体（actors）；此外，还支持通过辅助服务器在其他 GPU 上进行传感器渲染。</p>
+</li>
+<li>
+<p><strong>灵活的 API</strong>：CARLA 提供功能强大的 Python 和 C++ API，允许用户全面掌控仿真过程，包括交通流生成、行人行为、天气状况、传感器配置等。其中，Python API 支持 Python 3.10 至 3.15 版本。</p>
+</li>
+</ul>
+<p><img alt="升级的动态天气 API" src="../../img/ue5/dynamic_weather.png"></p>
+<ul>
+<li>
+<p><strong>面向规划与控制的高效仿真</strong>：提供“无渲染模式”（no-rendering mode），可在无需图形渲染的情况下快速执行交通仿真及道路行为模拟。</p>
+</li>
+<li>
+<p><strong>地图生成</strong>：用户可通过 RoadRunner 等工具，按照 ASAM OpenDRIVE 标准创建自定义地图，转换 OpenStreetMap 数据，并将地图、车辆及道具打包成内容包进行共享，无需重新构建 CARLA。</p>
+</li>
+<li>
+<p><strong>交通场景仿真</strong>：通过 ScenarioRunner（支持 Python 脚本场景及 OpenSCENARIO 标准）、Scenic 以及 CARLA Leaderboard，用户可以定义、执行并评估各类交通场景。</p>
+</li>
+</ul>
+<p><img alt="升级的场景工具" src="../../img/ue5/scenario_tools.png"></p>
+<ul>
+<li>
+<p><strong>原生 ROS 2 集成</strong>：服务器通过 ROS 2 发布传感器数据并接收车辆控制指令，无需额外的桥接进程；用户可在启动时选择中间件（支持 FastDDS、CycloneDDS 或 Zenoh）。</p>
+</li>
+<li>
+<p><strong>自动驾驶技术栈</strong>：Autoware 可在原生 ROS 2 环境下直接运行；NVIDIA Alpamayo 2 Super 则支持在 CARLA 地图或 NuRec 场景中实现闭环自动驾驶仿真。</p>
+</li>
+</ul>
+<p><img alt="原生支持 Autoware" src="../../img/ue5/autoware.png"></p>
+<p><img alt="升级的数字孪生工具" src="../../img/ue5/digit_twin.png"></p>
+<h2 id="_4">开源孪创社区的接力</h2>
+<p>由于维护成本等原因，Carla 社区同时正式宣布不再维护 UE4 的分支。</p>
+<p><img alt="" src="../img/ue5/ue4-dev_deprecated.png"></p>
+<p>考虑到 UE4 在稳定性与功能完整度、硬件门槛与资源消耗、生态与工具链兼容性等方面的优势，我们开源孪创社区将继续 Carla 社区的工作，同时支持 VR 驾驶舱、无人机、水下机器人、具身机器人一体仿真，合并 UE5 相关特性，持续优化和新增更多机器人相关特性。</p>
+<p width="100%" display="flex" align="center">
+<img src="../img/pedestrian/VR_demo.gif" width="23%"><a href="https://openhutb.github.io/doc/tuto_G_pedestrian_navigation/#conclusion"><img src="../img/pedestrian/cycle.gif" width="18%" margin-right="10%"><img src="https://github.com/OpenHUTB/air_doc/blob/master/docs/images/dev/HUTB_simulation.gif?raw=true" width="20%"></a>  <a href="https://openhutb.github.io/doc/tuto_G_chrono/"><img src="https://github.com/OpenHUTB/chrono_doc/blob/master/docs/img/chrono/vechile_turnover.gif?raw=true" width="20%"></a> <a href="https://openhutb.github.io/air_doc/"></a>
+</p>
+
+<h2 id="_5">参考</h2>
+<ul>
+<li><a href="https://carla.org/">CARLA 1.0 Release</a></li>
+</ul></div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>OpenHUTB 版权所有 &copy; 2026</p>
+  </div>
+
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/OpenHUTB/doc" style="color: #fcfcfc">OpenHUTB</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="https://cdn.rawgit.com/knsv/mermaid/6.0.0/dist/mermaid.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      <script src="../../js/umlconvert.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
