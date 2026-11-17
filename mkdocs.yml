@@ -46,6 +46,10 @@ plugins:
 
 extra:
   generator: false
+  # 全局变量：在任意页面中用 {{ 变量名 }} 引用，由 hooks.py 统一替换，
+  # 避免同一个链接/文案在多处重复维护。
+  variables:
+    wx_gzh_url: 'https://mp.weixin.qq.com/s/Fxfh98b-UEpJhbINDjroJQ'
 
 hooks:
   - hooks.py
