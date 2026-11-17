@@ -25,6 +25,8 @@
 
 [__UE 5.5 的 Carla 文档__](ue5/index.md) - 基于 UE5.5 的相关功能代码，不作为该文档描述的主要内容
 
+[__Carla 1.0 版本介绍__](ue5/ver_1.0.md) - 基于虚幻引擎5.8
+
 [__DeepSeek大模型__](software/llm.md) - 部署本地大模型的流程，可用于辅助开发
 
 [__Openclaw Docker 部署 （DeepSeek API)__](software/openclaw_docker.md) - 通过沙盒环境隔离，安全部署，不污染系统环境
