@@ -111,6 +111,7 @@
 <ul>
 <li><a href="#docs_structure"><strong>文档结构</strong></a>  </li>
 <li><a href="#rules"><strong>规则</strong></a>  </li>
+<li><a href="#variables"><strong>全局变量</strong></a>  </li>
 <li><a href="#exceptions"><strong>例外情况</strong></a>  </li>
 </ul>
 <hr>
@@ -128,7 +129,23 @@
 <li>使用 <code>------</code> 强调标题或 <code>#</code> 层次结构下划线来制作标题并将其显示在导航栏中。</li>
 </ul>
 <hr>
-<h2 id="_4">例外情况 <span id="exceptions"></span></h2>
+<h2 id="_4">全局变量 <span id="variables"></span></h2>
+<p>同一个链接或文案需要在多个页面出现时，不要逐页复制，统一在 <code>mkdocs.yml</code> 的
+<code>extra.variables</code> 中定义，页面里用 <code>{{ 变量名 }}</code> 引用：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">extra</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wx_gzh_url</span><span class="p">:</span><span class="w"> </span><span class="s">'https://mp.weixin.qq.com/s/Fxfh98b-UEpJhbINDjroJQ'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[<span class="nt">公众号</span>](<span class="na">{{ wx_gzh_url }}</span>)
+</code></pre></div>
+<p><code>hooks.py</code> 在渲染页面之前完成替换；上例的 <code>[公众号](...)</code> 最终会指向配置中的地址。</p>
+<ul>
+<li>变量名只能包含字母、数字和下划线。</li>
+<li>未定义的变量保持原样，不会导致构建失败。</li>
+<li>围栏代码块（三个反引号或 <code>~~~</code> 包围的内容）中的文本不会被替换。</li>
+</ul>
+<hr>
+<h2 id="_5">例外情况 <span id="exceptions"></span></h2>
 <ul>
 <li>通过 Python 脚本生成的文档，例如 PythonAPI 参考</li>
 </ul>
